@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Rebol3 Functions Dictionary</title>
+	<link rel="stylesheet" href="/css/furo.css">
+	<link rel="stylesheet" href="/css/hybrid.min.css">
+	<link rel="stylesheet" href="/css/main.css?v=5">
+</head>
+
+<body data-theme="auto">
+		
+<%@ %svg-symbols.inc %>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+	<div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+	<div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+<div class="page">
+	<header class="mobile-header">
+		<div class="header-left">
+			<label class="nav-overlay-icon" for="__navigation">
+				<div class="visually-hidden">Toggle site navigation sidebar</div>
+				<i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+			</label>
+		</div>
+		<div class="header-center">
+			<a href="index.html"><div class="brand">Oldes' Rebol</div></a>
+		</div>
+		<div class="header-right">
+			<div class="theme-toggle-container theme-toggle-header">
+				<button class="theme-toggle">
+					<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+					<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+					<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+					<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+					<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+				</button>
+			</div>
+			<label class="toc-overlay-icon toc-header-icon" for="__toc">
+				<div class="visually-hidden">Toggle table of contents sidebar</div>
+				<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+			</label>
+		</div>
+	</header>
+<%@ %left-menu.inc %> 
+	<div class="main">
+		<div class="content">
+			<div class="article-container">
+				<a href="#" class="back-to-top muted-link">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+					</svg>
+					<span>Back to top</span>
+				</a>
+				<div class="content-icon-container">
+
+				<div class="theme-toggle-container theme-toggle-content">
+						<button class="theme-toggle">
+							<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+							<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+							<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+							<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+							<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+						</button>
+					</div>
+					<label class="toc-overlay-icon toc-content-icon" for="__toc">
+						<div class="visually-hidden">Toggle table of contents sidebar</div>
+						<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+					</label>
+				</div>
+
+				<article role="main" id="furo-main-content">
+<h1>Rebol3 Functions Dictionary</h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some function descriptions are sourced from the <a href="https://www.rebol.com/r3/docs/functions.html">old Rebol3 documentation</a> project and may be outdated.</p>
+<p>The function list was generated from Rebol/Bulk version 3.18.3 on Windows.</p>
+</div>
+<%@ %functions.inc %>
+				</article>
+			</div><!--article-container end-->
+
+<%@ %footer.inc %>
+		</div><!-- content end-->
+		<aside class="toc-drawer">
+			<div class="toc-sticky toc-scroll">
+				<div class="toc-title-container">
+					<span class="toc-title">On this page</span>
+				</div>
+				<div class="toc-tree-container">
+					<div class="toc-tree">
+						<ul>
+							<li><a class="reference internal" href="#">Tabs</a>
+							<ul id="toc"></ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</aside>
+	</div>
+</div>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/furo.js?v=3"></script>
+<script>
+	const headers = document.querySelectorAll("#furo-main-content h2");
+	const toc = document.getElementById("toc");
+	if (toc && headers) {
+		// Generate ToC
+		headers.forEach(header => {
+			const name = header.textContent.slice(0, -1);
+			const id = header.id || name.trim().replace(/\s+/g, "-").toLowerCase();
+			const listItem = document.createElement("li");
+			const anchor = document.createElement("a");
+			anchor.classList.add("reference", "internal");
+			anchor.href = `#${id}`;
+			anchor.textContent = name;
+			listItem.appendChild(anchor);
+			toc.appendChild(listItem);
+		});
+	}
+</script>  
+<script type="module">
+import rebol from '/js/rebol.js';
+hljs.registerLanguage('rebol', rebol);
+hljs.configure({
+  languages: ['rebol'], //specify the languages you want to highlight.
+  cssSelector: 'pre code.rebol'
+});
+hljs.highlightAll();
+</script>
+</body>
+</html><% write %functions.html ctx/out/content %>

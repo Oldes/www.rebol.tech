@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rebol.tech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <style>
+        html, body {
+            height: 100%; /* Ensure full height */
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80vw; /* Use viewport width for responsiveness */
+            height: 80vw; /* Make it a square */
+            max-width: 600px; /* Limit size on large screens */
+            max-height: 600px;
+        }
+
+        .icon {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Prevent image distortion */
+        }
+    </style>
+</head>
+<body>
+    <div class="icon-container">
+        <a href="/doc/functions.html"><img src="rebol-icon.svg" class="icon"></a>
+    </div>
+</body>
+</html>

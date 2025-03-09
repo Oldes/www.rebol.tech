@@ -1,0 +1,181 @@
+@media not print {
+	body[data-theme="dark"] {
+		--color-code-background: #202020;
+		--color-code-foreground: #c5c8c6;
+		--color-highlight-on-target: inherit;
+        --color-fieldset-border: #555;
+	}
+	body[data-theme="light"] {
+		--color-code-background: #202020;
+		--color-code-foreground: #c5c8c6;
+		--color-highlight-on-target: inherit;
+	}
+	@media (prefers-color-scheme: dark) {
+		body:not([data-theme="light"]) {
+			--color-code-background: #202020;
+			--color-code-foreground: #c5c8c6;
+			--color-highlight-on-target: inherit;
+			--color-fieldset-border: #555;
+		}
+	}
+	html {
+		scroll-behavior:auto;
+	}
+	article {
+		line-height:normal;
+	}
+}
+
+.rebarg{color:#0fc70f}
+
+.fw-lighter{font-weight:lighter!important}
+.fw-light{font-weight:300!important}
+.fw-normal{font-weight:400!important}
+.fw-medium{font-weight:500!important}
+.fw-semibold{font-weight:600!important}
+.fw-bold{font-weight:700!important}
+.fw-bolder{font-weight:bolder!important}
+.fs-1{font-size:calc(1.375rem + 1.5vw)!important}
+.fs-2{font-size:calc(1.325rem + .9vw)!important}
+.fs-3{font-size:calc(1.3rem + .6vw)!important}
+.fs-4{font-size:calc(1.275rem + .3vw)!important}
+.fs-5{font-size:1.25rem!important}
+.fs-6{font-size:1rem!important}
+.fst-italic{font-style:italic!important}
+.fst-normal{font-style:normal!important}
+
+.scrollarea {
+	overflow-y: auto;
+}
+
+.prompt {
+	user-select: none;
+	color: #ff0000;
+	margin-right: 8px;
+	font-weight: bold;
+}
+.result-container .prompt {
+	color: #00ff00;
+}
+.rebol-block {
+	white-space: pre;
+	overflow-x: auto;
+	margin: 0px;
+	color: var(--color-code-foreground);
+	line-height: 1.5em;
+}
+.code-block {
+	white-space: pre;
+	overflow-x: auto;
+	margin: 0px;
+	color: var(--color-code-foreground);
+	line-height: 1.5em;
+}
+.text-block {
+	white-space: pre;
+	overflow-x: auto;
+	margin: 0px;
+	color: var(--color-code-foreground);
+	line-height: normal;
+	padding: 0px;
+}
+.code-block .rebol {
+	padding: 0px;
+}
+.rebol-block .rebol {
+	padding: 0px;
+}
+.text-block {
+	overflow-x: auto;
+}
+.example-code {
+	background-color: var(--color-code-background);
+	padding: 10px;
+	border-radius: 5px;
+	overflow-x: auto;
+	color: #fff;
+	font-size: 0.9em;
+}
+.code-container {
+	display: flex;
+	align-items: flex-start;
+	padding: 5px;
+	border-radius: 5px 5px 0 0;
+	overflow-x: auto;
+	background-color: var(--color-code-background);
+	margin-top: 0em;
+	font-size: 0.9em;
+}
+.result-container {
+	display: flex;
+	align-items: flex-start;
+	padding: 5px;
+	border-radius: 0 0 5px 5px;
+	overflow-x: auto;
+	background-color: var(--color-code-background);
+	padding-top: 0px;
+	margin-bottom: 1em;
+	font-size: 0.9em;
+}
+
+ hr {
+	margin-top: 2em;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid var(--color-foreground-border);
+  padding: 0;
+
+}
+.usage {
+	font-family: monospace;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: var(--color-background-secondary);
+	overflow-x: auto;
+	margin-bottom: 1em;
+}
+
+.funtarg {
+	font-family: monospace;
+	font-size: 1.4em;
+	color: var(--color-api-added);
+}
+.types {
+	color: var(--color-api-added);
+}
+.funtype {
+	font-family: monospace;
+	font-size: 0.9em;
+}
+.argline {
+	line-height: 1.2em;
+	margin: 0px;
+}
+
+pre.help {
+	font-family: monospace;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: var(--color-background-secondary);
+	overflow-x: auto;
+	margin-bottom: 1em;
+	line-height: 1.5em;
+}
+pre.help .tit {
+	color: #f00;
+}
+
+header {background-color: #101010;}
+
+fieldset {
+    display: block;
+    min-inline-size: min-content;
+    margin-inline: 2px;
+    border-width: 2px;
+    border-style: groove;
+    border-color: var(--color-fieldset-border, threedface); /* Default to threedface for light theme */
+    border-image: initial;
+    padding-block: 0.35em 0.625em;
+    padding-inline: 0.75em;
+}
