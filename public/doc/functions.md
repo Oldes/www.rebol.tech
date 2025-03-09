@@ -6,82 +6,66 @@
 ## ABOUT
 [[ license usage help ]]
 
-```html
-
-<p>Displays REBOL title and version information on the REBOL
-console.</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">&gt;&gt; about
-**************************************************************************
-**                                                                      **
-**  REBOL 3.0 [Alpha Test]                                              **
-**                                                                      **
-**    Copyright: 2009 REBOL Technologies                                **
-**               All rights reserved.                                   **
-**    Website:   www.REBOL.com                                          **
-**                                                                      **
-**    Version:   2.100.82.3.1                                           **
-**    Build:     4-Sep-2009/6:35:16                                     **
-**    Warning:   For testing purposes only. Use at your own risk.       **
-**                                                                      **
-**    Language:  English                                                **
-**    Locale:    United States                                          **
-**    Home:      C:\rebol\                                              **
-**                                                                      **
-**************************************************************************</code></pre></div>
-
+Displays REBOL title and version information on the REBOL console.
+```text
+>> about
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║  REBOL/Bulk 3.18.3 (Oldes branch)                                        ║
+║                                                                          ║
+║    Copyright  2012 REBOL Technologies                                    ║
+║               2012-2024 Rebol Open Source Contributors                   ║
+║               Apache 2.0 License, see LICENSE.                           ║
+║    Website    https://github.com/Oldes/Rebol3                            ║
+║                                                                          ║
+║    Platform   Windows | x64-pc-win32-pe | cl                             ║
+║    Build      19-Feb-2025/13:20                                          ║
+║                                                                          ║
+║    Home       C:\Users\oldes\Rebol\                                      ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
 ```
+
 ------------------------------------------------------------------
 ## ABS
-[[ absolute sign? negate - ]]
+@@ ABSOLUTE
 
-```html
-
-<p>Note: A short form for <a href="#absolute">absolute</a>.</p>
-<p>Returns a positive value equal in magnitude.</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">print abs -123
-123</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print abs -1:23
-1:23</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print abs -1x4
-1x4</code></pre></div>
-
-```
 ------------------------------------------------------------------
 ## ABSOLUTE
 [[ abs sign? negate - ]]
 
-```html
-
-<p>Returns a positive value equal in magnitude.</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">print absolute -123
-123</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print absolute -1:23
-1:23</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print absolute -1x4
-1x4</code></pre></div>
-
+Returns a positive value equal in magnitude.
+```rebol
+>> absolute -123
+== 123
+>> absolute -1:23
+== 1:23
+>> absolute -1x4
+== 1x4
 ```
+
 ------------------------------------------------------------------
 ## ACCESS-OS
 ------------------------------------------------------------------
 ## ACOS
+[[ arccosine ]]
+
 ------------------------------------------------------------------
 ## ACTION?
 [[ function? op? native? any-function? type? ]]
 
-```html
-
-<p>Actions are special functions that operate with datatypes. See <span class="datatype">action!</span> for more.</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? :add
-true</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? :append
-true</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? :+
-false</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? "add"
-false</code></pre></div>
-
+Actions are special functions that operate with datatypes. See `action!` for more.
+```rebol
+>> action? :add
+== true
+>> action? :append
+== true
+>> action? :+
+== false
+>> action? "add"
+== false
 ```
+
 ------------------------------------------------------------------
 ## ADD
 [[ + - subtract ]]
