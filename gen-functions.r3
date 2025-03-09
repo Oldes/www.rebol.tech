@@ -2,85 +2,9 @@ REBOL [
 	Title: "Make Rebol dictionary"
 	Author: @Oldes
 ]
-import 'json
-import 'thru-cache
+
 system/options/quiet: false
 
-
-test: {
-;; The content of this file is parsed to extract function details and usage examples.
-;; The function description, along with details of its arguments and refinements, isn't
-;; included in this document. Instead, it is sourced directly from the function specification.
-;; The original data in this file were collected from https://www.rebol.com/r3/docs/functions.html
-
-## ABOUT
-[[ license usage help ]]
-
-Displays REBOL title and version information on the REBOL
-console.
-```stdout
-**************************************************************************
-**                                                                      **
-**  REBOL 3.0 [Alpha Test]                                              **
-**                                                                      **
-**    Copyright: 2009 REBOL Technologies                                **
-**               All rights reserved.                                   **
-**    Website:   www.REBOL.com                                          **
-**                                                                      **
-**    Version:   2.100.82.3.1                                           **
-**    Build:     4-Sep-2009/6:35:16                                     **
-**    Warning:   For testing purposes only. Use at your own risk.       **
-**                                                                      **
-**    Language:  English                                                **
-**    Locale:    United States                                          **
-**    Home:      C:\rebol\                                              **
-**                                                                      **
-**************************************************************************
-```
-
-------------------------------------------------------------------
-## ABS
-@@ abbb
-
-------------------------------------------------------------------
-## ABSOLUTE
-[[ abs sign? negate -]]
-
-Returns a positive value equal in magnitude.
-```rebol
->> absolute -123
-== 123
->> absolute -1:23
-== 1:23
->> absolute -1x4
-== 1x4
->> absolute -1x-2
-== 1x2
-```
-------------------------------------------------------------------
-## ACCESS-OS
-------------------------------------------------------------------
-## ACOS
-[[ arccosine ]]
-------------------------------------------------------------------
-## ACTION?
-[[ function? op? native? any-function? type? ]]
-
-```html
-
-<p>Actions are special functions that operate with datatypes. See <span class="datatype">action!</span> for more.</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? :add
-true</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? :append
-true</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? :+
-false</code></pre></div>
-<div class="example-code"><pre class="code-block"><code class="rebol">print action? "add"
-false</code></pre></div>
-
-```
-------------------------------------------------------------------
-}
 
 esc-html: function/with [txt][
 	out: clear ""
@@ -124,7 +48,6 @@ load-func-details: function/with [data][
 			  	"```" copy type: any alpha any SP LF copy code: to "^/```" 4 skip (
 			  		;? type
 			  		trim/head/tail code
-			  		if p? [append detail "</p>^/" p?: off]
 			  		if type != "html" [
 			  			detab trim/head/tail code
 			  			code: ajoin [
@@ -132,7 +55,7 @@ load-func-details: function/with [data][
 			  				esc-html code {</code></pre></div>}
 			  			]
 			  		]
-			  		append detail code
+			  		emit code
 			  	)
 				| #"-" some "-" any SP opt LF (
 					if p? [append detail "</p>^/" p?: off]
@@ -147,12 +70,21 @@ load-func-details: function/with [data][
 					unless any [
 						detail == ""
 						detail == "<p>No description provided.</p>"
-					][ out/:name: copy detail]
+					][ out/:name: copy head detail]
 				) break
-				| LF (if p? [append detail "</p>^/" p?: false])
+				| "#######" some SP copy temp: to LF skip (emit ajoin [LF <h7> temp </h7>])
+				| "######" some SP copy temp: to LF skip (emit ajoin [LF <h6> temp </h6>])
+				| "#####" some SP copy temp: to LF skip (emit ajoin [LF <h5> temp </h5>])
+				| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> temp </h4>])
+				| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> temp </h3>])
+				
+				
+				
+				
+				| LF (emit "")
 			  	| copy temp: thru LF (
 			  		unless p? [append detail "<p>^/" p?: true]
-			  		append detail temp
+			  		emit-text temp
 			  	)
 			  ]
 		]
@@ -160,7 +92,29 @@ load-func-details: function/with [data][
 	out
 ][
 	alpha: system/catalog/bitsets/alpha
+	p?: false
+	detail: none
+	emit: func[val] [
+		if p? [append detail "</p>^/" p?: false]
+		append detail val
+	]
+	not-tick: complement charset "`"
+	emit-text: func[val][
+		? val
+		detail: tail detail
+		probe parse val [collect into detail any [
+			#"`" copy tmp: some not-tick opt #"`" keep (
+				ajoin either/only #"!" == last tmp [
+					{<span class="datatype">} tmp </span>
+				][	{<a href="#} tmp {">} tmp </a>]
+			)
+			| keep some not-tick
+		]]
+		? detail
+	]
 ]
+
+;probe load-func-details test quit
 
 get-func-info: function[key value][
 ;? key
@@ -307,10 +261,10 @@ emit-funcs-html: does [
 					emit </pre>
 				]
 			if spec/details [
-				emit [{^/ <h6>Description:</h6>^/} spec/details]
+				emit [{^/<h6>Description:</h6>^/} spec/details]
 			]
 		]
-		emit {^/</section>}
+		emit {</section>}
 		;break
 	]
 	write %public/doc/functions.inc out
