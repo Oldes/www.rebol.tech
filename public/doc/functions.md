@@ -225,6 +225,16 @@ The `any` function is a companion of `all` to test for the opposite condition, w
 
 ------------------------------------------------------------------
 ## ALL-OF
+[[ any-of ]]
+
+```rebol
+>> all-of x [33 -1 24] [x > 0]
+== #(none)
+
+>> all-of x [33 -1 24] [integer? x]
+== #(true)
+```
+
 ------------------------------------------------------------------
 ## ALSO
 [[ if either any all ]]
@@ -234,8 +244,6 @@ The `also` function lets you evaluate two expressions, but return the first, rat
 Consider the case where you want to evaluate a block and return its result, but before returning the result, you want to change directories.
 
 You could write:
-
-
 ```rebol
 result: do block
 change-dir old-dir
@@ -243,17 +251,12 @@ return result
 ```
 
 Or, you could write
-
-
 ```rebol
 return also do block change-dir old-dir
 ```
 
 In fact, that's actually what happens in the `in-dir` function.
-
 Another case might be an I/O port used by a function that wants to `return` the port's data but also `close` it:
-
-
 ```rebol
 return also port/locals/buffer close port
 ```
@@ -469,23 +472,26 @@ The `all` function is a companion of `any` to test for the opposite condition, w
 
 ------------------------------------------------------------------
 ## ANY-BLOCK?
-[[ block? paren? path? any-function? any-string? any-word? ]]
+[[ type? block? paren? path? any-function? any-string? any-word? ]]
 
 Returns true only if the value is a `block!` (any kind of block) and false for all other values.
 
 
 ```rebol
-print any-block? [1 2]
-true
+>> any-object? "foo"
+== #(false)
 
-print any-block? first [(1 2) 3]
-true
+>> any-block? [1 2]
+== #(true)
 
-print any-block? 'a/b/c
-true
+>> any-block? first [(1 2) 3]
+== #(true)
 
-print any-block? 12
-false
+>> any-block? 'a/b/c
+== #(true)
+
+>> any-block? 12
+== #(false)
 ```
 
 To learn what datatypes are blocks:
@@ -498,23 +504,23 @@ block! paren! path! set-path! get-path! lit-path!
 
 ------------------------------------------------------------------
 ## ANY-FUNCTION?
-[[ function? native? op? any-block? any-string? any-word? ]]
+[[ type? function? native? op? any-block? any-string? any-word? ]]
 
 Returns true if the value is any type of function and returns false for all other values.
 
 
 ```rebol
-print any-function? :find
-true
+>> any-function? :find
+== #(true)
 
-print any-function? :+
-true
+>> any-function? :+
+== #(true)
 
-print any-function? func [] [print "hi"]
-true
+>> any-function? func [] [print "hi"]
+== #(true)
 
-print any-function? 123
-false
+>> any-function? 123
+== #(false)
 ```
 
 To learn what datatypes are functions:
@@ -527,8 +533,31 @@ native! action! rebcode! command! op! closure! function!
 
 ------------------------------------------------------------------
 ## ANY-OBJECT?
+[[ type? ]]
+
+```rebol
+>> any-object? system
+== #(true)
+
+>> any-object? try [1 / 0]
+== #(true)
+
+>> any-object? "foo"
+== #(false)
+```
+
 ------------------------------------------------------------------
 ## ANY-OF
+[[ all-of ]]
+
+```rebol
+>> any-of x [-1 4 10] [x > 0]
+== 4
+
+>> any-of [x y] [1 4 10 8 5 -3] [(x - 2) = y]
+== [10 8]
+```
+
 ------------------------------------------------------------------
 ## ANY-PATH?
 
@@ -536,17 +565,17 @@ Returns true if the value is any type of `path!` and returns false for all other
 
 
 ```rebol
-print any-path? 'test/this
-true
+>> any-path? 'test/this
+== #(true)
 
-print any-path? first [example/item: 10]
-true
+>> any-path? first [example/item: 10]
+== #(true)
 
-print any-path? second [print :example/item]
-true
+>> any-path? second [print :example/item]
+== #(true)
 
-print any-path? 123
-false
+>> any-path? 123
+== #(false)
 ```
 
 To learn what datatypes are paths:
@@ -559,26 +588,29 @@ path! set-path! get-path! lit-path!
 
 ------------------------------------------------------------------
 ## ANY-STRING?
-[[ string? file? email? url? any-block? any-function? ]]
+[[ type? string? file? email? url? any-block? any-function? ]]
 
 Returns true for any type of string, and false for all other values.
 
 
 ```rebol
-if any-string? "Hello" [print "a string"]
-a string
+>> any-string? "Hello"
+== #(true)
 
-probe any-string? email@rebol.com
-true
+>> any-string? email@rebol.com
+== #(true)
 
-probe any-string? ftp://ftp.rebol.com
-true
+>> any-string? ftp://ftp.rebol.com
+== #(true)
 
-probe any-string? %dir/file.txt
-true
+>> any-string? %dir/file.txt
+== #(true)
 
-probe any-string? 11-Jan-2000
-false
+>> any-string? @name
+== #(true)
+
+>> any-string? 11-Jan-2000
+== #(false)
 ```
 
 To see what datatypes are strings:
@@ -586,34 +618,37 @@ To see what datatypes are strings:
 
 ```rebol
 print any-string!
-string! file! email! url! tag! issue!
+string! file! email! ref! url! tag!
 ```
 
 ------------------------------------------------------------------
 ## ANY-WORD?
-[[ any-block? any-function? any-string? ]]
+[[ type? any-block? any-function? any-string? ]]
 
 Returns true for any type of word and false for all other values.
 
 
 ```rebol
-print any-word? 'word
-true
+>> any-word? 'word
+== #(true)
 
-print any-word? /word
-true
+>> any-word? /word
+== #(true)
 
-print any-word? first [set-word: 'lit-word :get-word]
-true
+>> any-word? #issue
+== #(true)
 
-print any-word? second [set-word: 'lit-word :get-word]
-true
+>> any-word? first [set-word: 'lit-word :get-word]
+== #(true)
 
-print any-word? third [set-word: 'lit-word :get-word]
-true
+>> any-word? second [set-word: 'lit-word :get-word]
+== #(true)
 
-print any-word? 123
-false
+>> any-word? third [set-word: 'lit-word :get-word]
+== #(true)
+
+>> any-word? 123
+== #(false)
 ```
 
 To see what datatypes are words:
@@ -621,7 +656,7 @@ To see what datatypes are words:
 
 ```rebol
 print any-word!
-word! set-word! get-word! lit-word! refinement!
+word! set-word! get-word! lit-word! refinement! issue!
 ```
 
 ------------------------------------------------------------------
@@ -746,8 +781,8 @@ The `arcsine` provides the inverse of the `sine` function.
 
 
 ```rebol
-print arcsine .5
-30.0
+>> arcsine .5
+== 30.0
 ```
 
 Note that arccsine goes to infinity at 0 and each 180 degrees and will cause a numeric overflow.
@@ -760,8 +795,8 @@ The `arctangent` function provides the inverse of the `tangent` function.
 
 
 ```rebol
-print arctangent .22
-12.40741852740074
+>> arctangent .22
+== 12.4074185274007
 ```
 
 ------------------------------------------------------------------
@@ -773,42 +808,30 @@ print arctangent .22
 In REBOL, arrays are simply blocks that are initialized to a specific size with all elements set to an initial value (v:none by default). The `array` function is used to create and initialize arrays.
 
 Supplying a single integer as the argument to `array` will create an array of a single dimension. The example below creates a five element array with values set to none:
-
-
 ```rebol
-block: array 5
-probe block
-[none none none none none]
+>> block: array 5
+== [#(none) #(none) #(none) #(none) #(none)]
 
-print length? block
-5
+>> length? block
+== 5
 ```
 
 To initialize an array to values other than NONE, use the /initial refinement. The example below intializes a block with zero values:
-
-
 ```rebol
-block: array/initial 5 0
-probe block
-[0 0 0 0 0]
+>> block: array/initial 5 0
+== [0 0 0 0 0]
 ```
 
 To create an array of multiple dimensions, provide a block of integers as the argument to the `array` function. Each integer specifies the size of that dimension of the array. (In REBOL, such multidimensional arrays are created using blocks of blocks.)
-
-
 ```rebol
-xy-block: array [2 3]
-probe xy-block
-[[none none none] [none none none]]
+>> xy-block: array [2 3]
+== [[#(none) #(none) #(none)] [#(none) #(none) #(none)]]
 
-xy-block: array/initial [2 3] 0
-probe xy-block
-[[0 0 0] [0 0 0]]
+>> xy-block: array/initial [2 3] 0
+== [[0 0 0] [0 0 0]]
 ```
 
 Once an array has been created, you can use paths or the `pick` and `poke` functions to set and get values of the block based on their indices:
-
-
 ```rebol
 block/3: 1000
 poke block 5 now
@@ -880,8 +903,6 @@ print as-pair 100 50
 100x50
 ```
 
-See the `pair!` word for more detail.
-
 ------------------------------------------------------------------
 ## AS-PURPLE
 ------------------------------------------------------------------
@@ -892,8 +913,15 @@ See the `pair!` word for more detail.
 ## AS-YELLOW
 ------------------------------------------------------------------
 ## ASCII?
+[[ latin? utf8? ]]
 
-No description provided.
+```rebol
+>> ascii? "hello"
+== #(true)
+
+>> ascii? "česko"
+== #(false) ;; because (to integer! #"č") == 269
+```
 
 ------------------------------------------------------------------
 ## ASIN
@@ -1102,8 +1130,27 @@ probe value
 
 ------------------------------------------------------------------
 ## ATZ
+[[ at ]]
+
+```rebol
+>> blk: [1 2 3 4]
+== [1 2 3 4]
+
+>> at blk 2
+== [2 3 4]
+
+>> atz blk 2
+== [3 4]
+```
+
 ------------------------------------------------------------------
 ## AVERAGE
+
+```rebol
+>> average [1 2 3]
+== 2
+```
+
 ------------------------------------------------------------------
 ## BACK
 [[ next last head tail head? tail? ]]
@@ -1140,6 +1187,38 @@ until [
 
 ------------------------------------------------------------------
 ## BINARY
+
+This is quite complex dialect which requires own documentation. But it may be
+used for binary data streaming in both directions like:
+```rebol
+>> stream: binary bin: #{}
+== make object! [
+    type: 'bincode
+    buffer: #{}
+    buffer-write: #{}
+    r-mask: 0
+    w-mask: 0
+]
+
+>> binary/write stream [UI8 1 SI16 -2 UI16BYTES "hello"]
+== make object! [
+    type: 'bincode
+    buffer: #{01FFFE000568656C6C6F}
+    buffer-write: #{}
+    r-mask: 0
+    w-mask: 0
+]
+
+>> bin
+== #{01FFFE000568656C6C6F}
+
+>> binary/read stream 'UI8
+== 1
+
+>> binary/read stream [SI16 UI16BYTES]
+== [-2 #{68656C6C6F}]
+```
+
 ------------------------------------------------------------------
 ## BINARY?
 [[ type? ]]
@@ -1148,11 +1227,14 @@ Returns FALSE for all other values.
 
 
 ```rebol
-print binary? #{13ff acd0}
-true
+>> binary? #{13ff acd0}
+== #(true)
 
-print binary? 1234
-false
+>> binary? 2#{00001000}
+== #(true)
+
+>> binary? 1234
+== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -1192,10 +1274,9 @@ print schedule 10:30
 11:30
 ```
 
-
 Editor note: Describe /new here
-
 Editor note: Describe /set here
+
 ------------------------------------------------------------------
 ## BITSET?
 [[ charset ]]
@@ -1204,14 +1285,14 @@ Returns FALSE for all other values.
 
 
 ```rebol
-print bitset? make bitset! "abc"
-true
+>> bitset? make bitset! "abc"
+== #(true)
 
-print bitset? charset "abc"
-true
+>> bitset? charset "abc"
+== #(true)
 
-print bitset? 123
-false
+>> bitset? 123
+== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -1222,24 +1303,37 @@ Returns FALSE for all other values.
 
 
 ```rebol
-print block? [1 2 3]
-true
+>> block? [1 2 3]
+== #(true)
 
-print block? "1 2 3"
-false
+>> block? "1 2 3"
+== #(false)
 
-data: load "1 2 3"  ;  converts "1 2 3" into a block
-if block? data [print data]
-1 2 3
+>> data: load "1 2 3"  ;  converts "1 2 3" into a block
+== [1 2 3]
 ```
 
 ------------------------------------------------------------------
 ## BLUR
+
+```rebol
+img: load %same/image.png
+blur img 5 ;; blurs the original image!
+```
+
 ------------------------------------------------------------------
 ## BODY-OF
-[[ reflect spec-of title-of types-of values-of words-of ]]
+[[ reflect spec-of title-of types-of values-of words-of keys-of ]]
 
-No description provided.
+```rebol
+>> body-of object [a: 1]
+== [
+    a: 1
+]
+
+>> body-of func[][1 + 1]
+== [1 + 1]
+```
 
 ------------------------------------------------------------------
 ## BREAK
@@ -1390,6 +1484,7 @@ See the REBOL Command Shell Interface documentation for more details.
 
 
 Editor note: Proper link to the REBOL Command Shell Interface?
+
 ------------------------------------------------------------------
 ## CASE
 [[ switch if either select find ]]
@@ -1491,6 +1586,7 @@ When using multiple `catch` functions, provide them with a name using the /name 
 Editor note: Example with /name
 
 Editor note: Example of using catch in a function spec.
+
 ------------------------------------------------------------------
 ## CAUSE-ERROR
 
@@ -1722,11 +1818,11 @@ Returns FALSE for all other values.
 
 
 ```rebol
-print char? #"1"
-true
+>> char? #"1"
+== #(true)
 
-print char? 1
-false
+>> char? 1
+== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -1734,15 +1830,11 @@ false
 [[ complement char? ]]
 
 The `charset` function is a shortcut for:
-
-
 ```rebol
 make bitset! value
 ```
 
 It is used often for character based bitsets.
-
-
 ```rebol
 chars: charset "aeiou"
 print find chars "o"
@@ -1767,49 +1859,48 @@ true
 Generally, a checksum is a number which accompanies data to verify that the data has not changed (did not have 
 errors).
 
-
-Editor note: R3 does not yet allow string! for checksums.
-
-```rebol
-print checksum "now is the dawning"
-
-print checksum "how is the dawning"
-```
-
-The /secure refinement creates a binary string result that is cryptographically secure:
-
+Available checksum method may differ between Rebol versions. What is available can be found in "system/catalog/checksums"
 
 ```rebol
-print checksum/secure "fred-key"
-
-print checksum/secure form now
-```
-
-The /tcp refinement is used to compute the standard TCP networking checksum. This is a weak but fast checksum method.
-
-
-```rebol
-print checksum/tcp "now is the dawning"
-
-print checksum/tcp "how is the dawning"
+>> data: "foo" foreach method system/catalog/checksums [print [pad method 10  mold/flat checksum data method]]
+adler32    42074437
+crc24      5804686
+crc32      -1938594527
+md4        #{0AC6700C491D70FB8650940B1CA1E4B2}
+md5        #{ACBD18DB4CC2F85CEDEF654FCCC4A4D8}
+ripemd160  #{42CFA211018EA492FDEE45AC637B7972A0AD6873}
+sha1       #{0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33}
+sha224     #{0808F64E60D58979FCB676C96EC938270DEA42445AEEFCD3A4E6F8DB}
+sha256     #{2C26B46B68FFC68FF99B453C1D30413413422D706483BFA0F98A5E886266E7AE}
+sha384     #{98C11FFDFDD540676B1A137CB1A22B2A70350C9A44171D6B1180C6BE5CBB2EE3F79D532C8A1DD9EF2E8E08E752A3BABB}
+sha512     #{F7FBBA6E0636F890E56FBBF3283E524C6FA3204AE298382D624741D0DC6638326E282C41BE5E4254D8820772C5518A2C5A8C0C7F7EDA19594A7EB539453E1ED7}
+sha3-224   #{F4F6779E153C391BBD29C95E72B0708E39D9166C7CEA51D1F10EF58A}
+sha3-256   #{76D3BC41C9F588F7FCD0D5BF4718F8F84B1C41B20882703100B9EB9413807C01}
+sha3-384   #{665551928D13B7D84EE02734502B018D896A0FB87EED5ADB4C87BA91BBD6489410E11B0FBCC06ED7D0EBAD559E5D3BB5}
+sha3-512   #{4BCA2B137EDC580FE50A88983EF860EBACA36C857B1F492839D6D7392452A63C82CBEBC68E3B70A2A1480B4BB5D437A7CBA6ECF9D89F9FF3CCD14CD6146EA7E7}
+xxh3       #{AB6E5F64077E7D8A}
+xxh32      #{E20F0DD9}
+xxh64      #{33BF00A859C4BA3F}
+xxh128     #{79AEF92E83454121AB6E5F64077E7D8A}
+tcp        39201
 ```
 
 ------------------------------------------------------------------
 ## CLEAN-PATH
-[[ split-path change-dir dir? list-dir ]]
+[[ split-path change-dir dir? list-dir to-real-file ]]
 
 Rebuilds a directory path after decoding parent (..) and
 current (.) path indicators.
 
-
 ```rebol
-probe clean-path %com/www/../../../graphics/image.jpg
-%/C/REBOL/3.0/docs/graphics/image.jpg
+>> clean-path %com/www/../../../graphics/image.jpg
+== %/C/REBOL/3.0/docs/graphics/image.jpg
 
-messy-path: %/rebol/scripts/neat-stuff/../../experiments/./tests
-neat-path: clean-path messy-path
-probe neat-path
-%/rebol/experiments/tests
+>> messy-path: %/rebol/scripts/neat-stuff/../../experiments/./tests
+== %/rebol/scripts/neat-stuff/../../experiments/./tests
+
+>> neat-path: clean-path messy-path
+== %/rebol/experiments/tests
 ```
 
 URLs are returned unmodified (because the true paths may not
@@ -1892,55 +1983,74 @@ Returns true if the input is a `closure!`
 
 
 ```rebol
-closure? make closure! [[][]]
-true
+>> closure? make closure! [[][]]
+== #(true)
 ```
 
-
 Editor note: Are there better examples?
+
 ------------------------------------------------------------------
 ## COLLECT
 
 Using the internal keep function, will collect values spread around a block to be stored in another block and returned:
-
-
 ```rebol
-collect [keep 1 2 3 keep 4]
-[1 4]
+>> collect [keep 1 2 3 keep 4]
+== [1 4]
 ```
 
 Can also be used with the `parse` function:
-
-
 ```rebol
-collect [
+>> collect [
     parse [a b c d e] [
         any ['c | 'e | set w word! (keep w)]
     ]
 ]
-[a b d]
+== [a b d]
 ```
 
 Blocks are collected and appended to the output as a series of values:
-
-
 ```rebol
-collect [keep 1 keep [2 3]]
-[1 2 3]
+>> collect [keep 1 keep [2 3]]
+== [1 2 3]
 ```
 
 The keep function has a refinement /only to append blocks as blocks to the output:
-
-
 ```rebol
-collect [keep 1 keep/only [2 3]]
-[1 [2 3]]
+>> collect [keep 1 keep/only [2 3]]
+== [1 [2 3]]
 ```
 
 ------------------------------------------------------------------
 ## COLLECT-WORDS
+
+```rebol
+>> collect-words [a: 1 + b]
+== [a + b]
+
+>> collect-words/set [a: 1 + b]
+== [a]
+
+>> collect-words/set/as [a: 1 + b] set-word!
+== [a:]
+```
+
 ------------------------------------------------------------------
 ## COLOR-DISTANCE
+
+```rebol
+>> color-distance 0.0.0 0.0.0
+== 0.0
+
+>> color-distance 0.0.0 255.0.0
+== 402.874670338059
+
+>> color-distance 0.0.0 255.255.0
+== 649.929226916285
+
+>> color-distance 0.0.0 255.255.255
+== 764.833315173967
+```
+
 ------------------------------------------------------------------
 ## COMBINE
 ------------------------------------------------------------------
@@ -2604,35 +2714,36 @@ false
 
 Converts from an encoded string to the binary value. Primarily used for BASE-64 decoding.
 
-The /base refinement allows selection of number base as 64, 16, 2. Default is base64.
-
 
 ```rebol
-probe debase "MTIzNA=="
-#{31323334}
+>> debase "MTIzNA==" 64
+== #{31323334}
 
-probe debase/base "12AB C456" 16
-#{12ABC456}
+>> debase "12AB C456" 16
+== #{12ABC456}
 
-enbased: probe enbase "a string of text"
-"YSBzdHJpbmcgb2YgdGV4dA=="
+>> enbased: enbase "a string of text" 64
+== "YSBzdHJpbmcgb2YgdGV4dA=="
 
-probe string? enbased         ; enbased value is a string
-true
+>> string? enbased            ;; enbased value is a string
+== #(true)
 
-debased: probe debase enbased ; converts to binary value
+>> debased: debase enbased 64 ;; converts to binary value
+== #{6120737472696E67206F662074657874}
 
-probe to-string debased       ; converts back to original string
+>> to string! debased   ;; converts back to original string
+== "a string of text"        
 ```
 
-If the input value cannot be decoded (such as when missing the proper number of characters), a none is returned.
-
+If the input value cannot be decoded (such as when the proper number of characters is missing), an 'invalid-data error is thrown. This behavior is different from Rebol2, where none is returned.
 
 ```rebol
-probe debase "100"
+>> debase "AA" 16
+== #{AA}
 
-probe debase "1001"
-#{D74D35}
+>> debase "A" 16
+
+** Script error: data not in correct format: "A"
 ```
 
 ------------------------------------------------------------------
@@ -2643,11 +2754,11 @@ Returns false for all other values.
 
 
 ```rebol
-print decimal? 1.2
-true
+>> decimal? 1.2
+== #(true)
 
-print decimal? 1
-false
+>> decimal? 1
+== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -2776,17 +2887,20 @@ However, `default` avoids the need to specify the size word twice and also makes
 
 ------------------------------------------------------------------
 ## DEHEX
-[[ to-hex debase enbase ]]
+[[ enhex ]]
 
 Converts the standard URL hex sequence that begins with a % followed by a valid hex value. Otherwise, the sequence  is not converted and will appear as written.
 
 
 ```rebol
-print dehex "www.com/a%20dir/file"
-www.com/a dir/file
+>> dehex "a%20b"
+== "a b"
 
-print dehex "ABCD%45"
-ABCDE
+>> dehex/uri "a+b"
+== "a b"
+
+>> dehex/escape "a#20b" #"#"
+== "a b"
 ```
 
 ------------------------------------------------------------------
@@ -2852,46 +2966,42 @@ write
 Useful for converting OS dependent string terminators to LF.
 
 CRLF string termination:
-
-
 ```rebol
-deline "a^M^/b" ; Windows, DOS, CP/M, OS/2, Symbian
-"a^/b"
+>> deline "a^M^/b" ; Windows, DOS, CP/M, OS/2, Symbian
+== "a^/b"
 ```
 
 CR string termination:
-
-
 ```rebol
-deline "a^Mb" ; MacOS 1-9
-"a^/b"
+>> deline "a^Mb" ; MacOS 1-9
+== "a^/b"
 ```
 
 LF string termination:
-
-
 ```rebol
-deline "a^/b" ; MacOSX, AmigaOS, FreeBSD, GNU/Linux, BeOS, RiscOS
-"a^/b"
+>> deline "a^/b" ; MacOSX, AmigaOS, FreeBSD, GNU/Linux, BeOS, RiscOS
+== "a^/b"
 ```
 
 When using the /LINES refinement, the string will be split in blocks of strings per line:
-
-
 ```rebol
-deline/lines "a^M^/b"
-[
+>> deline/lines "a^M^/b"
+== [
     "a"
     "b"
 ]
 ```
 
-Note that when reading from disk, READ/STRING provides the same functionality. The file %/c/text.txt was first saved with WIndows XP Notepad, which gives CRLF. When read, it gives:
-
-
+Note that when reading from disk, READ/STRING provides the same functionality.
 ```rebol
-read/string %/c/text.txt
-"Windows text^/file"
+>> write %test.txt ajoin ["a" CRLF "b"]
+== %test.txt
+
+>> read/string %test.txt
+== "a^/b"
+
+>> to string! read %test.txt
+== "a^M^/b"
 ```
 
 ------------------------------------------------------------------
@@ -3343,22 +3453,37 @@ This function is provided as a coding convenience and it is otherwise identical 
 
 ------------------------------------------------------------------
 ## DP
-[[ delta-profile delta-time dt ]]
-
-A shortcut for `delta-profile`.
+@@ DELTA-PROFILE
 
 ------------------------------------------------------------------
 ## DS
+
+Having such a code in the console:
+```rebol
+>> fun: func[a][ if a > 0 [ds]  ]
+>> fun 1
+```
+Will output:
+```text
+STACK[16] ds[0] native!
+
+STACK[12] if[3] native!
+        condition: #(true)
+        true-branch: [ds]
+        only: #(none)
+
+STACK[5] fun[1] function!
+        a: 1
+```
+
 ------------------------------------------------------------------
 ## DT
-[[ delta-time delta-profile dp ]]
-
-A shortcut function for `delta-time`.
+@@ DELTA-TIME
 
 ------------------------------------------------------------------
 ## DUMP
 
-No description provided.
+Note: A debug build is required to use this function!
 
 ------------------------------------------------------------------
 ## DUMP-OBJ
@@ -3368,12 +3493,9 @@ This function provides an easy way to view the contents of an object. The functi
 
 
 ```rebol
-print dump-obj system/intrinsic
-do              function! Called for DO on datatypes that require more ...
-make-module     function! [ spec [block!] "As [spec-block body-block]" ...
-make-port       function! Creates a new port from a scheme specificatio...
-parse-url       object!   [digit digits alpha-num scheme-char path-char...
-begin           function! Called once boot is complete. Handles argumen...
+>> print dump-obj object [a: 1 b: "hello"]
+  a               integer!   1
+  b               string!    "hello"
 ```
 
 ------------------------------------------------------------------
@@ -3552,26 +3674,26 @@ if empty? trim str [print "Name is required"]
 ## ENBASE
 [[ debase dehex ]]
 
-Converts from a string or binary into an encode string value. Primarily used for BASE-64 encoding.
-
-The /base refinement allows selection of base as 64, 16, 2. Default is base64.
+Converts from a string or binary into an encode string value.
 
 
 ```rebol
-print enbase "Here is a string."
-SGVyZSBpcyBhIHN0cmluZy4=
+>> enbase "Here is a string." 64
+== "SGVyZSBpcyBhIHN0cmluZy4="
 
-print enbase/base #{12abcd45} 16
-12ABCD45
+>> enbase #{12abcd45} 16
+== "12ABCD45"
 ```
 
 The `debase` function is used to convert the binary back again. For example:
 
 
 ```rebol
-bin: enbase "This is a string"
-print debase bin
-#{54686973206973206120737472696E67}
+>> str: enbase "This is a string" 16
+== "54686973206973206120737472696E67"
+
+>> debase str 16
+== #{54686973206973206120737472696E67}
 ```
 
 ------------------------------------------------------------------
@@ -3586,21 +3708,27 @@ To cloak a binary string, provide the binary string and a cloaking key to the `e
 
 
 ```rebol
-bin: encloak #{54686973206973206120737472696E67} "a-key"
+>> bin: encloak #{54686973206973206120737472696E67} "a-key"
+== #{4972E8CD78CE343EC727810866AE5F6B}
 ```
 
 To cloak a string of characters, convert it using `to-binary` :
 
 
 ```rebol
-bin: encloak to-binary "This is a string" "a-key"
+>> bin: encloak to-binary "This is a string" "a-key"
+== #{4972E8CD78CE343EC727810866AE5F6B}
 ```
 
 The result is an encrypted binary value which can be decloaked with the line:
 
 
 ```rebol
-print decloak bin "a-key"
+>> decloak bin "a-key"
+== #{54686973206973206120737472696E67}
+
+>> to string! bin
+== "This is a string"
 ```
 
 The stronger your key, the better the encryption. For important data use a much longer key that is harder to guess. Also, do not forget your key, or it may be difficult or impossible to recover your data.
@@ -3656,8 +3784,31 @@ write %photo.bmp data
 
 ------------------------------------------------------------------
 ## ENCODING?
+[[ decode encode ]]
+
+```rebol
+>> encoding? read %test.wav
+== wav
+
+>> encoding? read %test.png
+== png
+```
+
 ------------------------------------------------------------------
 ## ENHEX
+[[ dehex ]]
+
+```rebol
+>> enhex "a b"
+== "a%20b"
+
+>> enhex/uri "a b"
+== "a+b"
+
+>> enhex/escape "a b" #"#"
+== "a#20b"
+```
+
 ------------------------------------------------------------------
 ## ENLINE
 [[ deline ]]
@@ -4605,9 +4756,6 @@ print fourth 199.4.80.1
 ## FRACTION
 ------------------------------------------------------------------
 ## FRAME?
-
-No description provided.
-
 ------------------------------------------------------------------
 ## FUNC
 [[ closure does has funco funct function use make function? return exit ]]
@@ -5891,8 +6039,15 @@ none
 ## LAST?
 ------------------------------------------------------------------
 ## LATIN1?
+[[ ascii? utf8? ]]
 
-No description provided.
+```rebol
+>> latin1? "mýdlo"
+== #(true) ;; because (to integer! #"ý") == 253
+
+>> latin1? "česko"
+== #(false) ;; because (to integer! #"č") == 269
+```
 
 ------------------------------------------------------------------
 ## LAUNCH
@@ -6069,12 +6224,11 @@ This function will return a `map!` of OS environment variables and their values.
 
 
 ```rebol
-probe list-env
-make map! [
-   "ALLUSERSPROFILE" "C:\Documents and Settings\All Users"
-   "APPDATA" "C:\Documents and Settings\Carl\Application Data"
-   "CLIENTNAME" "Console"
-   "CommonProgramFiles" "C:\Program Files\Common Files"
+>> list-env
+== #[
+    "=::" "::\"
+    "ALLUSERSPROFILE" "C:\ProgramData"
+    "APPDATA" "C:\Users\oldes\AppData\Roaming"
    ...
 ```
 
@@ -6085,16 +6239,24 @@ make map! [
 
 Returns true if the value is a literal path datatype.
 
+```rebol
+>> lit-path? first ['some/path other/path]
+== #(true)
+
+>> lit-path? second ['some/path other/path]
+== #(false)
+```
+
 ------------------------------------------------------------------
 ## LIT-WORD?
-[[ set-word? ]]
+[[ word? set-word? get-word? ]]
 
 Returns FALSE for all other values.
 
 
 ```rebol
-probe lit-word? first ['foo bar]
-true
+>> lit-word? first ['foo bar]
+== #(true)
 ```
 
 ------------------------------------------------------------------
@@ -6148,6 +6310,27 @@ The /NEXT refinement was removed - use TRANSCODE/NEXT instead
 ## LOAD-EXTENSION
 ------------------------------------------------------------------
 ## LOAD-JSON
+[[ to-json decode ]]
+
+```rebol
+>> load-json to-json [1 2 3]
+== [1 2 3]
+
+>> load-json to-json #[a: 1 b: "test"]
+== #[
+    a: 1
+    b: "test"
+]
+```
+It is same like using `decode`.
+```rebol
+>> decode 'json {{"a":1,"b":"test"}}
+== #[
+    a: 1
+    b: "test"
+]
+```
+
 ------------------------------------------------------------------
 ## LOAD-THRU
 ------------------------------------------------------------------
@@ -6284,18 +6467,16 @@ a result.
 
 
 ```rebol
-print lowercase "ABCDEF"
-abcdef
+>> lowercase "ABCDEF"
+== "abcdef"
 
-print lowercase/part "ABCDEF" 3
-abcDEF
+>> lowercase/part "ABCDEF" 3
+== "abcDEF"
 ```
 
 ------------------------------------------------------------------
 ## LS
-[[ cd change-dir delete list-dir make-dir mkdir pwd rm what-dir ]]
-
-Note: Shell shortcut for `list-dir`.
+@@ LIST-DIR
 
 ------------------------------------------------------------------
 ## MAKE
@@ -6354,7 +6535,10 @@ Description is needed.
 ------------------------------------------------------------------
 ## MAP-EACH
 
-No description provided.
+```rebol
+>> map-each w [1 2 3][w * 100]
+== [100 200 300]
+```
 
 ------------------------------------------------------------------
 ## MAP-EVENT
@@ -6369,7 +6553,14 @@ No description provided.
 ------------------------------------------------------------------
 ## MAP?
 
-No description provided.
+Returns FALSE for all other values.
+```rebol
+>> map? #[a: 1]
+== #(true)
+
+>> map? object [a: 1]
+== #(false)
+```
 
 ------------------------------------------------------------------
 ## MAX
@@ -6507,7 +6698,14 @@ Description is needed.
 ------------------------------------------------------------------
 ## MODULE?
 
-No description provided.
+Returns FALSE for all other values.
+```rebol
+>> module? object [a: 1]
+== #(false)
+
+>> module? system/modules/help
+== #(true)
+```
 
 ------------------------------------------------------------------
 ## MODULO
@@ -7021,14 +7219,14 @@ Returns FALSE for all other values.
 
 
 ```rebol
-print number? 1234
-true
+>> number? 1234
+== #(true)
 
-print number? 12.34
-true
+>> number? 12.3
+== #(true)
 
-print number? "1234"
-false
+>> number? "12"
+== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -7041,11 +7239,12 @@ No description provided.
 [[ type? ]]
 
 Returns FALSE for all other values.
-
-
 ```rebol
-print object? system
-true
+>> object? system
+== #(true)
+
+>> object? 1
+== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -7465,7 +7664,14 @@ true
 ------------------------------------------------------------------
 ## PERCENT?
 
-No description provided.
+Returns FALSE for all other values.
+```rebol
+>> percent? 10%
+== #(true)
+
+>> percent? 10
+== #(false)
+```
 
 ------------------------------------------------------------------
 ## PICK
@@ -8469,7 +8675,21 @@ false
 ## REFLECT
 [[ body-of spec-of title-of types-of values-of words-of ]]
 
-No description provided.
+```rebol
+>> reflect object [a: 1 b: 2] 'words
+== [a b]
+
+>> reflect object [a: 1 b: 2] 'values
+== [1 2]
+```
+Or used on function:
+```rebol
+>> reflect :print 'words
+== [value]
+
+>> reflect :print 'title
+== "Outputs a value followed by a line break."
+```
 
 ------------------------------------------------------------------
 ## REFORM
@@ -10915,7 +11135,10 @@ false
 ## TITLE-OF
 [[ body-of reflect spec-of types-of values-of words-of ]]
 
-No description provided.
+```rebol
+>> title-of :print
+== "Outputs a value followed by a line break."
+```
 
 ------------------------------------------------------------------
 ## TO
@@ -11000,14 +11223,41 @@ make bitset! #{00000000000000007FFFFFE07FFFFFE0}
 
 ------------------------------------------------------------------
 ## TO-BLOCK
-[[ to ]]
+[[ to to-paren to-path]]
 
 Returns a block! value made from the given value.
 
 
+NOTE: The behavior of this function differs from Rebol2 and Red!
+Conversions using `to` from non-blocks only wrap the value in a block of the specified type. Use `make` if you expect tokenization!
+
 ```rebol
-print to-block "123 10:30"
-123 10:30
+>> to-block "123 10:00"
+== ["123 10:00"] ;; no tokenization!
+
+>> make block! "123 10:00"
+== [123 10:00]
+```
+
+For conversions from another block-like type, one can use the `as` function, which coerces the original value to another type without creating a new one.
+```rebol
+>> path: 'hello/world
+== hello/world
+
+>> blk: as block! path
+== [hello world] ;; this value has coerced type
+
+>> insert next blk 'cruel
+== [world]
+
+>> path
+== hello/cruel/world ;; original value was modified too
+
+>> append to-block path 42
+== [hello cruel world 42] ;; this is new series value!
+
+>> path
+== hello/cruel/world ;; original value was not modified
 ```
 
 ------------------------------------------------------------------
@@ -11016,13 +11266,12 @@ print to-block "123 10:30"
 
 Returns a char! value made from the given value.
 
-
 ```rebol
-print to-char "a"
-a
+>> to-char "a"
+== #"a"
 
-print to-char 65
-A
+>> to-char 65
+== #"A"
 ```
 
 ------------------------------------------------------------------
@@ -11036,11 +11285,17 @@ No description provided.
 ## TO-DATATYPE
 [[ make to ]]
 
-Returns a datatype! value made from the given value.
-
-
+Can be used to convert a `word!` containing a valid datatype name into a `datatype!`.
 ```rebol
-probe to-datatype "REBOL"
+>> to-datatype 'integer!
+== #(integer!)
+
+>> type? to-datatype 'integer!
+== #(datatype!)
+
+>> to-datatype "foo"
+
+** Script error: cannot MAKE #(datatype!) from: "foo"
 ```
 
 ------------------------------------------------------------------
@@ -11049,10 +11304,29 @@ probe to-datatype "REBOL"
 
 Returns a date! value made from the given value.
 
-
 ```rebol
-print to-date "12-April-1999"
-12-Apr-1999
+>> to-date "12-April-1999"
+== 12-Apr-1999
+```
+Also accepts a string in the Internet Message Date format (RFC2822).
+```rebol
+>> to-date "Mon, 1 Apr 2019 21:50:04 GMT"
+== 1-Apr-2019/21:50:04
+
+>> to-date "Thu, 28 Mar 2019 20:00:59 +0100"
+== 28-Mar-2019/20:00:59+1:00
+```
+
+When the input is of type `integer!` or `decimal!`, it is treated as a Unix timestamp.
+```rebol
+>> to-date 123456789
+== 29-Nov-1973/21:33:09
+
+>> encode 'unixtime 29-Nov-1973/21:33:09
+== 123456789
+
+>> to-date 1741600660.239
+== 10-Mar-2025/9:57:40.239
 ```
 
 ------------------------------------------------------------------
@@ -11063,12 +11337,22 @@ Returns a decimal! value made from the given value.
 
 
 ```rebol
-print to-decimal 12.3
-12.3
+>> to-decimal 1
+== 1.0
+
+>> to-decimal 10-Mar-2025/9:57:40.239
+== 1741600660.239 ;; Unix timestamp with a precision
 ```
 
 ------------------------------------------------------------------
 ## TO-DEGREES
+[[ to-radians ]]
+
+```rebol
+>> to-degrees pi
+== 180.0
+```
+
 ------------------------------------------------------------------
 ## TO-EMAIL
 [[ to ]]
@@ -11115,31 +11399,40 @@ No description provided.
 
 ------------------------------------------------------------------
 ## TO-FILE
-[[ to ]]
+[[ to to-rebol-file to-local-file ]]
 
 Returns a file! value made from the given value.
 
 
 ```rebol
-print to-file ask "What file would you like to create? "
-test
+>> to-file "test.txt"
+== %test.txt
 ```
 
 ------------------------------------------------------------------
 ## TO-FUNCTION
 
-No description provided.
+```rebol
+>> fun: to-function [[a][a * 10]]
+>> fun 1
+== 10
+```
 
 ------------------------------------------------------------------
 ## TO-GET-PATH
 
-No description provided.
+Returns a `get-path!` value made from the given value.
+
+```rebol
+>> to-get-path [path to word]
+== :path/to/word
+```
 
 ------------------------------------------------------------------
 ## TO-GET-WORD
 [[ to ]]
 
-Returns a get-word! value made from the given value.
+Returns a `get-word!` value made from the given value.
 
 
 ```rebol
@@ -11163,8 +11456,8 @@ a hexidecimal value.
 
 
 ```rebol
-print to-hex 123
-000000000000007B
+>> to-hex 123
+== #000000000000007B
 ```
 
 The value returned is a string of the ISSUE datatype (not the BINARY
@@ -11172,8 +11465,8 @@ datatype). This allows you to convert hex values back to integers:
 
 
 ```rebol
-print to-integer #7B
-123
+>> to-integer #7B
+== 123
 ```
 
 Note: To convert HTML hex color values (like #80FF80) to REBOL
@@ -11183,7 +11476,7 @@ then use a base 16 encoding:
 
 ```rebol
 to-html-color: func [color [tuple!]] [
-    to-issue enbase/base to-binary color 16
+    to-issue enbase to-binary color 16
 ]
 print to-html-color 255.155.50
 FF9B32
@@ -11197,7 +11490,7 @@ can use this:
 
 ```rebol
 to-rebol-color: func [color [issue!]] [
-    to-tuple debase/base color 16
+    to-tuple debase color 16
 ]
 to-rebol-color #FF9B32
 ```
@@ -11212,7 +11505,7 @@ to-rebol-color2: func [color [string! issue!]] [
         if find/match color "#" [color: next color]
         color: to-issue color
     ]
-    to-tuple debase/base color 16
+    to-tuple debase color 16
 ]
 to-rebol-color2 "#FF9B32"
 ```
@@ -11296,8 +11589,36 @@ the to-hex function.
 
 ------------------------------------------------------------------
 ## TO-ITIME
+
+```rebol
+>> to-itime now/time
+== "09:46:03"
+```
+
 ------------------------------------------------------------------
 ## TO-JSON
+[[ load-json ]]
+
+```rebol
+>> to-json #[a: 1 b: ["hello"]]
+== {{"a":1,"b":["hello"]}}
+```
+
+`to-json` is basically the same as using `encode`
+```rebol
+>> encode 'json #[a: 1 b: ["hello"]]
+== {{"a":1,"b":["hello"]}}
+```
+But it provides easy option for producing nicely formatted output.
+```rebol
+>> to-json/pretty #[a: 1 b: ["hello"]] "  "
+== {{
+  "a": 1,
+  "b": [
+    "hello"
+  ]
+}}
+```
 ------------------------------------------------------------------
 ## TO-LIT-PATH
 [[ to ]]
@@ -11306,8 +11627,8 @@ Returns a lit-path! value made from the given value.
 
 
 ```rebol
-probe to-lit-path [a b c]
-'a/b/c
+>> to-lit-path [a b c]
+== 'a/b/c
 ```
 
 ------------------------------------------------------------------
@@ -11318,13 +11639,13 @@ Returns a ilt-word! value made from the given value.
 
 
 ```rebol
-probe to-lit-word "test"
-test
+>> to-lit-word "test"
+== 'test
 ```
 
 ------------------------------------------------------------------
 ## TO-LOCAL-FILE
-[[ to-rebol-file ]]
+[[ to-file to-rebol-file ]]
 
 This function provides a way to convert standard, system
 independent REBOL file formats into the file format used by
@@ -11344,7 +11665,7 @@ system. Be careful how you use this function across systems.
 
 ------------------------------------------------------------------
 ## TO-LOGIC
-[[ to ]]
+[[ to make ]]
 
 Returns a logic! value made from the given value.
 
@@ -11357,32 +11678,54 @@ false
 
 ------------------------------------------------------------------
 ## TO-MAP
+[[ to make ]]
 
-No description provided.
+```rebol
+>> to-map [a: 1 b: 2]
+== #[
+    a: 1
+    b: 2
+]
+```
 
 ------------------------------------------------------------------
 ## TO-MODULE
+[[ to make ]]
 
-No description provided.
+
 
 ------------------------------------------------------------------
 ## TO-MONEY
-[[ to ]]
+[[ to make ]]
 
 Returns a money! value made from the given value.
 
 
 ```rebol
-print to-money 123.4
-$123.4000000000000000
-
-print to-money [AUS 123.4]
+>> to-money 123.4
+== $123.4
 ```
+
+NOTE: Currency types are not supported yet!
 
 ------------------------------------------------------------------
 ## TO-OBJECT
+[[ to make ]]
 
-No description provided.
+This function currently works only for conversions from an `error!` value.
+```rebol
+>> to-object try [1 / 0]
+== make object! [
+    code: 400
+    type: 'Math
+    id: 'zero-divide
+    arg1: #(none)
+    arg2: #(none)
+    arg3: #(none)
+    near: [/ 0]
+    where: [/ try]
+]
+```
 
 ------------------------------------------------------------------
 ## TO-PAIR
@@ -11392,33 +11735,56 @@ Returns a pair! value made from the given value.
 
 
 ```rebol
-print to-pair [120 50]
+>> to-pair [120 50]
+== 120x50
 
-x: 100
-y: 80
-print to-pair reduce [x y]
+>> x: 100 y: 50
+>> to-pair reduce [x y]
+== 100x50
 ```
 
-This last line is done so often that the AS-PAIR function was
-created.
+This last line is done so often that the `as-pair` function was created.
+```rebol
+>> as-pair x y
+== 100x50
+```
 
-See the PAIR! word for more detail.
 
 ------------------------------------------------------------------
 ## TO-PAREN
-[[ to ]]
+[[ to to-path to-block]]
 
 Returns a paren! value made from the given value.
 
+NOTE: The behavior of this function differs from Rebol2 and Red!
+Conversions using `to` from non-blocks only wrap the value in a block of the specified type. Use `make` if you expect tokenization!
 
 ```rebol
-print to-paren "123 456"
-123 456
+>> to-paren "123 456"
+== ("123 456")
+
+>> make paren! "123 456"
+== (123 456)
+```
+
+For conversions from another block-like type, one can use the `as` function, which coerces the original value to another type without creating a new one.
+```rebol
+>> blk: ["hello" "world"]
+== ["hello" "world"]
+
+>> par: as paren! blk
+== ("hello" "world")
+
+>> uppercase par/2
+== "WORLD"
+
+>> blk
+== ["hello" "WORLD"]
 ```
 
 ------------------------------------------------------------------
 ## TO-PATH
-[[ to ]]
+[[ to to-paren to-block]]
 
 Returns a path! value made from the given value.
 
@@ -11458,22 +11824,42 @@ probe to-port [scheme: 'checksum]
 
 ------------------------------------------------------------------
 ## TO-RADIANS
+[[ to-degrees ]]
+
+```rebol
+>> to-radians 180.0
+== 3.14159265358979
+```
+
 ------------------------------------------------------------------
 ## TO-REAL-FILE
+[[ to-local-file to-rebol-file what-dir ]]
+
+```rebol
+>> to-real-file %../Rebol
+== %/C/Users/oldes/Rebol/
+
+>> to-real-file ".."
+== %/C/Users/oldes/
+```
+
 ------------------------------------------------------------------
 ## TO-REBOL-FILE
-[[ to-local-file ]]
+[[ to-local-file to-real-file ]]
 
 This function provides a standard way to convert local operating
 system files into REBOL's standard machine independent format.
 
 
 ```rebol
-probe to-rebol-file "c:\temp"
-%/c/temp
+>> to-rebol-file %../Rebol
+== %../Rebol
 
-probe to-rebol-file "e:\program files\rebol"
-%/e/program%20files/rebol
+>> to-rebol-file "../Rebol"
+== %../Rebol
+
+>> to-rebol-file "C:\Program Files\"
+== %/C/Program%20Files/
 ```
 
 Note that the format of the file path depends on your local
@@ -11481,153 +11867,207 @@ system. Be careful how you use this function across systems.
 
 ------------------------------------------------------------------
 ## TO-REF
+[[ to ]]
+
+Returns a `ref!` value made from the given value.
+
+```rebol
+>> to-ref "Oldes"
+== @Oldes
+```
+
 ------------------------------------------------------------------
 ## TO-REFINEMENT
 [[ to ]]
 
-Returns a refinement! value made from the given value.
+Returns a `refinement!` value made from the given value.
 
 
 ```rebol
-probe to-refinement 'REBOL
-/REBOL
+>> to-refinement 'REBOL
+== /REBOL
 ```
 
 ------------------------------------------------------------------
 ## TO-RELATIVE-FILE
+[[ to-real-file what-dir ]]
 
-No description provided.
+```
+>> what-dir
+== %/C/Users/oldes/Rebol/
+
+>> to-relative-file %/C/Users/Oldes/Rebol/temp
+== %temp
+```
 
 ------------------------------------------------------------------
 ## TO-SET-PATH
-[[ to ]]
+[[ to to-path to-get-path to-lit-path ]]
 
-Returns a set-path! value made from the given value.
+Returns a `set-path!` value made from the given value.
 
 
 ```rebol
-colors: make object! [blues: ["sky" "sea" "midnight"]]
-ps-blues: to-set-path [colors blues]
-print form :ps-blues
-colors/blues:
-
-print ps-blues
-colors/blues:
-
-ps-blues compose [(ps-blues) "light"]
-print colors/blues
-sky sea midnight
-
-print ps-blues
-colors/blues:
+>> to-set-path [some path]
+== some/path:
 ```
 
 ------------------------------------------------------------------
 ## TO-SET-WORD
-[[ to ]]
+[[ to to-word to-get-word to-lit-word]]
 
-Returns a set-word! value made from the given value.
+Returns a `set-word!` value made from the given value.
 
 
 ```rebol
-probe to-set-word "test"
-test:
+>> to-set-word "test"
+== test:
 ```
 
 ------------------------------------------------------------------
 ## TO-STRING
-[[ to ]]
+[[ to form mold]]
 
-Returns a string! value made from the given value.
+Returns a `string!` value made from the given value.
 
 
 ```rebol
-print to-string [123 456]
-123456
+>> to-string [123 456]
+== "123456"
 ```
 
 ------------------------------------------------------------------
 ## TO-TAG
 [[ to ]]
 
-Returns a tag! value made from the given value.
+Returns a `tag!` value made from the given value.
 
 
 ```rebol
-print to-tag ";comment:"
-<;comment:>
+>> to-tag ";comment:"
+== <;comment:>
 ```
 
 ------------------------------------------------------------------
 ## TO-TIME
-[[ to ]]
+[[ to to-itime to-date ]]
 
-Returns a time! value made from the given value.
+Returns a `time!` value made from the given value.
 
 
+Integer and decimal values are interpreted as a number of seconds.
 ```rebol
-print to-time 75
-0:01:15
-```
+>> to-time 75
+== 0:01:15
 
-Integer values are interpreted as a number of seconds.
+>> to-time 75.5
+== 0:01:15.5
+```
 
 A block may contain up to three values. The first two must be 
 integers, and correspond to the hour and minute values. The
 third value can be an integer or decimal value, and corresponds
 to the number of seconds.
+```rebol
+>> to-time [0 1 15.5]
+== 0:01:15.5
+```
 
 ------------------------------------------------------------------
 ## TO-TUPLE
 [[ to to-hex ]]
 
-Returns a tuple! value made from the given value.
+Returns a `tuple!` value made from the given value.
 
 
 ```rebol
-print to-tuple [12 34 56]
-12.34.56
+>> to-tuple [12 34 56]
+== 12.34.56
 ```
 
 To convert REBOL RGB color tuples to HTML hex color values, see
-the to-hex function.
+the `to-hex` function.
 
-Tuples can have up to 10 segments.
+Tuples can have up to 12 segments.
 
 ------------------------------------------------------------------
 ## TO-TYPESET
 
-No description provided.
+Returns a `typeset!` value made from the given value.
+
+```rebol
+>> types: to-typeset [string! file! url!]
+== make typeset! [string! file! url!]
+
+>> find types #(url!)
+== #(true)
+```
 
 ------------------------------------------------------------------
 ## TO-URL
-[[ to ]]
+[[ to as ]]
 
-Returns a url! value made from the given value.
+Returns a `url!` value made from the given value.
 
 
 ```rebol
-print to-url "info@rebol.com"
-info@rebol.com
+>> to-url "http://www.rebol.com"
+== http://www.rebol.com
 ```
 
 ------------------------------------------------------------------
 ## TO-VALUE
+[[ to ]]
+
+```rebol
+>> to-value ()
+== #(none)
+
+>> to-value 1
+== 1
+
+>> to-value #(unset)
+== #(none)
+```
+
 ------------------------------------------------------------------
 ## TO-VECTOR
 
-No description provided.
+Currently, `to-vector` can only be used with a valid vector specification.
+```rebol
+>> to-vector [uint8! 3]
+== make vector! [unsigned integer! 8 3 [0 0 0]]
+
+>> to-vector [int16! [1 2 3]]
+== make vector! [integer! 16 3 [1 2 3]]
+```
+
+Vectors can be created using construction syntax.
+```rebol
+>> #(uint8! 3)
+== make vector! [unsigned integer! 8 3 [0 0 0]]
+
+>> #(int16! [1 2 3])
+== make vector! [integer! 16 3 [1 2 3]]
+```
+
+Currently there are these vector types:
+* Signed integers: `int8!`, `int16!`, `int32!`, `int64!`
+* Unsigned integers: `uint8!`, `uint16!`, `uint32!`, `uint64!`
+* 32bit decimal: `float!`
+* 64bit decimal: `double!`
+
 
 ------------------------------------------------------------------
 ## TO-WORD
-[[ to ]]
+[[ to to-set-word to-get-word to-lit-word ]]
 
-Returns a word! value made from the given value.
+Returns a `word!` value made from the given value.
 
 
 ```rebol
-print to-word "test"
-test
+>> to-word "test"
+== test
 ```
 
 ------------------------------------------------------------------
@@ -11646,7 +12086,6 @@ trace 5    ; turn on, but trace only 5 levels deep
 ```
 
 Once enabled, when you evaluate an expression, you will see each step as a single line:
-
 
 ```rebol
 >> print 123
@@ -12338,11 +12777,42 @@ make object! [
 
 ------------------------------------------------------------------
 ## TRUE?
+[[ false? ]]
 
-No description provided.
+```rebol
+>> true? 1
+== #(true)
+
+>> true? 2
+== #(true)
+
+>> true? none
+== #(false)
+
+>> true? off
+== #(false)
+```
+Note that `unset!` value is truthy!
+```rebol
+>> true? #(unset)
+== #(true)
+```
 
 ------------------------------------------------------------------
 ## TRUNCATE
+[[ take remove ]]
+
+```rebol
+>> str: "12345"
+== "12345"
+
+>> truncate skip str 3
+== "45"
+```
+
+This function is useful for removing processed data from an input buffer.
+
+
 ------------------------------------------------------------------
 ## TRY
 [[ attempt error? do ]]
@@ -12357,7 +12827,6 @@ For example, in this line:
 ```rebol
 try [delete %afile.txt]
 ```
-
 if the file does not exist, then the error will not cause your program to terminate.
 
 
@@ -12393,24 +12862,37 @@ either error? val: try [1 + 2] [print "nope"] [print val]
 ###### Exception Handling
 The `try` function is for error handling, but there are times when you may be returning error objects as values, and you cannot distinguish between an error occurring and the error value itself. This is case rare, but it does happen.
 
-For this situation the /except refinement is provided. If an error occurs, it will evaluate a exception handling function (or just a block). This indicates that an error exception happened (not just an error value being passed.)
+For this situation the `/with` refinement is provided. If an error occurs, it will evaluate a exception handling function (or just a block). This indicates that an error exception happened (not just an error value being passed.)
 
-The example below will catch the [[bad-link:errors/zero-divide.txt]](https://www.rebol.com/r3/docs/errors/zero-divide.html) error within a function. The error is passed as the argument to the exception function, and a value (zero in this case) is returned from the `try` function:
+The example below will catch the "zero-divide" error within a function. The error is passed as the argument to the exception function, and a value (zero in this case) is returned from the `try` function:
 
 
 ```rebol
-try/except [1 / 0] func [value] [?? value 0]
-value: make error! [
-    code: 400
-    type: 'Math
-    id: 'zero-divide
-    arg1: none
-    arg2: none
-    arg3: none
-    near: [/ 0]
-    where: [/ try]
- ]
- 0
+>> try/with [1 / 0] :print
+
+** Math error: attempt to divide by zero
+** Where: / try
+** Near: / 0
+```
+Or to provide a default value in case of the error:
+```rebol
+>> try/with [1 / 0] ['oh-no]
+== oh-no
+```
+
+Last error is stored in the `system/state` object and may be used like:
+```rebol
+>> try [1 / 0]
+
+** Math error: attempt to divide by zero
+** Where: / try
+** Near: / 0
+
+>> system/state/last-error
+
+** Math error: attempt to divide by zero
+** Where: / try
+** Near: / 0
 ```
 
 
@@ -12424,6 +12906,7 @@ data: attempt [load %data.r]
 
 The data will be either the data or none, if it failed to load.
 
+
 ------------------------------------------------------------------
 ## TUPLE?
 [[ type? ]]
@@ -12432,12 +12915,11 @@ Returns FALSE for all other values.
 
 
 ```rebol
-print tuple? 1.2.3.4
-true
+>> tuple? 1.2.3.4
+== #(true)
 
-version: 0.1.0
-if tuple? version [print version]
-0.1.0
+>> tuple? "1.2.3.4"
+== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -12451,18 +12933,19 @@ SELECT, SWITCH, and other functions.
 
 
 ```rebol
-print type? 10
-integer!
+>> type? 10
+== #(integer!)
 
-print type? :type?
-native!
-
+>> type? :type?
+== #(native!)
+```
+```rebol
 value: 10:30
 print switch type?/word value [
     integer! [value + 10]
     decimal! [to-integer value]
-    time! [value/hour]
-    date! [first value/time]
+    time!    [value/hour]
+    date!    [first value/time]
 ]
 10
 ```
@@ -12471,19 +12954,78 @@ print switch type?/word value [
 ## TYPES-OF
 [[ body-of reflect spec-of title-of values-of words-of ]]
 
-No description provided.
+```rebol
+>> spec-of :to-radians
+== [
+    "Converts degrees to radians"
+    degrees [integer! decimal!] "Degrees to convert"
+]
+
+>> types-of :to-radians
+== [make typeset! [integer! decimal!]]
+```
 
 ------------------------------------------------------------------
 ## TYPESET?
 
-No description provided.
+```rebol
+>> typeset? any-string!
+== #(true)
+
+>> typeset? string!
+== #(false)
+```
 
 ------------------------------------------------------------------
 ## UNBIND
+[[ bind context? ]]
+
+```rebol
+>> a: 1 b: [a a]
+== [a a] ;; words inside the block are bound
+
+>> not none? context? first b
+== #(true)
+
+>> reduce b
+== [1 1] ;; and so have the value
+
+>> unbind b
+== [a a]
+
+>> context? first b
+== #(none)
+
+>> reduce b
+
+** Script error: a word is not bound to a context
+```
+
 ------------------------------------------------------------------
 ## UNDIRIZE
+[[ dirize ]]
+
+```rebol
+>> undirize %some/path/
+== %some/path
+```
+
 ------------------------------------------------------------------
 ## UNFILTER
+[[ filter ]]
+
+Compression preprocessing, as used in PNG images.
+```rebol
+>> bin: #{01020304050102030405} ;; original data
+== #{01020304050102030405}
+
+>> filter bin 5 'sub
+== #{01010101010101010101} ;; data filtered for good compression
+
+>> unfilter/as #{01010101010101010101} 5 'sub
+== #{01020304050102030405} ;; original data again
+```
+
 ------------------------------------------------------------------
 ## UNHANDLE-EVENTS
 
@@ -12830,10 +13372,54 @@ use words copy/deep body
 
 ------------------------------------------------------------------
 ## USER'S
+[[ set-user ]]
+
+It can be used in the following scenario:
+```rebol
+>> set-user/n Test
+ [REBOL] Initialize user: Test
+ [REBOL] Creating a new persistent storage file: /C/Users/oldes/Rebol/.Test.safe
+Enter password:
+
+>> user's key
+== #(none) ;; Because the key has not been stored yet.
+
+>> put system/user/data 'key "secret"
+== "secret"
+
+>> user's key
+== "secret"
+
+>> set-user ;; Removes current user
+>> user's key
+== #(none) ;; Because there is no user now
+
+>> set-user Test
+ [REBOL] Initialize user: Test
+Enter password:
+
+>> user's key
+== "secret"
+```
+
 ------------------------------------------------------------------
 ## UTF?
+[[ invalid-utf? ]]
 
-No description provided.
+```rebol
+>> utf? #{FEFF005700720069007400650072}
+== 16
+
+>> utf? #{FFFE570072006900740065007200}
+== -16
+
+>> utf? #{fffe0000650000007300000063000000}
+== -32
+
+>> utf? #{EFBBBFC3A4C3B6C3BC}
+== 8
+```
+
 
 ------------------------------------------------------------------
 ## UTYPE?
@@ -12848,104 +13434,65 @@ The `value?` function returns true if the specified `word!` has a value. It retu
 
 
 ```rebol
-test: 1234
-value? 'test
-true
+>> value? 'system
+== #(true)
 
-value? 'not-defined
-false
+>> value? 'not-defined
+== #(false)
 ```
 
 The word can be passed as a literal or as the result of other operations.
 
 
 ```rebol
-value? first [test this]
-true
+>> value? first [system not-defined]
+== #(true)
 
-value? second [test this]
-false
+>> value? second [system not-defined]
+== #(false)
 ```
 
 ------------------------------------------------------------------
 ## VALUES-OF
 [[ body-of reflect spec-of title-of types-of words-of ]]
 
-No description provided.
+```rebol
+>> values-of #[a: 1 b: 2]
+== [1 2]
+
+>> values-of object [a: 1 b: 2]
+== [1 2]
+```
 
 ------------------------------------------------------------------
 ## VECTOR?
 
-No description provided.
+```rebol
+>> vector? #(uint8! 3)
+== #(true)
+
+>> vector? [1 2 3]
+== #(false)
+```
 
 ------------------------------------------------------------------
 ## VERSION
+[[ about license ]]
+
+```rebol
+>> version
+== {Rebol/Bulk 3.18.3 (9-Mar-2025/22:36 UTC)
+Copyright (c) 2012 REBOL Technologies
+Copyright (c) 2012-2025 Rebol Open Source Contributors
+Source:       https://github.com/Oldes/Rebol3
+}
+```
+
 ------------------------------------------------------------------
 ## VIEW
 
-The view function creates and updates windows. It takes a face
-as its argument. The contents of the window is determined from a
-face that holds  a block of the graphical objects. The window
-face is normally created with the LAYOUT function, but faces can
-be constructed directly from face objects and displayed as well.
+NOTE: GUI system is only partially supported in this Rebol version!
 
-The example below opens a window and displays some text and a
-button.
-
-
-```rebol
-view layout [
-    h2 "The time is currently:"
-    h3 form now
-    button "Close" [unview]
-]
-```
-
-The position and size of the window is determined from the  face
-to be displayed.  In the example above, the size of the window
-is automatically computed by the LAYOUT function. The window is
-shown in the default position in the upper left area of the
-screen.
-
-The window's caption will be default be the title of the script
-that is being run.  To provide a different caption, use the
-/title refinement and a string.
-
-
-```rebol
-view/title layout [h1 "Window"] "A Window"
-```
-
-The first use of view within an application is special. It
-displays the window and initializes the graphical interface
-system. Subsequent calls to VIEW update the window, they do not
-create new windows unless the /new refinement is provided.
-
-
-```rebol
-view layout [
-    button "Change" [
-        view layout [button "Stop" [unview]]
-    ]
-]
-```
-
-The first call to the VIEW function will not return immediately.
-At that point your code becomes event driven, calling the
-functions associated with various faces. While the first call to
-VIEW remains active, any other calls to VIEW will return
-immediately. The first call will return only after all windows
-have been closed.
-
-Additionally, calls to view can specify options, such as whether
-the window has borders and is resizable.  Single options are
-provided as a word and multiple options are specified in a block.
-
-
-```rebol
-out: layout [vh1 "This is a window."]
-view/options out [resize no-title]
-```
 
 ------------------------------------------------------------------
 ## WAIT
@@ -12988,7 +13535,7 @@ The `what` function lists globally exported functions and their titles or argume
 For example:
 
 
-```rebol
+```text
 >> what
 ...
 about               Information about REBOL
@@ -13005,7 +13552,7 @@ alias               Creates an alternate spelling for a word.
 To see function arguments use:
 
 
-```rebol
+```text
 >> what/args
 ...
 about                 []
@@ -13025,20 +13572,33 @@ To see a list of functions for a specific module, provide the module name:
 
 
 ```rebol
-what module-name
+>> what/args help
+?               ['word /into string]
+a-an            [s]
+about           []
+dot             [value]
+dump-obj        [obj /weak /match pattern /not-none]
+form-pad        [val size]
+form-type       [value]
+form-val        [val]
+help            ['word /into string]
+license         []
+list-codecs     []
+out-description [des]
+output          [value]
+pad             [val size]
+source          ['word]
+usage           []
+what            ['name /args]
 ```
 
 ------------------------------------------------------------------
 ## WHAT-DIR
 [[ change-dir make-dir list-dir ]]
 
-Returns the value of system/script/path, the default
-directory for file operations.
-
-
 ```rebol
-print what-dir
-/C/REBOL/3.0/docs/scripts/
+>> what-dir
+== %/C/Users/oldes/Rebol/
 ```
 
 ------------------------------------------------------------------
@@ -13161,6 +13721,19 @@ No description provided.
 
 ------------------------------------------------------------------
 ## WRAP
+
+```rebol
+>> a: 1 ;; Having some value....
+== 1
+
+>> wrap load "a: 2" ;; Evaluate some code which is
+                    ;; using the same value name
+== 2
+
+>> a
+== 1 ;; Original value was not changed
+```
+
 ------------------------------------------------------------------
 ## WRITE
 [[ read open close load save form ]]
@@ -13264,11 +13837,11 @@ Check the value of a word is zero.
 
 
 ```rebol
-print zero? 50
-false
+>> zero? 50
+== #(false)
 
-print zero? 0
-true
+>> zero? 0
+== #(true)
 ```
 
 ------------------------------------------------------------------
