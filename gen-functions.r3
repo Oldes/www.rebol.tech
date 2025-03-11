@@ -18,9 +18,54 @@ esc-html: function/with [txt][
 	normal: complement charset "<>"
 ]
 
+ansi-to-html: function/with [text][
+	out: copy ""
+	end: clear []
+	parse text [ collect into out any [
+		"^[[" copy val: [
+			(cls: clear "")
+			any [copy num: 1 3 digit (append cls ajoin ["ansi" num sp]) opt #";"]
+			#"m"
+		] keep (
+			either find ["m" "0m"] val [
+				ajoin take/all end
+			][
+				append end </span>
+				ajoin [{<span class="} trim/tail cls {">}]
+			]
+		)
+		| keep not-esc
+		| skip
+	]]
+	out
+][
+	digit: system/catalog/bitsets/numeric
+	not-esc: complement charset "^[" 
+]
+
+gen-code-output: function[source][
+	code: transcode source
+	bind code lib
+	echo %.temp
+	try/with code :print
+	echo none
+	out: read/string %.temp
+	result: ajoin [
+		{<div class="example-code"><pre class="rebol-block"><code class="rebol">>> }
+		esc-html source {</code></pre></div>}
+	]
+	unless empty? out [
+		append result ajoin [
+			{^/<div class="example-code"><pre class="text-block"><code>}
+			ansi-to-html esc-html out {</code></pre></div>}
+		]
+	]
+	delete %.temp
+	result
+]
 
 as-arg: func[val][ajoin [{<span class="rebarg">} esc-html val </span>]]
-as-func: func[name][ ajoin [{<a href="#} name {">} esc-html name {</a>}]]
+as-func: func[name][ ajoin [{<a href="#} name {">} esc-html name </a>]]
 
 load-func-details: function/with [data][
 	if file? data [data: read/string data]
@@ -37,7 +82,7 @@ load-func-details: function/with [data][
 			  )
 			  opt [
 			  	"[[" copy see-also: to "]]" thru LF (
-			  		see-also: transcode see-also
+			  		see-also: sort transcode see-also
 			  	)
 			  	|
 			  	"@@ " copy temp: thru LF to "^/--" (
@@ -50,10 +95,14 @@ load-func-details: function/with [data][
 			  		trim/head/tail code
 			  		if type != "html" [
 			  			detab trim/head/tail code
-			  			code: ajoin [
-			  				{<div class="example-code"><pre class="} type {-block"><code class="} type {">}
-			  				esc-html code {</code></pre></div>}
-			  			]
+			  			either type == "code" [
+			  				code: gen-code-output code
+			  			][
+				  			code: ajoin [
+				  				{<div class="example-code"><pre class="} type {-block"><code class="} type {">}
+				  				esc-html code {</code></pre></div>}
+				  			]
+				  		]
 			  		]
 			  		emit code
 			  	)
@@ -100,9 +149,8 @@ load-func-details: function/with [data][
 	]
 	not-tick: complement charset "`"
 	emit-text: func[val][
-		? val
 		detail: tail detail
-		probe parse val [collect into detail any [
+		parse val [collect into detail any [
 			#"`" copy tmp: some not-tick opt #"`" keep (
 				ajoin either/only #"!" == last tmp [
 					{<span class="datatype">} tmp </span>
@@ -110,7 +158,7 @@ load-func-details: function/with [data][
 			)
 			| keep some not-tick
 		]]
-		? detail
+		;? detail
 	]
 ]
 

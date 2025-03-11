@@ -7,23 +7,8 @@
 [[ license usage help ]]
 
 Displays REBOL title and version information on the REBOL console.
-```text
->> about
-╔══════════════════════════════════════════════════════════════════════════╗
-║                                                                          ║
-║  REBOL/Bulk 3.18.3 (Oldes branch)                                        ║
-║                                                                          ║
-║    Copyright  2012 REBOL Technologies                                    ║
-║               2012-2024 Rebol Open Source Contributors                   ║
-║               Apache 2.0 License, see LICENSE.                           ║
-║    Website    https://github.com/Oldes/Rebol3                            ║
-║                                                                          ║
-║    Platform   Windows | x64-pc-win32-pe | cl                             ║
-║    Build      19-Feb-2025/13:20                                          ║
-║                                                                          ║
-║    Home       C:\Users\oldes\Rebol\                                      ║
-║                                                                          ║
-╚══════════════════════════════════════════════════════════════════════════╝
+```code
+about
 ```
 
 ------------------------------------------------------------------
@@ -99,7 +84,7 @@ When adding values of different datatypes, the values must be compatible. Auto c
 
 ------------------------------------------------------------------
 ## AJOIN
-[[ join rejoin form reform append ]]
+[[ join rejoin form reform append combine ]]
 
 The `join` and `rejoin` functions return the same datatype as their first element, be it a `string!`, `file!`, `binary!`, `tag!`, `email!` or whatever. However, there are times when you just want to construct a `string!`, and that's the purpose of `ajoin`.
 
@@ -2053,6 +2038,22 @@ The keep function has a refinement /only to append blocks as blocks to the outpu
 
 ------------------------------------------------------------------
 ## COMBINE
+[[ compose rejoin reform ajoin ]]
+
+```rebol
+>> combine [a b c]
+== "abc"
+
+>> combine [a #(none) b () c #(unset)]
+== "abc"
+
+>> combine/with [a #(none) b () c #(unset)] #"|"
+== "a|b|c"
+
+>> combine [{abc} (if false {def}) {ghi}]
+== "abcghi"
+```
+
 ------------------------------------------------------------------
 ## COMMAND?
 ------------------------------------------------------------------
@@ -2103,7 +2104,7 @@ it goes
 ## COMPLEMENT?
 ------------------------------------------------------------------
 ## COMPOSE
-[[ reduce append repend rejoin insert ]]
+[[ reduce append repend rejoin insert combine ]]
 
 The `compose` function builds a block of values, evaluating `paren!` expressions and inserting their results. It is a very useful method of building new blocks.
 
@@ -5169,103 +5170,23 @@ The `help` function provides information about words and values.
 
 Type `help` or `?` at the console prompt to view a summary of help:
 
-
-```rebol
->> help
-To use HELP, supply a word or value as an argument:
-
-    help insert
-
-Also, the ? is a shortcut for help:
-
-    ? insert
-    ? system
-    ? system/options
-
-To search all internal help strings and values:
-
-    help "insert"
-    help to-   ; (a partial word)
-
-To see detailed online web docs for a function:
-
-    help/doc forall
-
-For all on-line web documentation, just type:
-
-    docs
-
-To see words with values of a specific datatype:
-
-    help native!
-    help function!
-    help datatype!
-
-Other debug functions:
-
-    ? self - show words and values (in context)
-    ?? - display a variable and its value
-    probe - print a value (molded)
-    source func - show source code of func
-    trace - trace evaluation steps
-    what - show a list of known functions
-    why? - explain more about last error (via web) 
-
-Other information:
-
-    chat - open DevBase developer forum/BBS
-    docs - open DocBase document wiki website
-    bugs - open CureCore bug database website
-    demo - run demo launcher (from rebol.com)
-    about - see general product info
-    upgrade - check for newer versions
-    changes - show changes for recent version
-    install - install (when applicable)
-    license - show user license
-    usage - view program options
+```code
+help
 ```
 
 
 ###### Help about a Function
 If you provide a function word as an argument, `help` prints all of the information related to that function.
 
-For instance, if you type:
-
-
-```rebol
->> help insert
-```
-
-you will see:
-
-
-```rebol
-USAGE:
-    INSERT series value /part range /only /dup count
-
-DESCRIPTION:
-     Inserts into a series and returns the series after the insert. (Modifies)
-     INSERT is an action value.
-
-ARGUMENTS:
-     series -- Series at point to insert (series! port! map! gob! object! bitset! port!)
-     value -- The value to insert (any-type!)
-
-REFINEMENTS:
-     /part -- Limits to a given length or position.
-         length (number! series! pair!)
-     /only -- Only inserts a block as a single value (not the contents of the block)
-     /dup -- Duplicates the insert a specified number of times.
-         count (number! pair!)
+For example:
+```code
+help insert
 ```
 
 For more detailed information, you can use the doc refinement:
-
-
 ```rebol
 >> help/doc insert
 ```
-
 to open the web browser to the page related to that function.
 
 
@@ -5273,43 +5194,22 @@ to open the web browser to the page related to that function.
 All datatypes are explained through help.
 
 To obtain a list of all REBOL datatypes, type:
-
-
-```rebol
->> ? datatype!
-
-Found these related words:
-    action!         datatype! datatype native function (standard polymorphic)
-    binary!         datatype! string series of bytes
-    bitset!         datatype! set of bit flags
-    block!          datatype! series of values
-    char!           datatype! 8bit and 16bit character
-    ...
+```code
+? datatype!
 ```
 
 For help on a specific datatype:
-
-
-```rebol
+```code
 help integer!
-integer! is a datatype
-It is defined as a 64 bit integer
-It is of the general type scalar
-Found these related words:
-   zero            integer!  0
 ```
 
 To list all words that are function! datatypes, type:
 
-
 ```rebol
 >> ? function!
 ```
-
 and the result would be:
-
-
-```rebol
+```text
 Found these related words:
     ?               function! Prints information about words and values.
     ??              function! Debug print a word, path, or block of such, f...
@@ -5339,7 +5239,7 @@ The `help` function also finds words that contain a specified string. For exampl
 and the result will be:
 
 
-```rebol
+```text
 Found these related words:
     ??              function! Debug print a word, path, or block of such, f...
     any-path!       typeset!  [path! set-path! get-path! lit-path!]
@@ -5357,20 +5257,8 @@ Found these related words:
 ###### Help on Objects
 If you use `help` on an object, it will list a summary of the object's fields.
 
-
-```rebol
->> ? system
-SYSTEM is an object of value:
-    product         word!     core
-    version         tuple!    2.100.90.3.1
-    build           date!     14-Oct-2009/22:40:04
-    license         string!   {Alpha prototype version. For testing only. U...
-    catalog         object!   [datatypes actions natives errors reflectors ...
-    contexts        object!   [root system exports user]
-    state           object!   [note last-error]
-    intrinsic       object!   [do make-module make-port parse-url begin]
-    modules         block!    length: 3
-    ...
+```code
+? system
 ```
 
 
@@ -6181,7 +6069,7 @@ Returns the REBOL end user license agreement for the currently
 running version of REBOL.
 
 
-```rebol
+```code
 license
 ```
 
@@ -8693,7 +8581,7 @@ Or used on function:
 
 ------------------------------------------------------------------
 ## REFORM
-[[ form mold remold join rejoin ]]
+[[ form mold remold join rejoin combine ]]
 
 Identical to FORM but reduces its argument first.
 Spaces are inserted between each value.
@@ -8711,7 +8599,7 @@ probe form ["the time is:" now/time]
 ## REGISTER-CODEC
 ------------------------------------------------------------------
 ## REJOIN
-[[ join ajoin form reform ]]
+[[ join ajoin form reform combine ]]
 
 Similar to `join` but accepts only one argument, the
 block (which will be reduced first). No spaces are
@@ -10305,25 +10193,9 @@ probe sort [1x2 2x1 0x0 1x0 0x1 1x1]
 
 The `source` function displays the source code for REBOL defined functions.
 
-For example, type:
-
-
-```rebol
+For example:
+```code
 source join
-```
-
-The source to the `join` function will be returned:
-
-
-```rebol
-join: make function! [[
-    "Concatenates values."
-    value "Base value"
-    rest "Value or block of values"
-][
-    value: either series? :value [copy value] [form :value]
-    repend value :rest
-]]
 ```
 
 REBOL defined functions include the mezzanine functions (built-in interpreted functions) and user defined functions. Native functions have no source to display.
@@ -10332,7 +10204,14 @@ REBOL defined functions include the mezzanine functions (built-in interpreted fu
 ## SPEC-OF
 [[ body-of reflect title-of types-of values-of words-of ]]
 
-Description is needed.
+```rebol
+>> spec-of :join
+== [
+    "Concatenates values."
+    value "Base value"
+    rest "Value or block of values"
+]
+```
 
 ------------------------------------------------------------------
 ## SPEED?
@@ -10350,51 +10229,38 @@ up into pieces of that size.
 
 
 ```rebol
-probe split "1234567812345678" 4
-["1234" "5678" "1234" "5678"]
-["1234" "5678" "1234" "5678"]
+>> split "1234567812345678" 4
+== ["1234" "5678" "1234" "5678"]
 ```
 
 If the series can't be evenly split, the last value will be shorter.
-
-
 ```rebol
-probe split "1234567812345678" 3
-["123" "456" "781" "234" "567" "8"]
-["123" "456" "781" "234" "567" "8"]
+>> split "1234567812345678" 3
+== ["123" "456" "781" "234" "567" "8"]
 
-probe split "1234567812345678" 5
-["12345" "67812" "34567" "8"]
-["12345" "67812" "34567" "8"]
+>> split "1234567812345678" 5
+== ["12345" "67812" "34567" "8"]
 ```
 
 
 ####### Split into N segments:
-Given an integer as dlm, and using the /into refinement, it breaks
+Given an integer as dlm, and using the /parts refinement, it breaks
 the series into n pieces, rather than pieces of length n.
-
-
 ```rebol
-probe split/into [1 2 3 4 5 6] 2
-[[1 2 3] [4 5 6]]
-[[1 2 3] [4 5 6]]
+>> split/parts [1 2 3 4 5 6] 2
+== [[1 2 3] [4 5 6]]
 
-probe split/into "1234567812345678" 2
-["12345678" "12345678"]
-["12345678" "12345678"]
+>> split/parts "1234567812345678" 2
+== ["12345678" "12345678"]
 ```
 
 If the series can't be evenly split, the last value will be longer.
-
-
 ```rebol
-probe split/into "1234567812345678" 3
-["12345" "67812" "345678"]
-["12345" "67812" "345678"]
+>> split/parts "1234567812345678" 3
+== ["12345" "67812" "345678"]
 
-probe split/into "1234567812345678" 5
-["123" "456" "781" "234" "5678"]
-["123" "456" "781" "234" "5678"]
+>> split/parts "1234567812345678" 5
+== ["123" "456" "781" "234" "5678"]
 ```
 
 
@@ -10402,44 +10268,32 @@ probe split/into "1234567812345678" 5
 If dlm is a block containing only integer values, those values 
 determine the size of each piece returned. That is, each piece
 can be a different size.
-
-
 ```rebol
-probe split [1 2 3 4 5 6] [2 1 3]
-[[1 2] [3] [4 5 6]]
-[[1 2] [3] [4 5 6]]
+>> split [1 2 3 4 5 6] [2 1 3]
+== [[1 2] [3] [4 5 6]]
 
-probe split "1234567812345678" [4 4 2 2 1 1 1 1]
-["1234" "5678" "12" "34" "5" "6" "7" "8"]
-["1234" "5678" "12" "34" "5" "6" "7" "8"]
+>> split "1234567812345678" [4 4 2 2 1 1 1 1]
+== ["1234" "5678" "12" "34" "5" "6" "7" "8"]
 
-probe split first [(1 2 3 4 5 6 7 8 9)] 3
-[[1 2 3] [4 5 6] [7 8 9]]
-[(1 2 3) (4 5 6) (7 8 9)]
+>> split first [(1 2 3 4 5 6 7 8 9)] 3
+== [(1 2 3) (4 5 6) (7 8 9)]
 
-probe split #{0102030405060708090A} [4 3 1 2]
-[#{01020304} #{050607} #{08} #{090A}]
-[#{01020304} #{050607} #{08} #{090A}]
+>> split #{0102030405060708090A} [4 3 1 2]
+== [#{01020304} #{050607} #{08} #{090A}]
 ```
 
 If the total of the dlm sizes is less than the length of the series,
 the extra data will be ignored.
-
-
 ```rebol
-probe split [1 2 3 4 5 6] [2 1]
-[[1 2] [3]]
-[[1 2] [3]]
+>> split [1 2 3 4 5 6] [2 1]
+== [[1 2] [3]]
 ```
 
 If you have extra dlm sizes after the series data is exhausted, you
 will get empty values.
-
-
 ```rebol
-probe split [1 2 3 4 5 6] [2 1 3 5]
-[[1 2] [3] [4 5 6] []]
-[[1 2] [3] [4 5 6] []]
+>> split [1 2 3 4 5 6] [2 1 3 5]
+== [[1 2] [3] [4 5 6] []]
 ```
 
 If the last dlm size would return more data than the series contains,
@@ -10447,55 +10301,41 @@ it returns all the remaining series data, and no more.
 
 
 ```rebol
-probe split [1 2 3 4 5 6] [2 1 6]
-[[1 2] [3] [4 5 6]]
-[[1 2] [3] [4 5 6]]
+>> split [1 2 3 4 5 6] [2 1 6]
+== [[1 2] [3] [4 5 6]]
 ```
 
 Negative values can be used to skip in the series without returning
 that part:
-
-
 ```rebol
-probe split [1 2 3 4 5 6] [2 -2 2]
-[[1 2] [5 6]]
-[[1 2] [5 6]]
+>>  split [1 2 3 4 5 6] [2 -2 2]
+== [[1 2] [5 6]]
 ```
 
 
 ####### Simple delimiter splitting:
 Char or any-string values can be used for simple splitting, much as
-you would with `[bad-link:functions/parseall.txt]`, but with different behavior for strings
+you would with "parse", but with different behavior for strings
 that have embedded quotes.
-
-
 ```rebol
-probe split "abc,de,fghi,jk" #","
-["abc" "de" "fghi" "j"]
-["abc" "de" "fghi" "jk"]
+>> split "abc,de,fghi,jk" #","
+== ["abc" "de" "fghi" "jk"]
 
-probe split "abc<br>de<br>fghi<br>jk" <br>
-["abc" "de" "fghi" "j"]
-["abc" "de" "fghi" "jk"]
+>> split "abc<br>de<br>fghi<br>jk" <br>
+== ["abc" "de" "fghi" "jk"]
 ```
 
 If you want to split at more than one character value, you can use
-a `[bad-link:functions/charsetbitset.txt]`.
-
-
+a charset.
 ```rebol
-probe split "abc|de/fghi:jk" charset "|/:"
-["abc" "de" "fghi" "j"]
-["abc" "de" "fghi" "jk"]
+>> split "abc|de/fghi:jk" charset "|/:"
+== ["abc" "de" "fghi" "jk"]
 ```
 
 Note that for greater control, you can use simple `parse` rules:
-
-
 ```rebol
-probe split "abc     de fghi  jk" [some #" "]
-["abc" "de" "fghi" "j"]
-["abc" "de" "fghi" "jk"]
+>> split "abc     de fghi  jk" [some #" "]
+== ["abc" "de" "fghi" "jk"]
 ```
 
 ------------------------------------------------------------------
@@ -13329,7 +13169,7 @@ Displays REBOL command line arguments, including
 options and examples.
 
 
-```rebol
+```code
 usage
 ```
 
@@ -13570,26 +13410,8 @@ Also see the `help` function which allows searching for functions.
 ###### Module Export Lists
 To see a list of functions for a specific module, provide the module name:
 
-
-```rebol
->> what/args help
-?               ['word /into string]
-a-an            [s]
-about           []
-dot             [value]
-dump-obj        [obj /weak /match pattern /not-none]
-form-pad        [val size]
-form-type       [value]
-form-val        [val]
-help            ['word /into string]
-license         []
-list-codecs     []
-out-description [des]
-output          [value]
-pad             [val size]
-source          ['word]
-usage           []
-what            ['name /args]
+```code
+what/args help
 ```
 
 ------------------------------------------------------------------
@@ -13882,6 +13704,7 @@ Check the value of a word is zero.
 ## ++
 ------------------------------------------------------------------
 ## ?
+@@ HELP
 ------------------------------------------------------------------
 ## ??
 ------------------------------------------------------------------

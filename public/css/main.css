@@ -179,3 +179,21 @@ fieldset {
     padding-block: 0.35em 0.625em;
     padding-inline: 0.75em;
 }
+
+.ansi1 {filter: brightness(1.5);}
+.ansi30 {color: black;}
+.ansi31 {color: #800000;}
+.ansi32 {color: #008000;}
+.ansi33 {color: #808000;}
+.ansi34 {color: #000080;}
+.ansi35 {color: #800080;}
+.ansi36 {color: #008080;}
+.ansi37 {color: #c0c0c0;}
+.ansi100 { background-color: #808080;}
+.ansi101 { background-color: red; }
+.ansi102 { background-color: lime; }
+.ansi103 { background-color: yellow; }
+.ansi104 { background-color: blue; }
+.ansi105 { background-color: magenta; }
+.ansi106 { background-color: cyan; }
+.ansi107 { background-color: white; }
