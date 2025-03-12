@@ -4,11 +4,15 @@
 		--color-code-foreground: #c5c8c6;
 		--color-highlight-on-target: inherit;
         --color-fieldset-border: #555;
+        --color-background-tr-odd: #231d1d;
+        --color-background-tr-even: #1d1717;
 	}
 	body[data-theme="light"] {
 		--color-code-background: #202020;
 		--color-code-foreground: #c5c8c6;
 		--color-highlight-on-target: inherit;
+        --color-background-tr-odd: #fcfcfc;
+        --color-background-tr-even: #f4f4f4;
 	}
 	@media (prefers-color-scheme: dark) {
 		body:not([data-theme="light"]) {
@@ -16,6 +20,8 @@
 			--color-code-foreground: #c5c8c6;
 			--color-highlight-on-target: inherit;
 			--color-fieldset-border: #555;
+        	--color-background-tr-odd: #231d1d;
+        	--color-background-tr-even: #1d1717;
 		}
 	}
 	html {
@@ -25,6 +31,17 @@
 		line-height:normal;
 	}
 }
+.doctable {
+	background-color: var(--color-code-background);
+	border-spacing: 1px 1px;
+	border-color: var(--color-background-border);
+	width: 100%;
+}
+.doctable th {background-color: var(--color-background-item); text-align: left; padding: 0.5em 1em}
+.doctable td {padding: 0.5em 1em}
+.doctable tr {border-bottom: 3px solid transparent; background-color: var(--color-background-tr-even);}
+.doctable tr:nth-child(odd) {background-color: var(--color-background-tr-odd);}
+
 
 .rebarg{color:#0fc70f}
 

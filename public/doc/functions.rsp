@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Rebol3 Functions Dictionary</title>
-	<link rel="stylesheet" href="/css/furo.css">
-	<link rel="stylesheet" href="/css/hybrid.min.css">
-	<link rel="stylesheet" href="/css/main.css?v=5">
+	<link rel="stylesheet" href="../css/furo.css">
+	<link rel="stylesheet" href="../css/hybrid.min.css">
+	<link rel="stylesheet" href="../css/main.css?v=7">
 </head>
 
 <body data-theme="auto">
@@ -82,8 +82,7 @@
 <h1>Rebol3 Functions Dictionary</h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Some function descriptions are sourced from the <a href="https://www.rebol.com/r3/docs/functions.html">old Rebol3 documentation</a> project and may be outdated.</p>
-<p>The function list was generated from Rebol/Bulk version 3.18.3 on Windows.</p>
+<p>Some function descriptions are sourced from the <a href="https://www.rebol.com/r3/docs/functions.html">old Rebol3 documentation</a> project and may be outdated. If you notice any outdated or incorrect information, please <a href="https://github.com/Oldes/www.rebol.tech">report it on GitHub</a>.</p>
 </div>
 <%@ %functions.inc %>
 				</article>
@@ -110,8 +109,8 @@
 	</div>
 </div>
 
-<script src="/js/highlight.min.js"></script>
-<script src="/js/furo.js?v=3"></script>
+<script src="../js/highlight.min.js"></script>
+<script src="../js/furo.js?v=3"></script>
 <script>
 	const headers = document.querySelectorAll("#furo-main-content h2");
 	const toc = document.getElementById("toc");
@@ -131,7 +130,7 @@
 	}
 </script>  
 <script type="module">
-import rebol from '/js/rebol.js';
+import rebol from '../js/rebol.js';
 hljs.registerLanguage('rebol', rebol);
 hljs.configure({
   languages: ['rebol'], //specify the languages you want to highlight.

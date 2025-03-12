@@ -3,7 +3,7 @@
 		<div class="sidebar-sticky">
 			<a class="sidebar-brand muted-link" href="/">
 			<div class="sidebar-logo-container">
-				<img src="/rebol-icon.svg" width="30" height="30" class="bi pe-none me-2" alt="">
+				<img src="../rebol-icon.svg" width="30" height="30" class="bi pe-none me-2" alt="">
 				<span class="fs-5 fw-bold ">Oldes' Rebol3</span>
 			</div>
 			</a>
