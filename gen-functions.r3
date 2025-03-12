@@ -126,14 +126,10 @@ load-func-details: function/with [data][
 				| "#####" some SP copy temp: to LF skip (emit ajoin [LF <h5> temp </h5>])
 				| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> temp </h4>])
 				| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> temp </h3>])
-				
-				
-				
-				
 				| LF (emit "")
 			  	| copy temp: thru LF (
 			  		unless p? [append detail "<p>^/" p?: true]
-			  		emit-text temp
+			  		append detail md-text temp
 			  	)
 			  ]
 		]
@@ -147,22 +143,27 @@ load-func-details: function/with [data][
 		if p? [append detail "</p>^/" p?: false]
 		append detail val
 	]
-	not-tick: complement charset "`"
-	emit-text: func[val][
-		detail: tail detail
-		parse val [collect into detail any [
-			#"`" copy tmp: some not-tick opt #"`" keep (
+	not-spec: complement charset "[]\`"
+	url-text: complement charset "]^/^M"
+	url-href: complement charset ")^/^M"
+	md-text: func[val /local out txt href tmp][
+		;; this is very simplified Markdown conversion of links and inline code
+		out: copy ""
+		parse val [collect into out any [
+			#"`" copy tmp: some not-spec opt #"`" keep (
 				ajoin either/only #"!" == last tmp [
 					{<span class="datatype">} tmp </span>
 				][	{<a href="#} tmp {">} tmp </a>]
 			)
-			| keep some not-tick
+			| #"\" keep skip ;; escape char
+			| #"[" copy txt: some url-text "](" copy href: some url-href #")" keep (
+				ajoin [{<a href="} href {">} md-text txt </a>]
+			)
+			| keep some not-spec
 		]]
-		;? detail
+		out
 	]
 ]
-
-;probe load-func-details test quit
 
 get-func-info: function[key value][
 ;? key
