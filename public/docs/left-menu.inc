@@ -18,6 +18,7 @@
 					<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 					<ul>
 						<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+						<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors</a></li>
 						<!--<li class="toctree-l1"><a class="reference internal" href="get_started.html">Getting Started</a></li>-->
 					</ul>
 					<p class="caption" role="heading"><span class="caption-text">Development</span></p>

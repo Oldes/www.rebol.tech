@@ -8080,11 +8080,7 @@ Note: Shell shortcut for `what-dir`.
 
 ------------------------------------------------------------------
 ## Q
-[[ halt exit quit ]]
-
-Shortcut for QUIT.
-
-See QUIT for details.
+@@ QUIT
 
 ------------------------------------------------------------------
 ## QUERY
@@ -8137,6 +8133,18 @@ Note that not all operating systems environments may support this quit code.
 
 ------------------------------------------------------------------
 ## QUOTE
+
+```rebol
+>> quote foo
+== foo
+```
+Without `quote` it throws an error:
+```rebol
+>> foo
+
+** Script error: foo has no value
+```
+
 ------------------------------------------------------------------
 ## RANDOM
 [[ checksum now ]]

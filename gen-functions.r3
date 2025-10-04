@@ -245,7 +245,6 @@ to-rebdoc-name: function/with[name][
 			| change #"/" "-div"
 		]
 		| skip
-
 	]]
 	if #"-" == name/1 [insert name #"|"]
 	name
@@ -260,8 +259,8 @@ emit: func[data][
 ]
 
 emit-funcs-html: does [
-	details: load-func-details %public/doc/functions.md
-	? details
+	details: load-func-details %public/docs/functions.md
+	;? details
 	data: make block! 1000
 	foreach [key value] system/contexts/lib [
 		if any-function? :value [
@@ -287,7 +286,7 @@ emit-funcs-html: does [
 			emit [<p> spec/description </p>]
 			emit [{
 <h6>Usage:</h6>
-<pre class="usage fs-5">} spec/usage {</span></pre>}]
+<pre class="usage fs-6">} spec/usage {</span></pre>}]
 					if any [spec/arguments spec/refinements] [
 					emit {^/<pre class="help">}
 					if spec/arguments [
@@ -316,8 +315,12 @@ emit-funcs-html: does [
 		emit {</section>}
 		;break
 	]
-	write %public/doc/functions.inc out
+	write %public/docs/functions.inc out
 	out
+]
+
+emit-errors: function[][
+
 ]
 
 emit-funcs-html

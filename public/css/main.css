@@ -214,3 +214,13 @@ fieldset {
 .ansi105 { background-color: magenta; }
 .ansi106 { background-color: cyan; }
 .ansi107 { background-color: white; }
+
+@media(max-width:67em){
+	
+}
+
+@media print {
+	.skip-to-content,.see-also {display:none}
+	html {font-size: 0.75rem!important}
+	pre.help {font-size: 0.85rem!important;overflow-x: inherit}
+}
