@@ -224,7 +224,7 @@ Displays REBOL title and version information on the REBOL console.
 <div class="example-code"><pre class="rebol-block"><code class="rebol">>> about</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>╔══════════════════════════════════════════════════════════════════════════╗
 ║<span class="ansi30 ansi107">                                                                          </span>║
-║<span class="ansi30 ansi107">  <span class="ansi35">REBOL/Bulk 3.20.0 (Oldes branch)                                        <span class="ansi30 ansi107"></span></span></span>║
+║<span class="ansi30 ansi107">  <span class="ansi35">REBOL/Bulk 3.21.1 (Oldes branch)                                        <span class="ansi30 ansi107"></span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Copyright  <span class="ansi31">2012 REBOL Technologies                                    <span class="ansi30"></span></span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">2012-2025 Rebol Open Source Contributors                   <span class="ansi30"></span></span></span></span>║
@@ -232,7 +232,7 @@ Displays REBOL title and version information on the REBOL console.
 ║<span class="ansi30 ansi107">    <span class="ansi32">Website    <span class="ansi31">https://github.com/Oldes/Rebol3                            <span class="ansi30"></span></span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Platform   <span class="ansi31">Windows | x64-pc-win32-pe | cl                             <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Build      <span class="ansi31">4-Oct-2025/19:17                                           <span class="ansi30"></span></span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Build      <span class="ansi31">9-Jan-2026/11:52                                           <span class="ansi30"></span></span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Home       <span class="ansi31">C:\Users\oldes\                                            <span class="ansi30"></span></span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Data       <span class="ansi31">C:\Users\oldes\Rebol\                                      <span class="ansi30"></span></span></span></span>║
@@ -4384,6 +4384,8 @@ Note that when reading from disk, READ/STRING provides the same functionality.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   block       [<span class="types">block!</span>] 
+<span class="tit">REFINEMENTS:</span>
+  /only       Don't call recycle
 </pre>
 
 <h6>Description:</h6>
@@ -4509,6 +4511,21 @@ Use the /size refinement for other sizes such as eight:
 <span class="tit">ARGUMENTS:</span>
   g           [<span class="types">binary!</span>] Generator
   p           [<span class="types">binary!</span>] Field prime
+</pre>
+</section>
+
+<hr>
+<section id="did">
+ <a name="did"></a>
+ <h2>DID<a class="headerlink" href="#did" title="Link to this heading">¶</a></h2>
+<p>Returns TRUE if the given value is truthy (not NONE or FALSE).</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">did <span class="rebarg">value</span></span></pre>
+
+<pre class="help">
+<span class="tit">ARGUMENTS:</span>
+  value       [<span class="types">any-type!</span>] Value to test
 </pre>
 </section>
 
@@ -5076,6 +5093,8 @@ Note: A debug build is required to use this function!
   /match      Include only those that match a string or datatype
    pattern     
   /not-none   Ignore NONE values
+  /count      
+   w           
 </pre>
 
 <h6>Description:</h6>
@@ -7766,7 +7785,7 @@ To obtain a list of all REBOL datatypes, type:
 It is defined as a type of datatype.
 It is of the general type <span class="ansi1 ansi32">symbol</span>.
 
-Found these related words:
+Found these 58 related words:
   <span class="ansi1 ansi32">end!           </span> datatype!  <span class="ansi32">internal marker for end of block</span>
   <span class="ansi1 ansi32">unset!         </span> datatype!  <span class="ansi32">no value returned or set</span>
   <span class="ansi1 ansi32">none!          </span> datatype!  <span class="ansi32">no value represented</span>
@@ -7834,7 +7853,7 @@ For help on a specific datatype:
 It is defined as a 64 bit integer.
 It is of the general type <span class="ansi1 ansi32">scalar</span>.
 
-Found these related words:
+Found these 1 related words:
   <span class="ansi1 ansi32">zero           </span> integer!   <span class="ansi32">0</span>
 
 </code></pre></div><p>
@@ -7882,14 +7901,14 @@ If you use <a href="#help">help</a> on an object, it will list a summary of the 
 <div class="example-code"><pre class="text-block"><code><span class="ansi1 ansi32">SYSTEM</span> is an <span class="ansi1 ansi33">object</span> of value: <span class="ansi32">
   <span class="ansi1 ansi32">product        </span></span> word!      <span class="ansi32">Bulk</span>
   <span class="ansi1 ansi32">platform       </span> word!      <span class="ansi32">Windows</span>
-  <span class="ansi1 ansi32">version        </span> tuple!     <span class="ansi32">3.20.0</span>
+  <span class="ansi1 ansi32">version        </span> tuple!     <span class="ansi32">3.21.1</span>
   <span class="ansi1 ansi32">build          </span> object!    <span class="ansi32">[os os-version abi sys arch libc vendor target compiler date git]</span>
   <span class="ansi1 ansi32">user           </span> object!    <span class="ansi32">[name data]</span>
   <span class="ansi1 ansi32">options        </span> object!    <span class="ansi32">[boot path home data modules flags script args do-arg import debug secure version...</span>
   <span class="ansi1 ansi32">catalog        </span> object!    <span class="ansi32">[datatypes actions natives handles errors reflectors boot-flags bitsets structs c...</span>
   <span class="ansi1 ansi32">contexts       </span> object!    <span class="ansi32">[root sys lib user]</span>
   <span class="ansi1 ansi32">state          </span> object!    <span class="ansi32">[note last-error last-result wait-list cookies]</span>
-  <span class="ansi1 ansi32">modules        </span> object!    <span class="ansi32">[help blend2d blurhash easing mathpresso miniaudio speak sqlite triangulate webp ...</span>
+  <span class="ansi1 ansi32">modules        </span> object!    <span class="ansi32">[help blend2d blurhash brotli deflate easing mathpresso miniaudio speak sqlite tr...</span>
   <span class="ansi1 ansi32">codecs         </span> object!    <span class="ansi32">[text markup qoi pkix der crt ppk ssh-key safe utc-time unixtime ar gzip zip tar ...</span>
   <span class="ansi1 ansi32">dialects       </span> object!    <span class="ansi32">[secure draw effect text rebcode]</span>
   <span class="ansi1 ansi32">schemes        </span> object!    <span class="ansi32">[system console callback file dir event dns tcp udp checksum crypt clipboard seri...</span>
@@ -8150,9 +8169,9 @@ if not image? img [alert "Not an image file!"]</code></pre></div>
   module      [<span class="types">any-word! file! url! string! binary! module! block!</span>] 
 <span class="tit">REFINEMENTS:</span>
   /version    
-   ver        [<span class="types">tuple!</span>] Module must be this version or greater
+   needs      [<span class="types">tuple!</span>] Module must be this version or greater
   /check      
-   sum        [<span class="types">binary!</span>] Match checksum (must be set in header)
+   hash       [<span class="types">binary!</span>] Match checksum (must be set in header)
   /no-share   Force module to use its own non-shared global namespace
   /no-lib     Don't export to the runtime library (lib)
   /no-user    Don't export to the user context
@@ -9181,8 +9200,8 @@ Returns FALSE for all other values.
 <span class="tit">ARGUMENTS:</span>
   source      [<span class="types">file! url! string! binary! block!</span>] Source or block of sources
 <span class="tit">REFINEMENTS:</span>
-  /header     Result includes REBOL header object (preempts /all)
-  /all        Load all values (does not evaluate REBOL header)
+  /header     Result includes Rebol header object (preempts /all)
+  /all        Load all values (does not evaluate Rebol header)
   /as         Override default file-type; use NONE to always load as code
    type       [<span class="types">word! none!</span>] E.g. text, markup, jpeg, unbound, etc.
 </pre>
@@ -12513,6 +12532,7 @@ No description provided.
   /ballast    Trigger for auto-recycle (memory used)
    size       [<span class="types">integer!</span>] 
   /torture    Constant recycle (for internal debugging)
+  /pools      Release empty memory pool segments
 </pre>
 
 <h6>Description:</h6>
@@ -13226,6 +13246,22 @@ replace numbers [4 5 6] ["four" "five" "six"]
 print numbers
 1 2 3 four five six 7 8 9</code></pre></div>
 <div class="see-also">See also: <a href="#change">change</a>, <a href="#insert">insert</a>, <a href="#remove">remove</a></div>
+</section>
+
+<hr>
+<section id="request-color">
+ <a name="request-color"></a>
+ <h2>REQUEST-COLOR<a class="headerlink" href="#request-color" title="Link to this heading">¶</a></h2>
+<p>Asks user to select a color.</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">request-color</span></pre>
+
+<pre class="help">
+<span class="tit">REFINEMENTS:</span>
+  /default    Default RGB color
+   color      [<span class="types">tuple!</span>] 
+</pre>
 </section>
 
 <hr>
@@ -18374,14 +18410,14 @@ make object! [
 <section id="true?">
  <a name="true?"></a>
  <h2>TRUE?<a class="headerlink" href="#true?" title="Link to this heading">¶</a></h2>
-<p>Returns true if an expression can be used as true.</p>
+<p>Returns TRUE if the given value is truthy (not NONE or FALSE).</p>
 
 <h6>Usage:</h6>
-<pre class="usage fs-6">true? <span class="rebarg">val</span></span></pre>
+<pre class="usage fs-6">true? <span class="rebarg">value</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  val         [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>] Value to test
 </pre>
 
 <h6>Description:</h6>
@@ -19625,7 +19661,7 @@ To see a list of functions for a specific module, provide the module name:
 <span class="ansi1 ansi32">bugs           </span> []
 <span class="ansi1 ansi32">changes        </span> []
 <span class="ansi1 ansi32">dot            </span> [value]
-<span class="ansi1 ansi32">dump-obj       </span> [obj /weak /match pattern /not-none]
+<span class="ansi1 ansi32">dump-obj       </span> [obj /weak /match pattern /not-none /count 'w]
 <span class="ansi1 ansi32">form-pad       </span> [val size]
 <span class="ansi1 ansi32">form-type      </span> [value]
 <span class="ansi1 ansi32">form-val       </span> [val]
