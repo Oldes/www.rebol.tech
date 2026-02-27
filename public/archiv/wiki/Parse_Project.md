@@ -42,7 +42,7 @@ REBOL is designed as a practical language. It has been notoriously difficult to 
 
 (Editor's Note: Thanks to Peta for researching most of this section.)
 
-The PARSE dialect is an enhanced member of the family of Top-down parsing languages (TDPL family) including the [Top-down parsing language (TDPL)](https://web.archive.org/web/20150420170533/http://en.wikipedia.org/wiki/Top-down_parsing_language), the [Generalized top-down parsing language (GTDPL)](https://web.archive.org/web/20150420170533/http://en.wikipedia.org/wiki/Top-down_parsing_language#Generalized_TDPL) and the [Parsing expression grammar (PEG)](https://web.archive.org/web/20150420170533/http://en.wikipedia.org/wiki/Parsing_expression_grammar) and uses the same "ordered choice" parsing method as the other members of the family.
+The PARSE dialect is an enhanced member of the family of Top-down parsing languages (TDPL family) including the [Top-down parsing language (TDPL)](http://en.wikipedia.org/wiki/Top-down_parsing_language), the [Generalized top-down parsing language (GTDPL)](http://en.wikipedia.org/wiki/Top-down_parsing_language#Generalized_TDPL) and the [Parsing expression grammar (PEG)](http://en.wikipedia.org/wiki/Parsing_expression_grammar) and uses the same "ordered choice" parsing method as the other members of the family.
 
 The prioritization of the ordered choice (a.k.a. "alternative", but the "ordered choice" name is more appropriate since the order of rules matters) causes that the second choice in the
 

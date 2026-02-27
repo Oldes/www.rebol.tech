@@ -2,7 +2,7 @@
 
 ## Port Definition
 
-**A port is an active instance of a [scheme](https://web.archive.org/web/20130614001941/http://www.rebol.net/wiki/Schemes).**
+**A port is an active instance of a [scheme](Schemes.md).**
 
 For example, when you open a file, the system creates a port from the file scheme. The port keeps track of the I/O for that specific file, as well as specific information about the file, such as date, size, and current index position.
 
@@ -40,13 +40,13 @@ Make note about return value. A TRUE will satisfy a WAIT, but other values do no
 
 ## Architecture
 
-The diagram below shows the basic relationship between **[schemes](https://web.archive.org/web/20130614001941/http://www.rebol.net/wiki/Schemes), ports, requests,** and **devices**:
+The diagram below shows the basic relationship between **[schemes](Schemes.md), ports, requests,** and **devices**:
 
 [](https://web.archive.org/web/20130614001941/http://www.rebol.net/wiki/Image:Port-flow.png)
 
 Definitions:
 
- Scheme  a [scheme](https://web.archive.org/web/20130614001941/http://www.rebol.net/wiki/Schemes) specifies a type of port, such as file, TCP, event, sound, etc. The scheme creates a port, which is:
+ Scheme  a [scheme](Schemes.md) specifies a type of port, such as file, TCP, event, sound, etc. The scheme creates a port, which is:
  Port  a specific instance of a scheme. For example, when you read a file, the scheme is used to create a port that accesses the file and its data. Each open file has its own port.
  Request  is a lower level (C) structure used to communicate between a port and a device. In the case of a file, it passes fields like the file name, date, size, and data to be transferred.
  Device  is native C code that implements a standard set of access methods for a port. Example methods include open, close, read, write, create, and delete. This level is where file or network I/O actually happens.

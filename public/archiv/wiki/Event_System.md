@@ -63,7 +63,7 @@ In essence, calling WAIT launches your program into event-driven mode of operati
 
 ## Quick review of port structure
 
-In the steps outlined below, keep in mind that a [port](https://web.archive.org/web/20130614012456/http://www.rebol.net/wiki/Ports) has the structure:
+In the steps outlined below, keep in mind that a [port](Ports__Synchronous_and_Asynchronous_Operations.md) has the structure:
 
 ```rebol
    port: context [

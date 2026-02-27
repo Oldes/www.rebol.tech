@@ -16,22 +16,22 @@ Three of the above differences can be shown here with HTTP.
 A single request, will block until the request is completed or an error occurs:
 
 ```rebol
-   data: read <a href="https://web.archive.org/web/20150423001708/http://www.rebol.com/data.r" class="external free" title="http://www.rebol.com/data.r" rel="nofollow">http://www.rebol.com/data.r</a>
+   data: read http://www.rebol.com/data.r
 
 ```
 
 Here is another example that uploads data and gets a result:
 
 ```rebol
-   result: write <a href="https://web.archive.org/web/20150423001708/http://www.rebol.com/cgi-bin/updata.r" class="external free" title="http://www.rebol.com/cgi-bin/updata.r" rel="nofollow">http://www.rebol.com/cgi-bin/updata.r</a> data ; will do POST as application/x-www-form-urlencoded
-   result: write <a href="https://web.archive.org/web/20150423001708/http://www.rebol.com/cgi-bin/updata.r" class="external free" title="http://www.rebol.com/cgi-bin/updata.r" rel="nofollow">http://www.rebol.com/cgi-bin/updata.r</a> reduce ['post [Content-type: "text/x-rebol"] data]
+   result: write http://www.rebol.com/cgi-bin/updata.r data ; will do POST as application/x-www-form-urlencoded
+   result: write http://www.rebol.com/cgi-bin/updata.r reduce ['post [Content-type: "text/x-rebol"] data]
 
 ```
 
 If multiple requests are desired, they can be made, but each will block until the request has finished or an error has occurred:
 
 ```rebol
-   port: open <a href="https://web.archive.org/web/20150423001708/http://www.rebol.com/" class="external free" title="http://www.rebol.com" rel="nofollow">http://www.rebol.com</a>
+   port: open http://www.rebol.com
    data: write port [get %/data.r]
    index: write port [get %/index.txt]
    result: write port reduce ['post %/cgi-bin/upload.r new-data]
@@ -42,7 +42,7 @@ If multiple requests are desired, they can be made, but each will block until th
 Multiple requests can also be made asynchronously if an AWAKE handler has been provided:
 
 ```rebol
-   port: make port! <a href="https://web.archive.org/web/20150423001708/http://www.rebol.com/" class="external free" title="http://www.rebol.com" rel="nofollow">http://www.rebol.com</a>
+   port: make port! http://www.rebol.com
    port/awake: func [event] [
        switch event/type [
            connect ready [
@@ -69,7 +69,7 @@ When non-blocking (async) mode is used, a program synchronize with the port by u
 In the last example above, if the AWAKE handler supports it, you can write code such as:
 
 ```rebol
-  port: make port! <a href="https://web.archive.org/web/20150423001708/http://www.rebol.com/" class="external free" title="http://www.rebol.com" rel="nofollow">http://www.rebol.com</a>
+  port: make port! http://www.rebol.com
   port/awake: :my-http-awake-handler
   open port
   wait port

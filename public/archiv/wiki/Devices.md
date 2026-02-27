@@ -24,7 +24,7 @@ It should be noted that the device sub-system is compile-time based not run-time
 
 These are the basic ideas behind the implementation:
 
- * Devices interface to code via [ports](https://web.archive.org/web/20130614001920/http://www.rebol.net/wiki/Ports).
+ * Devices interface to code via [ports](Ports__Synchronous_and_Asynchronous_Operations.md).
  * The device interface is generally asynchronous; however, synchronous devices work within the same mechanism.
  * Devices are statically implemented within the system (at this time you cannot dynamically add devices.)
  * Devices are implemented for optimal performance, minimizing port-to-device data and command mapping requirements.
@@ -94,6 +94,6 @@ When a request is completed its status changes from DR_PEND to DR_DONE or DR_ERR
 
 Of course, there is more to say about this model, but those are the basic concepts.
 
-See [TCP Port Details](https://web.archive.org/web/20130614001920/http://www.rebol.net/wiki/TCP_Port_Details) for a step-by-step description of a specific I/O operation.
+See [TCP Port Details](TCP_Port_Details.md) for a step-by-step description of a specific I/O operation.
 
 Retrieved from "[http://www.rebol.net/wiki/Devices](https://web.archive.org/web/20130614001920/http://www.rebol.net/wiki/Devices)"

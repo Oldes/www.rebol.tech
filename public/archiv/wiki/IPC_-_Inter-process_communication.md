@@ -6,7 +6,7 @@ This is the first question. Not because we need to answer it first, but because 
 
 Should we use a daemon, so there is only one model for IPC on a single machine as well as across the net? Can we still do everything we would want to do on a single machine without a daemon? What problems or challenges does a daemon pose? Can the implementation be such that if the endpoints are local, it can use something like a memory mapped file, and only require the daemon if remote endpoints are used?
 
-See also: [Threading](https://web.archive.org/web/20130819091816/http://www.rebol.net/wiki/IPC_-_Inter-process_communication#Threading)
+See also: [Threading](#Threading)
 
 ## Endpoints
 
@@ -87,12 +87,12 @@ If an extension model is used, should it be included by default in the host or l
 
 ## References and other models
 
- * General IPC - [http://en.wikipedia.org/wiki/Interprocess_communication](https://web.archive.org/web/20130819091816/http://en.wikipedia.org/wiki/Interprocess_communication)
- * Unix IPC - [http://www.faqs.org/docs/artu/ch07s02.html](https://web.archive.org/web/20130819091816/http://www.faqs.org/docs/artu/ch07s02.html)
- * WIndows IPC - [http://msdn.microsoft.com/en-us/library/aa365574](https://web.archive.org/web/20130819091816/http://msdn.microsoft.com/en-us/library/aa365574)
- * RFC822 - [http://www.faqs.org/rfcs/rfc822.html](https://web.archive.org/web/20130819091816/http://www.faqs.org/rfcs/rfc822.html)
- * ØMQ - [http://zeromq.org/](https://web.archive.org/web/20130819091816/http://zeromq.org/)
- * Spread - [http://www.spread.org/](https://web.archive.org/web/20130819091816/http://www.spread.org/)
+ * General IPC - [http://en.wikipedia.org/wiki/Interprocess_communication](http://en.wikipedia.org/wiki/Interprocess_communication)
+ * Unix IPC - [http://www.catb.org/esr/writings/taoup/html/ch07s02.html](http://www.catb.org/esr/writings/taoup/html/ch07s02.html)
+ * WIndows IPC - [http://msdn.microsoft.com/en-us/library/aa365574](http://msdn.microsoft.com/en-us/library/aa365574)
+ * RFC822 - [http://www.faqs.org/rfcs/rfc822.html](https://datatracker.ietf.org/doc/html/rfc822)
+ * ØMQ - [http://zeromq.org/](https://zeromq.org/)
+ * Spread - [http://www.spread.org/](https://www.spread.org/)
  * Tuplespace  - Simple API, flexible, generative communication model, pattern matching model [http://www.gigaspaces.com/](https://web.archive.org/web/20130819091816/http://www.gigaspaces.com/)
  * Ice - [http://www.zeroc.com/ice.html](https://web.archive.org/web/20130819091816/http://www.zeroc.com/ice.html) GPL
  * Jabber/XMPP
