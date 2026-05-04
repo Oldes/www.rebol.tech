@@ -1692,7 +1692,7 @@ series.
 
 
 ###### Result
-<b>Be sure to note that <a href="#change">change</a> returns the series position just past the modification.</b>
+**Be sure to note that <a href="#change">change</a> returns the series position just past the modification.**
 
 This allows you to cascade multiple changes.
 
@@ -3698,7 +3698,7 @@ The `debase` function is used to convert the binary back again. For example:
 
 `encloak` is a low strength encryption method that can be useful for hiding passwords and other such values. It is not a replacement for AES or Blowfish, but works for noncritical data.
 
-<b>Do not use it for top secret information!</b>
+**Do not use it for top secret information!**
 
 To cloak a binary string, provide the binary string and a cloaking key to the `encloak` function:
 
@@ -5832,7 +5832,7 @@ join %file ".txt"
 
 This differs from `append` and `repend` because a new value is created, and the first argument is not modified in any way.
 
-The <b>first argument determines the datatype of the returned value</b>.
+The **first argument determines the datatype of the returned value**.
 When the first argument is a type of [series](https://www.rebol.com/r3/docs/concepts/series.html), the return value will 
 be that type of series (d:string, `file!`, `url!`, `block!`, etc.)
 
@@ -9329,7 +9329,7 @@ For example, developers often type:
 secure none
 ```
 
-to disable all security when developing new programs. <b>However, use this with care. Do not run (or <a href="#do">do</a>) any programs other than those that you trust.</b>
+to disable all security when developing new programs. **However, use this with care. Do not run (or <a href="#do">do</a>) any programs other than those that you trust.**
 
 Another example is:
 
