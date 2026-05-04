@@ -3344,16 +3344,11 @@ Originally created to evaluate [graphics rendering commands](https://www.rebol.c
 ###### Special Evaluation Method
 The greater speed of command blocks is obtained through the use of a special evaluation method:
 
-
-```html
-<ul>
-<li>Evaluation is strictly linear. Sub-expressions, control branching, and recursion are not allowed so no stack management is required.</li>
-<li>Arguments are already reduced to their final values (or variables that hold those values.)</li>
-<li>Special variations of function arguments are not allowed. Only word and 'word forms are allowed.</li>
-<li>Arguments must appear in the correct order and no optional arguments are allowed.</li>
-<li>Arguments are placed directly within the command argument frame, not on the primary evaluator stack.</li>
-</ul>
-```
+- Evaluation is strictly linear. Sub-expressions, control branching, and recursion are not allowed so no stack management is required.
+- Arguments are already reduced to their final values (or variables that hold those values.)
+- Special variations of function arguments are not allowed. Only word and 'word forms are allowed.
+- Arguments must appear in the correct order and no optional arguments are allowed.
+- Arguments are placed directly within the command argument frame, not on the primary evaluator stack.
 
 
 ###### Why is it Useful?
@@ -6325,14 +6320,10 @@ print loop 10 [num: num + 1]
 
 ###### Other Notes
 
-```html
-<ul>
-<li>Negative or zero loop counts do not evaluate the block.</li>
-<li>If a <span class="datatype">decimal!</span> count is used, it will be truncated to a lower integer value.</li>
-<li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li>
-<li>The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.</li>
-</ul>
-```
+- Negative or zero loop counts do not evaluate the block.
+- If a <span class="datatype">decimal!</span> count is used, it will be truncated to a lower integer value.
+- The <a href="#break">break</a> function can be used to stop the loop at any time.
+- The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.
 
 ------------------------------------------------------------------
 ## LOWERCASE
@@ -7829,14 +7820,10 @@ See the `print` function for information about related functions.
 The `protect` function provides the following features:
 
 
-```html
-<ul>
-<li>protects <span class="datatype">string!</span>, <span class="datatype">block!</span>, and other series from modification (making them read-only.)</li>
-<li>protects variables (words) from being <a href="#set">set</a> to new values.</li>
-<li>protects <span class="datatype">object!</span>, <span class="datatype">module!</span>, and <span class="datatype">map!</span> from modification (by protecting all its words.)</li>
-<li>hide words within objects or modules - making them private - a method of read and write protection.</li>
-</ul>
-```
+- protects <span class="datatype">string!</span>, <span class="datatype">block!</span>, and other series from modification (making them read-only.)
+- protects variables (words) from being <a href="#set">set</a> to new values.
+- protects <span class="datatype">object!</span>, <span class="datatype">module!</span>, and <span class="datatype">map!</span> from modification (by protecting all its words.)
+- hide words within objects or modules - making them private - a method of read and write protection.
 
 
 ###### Synopsis
@@ -8057,12 +8044,8 @@ For security reasons, once hidden, a variable cannot be unhidden.
 
 ###### Related articles
 
-```html
-<ul>
-<li><a href="http://www.rebol.net/r3blogs/0186.html" class="lnk">Read-only strings, blocks, and objects</a></li>
-<li><a href="http://www.rebol.net/r3blogs/0187.html" class="lnk">Interesting insights from PROTECT</a></li>
-</ul>
-```
+- [Read-only strings, blocks, and objects](http://www.rebol.net/r3blogs/0186.html)
+- [Interesting insights from PROTECT](http://www.rebol.net/r3blogs/0187.html)
 
 (From the A43 release.)
 
@@ -8202,11 +8185,10 @@ loop 3 [print random 1.0]
 
 Main properties:
 
-<ol>
-<li>the probability density in the interior points is the reciprocal of the given decimal VALUE argument</li>
-<li>the probability density in the exterior points is 0.0</li>
-<li>as specified by IEEE754, the bounds represent "close" interior well as "close" exterior real numbers. Therefore, the frequency of every bound corresponds to the length of the segment containing adjacent interior real values (real numbers, that are IEEE 754 - rounded to the value of the bound) multiplied by the interior density equal to the reciprocal of the given VALUE</li>
-</ol>
+- the probability density in the interior points is the reciprocal of the given decimal VALUE argument
+- the probability density in the exterior points is 0.0
+- as specified by IEEE754, the bounds represent "close" interior well as "close" exterior real numbers. Therefore, the frequency of every bound corresponds to the length of the segment containing adjacent interior real values (real numbers, that are IEEE 754 - rounded to the value of the bound) multiplied by the interior density equal to the reciprocal of the given VALUE
+
 RANDOM can also be used on all series datatypes:
 
 
@@ -8818,15 +8800,11 @@ Here the num counter begins at one and continues up to and including the integer
 
 ###### Other Notes
 
-```html
-<ul>
-<li>Negative or zero loop counts do not evaluate the block.</li>
-<li>If a <span class="datatype">decimal!</span> count is used, it will be truncated to a lower integer value.</li>
-<li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li>
-<li>The <a href="#loop">loop</a> function is similar to <a href="#repeat">repeat</a>, except that it has no loop counter. If you don't need the counter, <a href="#loop">loop</a> is more efficient.</li>
-<li>The evaluated block is deep copied and rebound (see <a href="#bind">bind</a> ) to a new context that holds the loop variable. For large nested repeat loops, you will want to consider this overhead. An alternative is to use <a href="#while">while</a>, <a href="#until">until</a>, or <a href="#loop">loop</a> which do not require the copy and bind.</li>
-</ul>
-```
+- Negative or zero loop counts do not evaluate the block.
+- If a <span class="datatype">decimal!</span> count is used, it will be truncated to a lower integer value.
+- The <a href="#break">break</a> function can be used to stop the loop at any time.
+- The <a href="#loop">loop</a> function is similar to <a href="#repeat">repeat</a>, except that it has no loop counter. If you don't need the counter, <a href="#loop">loop</a> is more efficient.
+- The evaluated block is deep copied and rebound (see <a href="#bind">bind</a> ) to a new context that holds the loop variable. For large nested repeat loops, you will want to consider this overhead. An alternative is to use <a href="#while">while</a>, <a href="#until">until</a>, or <a href="#loop">loop</a> which do not require the copy and bind.
 
 
 ###### In question...
@@ -9598,13 +9576,9 @@ secure [
 This block will:
 
 
-```html
-<ul>
-<li>disable networking (force a quit if attempted)</li>
-<li>ask for user approval for all file access, except:</li>
-<li>allow access to the local directory</li>
-</ul>
-```
+- disable networking (force a quit if attempted)
+- ask for user approval for all file access, except:
+- allow access to the local directory
 
 As you can see, the security dialect consists of a block of paired values. The first value in the pair specifies what is being secured (file or net), and the second value specifies the level of security (allow, ask, throw, quit). The second value can also be a block to further specify read and write security.
 
@@ -9773,16 +9747,12 @@ However, add to that number a good margin of error for special conditions within
 A few notes:
 
 
-```html
-<ul>
-<li>The maximum evaluation limit is 9e18.</li>
-<li>The evaluation limit can be set only once and cannot be reset. However, for debugging after an eval THROW exception, you can use <w>secure to disable the trap (use: [eval allow]).</li>
-<li>The limit is approximate. It is sampled at regular intervals (to avoid slowing down evaluation.) The sampling period is 10000 cycles, so that is the resolution of the limit. For example, if you set the limit to 1, it won't trap an error until 10000.</li>
-<li>If the program quits, the exit code is set to 101, the same as any security termination; however, we may want to use special codes to indicate the reason for the quit.</li>
-<li>Some types of loops are not yet checked, but we will add them. For example, PARSE cycles are not yet counted.</li>
-<li>Time limits are not yet supported, but may be added in the future. However, the cycle limit is better for most cases, because it is CPU speed independent.</li>
-</ul>
-```
+- The maximum evaluation limit is 9e18.
+- The evaluation limit can be set only once and cannot be reset. However, for debugging after an eval THROW exception, you can use <w>secure to disable the trap (use: [eval allow]).
+- The limit is approximate. It is sampled at regular intervals (to avoid slowing down evaluation.) The sampling period is 10000 cycles, so that is the resolution of the limit. For example, if you set the limit to 1, it won't trap an error until 10000.
+- If the program quits, the exit code is set to 101, the same as any security termination; however, we may want to use special codes to indicate the reason for the quit.
+- Some types of loops are not yet checked, but we will add them. For example, PARSE cycles are not yet counted.
+- Time limits are not yet supported, but may be added in the future. However, the cycle limit is better for most cases, because it is CPU speed independent.
 
 
 ###### Limiting memory
@@ -12082,12 +12052,10 @@ Tracing the evaluation, you will see how each new level is indented and begins a
 ###### Minimizing the output
 At times the trace output will be a lot more than you want. The trick becomes how to cut it down without losing the information you need.. There are three methods:
 
-<ol>
-<li>Specify a trace depth.</li>
-<li>Locate the <a href="#trace">trace</a> on and off lines deeper within your code.</li>
-<li>Trace only functions, not all values.</li>
-<li>Use the backtrace option. (see more below)</li>
-</ol>
+- Specify a trace depth.
+- Locate the <a href="#trace">trace</a> on and off lines deeper within your code.
+- Trace only functions, not all values.
+- Use the backtrace option. (see more below)
 
 ###### Setting trace depth
 Using the example above, set the trace depth to 2, and run it again. You will see:
@@ -12277,15 +12245,11 @@ So, it's not hard to see what was going on when the script crashed. Backtrace ca
 
 ###### Important notes
 
-```html
-<ul>
-<li>Tracing is disabled automatically when you display the backtrace. (This prevents additional accumulation of trace information, allowing you to redisplay the buffer without interference from additional console lines.)</li>
-<li>Backtrace will slow down your program by a factor of 20 (because for each value that is evaluated, it must store a log record).</li>
-<li>The internal backtrace buffer is 100KB. On average, the most it will hold is 100 pages of backtrace.</li>
-<li>Enabling normal trace will disable backtrace and delete the backtrace buffer.</li>
-<li>Backtrace may interfere with some kinds of tracing, especially if the bug is related to a defect within the REBOL interpreter itself.</li>
-</ul>
-```
+- Tracing is disabled automatically when you display the backtrace. (This prevents additional accumulation of trace information, allowing you to redisplay the buffer without interference from additional console lines.)
+- Backtrace will slow down your program by a factor of 20 (because for each value that is evaluated, it must store a log record).
+- The internal backtrace buffer is 100KB. On average, the most it will hold is 100 pages of backtrace.
+- Enabling normal trace will disable backtrace and delete the backtrace buffer.
+- Backtrace may interfere with some kinds of tracing, especially if the bug is related to a defect within the REBOL interpreter itself.
 
 The `stack` function can also be used to show stack related backtrace information.
 
@@ -12342,10 +12306,9 @@ These refinements can be used in various ways to parse REBOL source a value at a
 ###### Output
 The output from `transcode` is a `block!` containing two values:
 
-<ol>
-<li>The translated value, block of values, or <span class="datatype">error!</span> object.</li>
-<li>The <span class="datatype">binary!</span> source at the point where the translation ended.</li>
-</ol>
+- The translated value, block of values, or `error!` object.
+- The `binary!` source at the point where the translation ended.
+
 For example:
 
 
@@ -13060,12 +13023,8 @@ The last value of the block is returned from the `until` function. Because this 
 
 ###### Other Notes
 
-```html
-<ul>
-<li>A <a href="#break">break</a> can be used to escape from the loop at any time.</li>
-<li>A common mistake is to forget that block must return the test condition for the loop, which could result in an infinite loop.</li>
-</ul>
-```
+- A <a href="#break">break</a> can be used to escape from the loop at any time.
+- A common mistake is to forget that block must return the test condition for the loop, which could result in an infinite loop.
 
 ------------------------------------------------------------------
 ## UNVIEW
@@ -13503,13 +13462,9 @@ The last value of the block is returned from the `while` function.
 
 ###### Other Notes
 
-```html
-<ul>
-<li>A <a href="#break">break</a> can be used to escape from the loop at any time.</li>
-<li>The most common mistake is to forget to provide a block for the
-first argument (the condition).</li>
-</ul>
-```
+- A <a href="#break">break</a> can be used to escape from the loop at any time.
+- The most common mistake is to forget to provide a block for the
+first argument (the condition).
 
 ------------------------------------------------------------------
 ## WILDCARD
