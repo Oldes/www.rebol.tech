@@ -6288,7 +6288,6 @@ false
 
 The `loop` function is the simplest way to repeat the evaluation of a block. This function is very efficient and should be used if no loop counter is required.
 
-
 ```rebol
 loop 3 [print "hi"]
 hi
@@ -6297,7 +6296,6 @@ hi
 ```
 
 Here's an example that creates a block of 10 random integers:
-
 
 ```rebol
 block: make block! 10
@@ -6321,7 +6319,7 @@ print loop 10 [num: num + 1]
 ###### Other Notes
 
 - Negative or zero loop counts do not evaluate the block.
-- If a <span class="datatype">decimal!</span> count is used, it will be truncated to a lower integer value.
+- If a `decimal!` count is used, it will be truncated to a lower integer value.
 - The <a href="#break">break</a> function can be used to stop the loop at any time.
 - The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.
 
@@ -7666,9 +7664,9 @@ See the `print` function for information about related functions.
 The `protect` function provides the following features:
 
 
-- protects <span class="datatype">string!</span>, <span class="datatype">block!</span>, and other series from modification (making them read-only.)
+- protects `string!`, `block!`, and other series from modification (making them read-only.)
 - protects variables (words) from being <a href="#set">set</a> to new values.
-- protects <span class="datatype">object!</span>, <span class="datatype">module!</span>, and <span class="datatype">map!</span> from modification (by protecting all its words.)
+- protects `object!`, `module!`, and `map!` from modification (by protecting all its words.)
 - hide words within objects or modules - making them private - a method of read and write protection.
 
 
@@ -8612,7 +8610,7 @@ Here the num counter begins at one and continues up to and including the integer
 ###### Other Notes
 
 - Negative or zero loop counts do not evaluate the block.
-- If a <span class="datatype">decimal!</span> count is used, it will be truncated to a lower integer value.
+- If a `decimal!` count is used, it will be truncated to a lower integer value.
 - The <a href="#break">break</a> function can be used to stop the loop at any time.
 - The <a href="#loop">loop</a> function is similar to <a href="#repeat">repeat</a>, except that it has no loop counter. If you don't need the counter, <a href="#loop">loop</a> is more efficient.
 - The evaluated block is deep copied and rebound (see <a href="#bind">bind</a> ) to a new context that holds the loop variable. For large nested repeat loops, you will want to consider this overhead. An alternative is to use <a href="#while">while</a>, <a href="#until">until</a>, or <a href="#loop">loop</a> which do not require the copy and bind.
