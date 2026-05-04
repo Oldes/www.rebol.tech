@@ -7277,202 +7277,48 @@ The `parse` function takes two main arguments: an input to be parsed and the rul
 Rules consist of these main elements:
 
 
-```html
-<table class="doctable">
-<tr><th align="top">
-Item
-</th><th valign="top">
-Description
-</th>
-<tr>
-<td valign="top">
-keyword </td><td valign="top"> a special word of the dialect, listed in the table below
-</td>
-<tr>
-<td valign="top">
-word </td><td valign="top"> get or set a variable (see below) - cannot be a keyword
-</td>
-<tr>
-<td valign="top">
-path </td><td valign="top"> get or set a variable via a path (see below)
-</td>
-<tr>
-<td valign="top">
-value </td><td valign="top"> match the input to a value (accepted datatypes depend on input datatype)
-</td>
-<tr>
-<td valign="top">
-"|" </td><td valign="top"> backtrack and match to next alternate rule (or)
-</td>
-<tr>
-<td valign="top">
-[block] </td><td valign="top"> a block of sub-rules
-</td>
-<tr>
-<td valign="top">
-(paren) </td><td valign="top"> evaluate an expression (a production)
-</td></tr></table>
-```
+| Item | Description |
+|------|-------------|
+| keyword | a special word of the dialect, listed in the table below |
+| word | get or set a variable (see below) - cannot be a keyword |
+| path | get or set a variable via a path (see below) |
+| value | match the input to a value (accepted datatypes depend on input datatype) |
+| "|" | backtrack and match to next alternate rule (or) |
+| [block] | a block of sub-rules |
+| (paren) | evaluate an expression (a production) |
 
 
 ###### List of keywords
 Within the parse dialect, these words are treated as keywords and cannot be used as variables.
 
 
-```html
-<table class="doctable">
-<tr><th align="top">
-Keyword
-</th><th valign="top">
-Description
-</th>
-<tr>
-<td valign="top">
-and rule
-</td><td valign="top">
-match the rule, but do not advance the input (allows matching multiple rules to the same input)
-</td>
-<tr>
-<td valign="top">
-any rule
-</td><td valign="top">
-match the rule zero or more times; stop on failure or if input does not change.
-</td>
-<tr>
-<td valign="top">
-break
-</td><td valign="top">
-break out of a match loop (such as any, some, while), always indicating success.
-</td>
-<tr>
-<td valign="top">
-change rule <i>only</i> value
-</td><td valign="top">
-match the rule, and if true, change the input to the new value (can be different lengths)
-</td>
-<tr>
-<td valign="top">
-copy word
-</td><td valign="top">
-set the word to a copy of the input for matched rules
-</td>
-<tr>
-<td valign="top">
-do rule </td><td valign="top"> evaluate the input as code, then attempt to match to the rule
-</td>
-<tr>
-<td valign="top">
-end
-</td><td valign="top">
-match end of input
-</td>
-<tr>
-<td valign="top">
-fail
-</td><td valign="top">
-force current rule to fail, backtrack
-</td>
-<tr>
-<td valign="top">
-if (expr)
-</td><td valign="top">
-evaluate the expression (in a paren) and if false or none, fail and backtrack
-</td>
-<tr>
-<td valign="top">
-insert <i>only</i> value
-</td><td valign="top">
-insert a value at the current input position (with optional ONLY for blocks by reference); input position is adjusted just past the insert
-</td>
-<tr>
-<td valign="top">
-into rule
-</td><td valign="top">
-match a series, then parse it with given rule; new series can be the same or different datatype.
-</td>
-<tr>
-<td valign="top">
-opt rule
-</td><td valign="top">
-match to the rule once or not at all (zero or one times)
-</td>
-<tr>
-<td valign="top">
-not rule
-</td><td valign="top">
-invert the result of the next rule
-</td>
-<tr>
-<td valign="top">
-quote arg
-</td><td valign="top">
-accept next argument exactly as is (exception: paren)
-</td>
-<tr>
-<td valign="top">
-reject
-</td><td valign="top">
-similar to break: break out of a match loop (such as any, some, while), but indicate failure.
-</td>
-<tr>
-<td valign="top">
-remove rule
-</td><td valign="top">
-match the rule, and if true, remove the matched input
-</td>
-<tr>
-<td valign="top">
-return rule
-</td><td valign="top">
-match the rule, and if true, immediately return the matched input as result of the PARSE function
-</td>
-<tr>
-<td valign="top">
-set word
-</td><td valign="top">
-set the word to the value of the input for matched rules
-</td>
-<tr>
-<td valign="top">
-skip
-</td><td valign="top">
-skip input (for the count range, if provided before it)
-</td>
-<tr>
-<td valign="top">
-some rule
-</td><td valign="top">
-match to the rule one or more times; stop on failure or if input does not change.
-</td>
-<tr>
-<td valign="top">
-then </td><td valign="top"> regardless of failure or success of what follows, skip the next alternate rule (branch)
-</td>
-<tr>
-<td valign="top">
-thru rule
-</td><td valign="top">
-scan forward in input for matching rules, advance input to tail of the match
-</td>
-<tr>
-<td valign="top">
-to rule
-</td><td valign="top">
-scan forward in input for matching rules, advance input to head of the match
-</td>
-<tr>
-<td valign="top">
-while rule
-</td><td valign="top">
-like any, match to the rule zero or more times; stop on failure; does not care if input changes or not.
-</td>
-<tr>
-<td valign="top">
-??
-</td><td valign="top">
-Debugging output. Prints the next parse rule value and shows the current input position (e.g. where you are in the string.)
-</td></tr></table>
-```
+| Keyword | Description |
+|---------|-------------|
+| and rule | match the rule, but do not advance the input (allows matching multiple rules to the same input) |
+| any rule | match the rule zero or more times; stop on failure or if input does not change. |
+| break | break out of a match loop (such as any, some, while), always indicating success. |
+| change rule *only* value | match the rule, and if true, change the input to the new value (can be different lengths) |
+| copy word | set the word to a copy of the input for matched rules |
+| do rule | evaluate the input as code, then attempt to match to the rule |
+| end | match end of input |
+| fail | force current rule to fail, backtrack |
+| if (expr) | evaluate the expression (in a paren) and if false or none, fail and backtrack |
+| insert *only* value | insert a value at the current input position (with optional ONLY for blocks by reference); input position is adjusted just past the insert |
+| into rule | match a series, then parse it with given rule; new series can be the same or different datatype. |
+| opt rule | match to the rule once or not at all (zero or one times) |
+| not rule | invert the result of the next rule |
+| quote arg | accept next argument exactly as is (exception: paren) |
+| reject | similar to break: break out of a match loop (such as any, some, while), but indicate failure. |
+| remove rule | match the rule, and if true, remove the matched input |
+| return rule | match the rule, and if true, immediately return the matched input as result of the PARSE function |
+| set word | set the word to the value of the input for matched rules |
+| skip | skip input (for the count range, if provided before it) |
+| some rule | match to the rule one or more times; stop on failure or if input does not change. |
+| then | regardless of failure or success of what follows, skip the next alternate rule (branch) |
+| thru rule | scan forward in input for matching rules, advance input to tail of the match |
+| to rule | scan forward in input for matching rules, advance input to head of the match |
+| while rule | like any, match to the rule zero or more times; stop on failure; does not care if input changes or not. |
+| ?? | Debugging output. Prints the next parse rule value and shows the current input position (e.g. where you are in the string.) |
 
 In addition, none is a special value that can be used as a default match rule. It is often used at the end of alternate rules to catch all no-match cases.
 
@@ -7830,52 +7676,17 @@ The `protect` function provides the following features:
 The `protect` argument and refinements provide these various protections:
 
 
-```html
-<table class="doctable">
-<tr><th align="top">
-Argument
-</th><th valign="top">
-Refinement
-</th><th valign="top">
-Protection provided
-</th>
-<tr>
-<td valign="top">
-<span class="datatype">word!</span> or <span class="datatype">path!</span> </td><td valign="top"> </td><td valign="top"> cannot <a href="#set">set</a> the word (variable)
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">word!</span> or <span class="datatype">path!</span> </td><td valign="top"> /hide </td><td valign="top"> cannot <a href="#bind">bind</a> to the word (variable)
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">string!</span> </td><td valign="top"> </td><td valign="top"> cannot modify the string
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">block!</span> </td><td valign="top"> </td><td valign="top"> cannot modify the block
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">block!</span> </td><td valign="top"> /deep </td><td valign="top"> cannot modify block or any series within it
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">block!</span> </td><td valign="top"> /words </td><td valign="top"> cannot <a href="#set">set</a> listed words or paths (variables)
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">block!</span> </td><td valign="top"> /hide </td><td valign="top"> cannot <a href="#bind">bind</a> to listed words or paths
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">object!</span> </td><td valign="top"> </td><td valign="top"> cannot modify object or <a href="#set">set</a> its words (variables)
-</td>
-<tr>
-<td valign="top">
-<span class="datatype">object!</span> </td><td valign="top"> /deep </td><td valign="top"> cannot modify object, <a href="#set">set</a> its words, or modify any of its series values
-</td></tr></table>
-```
+| Argument | Refinement | Protection provided |
+|----------|------------|---------------------|
+| `word!` or `path!` | | cannot set the word (variable) |
+| `word!` or `path!` | /hide | cannot bind to the word (variable) |
+| `string!` | | cannot modify the string |
+| `block!` | | cannot modify the block |
+| `block!` | /deep | cannot modify block or any series within it |
+| `block!` | /words | cannot set listed words or paths (variables) |
+| `block!` | /hide | cannot bind to listed words or paths |
+| `object!` | | cannot modify object or set its words (variables) |
+| `object!` | /deep | cannot modify object, set its words, or modify any of its series values |
 
 
 ###### Protecting series (strings and blocks)
@@ -9050,16 +8861,11 @@ Note that protected words will not be modified, they are ignored. No error occur
 
 ###### Refinements
 
-```html
-<table class="doctable">
-<tr><td valign="top" nowrap><b>/only</b></td><td valign="top" width="95%">only affect word values that are provided in a block argument that follows this refinement. In addition, this refinement also supports a special optimization where you can indicate the index of the starting point for changes. That is useful with large contexts such as lib and others.
-</td></tr>
-<tr><td valign="top" nowrap><b>/all</b></td><td valign="top" width="95%">forces <a href="#resolve">resolve</a> to change all values, not just those that are unset. This is similar to <a href="#append">append</a> on an <span class="datatype">object!</span> except that the source is an object, not a block.
-</td></tr>
-<tr><td valign="top" nowrap><b>/extend</b></td><td valign="top" width="95%">any words not found in the target context will be added. This eliminates the <a href="#append">append</a> step that was shown above (or a similar <a href="#bind">bind</a> step). This refinement optimizes such operations.
-</td></tr>
-</table>
-```
+| Refinement | Description |
+|------------|-------------|
+| /only | only affect word values that are provided in a block argument that follows this refinement. In addition, this refinement also supports a special optimization where you can indicate the index of the starting point for changes. That is useful with large contexts such as lib and others. |
+| /all | forces resolve to change all values, not just those that are unset. This is similar to append on an object! except that the source is an object, not a block. |
+| /extend | any words not found in the target context will be added. This eliminates the append step that was shown above (or a similar bind step). This refinement optimizes such operations. |
 
 ------------------------------------------------------------------
 ## RETURN
@@ -9459,32 +9265,19 @@ The function uses a simple dialect to specify security sandboxes and other optio
 The `secure` function gives you control over policies for:
 
 
-```html
-<table class="doctable">
-<tr><td valign="top" nowrap><b>file</b></td><td valign="top" width="95%">file read, write, and directory creation and listing
-</td></tr>
-<tr><td valign="top" nowrap><b>net</b></td><td valign="top" width="95%">read and write access to the network interfaces
-</td></tr>
-<tr><td valign="top" nowrap><b>eval</b></td><td valign="top" width="95%">limit the number of evaluation cycles allowed (always quits)
-</td></tr>
-<tr><td valign="top" nowrap><b>memory</b></td><td valign="top" width="95%">limit the amount of memory used (always quits)
-</td></tr>
-<tr><td valign="top" nowrap><b>secure</b></td><td valign="top" width="95%">control changes to security policies with <a href="#secure">secure</a>
-</td></tr>
-<tr><td valign="top" nowrap><b>protect</b></td><td valign="top" width="95%">protecting and hiding values with <a href="#protect">protect</a>
-</td></tr>
-<tr><td valign="top" nowrap><b>debug</b></td><td valign="top" width="95%">use of debug-related functions: <a href="#trace">trace</a> and <a href="#stack">stack</a>
-</td></tr>
-<tr><td valign="top" nowrap><b>envr</b></td><td valign="top" width="95%">getting OS/shell environment variables with <a href="#get-env">get-env</a>
-</td></tr>
-<tr><td valign="top" nowrap><b>call</b></td><td valign="top" width="95%">launching external programs with <a href="#call">call</a>
-</td></tr>
-<tr><td valign="top" nowrap><b>browse</b></td><td valign="top" width="95%">opening the web browser with <a href="#browse">browse</a>
-</td></tr>
-<tr><td valign="top" nowrap><b>extension</b></td><td valign="top" width="95%">importing <a href="https://www.rebol.com/r3/docs/concepts/extensions.html" class="con">extensions</a> (may contain native code)
-</td></tr>
-</table>
-```
+| Policy | Description |
+|--------|-------------|
+| file | file read, write, and directory creation and listing |
+| net | read and write access to the network interfaces |
+| eval | limit the number of evaluation cycles allowed (always quits) |
+| memory | limit the amount of memory used (always quits) |
+| secure | control changes to security policies with secure |
+| protect | protecting and hiding values with protect |
+| debug | use of debug-related functions: trace and stack |
+| envr | getting OS/shell environment variables with get-env |
+| call | launching external programs with call |
+| browse | opening the web browser with browse |
+| extension | importing extensions (may contain native code) |
 
 A list of these for your current release can always be obtained with the line:
 
@@ -9509,38 +9302,25 @@ secure query
 The argument to the `secure` function can be a word or a block.
 
 
-```html
-<table class="doctable">
-<tr><td valign="top" nowrap><b>word</b></td><td valign="top" width="95%">a general, top-level action such as setting global security levels to allow or deny all access. It can also be used to query the current security policies.
-</td></tr>
-<tr><td valign="top" nowrap><b>block</b></td><td valign="top" width="95%">specify separate security policies for files, directories, networking, extensions, debugging, and other features.
-</td></tr>
-</table>
-```
+| Argument Type | Description |
+|---------------|-------------|
+| word | a general, top-level action such as setting global security levels to allow or deny all access. It can also be used to query the current security policies. |
+| block | specify separate security policies for files, directories, networking, extensions, debugging, and other features. |
 
 
 ###### Argument as a word
 If the argument is a word, it can be:
 
 
-```html
-<table class="doctable">
-<tr><td valign="top" nowrap><b>help</b></td><td valign="top" width="95%">summarize what policies can be set
-</td></tr>
-<tr><td valign="top" nowrap><b>query</b></td><td valign="top" width="95%">show current policies
-</td></tr>
-<tr><td valign="top" nowrap><b>allow</b></td><td valign="top" width="95%">remove all policies (no security)
-</td></tr>
-<tr><td valign="top" nowrap><b>none</b></td><td valign="top" width="95%">the same as allow (no security)
-</td></tr>
-<tr><td valign="top" nowrap><b>ask</b></td><td valign="top" width="95%">require user permission on all policies
-</td></tr>
-<tr><td valign="top" nowrap><b>throw</b></td><td valign="top" width="95%">throw an error for all violations
-</td></tr>
-<tr><td valign="top" nowrap><b>quit</b></td><td valign="top" width="95%">exit the program for all violations
-</td></tr>
-</table>
-```
+| Word | Description |
+|------|-------------|
+| help | summarize what policies can be set |
+| query | show current policies |
+| allow | remove all policies (no security) |
+| none | the same as allow (no security) |
+| ask | require user permission on all policies |
+| throw | throw an error for all violations |
+| quit | exit the program for all violations |
 
 For example, developers often type:
 
@@ -9587,18 +9367,12 @@ As you can see, the security dialect consists of a block of paired values. The f
 The security policies are:
 
 
-```html
-<table class="doctable">
-<tr><td valign="top" nowrap><b>allow</b></td><td valign="top" width="95%">removes all READ and/or WRITE restrictions.
-</td></tr>
-<tr><td valign="top" nowrap><b>ask</b></td><td valign="top" width="95%">restricts immediate READ and/or WRITE access and prompts the user for each access attempt, requiring approval before the operation may be completed.
-</td></tr>
-<tr><td valign="top" nowrap><b>throw</b></td><td valign="top" width="95%">denies READ and/or WRITE access, throwing an error when a restricted access attempt is made.
-</td></tr>
-<tr><td valign="top" nowrap><b>quit</b></td><td valign="top" width="95%">denies READ and/or WRITE access and quits the script when restricted access is attempted.
-</td></tr>
-</table>
-```
+| Policy | Description |
+|--------|-------------|
+| allow | removes all READ and/or WRITE restrictions. |
+| ask | restricts immediate READ and/or WRITE access and prompts the user for each access attempt, requiring approval before the operation may be completed. |
+| throw | denies READ and/or WRITE access, throwing an error when a restricted access attempt is made. |
+| quit | denies READ and/or WRITE access and quits the script when restricted access is attempted. |
 
 For example, to allow all network access, but to quit on any file access:
 
@@ -9617,18 +9391,12 @@ If a block is used instead of a security level word, it can contain pairs of sec
 The access types allowed are:
 
 
-```html
-<table class="doctable">
-<tr><td valign="top" nowrap><b>read</b></td><td valign="top" width="95%">controls read access.
-</td></tr>
-<tr><td valign="top" nowrap><b>write</b></td><td valign="top" width="95%">controls write, delete, and rename access.
-</td></tr>
-<tr><td valign="top" nowrap><b>execute</b></td><td valign="top" width="95%">controls execute access.
-</td></tr>
-<tr><td valign="top" nowrap><b>all</b></td><td valign="top" width="95%">controls all access.
-</td></tr>
-</table>
-```
+| Access Type | Description |
+|-------------|-------------|
+| read | controls read access. |
+| write | controls write, delete, and rename access. |
+| execute | controls execute access. |
+| all | controls all access. |
 
 The pairs are processed in the order they appear, with later pairs modifying the effect of earlier pairs. This permits setting one type of access without explicitly setting all others. For example:
 
@@ -11907,88 +11675,26 @@ Once enabled, when you evaluate an expression, you will see each step as a singl
 The `trace` format uses these formatting notations to indicate what your code is doing:
 
 
-```html
-<table class="doctable">
-<tr><th align="top">
-Notation
-</th><th valign="top">
-Meaning
-</th>
-<tr>
-<td valign="top">
-(indent)
-</td><td valign="top">
-The indentation for each line indicates the depth of the code.
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">N:</div>
-</td><td valign="top">
-The index number of the value in the code block (that is to be evaluated.)
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">--&gt;</div>
-</td><td valign="top">
-Entry into a function, followed by its formal argument list.
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">&lt;--</div>
-</td><td valign="top">
-Return from a function, followed by the value it returned (==).
-</td></tr></table>
-```
+| Notation | Meaning |
+|----------|---------|
+| (indent) | The indentation for each line indicates the depth of the code. |
+| N: | The index number of the value in the code block (that is to be evaluated.) |
+| --> | Entry into a function, followed by its formal argument list. |
+| <-- | Return from a function, followed by the value it returned (==). |
 
 
 ###### Simple example
 To help understand the format, here's a description for each line in the earlier example:
 
 
-```html
-<table class="doctable">
-<tr><th align="top">
-Code
-</th><th valign="top">
-Meaning
-</th>
-<tr>
-<td valign="top">
-<div class="codeline">&gt;&gt; print 123</div>
-</td><td valign="top">
-Typed into the console to evaluate.
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">1: print : native! [value]</div>
-</td><td valign="top">
-The value at block index 1 is the word <a href="#print">print</a>. It's value is looked up and found to be a <span class="datatype">native!</span> function that takes value as an argument.
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">2: 123</div>
-</td><td valign="top">
-The value at block index 2 is the integer 123.
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">--&gt; print</div>
-</td><td valign="top">
-The argument is valid and the <a href="#print">print</a> function is entered. The --&gt; means "enter into the function."
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">123</div>
-</td><td valign="top">
-Output is printed.
-</td>
-<tr>
-<td valign="top">
-<div class="codeline">&lt;-- print == unset!</div>
-</td><td valign="top">
-The <a href="#print">print</a> function returns, but it has no return value (it is unset.) The &lt;-- means "return from the function."
-</td></tr></table>
-```
+| Code | Meaning |
+|------|---------|
+| >> print 123 | Typed into the console to evaluate. |
+| 1: print : native! [value] | The value at block index 1 is the word print. It's value is looked up and found to be a native! function that takes value as an argument. |
+| 2: 123 | The value at block index 2 is the integer 123. |
+| --> print | The argument is valid and the print function is entered. The --> means "enter into the function." |
+| 123 | Output is printed. |
+| <-- print == unset! | The print function returns, but it has no return value (it is unset.) The <-- means "return from the function." |
 
 
 ###### Larger example
@@ -12289,16 +11995,11 @@ Without refinements, `transcode` will convert the entire input string.
 Refinements are provided for partial translation:
 
 
-```html
-<table class="doctable">
-<tr><td valign="top" nowrap><b>/next</b></td><td valign="top" width="95%">Translate the next full value. If it is a block, translate the entire block.
-</td></tr>
-<tr><td valign="top" nowrap><b>/only</b></td><td valign="top" width="95%">Translate the next singular value. If it is a block, translate only the first element of the block, and return it within a block.
-</td></tr>
-<tr><td valign="top" nowrap><b>/error</b></td><td valign="top" width="95%">Convert syntax errors to error objects and output them rather than throwing them as an error.
-</td></tr>
-</table>
-```
+| Refinement | Description |
+|------------|-------------|
+| /next | Translate the next full value. If it is a block, translate the entire block. |
+| /only | Translate the next singular value. If it is a block, translate only the first element of the block, and return it within a block. |
+| /error | Convert syntax errors to error objects and output them rather than throwing them as an error. |
 
 These refinements can be used in various ways to parse REBOL source a value at a time.
 
