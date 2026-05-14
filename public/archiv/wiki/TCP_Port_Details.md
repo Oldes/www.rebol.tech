@@ -102,15 +102,4 @@ The details of the port device for READ are:
 
 The READ signal is processed similar to the WROTE signal, as described above. The only difference is that the port actor's UPDATE event will set the tail position for the port/data buffer. This provides the proper binary series length indication.
 
-## Cookbook References
-
- Cookbook Reference Page
-|Class |Documents |
-|Usage |* [Cookbook List](https://web.archive.org/web/20131013022447/http://www.rebol.net/wiki/Cookbooks)
- * [New Cookbooks and Recipes](https://web.archive.org/web/20131013022447/http://www.rebol.net/wiki/Cookbook_Changes) |
-|Authoring |* [About Cookbooks](https://web.archive.org/web/20131013022447/http://www.rebol.net/wiki/About_Cookbooks)
- * [Requested Cookbooks](https://web.archive.org/web/20131013022447/http://www.rebol.net/wiki/Requested_Cookbooks)
- * [List of Cookbook/Recipe Authors](https://web.archive.org/web/20131013022447/http://www.rebol.net/w/index.php?title=List_of_Cookbook/Recipe_Authors&action=edit) |
-|See Also |* [http://www.rebol.net/cookbook/](https://web.archive.org/web/20131013022447/http://www.rebol.net/cookbook/) | 
-
 Retrieved from "[http://www.rebol.net/wiki/TCP_Port_Details](https://web.archive.org/web/20131013022447/http://www.rebol.net/wiki/TCP_Port_Details)"

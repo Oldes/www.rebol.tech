@@ -939,7 +939,7 @@ To make it easier to check such conditions, the `assert` function is provided.
 Assert can check "truth" conditions, or with a refinement, it can check datatype validity conditions.
 
 
-####### Asserting truth
+###### Asserting truth
 To check truth conditions, the argument of `assert` is a block of one or more conditions, and each is checked (similar to `all`) to be true:
 
 
@@ -968,7 +968,7 @@ Look at the error line closely, and you can tell which one failed.
 Note: only the first three elements of the failed assertion will be shown (to help avoid long error lines.)
 
 
-####### Asserting datatypes
+###### Asserting datatypes
 It is also common to validate datatypes using the /type refinement:
 
 
@@ -2489,7 +2489,7 @@ copy/part find name "Tesla" tail name
 Notice that the ending position can be a length or a position within the string (as shown by the `tail` example above.)
 
 
-####### About Substrings
+###### About Substrings
 If you use other languages, you will notice that this result is similar to what a substr function provides. Although we recommend using `copy` with /part, you can easily define your own substr function this way:
 
 
@@ -3356,7 +3356,7 @@ The greater speed of command blocks is obtained through the use of a special eva
 ```
 
 
-####### Why is it Useful?
+###### Why is it Useful?
 In subsystems like the [R3 GUI](https://www.rebol.com/r3/docs/gui/gui), graphical elements are rendered by generating semi-static [draw blocks](https://www.rebol.com/r3/docs/view/draw.html) either during style definition (definition of a button), face instantiation (creating an instance of a button), or face state modification (eg. hovering over a button).
 
 The advantage of the static form of such draw blocks is that they require no further evaluation, hence take no additional memory or CPU time. In fact, the state of the GUI at any specific time is simply a sequence of draw block renderings. Therefore, a fast method of calling draw functions can greatly speed-up the rendering time of the GUI.
@@ -4271,7 +4271,7 @@ Note also this is not a direct opposite to the `dir?` function as `dir?` does no
 Returns `none!` if the value was not found. Otherwise, returns a position in the series where the value was found. Many refinements to this function are available.
 
 
-####### Refinements
+###### Refinements
 Use /tail to return the position just past the match.
 
 Use /case to specify that the search should be case sensitive. Note that using `find` on a binary string will do a case-insensitive search.
@@ -5451,7 +5451,7 @@ import http://www.rebol.com/mods/mysql.r
 ```
 
 
-####### Return value
+###### Return value
 When successful, the `import` function returns a `module!` datatype as its result.
 
 This allows you to write:
@@ -5473,7 +5473,7 @@ mysql/open-db %my-database.sql
 See below for more.
 
 
-####### Useful refinements
+###### Useful refinements
 Like the header needs field, the `import` function also lets you specify a version and a checksum.
 
 These are all supported:
@@ -5488,7 +5488,7 @@ import/version/check mysql 1.2.3 #{A94A8FE5CCB19BA61C4C0873D391E987982FBBD3}
 ```
 
 
-####### When to use IMPORT
+###### When to use IMPORT
 The benefit of using the `import` function compared to the needs header field is that the arguments can be variables.
 
 A basic example is:
@@ -5692,7 +5692,7 @@ insert is returned, allowing multiple inserts to be
 cascaded together.
 
 
-####### Refinements
+###### Refinements
 /part allows you to specify how many elements you want
 to insert.
 
@@ -5995,6 +5995,48 @@ obj: object [a: 10 b: 20]
 print length? obj
 2
 ```
+------------------------------------------------------------------
+## LERP
+
+`lerp` computes a linear interpolation using the formula:
+
+```
+result = start + (end - start) * factor
+```
+
+The `factor` argument is clamped to the range `0.0–1.0`, so values below `0.0` behave as `0.0` and values above `1.0` behave as `1.0`. This means `lerp` will never extrapolate beyond the `start`–`end` range.
+
+The function works component-wise for `tuple!` and `pair!` types, interpolating each component independently.
+
+###### Examples:
+
+```rebol
+; Interpolating between two numbers
+lerp 0.0 100.0 0.5   ; == 50.0
+lerp 0.0 100.0 0.25  ; == 25.0
+lerp 0.0 100.0 0.0   ; == 0.0
+lerp 0.0 100.0 1.0   ; == 100.0
+
+; Factor is clamped — no extrapolation
+lerp 0.0 100.0 1.5   ; == 100.0
+lerp 0.0 100.0 -0.5  ; == 0.0
+
+; Interpolating between colors (tuple!)
+lerp 0.0.0 255.255.255 0.5   ; == 127.127.127  (mid-grey)
+lerp 255.0.0 0.0.255   0.5   ; == 127.0.127    (purple)
+
+; Interpolating between positions (pair!)
+lerp 0x0 100x200 0.5   ; == 50x100
+lerp 10x20 90x80 0.25  ; == 30x35
+```
+
+###### Notes:
+
+- `start` and `end` must be the same type; mixing types (e.g. a `number!` with a `tuple!`) will raise an error.
+- For `tuple!` values, interpolation is applied to each channel (R, G, B and optionally A) independently, making `lerp` well-suited for color blending.
+- For `pair!` values, both the `x` and `y` components are interpolated independently, making it useful for 2D position or size transitions.
+- Unlike an unclamped lerp, this implementation does **not** support extrapolation. If you need values outside the `start`–`end` range, scale your `factor` before passing it in.
+
 
 ------------------------------------------------------------------
 ## LESSER-OR-EQUAL?
@@ -6696,7 +6738,7 @@ mold/all next "ABC"
 ```
 
 
-####### Affected Datatypes
+###### Affected Datatypes
 The following datatypes are affected: `unset!`, `none!`, `logic!`, `bitset!`, `image!`, `map!`, `datatype!`, `typeset!`, `native!`, `action!`, `op!`, `closure!`, `function!`, `object!`, `module!`, `error!`, `task!`, `port!`, `gob!`, `event!`, `handle!`.
 
 
@@ -6707,7 +6749,7 @@ The following datatypes are affected: `unset!`, `none!`, `logic!`, `bitset!`, `i
 ```
 
 
-####### Accuracy of Decimals
+###### Accuracy of Decimals
 The `decimal!` datatype is implemented as IEEE 754 binary floating point type. When molding `decimal!` values, mold/all will need to use the maximal precision 17 digits to allow for accurate transformation of Rebol decimals to string and back, as opposed to just `mold`, which uses a default precision 15 decimal digits.
 
 
@@ -8941,7 +8983,7 @@ Opens the standard operating system file requester to allow the user to select o
 
 ###### Details
 
-####### Normal usage for read or load
+###### Normal usage for read or load
 The line:
 
 
@@ -8954,7 +8996,7 @@ will open the file requester and return a single file name as a full file path. 
 If the user clicks CANCEL or closes the file requestor, a NONE is returned.
 
 
-####### For saving or writing files
+###### For saving or writing files
 To open the file requester to save a file:
 
 
@@ -8965,7 +9007,7 @@ file: request-file/save
 This will change the text of the window to indicate that a save (write) will be done.
 
 
-####### Specifying a default file or directory
+###### Specifying a default file or directory
 A default name can be provided for the file:
 
 
@@ -8985,7 +9027,7 @@ file: request-file/file %/c/data/files/
 Be sure to include the terminating slash to indicate a directory. Otherwise it will be treated as a file.
 
 
-####### Allowing multiple file selection
+###### Allowing multiple file selection
 To allow the selection of multiple files at the same time:
 
 
@@ -8998,7 +9040,7 @@ foreach file files [print file]
 The result is returned as a block, and each file within the block is a full path.
 
 
-####### Filtering file views
+###### Filtering file views
 You can also provide file list filters to show only specific files. For example:
 
 
@@ -9010,7 +9052,7 @@ file: request-file/filter [
 ```
 
 
-####### Setting the window title
+###### Setting the window title
 The /title refinement lets you modify the window title for the file requester to help make it more clear to users.
 
 
@@ -9038,7 +9080,7 @@ The `resolve` function is used to merge values from one context into another but
 It is used mainly to support runtime environments, where newly exported functions must be merged into an existing lib context. Because lib can become quite large, performance must be optimized, which is the reason why `resolve` is a native function.
 
 
-####### Basic Concept
+###### Basic Concept
 This example will help to show the basic concept:
 
 
@@ -9070,7 +9112,7 @@ So, `resolve` has no affect on values that have already been set in the target c
 Note that protected words will not be modified, they are ignored. No error occurs.
 
 
-####### Refinements
+###### Refinements
 
 ```html
 <table class="doctable">
@@ -9527,7 +9569,7 @@ secure query
 ```
 
 
-####### The main argument
+###### The main argument
 The argument to the `secure` function can be a word or a block.
 
 
@@ -9541,7 +9583,7 @@ The argument to the `secure` function can be a word or a block.
 ```
 
 
-####### Argument as a word
+###### Argument as a word
 If the argument is a word, it can be:
 
 
@@ -9583,7 +9625,7 @@ secure quit
 the program will quit immediately if any security violation occurs. Of course, this is a little extreme, and you won't get far. You'll want to specify a block for greater control. See the next section.
 
 
-####### Argument as a block
+###### Argument as a block
 To provide more detailed security, use a block:
 
 
@@ -10219,7 +10261,7 @@ The `split` function is used to divide a [series](https://www.rebol.com/r3/docs/
 It provides several ways to specify how you want the split done.
 
 
-####### Split into equal segments:
+###### Split into equal segments:
 Given an integer as the dlm parameter, `split` will break the series
 up into pieces of that size.
 
@@ -10239,7 +10281,7 @@ If the series can't be evenly split, the last value will be shorter.
 ```
 
 
-####### Split into N segments:
+###### Split into N segments:
 Given an integer as dlm, and using the /parts refinement, it breaks
 the series into n pieces, rather than pieces of length n.
 ```rebol
@@ -10260,7 +10302,7 @@ If the series can't be evenly split, the last value will be longer.
 ```
 
 
-####### Split into uneven segments:
+###### Split into uneven segments:
 If dlm is a block containing only integer values, those values 
 determine the size of each piece returned. That is, each piece
 can be a different size.
@@ -10309,7 +10351,7 @@ that part:
 ```
 
 
-####### Simple delimiter splitting:
+###### Simple delimiter splitting:
 Char or any-string values can be used for simple splitting, much as
 you would with "parse", but with different behavior for strings
 that have embedded quotes.
@@ -11971,7 +12013,7 @@ Return from a function, followed by the value it returned (==).
 ```
 
 
-####### Simple example
+###### Simple example
 To help understand the format, here's a description for each line in the earlier example:
 
 
@@ -12021,7 +12063,7 @@ The <a href="#print">print</a> function returns, but it has no return value (it 
 ```
 
 
-####### Larger example
+###### Larger example
 Here is a user defined function to compute the average of a block of numbers.
 
 
@@ -12089,7 +12131,7 @@ At times the trace output will be a lot more than you want. The trick becomes ho
 <li>Use the backtrace option. (see more below)</li>
 </ol>
 
-####### Setting trace depth
+###### Setting trace depth
 Using the example above, set the trace depth to 2, and run it again. You will see:
 
 
@@ -12121,7 +12163,7 @@ Using the example above, set the trace depth to 2, and run it again. You will se
 The output has been reduced. You no longer see the foreach loop operate.
 
 
-####### Locating trace within your code
+###### Locating trace within your code
 Most of the time you don't need to trace your entire program, just part of it. So, it is useful just to put `trace` in your code where you need it.
 
 Using the same example as above:
@@ -12173,7 +12215,7 @@ You will now see:
 ```
 
 
-####### Tracing functions only
+###### Tracing functions only
 With the /function refinement you can trace just function calls and their returns. The evaluation of each code block value is not shown, saving a few lines.
 
 
@@ -12247,7 +12289,7 @@ To use backtrace with the /function refinement:
 This will also speed-up trace evaluation.
 
 
-####### Example backtrace
+###### Example backtrace
 Here is an example session:
 
 
@@ -12275,7 +12317,7 @@ Here is an example session:
 So, it's not hard to see what was going on when the script crashed. Backtrace can be quite handy when you need it.
 
 
-####### Important notes
+###### Important notes
 
 ```html
 <ul>

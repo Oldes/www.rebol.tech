@@ -197,7 +197,14 @@ fieldset {
     padding-inline: 0.75em;
 }
 
-.ansi1 {filter: brightness(1.5);}
+.ansi1 {font-weight: bold;}
+.ansi3 {font-style: italic;}
+.ansi4 {text-decoration: underline;}
+.ansi7 {filter: invert(1);}
+.ansi22 {font-weight: normal;}
+.ansi23 {font-style: normal;}
+.ansi24 {text-decoration: none;}
+.ansi27 {filter: none;}
 .ansi30 {color: black;}
 .ansi31 {color: #800000;}
 .ansi32 {color: #008000;}
@@ -206,6 +213,13 @@ fieldset {
 .ansi35 {color: #800080;}
 .ansi36 {color: #008080;}
 .ansi37 {color: #c0c0c0;}
+.ansi91 {color: #ff5555;}
+.ansi92 {color: #55ff55;}
+.ansi93 {color: #ffff55;}
+.ansi94 {color: #5555ff;}
+.ansi95 {color: #ff55ff;}
+.ansi96 {color: #55ffff;}
+.ansi97 {color: #ffffff;}
 .ansi100 { background-color: #808080;}
 .ansi101 { background-color: red; }
 .ansi102 { background-color: lime; }
@@ -214,6 +228,20 @@ fieldset {
 .ansi105 { background-color: magenta; }
 .ansi106 { background-color: cyan; }
 .ansi107 { background-color: white; }
+.ansiclr244 { color: #A5A5A5; }
+code.desc {
+	white-space: pre;
+	color: #A5A5A5;
+	font-size: 0.9em;
+}
+code.inline {
+	color: #FFA5A5;
+	font-size: 0.9em;
+}
+div.extra-desc {
+	white-space: pre;
+	font-size: 0.9em;
+}
 
 @media(max-width:67em){
 	
