@@ -6,7 +6,7 @@
 ## ABOUT
 [[ license usage help ]]
 
-Displays REBOL title and version information on the REBOL console.
+Displays Rebol title and version information on the Rebol console.
 ```code
 about
 ```
@@ -309,87 +309,61 @@ Here, if any one of the conditions produces a true result, the `if` will evaluat
 This function works by evaluating each expression in a block until one of the expressions returns a value other than `none!` or false, in which case the value is returned. Otherwise, `none!` will be returned.
 
 Examples to help show how it works:
-
-
 ```rebol
-print any [1 none]
-1
-
-print any [none 1]
-1
-
-print any [none none]
-none
-
-print any [false none]
-none
-
-print any [true none]
-true
+probe any [1 none]     ;== 1
+probe any [none 1]     ;== 1
+probe any [none none]  ;== _
+probe any [false none] ;== _
+probe any [true none]  ;== #(true)
 
 time: 10:30
-if any [time > 10:00  time < 11:00] [print "time is now"]
-time is now
+if any [time > 10:00  time < 11:00] ["time is now"] ;== "time is now"
 ```
 
 No other expressions are evaluated beyond the point where a successful value is found. This can be useful. For example:
-
-
 ```rebol
 a: 0
 any [none a: 2]
-print a
-2
+probe a ;== 2
 
 a: 0
 any [1 a: 2]
-print a
-0
+probe a ;== 0
 
-day: 10
-time: 9:45
+day: 10 time: 9:45
 ready: any [day > 5  time < 10:00  time: 12:00]
-print time
-9:45
+probe time ;== 9:45
 ```
 
 The `any` function is also useful for setting default values. For example:
-
-
 ```rebol
 size: any [size 100]
 ```
 
 If size was `none!`, then it gets set to 100. This works even better if there are alternative defaults:
-
-
 ```rebol
 size: any [size prefs/size 100]
 ```
 
 Another use for `any` is to emulate a sequence of if...elseif...elseif...else. Instead of writing:
-
-
 ```rebol
 either cond-1 [
     code-1
-] [
+][
     either cond-2 [
         code-2
-    ] [
+    ][
         either cond-3 ...
     ]
 ]
 ```
 
 it is possible to write:
-
-
 ```rebol
 any [
     if cond-1 [
         code-1
-        true ; in case code-1 returns FALSE or NONE
+        true    ;; in case code-1 returns FALSE or NONE
     ]
     if cond-2 [
         code-2
@@ -408,31 +382,17 @@ The `all` function is a companion of `any` to test for the opposite condition, w
 [[ type? block? paren? path? any-function? any-string? any-word? ]]
 
 Returns true only if the value is a `block!` (any kind of block) and false for all other values.
-
-
 ```rebol
->> any-object? "foo"
-== #(false)
-
->> any-block? [1 2]
-== #(true)
-
->> any-block? first [(1 2) 3]
-== #(true)
-
->> any-block? 'a/b/c
-== #(true)
-
->> any-block? 12
-== #(false)
+any-object? "foo"          ;== #(false)
+any-block? [1 2]           ;== #(true)
+any-block? first [(1 2) 3] ;== #(true)
+any-block? 'a/b/c          ;== #(true)
+any-block? 12              ;== #(false)
 ```
 
 To learn what datatypes are blocks:
-
-
-```rebol
+```code
 print any-block!
-block! paren! path! set-path! get-path! lit-path!
 ```
 
 ------------------------------------------------------------------
@@ -440,43 +400,31 @@ block! paren! path! set-path! get-path! lit-path!
 [[ type? function? native? op? any-block? any-string? any-word? ]]
 
 Returns true if the value is any type of function and returns false for all other values.
-
-
 ```rebol
->> any-function? :find
-== #(true)
-
->> any-function? :+
-== #(true)
-
->> any-function? func [] [print "hi"]
-== #(true)
-
->> any-function? 123
-== #(false)
+any-function? :find                ;== #(true)
+any-function? :+                   ;== #(true)
+any-function? func [] [print "hi"] ;== #(true)
+any-function? 123                  ;== #(false)
 ```
 
 To learn what datatypes are functions:
-
-
-```rebol
+```code
 print any-function!
-native! action! rebcode! command! op! closure! function!
 ```
 
 ------------------------------------------------------------------
 ## ANY-OBJECT?
-[[ type? ]]
+[[ type? object? port? module? error? ]]
 
 ```rebol
->> any-object? system
-== #(true)
+any-object? system        ;== #(true)
+any-object? try [1 / 0]   ;== #(true)
+any-object? "foo"         ;== #(false)
+```
 
->> any-object? try [1 / 0]
-== #(true)
-
->> any-object? "foo"
-== #(false)
+To learn what datatypes are objects:
+```code
+print any-object!
 ```
 
 ------------------------------------------------------------------
@@ -484,153 +432,98 @@ native! action! rebcode! command! op! closure! function!
 [[ all-of ]]
 
 ```rebol
->> any-of x [-1 4 10] [x > 0]
-== 4
-
->> any-of [x y] [1 4 10 8 5 -3] [(x - 2) = y]
-== [10 8]
+any-of x [-1 4 10] [x > 0]                 ;== 4
+any-of [x y] [1 4 10 8 5 -3] [(x - 2) = y] ;== [10 8]
 ```
 
 ------------------------------------------------------------------
 ## ANY-PATH?
+[[ type? path? lit-path? set-path? get-path? ]]
 
 Returns true if the value is any type of `path!` and returns false for all other values.
 
-
 ```rebol
->> any-path? 'test/this
-== #(true)
-
->> any-path? first [example/item: 10]
-== #(true)
-
->> any-path? second [print :example/item]
-== #(true)
-
->> any-path? 123
-== #(false)
+any-path? 'test/this                       ;== #(true)
+any-path? first [example/item: 10]         ;== #(true)
+any-path? second [print :example/item]     ;== #(true)
+any-path? 123                              ;== #(false)
 ```
 
 To learn what datatypes are paths:
-
-
-```rebol
+```code
 print any-path!
-path! set-path! get-path! lit-path!
 ```
 
 ------------------------------------------------------------------
 ## ANY-STRING?
-[[ type? string? file? email? url? any-block? any-function? ]]
+[[ type? string? ref? file? email? url? tag? ]]
 
 Returns true for any type of string, and false for all other values.
 
-
 ```rebol
->> any-string? "Hello"
-== #(true)
-
->> any-string? email@rebol.com
-== #(true)
-
->> any-string? ftp://ftp.rebol.com
-== #(true)
-
->> any-string? %dir/file.txt
-== #(true)
-
->> any-string? @name
-== #(true)
-
->> any-string? 11-Jan-2000
-== #(false)
+any-string? "Hello"                        ;== #(true)
+any-string? email@rebol.com                ;== #(true)
+any-string? ftp://ftp.rebol.com            ;== #(true)
+any-string? %dir/file.txt                  ;== #(true)
+any-string? @name                          ;== #(true)
+any-string? 11-Jan-2000                    ;== #(false)
 ```
 
 To see what datatypes are strings:
-
-
-```rebol
+```code
 print any-string!
-string! file! email! ref! url! tag!
 ```
 
 ------------------------------------------------------------------
 ## ANY-WORD?
-[[ type? any-block? any-function? any-string? ]]
+[[ type? word? get-word? set-word? lit-word? refinement? issue? ]]
 
 Returns true for any type of word and false for all other values.
-
-
 ```rebol
->> any-word? 'word
-== #(true)
-
->> any-word? /word
-== #(true)
-
->> any-word? #issue
-== #(true)
-
->> any-word? first [set-word: 'lit-word :get-word]
-== #(true)
-
->> any-word? second [set-word: 'lit-word :get-word]
-== #(true)
-
->> any-word? third [set-word: 'lit-word :get-word]
-== #(true)
-
->> any-word? 123
-== #(false)
+any-word? 'word                            ;== #(true)
+any-word? /word                            ;== #(true)
+any-word? #issue                           ;== #(true)
+any-word? first  [set-word: 'lit-word :get-word] ;== #(true)
+any-word? second [set-word: 'lit-word :get-word] ;== #(true)
+any-word? third  [set-word: 'lit-word :get-word] ;== #(true)
+any-word? 123                              ;== #(false)
 ```
 
 To see what datatypes are words:
-
-
-```rebol
+```code
 print any-word!
-word! set-word! get-word! lit-word! refinement! issue!
 ```
 
 ------------------------------------------------------------------
 ## APPEND
-[[ insert change remove repend ]]
+[[ insert change remove repend join ajoin ]]
 
 The `append` function is a shortcut for doing an `insert` at the tail of any type of [series](https://www.rebol.com/r3/docs/concepts/series.html) and returning the head:
-
 
 ```rebol
 head insert tail series value
 ```
-
 Basic examples:
-
 
 ```rebol
 string: copy "hello"
-probe append string " there"
-"hello there"
+probe append string " there"           ;== "hello there"
 
 file: copy %file
-probe append file ".txt"
-%file.txt
+probe append file ".txt"               ;== %file.txt
 
 url: copy http://
-probe append url "www.rebol.com"
-http://www.rebol.com
+probe append url "www.rebol.com"       ;== http://www.rebol.com
 ```
 
-The /only refinement forces a block to be appended as a single block element, rather than appending the separate elements of the block:
-
+The `/only` refinement forces a block to be appended as a single block element, rather than appending the separate elements of the block:
 
 ```rebol
 block: copy [1 2 3]
-probe append block [4 5 6]
-[1 2 3 4 5 6]
+probe append block [4 5 6]             ;== [1 2 3 4 5 6]
 
 block: copy [1 2 3]
-probe append/only block [4 5 6]
-[1 2 3 [4 5 6]]
+probe append/only block [4 5 6]        ;== [1 2 3 [4 5 6]]
 ```
 
 To learn more about the operation of the other refinements, see the `insert` function.
@@ -641,20 +534,17 @@ To learn more about the operation of the other refinements, see the `insert` fun
 
 When you evaluate a function, you normally provide any arguments directly in-line with its call:
 
-
 ```rebol
 append data 123
 ```
 
 However, there are times when you want to store the arguments as a single block and pass them to the function. This is the purpose of the `apply` function. The above example can be written as:
 
-
 ```rebol
 apply :append [data 123]
 ```
 
 or, using a variable to hold the block:
-
 
 ```rebol
 args: [data 123]
@@ -663,105 +553,138 @@ apply :append args
 
 If any arguments are missing from the block, a `none!` is passed instead:
 
-
 ```rebol
 data: [456]
 apply :append [data]
-probe data
-[456 none]
+probe data             ;== [456 _]
 ```
 
-Function refinements can also be passed in the order they are specified by the arguments spec block. For example, we can see:
-
-
-```rebol
->> ? append
-USAGE:
-    APPEND series value /part length /only /dup count
-```
-
-So in this example we use the /dup refinement:
-
+Function refinements can also be passed in the order they are specified by the arguments spec block.
+So in this example we use the `/dup` refinement:
 
 ```rebol
 data: [456]
-apply :append [data 1 none none none true 3]
-probe data
-[456 1 1 1]
+apply :append [data 1 _ _ _ true 3]
+probe data             ;== [456 1 1 1]
 ```
-
-Note that the refinement itself must be set to true.
+For better readability, it can be also written as:
+```rebol
+apply :append [data 2 _ _ _ /dup 2]
+probe data             ;== [456 1 1 1 2 2]
+```
+Note that even when used the name instead of `true`, the position must be same!
 
 ------------------------------------------------------------------
 ## ARCCOSINE
 [[ acos arcsine arctangent cosine exp log-10 log-2 log-e power sine square-root tangent ]]
 
-The `arccosine` provides the inverse of the `cosine` function.
+Returns the angle whose cosine is `value` — the inverse of `cosine`. The result is in the range `[0°, 180°]` (or `[0, π]` with `/radians`).
 
+The input must be in the range `[-1, 1]`, which corresponds to all valid cosine values. Passing a value outside this range returns `1.#NaN`.
 
 ```rebol
-print arccosine .5
-60.0
+arccosine 1.0          ;== 0.0                (0° — cosine of 0° is 1)
+arccosine 0.5          ;== 60.0               (cosine of 60° is 0.5)
+arccosine 0            ;== 90.0               (cosine of 90° is 0)
+arccosine -1.0         ;== 180.0              (cosine of 180° is -1)
+
+arccosine/radians 0.5  ;== 1.0471975511966    (π/3)
+
+arccosine 1.1          ;== 1.#NaN             (out of valid range)
 ```
 
-Note that arccosine goes to infinity at 90 degrees and will cause a numeric overflow.
 
 ------------------------------------------------------------------
 ## ARCSINE
 [[ arccosine arctangent cosine exp log-10 log-2 log-e power sine square-root tangent ]]
 
-The `arcsine` provides the inverse of the `sine` function.
+Returns the angle whose sine is `value` — the inverse of `sine`. The result is in the range `[-90°, 90°]` (or `[-π/2, π/2]` with `/radians`).
 
+The input must be in the range `[-1, 1]`, which corresponds to all valid sine values. Passing a value outside this range returns `1.#NaN`.
 
 ```rebol
->> arcsine .5
-== 30.0
+arcsine -1.0          ;== -90.0              (sine of -90° is -1)
+arcsine -0.5          ;== -30.0              (sine of -30° is -0.5)
+arcsine 0             ;== 0.0                (sine of 0° is 0)
+arcsine 0.5           ;== 30.0               (sine of 30° is 0.5)
+arcsine 1.0           ;== 90.0               (sine of 90° is 1)
+
+arcsine/radians 0.5   ;== 0.523598775598299  (π/6)
+
+arcsine 1.1           ;== 1.#NaN             (out of valid range)
 ```
 
-Note that arccsine goes to infinity at 0 and each 180 degrees and will cause a numeric overflow.
 
 ------------------------------------------------------------------
 ## ARCTANGENT
-[[ arccosine arcsine cosine exp log-10 log-2 log-e power sine square-root tangent ]]
+[[ atan arccosine arcsine cosine exp log-10 log-2 log-e power sine square-root tangent ]]
 
-The `arctangent` function provides the inverse of the `tangent` function.
+Returns the angle whose tangent is `value` — the inverse of `tangent`. The result is in the range `(-90°, 90°)` (or `(-π/2, π/2)` with `/radians`).
 
+Unlike `arcsine` and `arccosine`, `arctangent` accepts any real number — the tangent function is defined for all reals, so there is no invalid input range.
 
 ```rebol
->> arctangent .22
-== 12.4074185274007
+arctangent -1.0        ;== -45.0             (tangent of -45° is -1)
+arctangent 0           ;== 0.0               (tangent of 0° is 0)
+arctangent 1.0         ;== 45.0              (tangent of 45° is 1)
+arctangent 1000000     ;== 89.9999427042206  (approaches 90° asymptotically)
+
+arctangent/radians 1.0 ;== 0.785398163397448 (π/4)
 ```
 
 ------------------------------------------------------------------
 ## ARCTANGENT2
+[[ atan2 arctangent]]
+
+Returns the angle whose tangent is `Y/X` — the two-argument form of `arctangent`, commonly known as `atan2`. Unlike `arctangent`, it considers the signs of both components separately to determine the correct quadrant, giving an unambiguous angle across the full circle.
+
+The center of the circle is assumed to be at `0x0`. Angles are measured counterclockwise from the positive X axis:
+```
+        90°
+         |
+180° ----+---- 0°
+         |
+       -90°
+```
+
+```rebol
+arctangent2  1x0         ;==    0.0   (right — on positive X axis)
+arctangent2 10x10        ;==   45.0   (upper-right quadrant)
+arctangent2  0x1         ;==   90.0   (up — on positive Y axis)
+arctangent2 -1x1         ;==  135.0   (upper-left quadrant)
+arctangent2 -1x0         ;==  180.0   (left — on negative X axis)
+arctangent2 -1x-1        ;== -135.0   (lower-left quadrant)
+arctangent2  0x-1        ;==  -90.0   (down — on negative Y axis)
+arctangent2  1x-1        ;==  -45.0   (lower-right quadrant)
+
+arctangent2/radians 1x1  ;== 0.785398163397448 (π/4)
+```
+
+
 ------------------------------------------------------------------
 ## ARRAY
 [[ make pick poke ]]
 
-In REBOL, arrays are simply blocks that are initialized to a specific size with all elements set to an initial value (v:none by default). The `array` function is used to create and initialize arrays.
+In Rebol, arrays are simply blocks that are initialized to a specific size with all elements set to an initial value (`none` by default). The `array` function is used to create and initialize arrays.
 
-Supplying a single integer as the argument to `array` will create an array of a single dimension. The example below creates a five element array with values set to none:
+Supplying a single integer as the argument to `array` will create an array of a single dimension. The example below creates a five element array with values set to `none`:
 ```rebol
->> block: array 5
-== [#(none) #(none) #(none) #(none) #(none)]
-
->> length? block
-== 5
+block: array 5            ;== [_ _ _ _ _]
+length? block             ;== 5
 ```
 
 To initialize an array to values other than NONE, use the /initial refinement. The example below intializes a block with zero values:
 ```rebol
->> block: array/initial 5 0
-== [0 0 0 0 0]
+block: array/initial 5 0  ;== [0 0 0 0 0]
 ```
 
-To create an array of multiple dimensions, provide a block of integers as the argument to the `array` function. Each integer specifies the size of that dimension of the array. (In REBOL, such multidimensional arrays are created using blocks of blocks.)
+To create an array of multiple dimensions, provide a block of integers as the argument to the `array` function. Each integer specifies the size of that dimension of the array. (In Rebol, such multidimensional arrays are created using blocks of blocks.)
 ```rebol
->> xy-block: array [2 3]
-== [[#(none) #(none) #(none)] [#(none) #(none) #(none)]]
+xy-block: array [2 3]
+;== [[_ _ _] [_ _ _]]
 
->> xy-block: array/initial [2 3] 0
-== [[0 0 0] [0 0 0]]
+xy-block: array/initial [2 3] 0
+;== [[0 0 0] [0 0 0]]
 ```
 
 Once an array has been created, you can use paths or the `pick` and `poke` functions to set and get values of the block based on their indices:
@@ -769,95 +692,196 @@ Once an array has been created, you can use paths or the `pick` and `poke` funct
 block/3: 1000
 poke block 5 now
 probe block
-[0 0 1000 0 12-Feb-2009/17:46:59-8:00]
+;== [0 0 1000 0 12-Feb-2009/17:46:59-8:00]
 
 probe block/3
-1000
+;== 1000
 
 repeat n 5 [poke block n n]
 probe block
-[1 2 3 4 5]
+;== [1 2 3 4 5]
 
 xy-block/2/1: 1.2.3
 xy-block/1/3: copy "test"
 probe xy-block
-[[0 0 "test"] [1.2.3 0 0]]
+;== [[0 0 "test"] [1.2.3 0 0]]
 
 probe xy-block/2/1
-1.2.3
+;== 1.2.3
 
 repeat y 2 [
-    dim: pick xy-block y
-    repeat x 3 [poke dim x to-pair reduce [x y]]
+    dim: xy-block/:y
+    repeat x 3 [dim/:x: as-pair x y]
 ]
 probe xy-block
+;== [[1x1 2x1 3x1] [1x2 2x2 3x2]]
 ```
 
-
 ###### Coding Style Notes
-REBOL uses the concept of expandable series for holding and manipulating data, rather than the concept of fixed size arrays. For example, in REBOL you would normally write:
-
-
+Rebol uses the concept of expandable series for holding and manipulating data, rather than the concept of fixed size arrays. For example, in Rebol you would normally write:
 ```rebol
 block: copy []
 repeat n 5 [append block n]
+;== [1 2 3 4 5]
 ```
-
 rather than:
-
-
 ```rebol
 block: array 5
-repeat n 5 [poke block n n]
+repeat n 5 [block/:n: n]
 ```
 
-In other words, REBOL does not require you to specify the size of data arrays (blocks, bytes, or strings) in advance. They are dynamic.
+In other words, Rebol does not require you to specify the size of data arrays (blocks, bytes, or strings) in advance. They are dynamic.
 
 ------------------------------------------------------------------
 ## AS
+[[ to make copy]]
+
+Reinterprets `spec` as the given datatype without allocating a new series. Because no copy is made, mutations to the result are reflected in the original and vice versa.
+
+When `type` is a `datatype!` value (e.g. `string!`), the target type is used directly. When `type` is an actual value (e.g. a block or string), the type is inferred from it — only the type matters, the value's content is ignored.
+
+Coercion is only allowed between compatible types — within the `any-block!` family or within the `any-string!` family. Attempting to coerce across families throws an error.
+
+```rebol
+;; Coerce within the any-string! family
+as string! %hello              ;== "hello"
+as tag! "hello"                ;== <hello>
+
+;; Coerce within the any-block! family
+as block! 'a/b/c               ;== [a b c]
+as path! [a b c]               ;== a/b/c
+
+;; Coerce using an example value instead of a datatype
+as "" %hello                   ;== "hello"
+as [] 'a/b/c                   ;== [a b c]
+
+;; Shared memory — mutations affect both
+b: as block! a: 'a/b/c         ;== [a b c]
+append b 4                     ;== [a b c 4]
+a                              ;== a/b/c/4
+
+;; Incompatible types throw an error
+as block! "hello"              ; ** Error: incompatible types
+as #{} "hello"                 ; ** Error: incompatible types
+```
+
 ------------------------------------------------------------------
 ## AS-BLUE
+
+```code
+print as-blue "This text is blue."
+probe as-blue "Raw blue string."
+```
+
 ------------------------------------------------------------------
 ## AS-CYAN
+
+```code
+print as-cyan "This text is cyan."
+probe as-cyan "Raw cyan string."
+```
+
 ------------------------------------------------------------------
 ## AS-GRAY
+
+```code
+print as-gray "This text is gray."
+probe as-gray "Raw gray string."
+```
+
 ------------------------------------------------------------------
 ## AS-GREEN
+
+```code
+print as-green "This text is green."
+probe as-green "Raw green string."
+```
+
 ------------------------------------------------------------------
 ## AS-PAIR
 [[ to-pair pair? ]]
 
-Provides a shortcut for creating `pair!` values from separate X and
-Y integers.
+Creates a `pair!` value from two separate numbers. Useful when X and Y are held in separate variables, as an alternative to the literal `XxY` syntax.
 
+Both integer and decimal values are preserved in the result.
 
 ```rebol
-print as-pair 100 50
-100x50
+as-pair 100 50         ;== 100x50
+as-pair 0.5 10         ;== 0.5x10
+as-pair 1.5 2.5        ;== 1.5x2.5
+
+; Useful when components are in variables
+as-pair window-width window-height
 ```
 
 ------------------------------------------------------------------
 ## AS-PURPLE
+
+```code
+print as-purple "This text is purple."
+probe as-purple "Raw purple string."
+```
+
 ------------------------------------------------------------------
 ## AS-RED
+
+```code
+print as-red "This text is red."
+probe as-red "Raw red string."
+```
+
 ------------------------------------------------------------------
 ## AS-WHITE
+
+```code
+print as-white "This text is white."
+probe as-white "Raw white string."
+```
+
 ------------------------------------------------------------------
 ## AS-YELLOW
+
+```code
+print as-yellow "This text is yellow."
+probe as-yellow "Raw yellow string."
+```
+
 ------------------------------------------------------------------
 ## ASCII?
 [[ latin? utf8? ]]
 
-```rebol
->> ascii? "hello"
-== #(true)
+Returns `true` if every character in `value` has a codepoint below 128. For `any-string!`, a single non-ASCII character anywhere in the string is enough to return `false`. For `char!` and `integer!`, the check is applied to that single value.
 
->> ascii? "česko"
-== #(false) ;; because (to integer! #"č") == 269
+```rebol
+ascii? "hello"       ;== #(true)
+ascii? "česko"       ;== #(false)   (č has codepoint 269)
+
+ascii? #"A"          ;== #(true)    (codepoint 65)
+ascii? #"č"          ;== #(false)   (codepoint 269)
+
+ascii? 65            ;== #(true)    (codepoint of A)
+ascii? 269           ;== #(false)   (codepoint of č)
+ascii? 127           ;== #(true)    (last ASCII codepoint)
+ascii? 128           ;== #(false)   (first non-ASCII codepoint)
 ```
 
 ------------------------------------------------------------------
 ## ASIN
+[[ arcsine acos sin cos]]
+
+Equivalent to `arcsine/radians`. The result is in the range `[-π/2, π/2]`.
+
+The input must be in the range `[-1, 1]`, which corresponds to all valid sine values. Passing a value outside this range returns `1.#NaN`.
+
+```rebol
+asin 0.0            ;== 0.0
+asin 0.5            ;== 0.523598775598299   (π/6)
+asin 1.0            ;== 1.5707963267949     (π/2)
+asin -1.0           ;== -1.5707963267949   (-π/2)
+
+asin 1.1            ;== 1.#NaN             (out of valid range)
+```
+
 ------------------------------------------------------------------
 ## ASK
 [[ confirm input prin print ]]
@@ -1362,7 +1386,7 @@ The `call` function accepts one argument, which can be a string or a block speci
 call "cp source.txt dest.txt"
 ```
 
-Use a block argument with `call` when you want to include REBOL values in the call to a shell command, as shown in the following example:
+Use a block argument with `call` when you want to include Rebol values in the call to a shell command, as shown in the following example:
 
 
 ```rebol
@@ -1380,11 +1404,11 @@ The `call` function translates the file names in a block to the notation used by
 
 will convert the file name to windows shell syntax before doing it.
 
-When shell commands are called, they normally run as a separate process in parallel with REBOL. They are asynchronous to REBOL. However, there are times when you want to wait for a shell command to finish, such as when you are executing multiple shell commands.
+When shell commands are called, they normally run as a separate process in parallel with Rebol. They are asynchronous to Rebol. However, there are times when you want to wait for a shell command to finish, such as when you are executing multiple shell commands.
 
 In addition, every shell command has a return code, which normally indicates the success or failure of the command. Typically, a shell command returns zero when it is successful and a non-zero value when it is unsuccessful.
 
-The /wait refinement causes the `call` function to wait for a command's return code and return it to the REBOL program. You can then use the return code to verify that a command executed successfully, as shown in the following example:
+The /wait refinement causes the `call` function to wait for a command's return code and return it to the Rebol program. You can then use the return code to verify that a command executed successfully, as shown in the following example:
 
 
 ```rebol
@@ -1402,7 +1426,7 @@ if not zero? code: call/wait "xcopy" [
 ]
 ```
 
-In Windows and Unix (Linux), input to a shell command can be redirected from a file, URL, string, or port. By default, a shell command's output and errors are ignored by REBOL. However, shell command output and errors can be redirected to a file, URL, port, string, or the REBOL console.
+In Windows and Unix (Linux), input to a shell command can be redirected from a file, URL, string, or port. By default, a shell command's output and errors are ignored by Rebol. However, shell command output and errors can be redirected to a file, URL, port, string, or the Rebol console.
 
 
 ```rebol
@@ -1413,10 +1437,10 @@ call/input/output/error "sort" instr outstr errstr
 print [outstr errstr]
 ```
 
-See the REBOL Command Shell Interface documentation for more details.
+See the Rebol Command Shell Interface documentation for more details.
 
 
-Editor note: Proper link to the REBOL Command Shell Interface?
+Editor note: Proper link to the Rebol Command Shell Interface?
 
 ------------------------------------------------------------------
 ## CASE
@@ -1692,19 +1716,19 @@ probe head change/dup "abc" "->" 5
 Editor note: This section is new or has has recently changed and is still under construction.
 
 ```rebol
-title: copy "how it REBOL"
+title: copy "how it Rebol"
 change title "N"
 probe title
-"Now it REBOL"
+"Now it Rebol"
 
 change find title "t" "s"
 probe title
-"Now is REBOL"
+"Now is Rebol"
 
-blk: copy ["now" 12:34 "REBOL"]
+blk: copy ["now" 12:34 "Rebol"]
 change next blk "is"
 probe blk
-["now" "is" "REBOL"]
+["now" "is" "Rebol"]
 
 probe head change/only [1 4 5] [1 2 3]
 [[1 2 3] 4 5]
@@ -1722,23 +1746,23 @@ probe string
 ## CHANGE-DIR
 [[ make-dir what-dir list-dir ]]
 
-Changes the value of system/script/path. This value is used for file-related operations. Any file path that does not begin with a slash (/) will be relative to the path in system/script/path. When a script file is executed using the `do` native, the path will automatically be set to the directory containing the path. When REBOL starts, it is set to the current directory where REBOL is started.
+Changes the value of system/script/path. This value is used for file-related operations. Any file path that does not begin with a slash (/) will be relative to the path in system/script/path. When a script file is executed using the `do` native, the path will automatically be set to the directory containing the path. When Rebol starts, it is set to the current directory where Rebol is started.
 
 
 ```rebol
 current: what-dir
 make-dir %./rebol-temp/
 probe current
-%/C/REBOL/3.0/docs/scripts/
+%/C/Rebol/3.0/docs/scripts/
 
 change-dir %./rebol-temp/
 probe what-dir
-%/C/REBOL/3.0/docs/scripts/rebol-temp/
+%/C/Rebol/3.0/docs/scripts/rebol-temp/
 
 change-dir current
 delete %./rebol-temp/
 probe what-dir
-%/C/REBOL/3.0/docs/scripts/
+%/C/Rebol/3.0/docs/scripts/
 ```
 
 Note that the shorter shell friendly `cd` also exists.
@@ -1827,7 +1851,7 @@ current (.) path indicators.
 
 ```rebol
 >> clean-path %com/www/../../../graphics/image.jpg
-== %/C/REBOL/3.0/docs/graphics/image.jpg
+== %/C/Rebol/3.0/docs/graphics/image.jpg
 
 >> messy-path: %/rebol/scripts/neat-stuff/../../experiments/./tests
 == %/rebol/scripts/neat-stuff/../../experiments/./tests
@@ -2122,7 +2146,7 @@ compose [1 2 3 [4 (colors)]]
 
 
 ###### Memory usage for large blocks
-For most blocks you don't need to worry about memory because REBOL's automatic storage manager will efficiently handle it; however, when building large block series with `compose`, you can manage memory even more carefully.
+For most blocks you don't need to worry about memory because Rebol's automatic storage manager will efficiently handle it; however, when building large block series with `compose`, you can manage memory even more carefully.
 
 For example, you might write:
 
@@ -2266,14 +2290,14 @@ person: context [
     name: "Fred"
     age: 24
     birthday: 20-Jan-1986
-    language: "REBOL"
+    language: "Rebol"
 ]
 probe person
 make object! [
     name: "Fred"
     age: 24
     birthday: 20-Jan-1986
-    language: "REBOL"
+    language: "Rebol"
 ]
 
 person2: make person [
@@ -2284,7 +2308,7 @@ make object! [
     name: "Bob"
     age: 24
     birthday: 20-Jan-1986
-    language: "REBOL"
+    language: "Rebol"
 ]
 ```
 
@@ -2318,7 +2342,7 @@ The `copy` function will copy any [series](https://www.rebol.com/r3/docs/concept
 
 ```html
 <fieldset class="fset"><legend>How it Works</legend>
-<p>It is important to understand <a href="#copy">copy</a> to program in REBOL properly.</p>
+<p>It is important to understand <a href="#copy">copy</a> to program in Rebol properly.</p>
 <p>To save memory, all strings, blocks, and other <a href="https://www.rebol.com/r3/docs/concepts/series.html" class="con">series</a> are accessed by reference (e.g. as pointers.) If you need to modify a series, and you do not want it to change in other locations, you must use <a href="#copy">copy</a> first.</p>
 <p>Note that some functions, such as <a href="#join">join</a> and <a href="#rejoin">rejoin</a>, will copy automatically. That's because they are constructing new values.</p>
 </fieldset>
@@ -2724,7 +2748,7 @@ Used to call codecs to decode binary data (bytes) into related datatypes.
 
 Codecs are identified by words that symbolize their types. For example the word png is used to identify the PNG codec.
 
-See the system/codecs for a list of loaded codecs. Codecs can be native (built-in), externally loaded, or even coded in REBOL.
+See the system/codecs for a list of loaded codecs. Codecs can be native (built-in), externally loaded, or even coded in Rebol.
 
 [More about Encode and Decode](http://www.rebol.net/cgi-bin/r3blog.r?view=0184)
 
@@ -2856,7 +2880,7 @@ Converts the standard URL hex sequence that begins with a % followed by a valid 
 ## DELECT
 [[ parse ]]
 
-DELECT stands for DEcode diaLECT. It is used to implement REBOL's internal dialects such as DRAW, EFFECT, RICH TEXT, SECURE, and VID, but its function is available to all users.
+DELECT stands for DEcode diaLECT. It is used to implement Rebol's internal dialects such as DRAW, EFFECT, RICH TEXT, SECURE, and VID, but its function is available to all users.
 
 This is used for parsing unordered dialects. In unordered dialects, the order of arguments is less important than their type.
 
@@ -3002,7 +3026,7 @@ See [Profiler](http://www.rebol.net/wiki/Profiler) for detailed information abou
 ## DETAB
 [[ entab ]]
 
-The REBOL language default tab size is four spaces. `detab` will remove tabs from the entire string even beyond the first non-space character.
+The Rebol language default tab size is four spaces. `detab` will remove tabs from the entire string even beyond the first non-space character.
 
 The series passed to this function is modified as a result.
 
@@ -3029,7 +3053,7 @@ print detab/size text 8
 ## DIFFERENCE
 [[ intersect union exclude unique ]]
 
-Returns the elements of two series that are not present in both. Both series arguments must be of the same datatype (string, block, etc.) Newer versions of REBOL also let you use `difference` to compute the difference between date/times.
+Returns the elements of two series that are not present in both. Both series arguments must be of the same datatype (string, block, etc.) Newer versions of Rebol also let you use `difference` to compute the difference between date/times.
 
 
 ```rebol
@@ -3163,7 +3187,7 @@ divide 4x5 $2.7
 
 The `do` function evaluates a script file or a series of expressions and returns a result.
 
-It performs the fundamental interpretive action of the REBOL language and is used internally within many other functions such as `if`, `case`, `while`, `loop`, `repeat`, `foreach`, and others.
+It performs the fundamental interpretive action of the Rebol language and is used internally within many other functions such as `if`, `case`, `while`, `loop`, `repeat`, `foreach`, and others.
 
 
 ###### Most Common Use
@@ -3176,12 +3200,12 @@ Settings done.
 
 do http://www.rebol.com/speed.r
 Console:   0:00:01.609 - 314 KC/S
-Processor: 0:00:00.406 - 2128 RHz (REBOL-Hertz)
+Processor: 0:00:00.406 - 2128 RHz (Rebol-Hertz)
 Memory:    0:00:00.657 - 72 MB/S
 Disk/File: 0:00:00.234 - 130 MB/S
 ```
 
-Note that `do` of a `file!` or `url!` requires that the script contain a valid REBOL header; otherwise, you'll get an "Script is missing a REBOL header" error.
+Note that `do` of a `file!` or `url!` requires that the script contain a valid Rebol header; otherwise, you'll get an "Script is missing a Rebol header" error.
 
 
 ```html
@@ -3246,7 +3270,7 @@ The /next refinement returns a block consisting of two elements. The first eleme
 
 
 ###### Special Notes
-Evaluating strings is much slower than evaluating blocks and values. That's because REBOL is a symbolic language, not a string language. It is considered bad practice to convert values to strings and join them together to pass to `do` for evaluation. This can be done directly without strings.
+Evaluating strings is much slower than evaluating blocks and values. That's because Rebol is a symbolic language, not a string language. It is considered bad practice to convert values to strings and join them together to pass to `do` for evaluation. This can be done directly without strings.
 
 For example, writing code like this is a poor practice:
 
@@ -3278,7 +3302,7 @@ In other words, you can `join` values in blocks just as easily as strings.
 
 This is an internal native function used to call codecs. It is normally called by the `encode` and `decode` functions.
 
-See the system/catalog/codecs for a list of loaded codecs. Codecs can be native (built-in), externally loaded, or coded in REBOL.
+See the system/catalog/codecs for a list of loaded codecs. Codecs can be native (built-in), externally loaded, or coded in Rebol.
 
 ------------------------------------------------------------------
 ## DO-COMMANDS
@@ -3475,7 +3499,7 @@ See the `first` function for examples. If no value is found, none is returned.
 
 The `either` function will evaluate one block or the other depending on a condition.
 
-This function provides the same capability as the if-else statements found in other languages. Because REBOL is a functional language, it is not desirable to use the word else within the expression.
+This function provides the same capability as the if-else statements found in other languages. Because Rebol is a functional language, it is not desirable to use the word else within the expression.
 
 Here's an example:
 
@@ -3580,7 +3604,7 @@ Returns false for all other values.
 print email? info@rebol.com
 true
 
-print email? http://www.REBOL.com
+print email? http://www.Rebol.com
 false
 ```
 
@@ -3708,7 +3732,7 @@ Used to call codecs to encode datatypes into binary data (bytes).
 
 Codecs are identified by words that symbolize their types. For example the word png is used to identify the PNG codec.
 
-See the system/codecs for a list of loaded codecs. Codecs can be native (built-in), externally loaded, or even coded in REBOL.
+See the system/codecs for a list of loaded codecs. Codecs can be native (built-in), externally loaded, or even coded in Rebol.
 
 
 ###### Examples
@@ -3780,7 +3804,7 @@ See `deline` for more information about string termination formats.
 ## ENTAB
 [[ detab ]]
 
-The REBOL language default tab-size is four spaces. Use the /size refinement for other sizes such as eight. `entab` will only place tabs at the beginning of the line (prior to the first non-space character).
+The Rebol language default tab-size is four spaces. Use the /size refinement for other sizes such as eight. `entab` will only place tabs at the beginning of the line (prior to the first non-space character).
 
 The series passed to this function is modified as a result.
 
@@ -3920,7 +3944,7 @@ Returns true if the value is an event datatype.
 ------------------------------------------------------------------
 ## EVOKE
 
-This is useful for analyzing hard REBOL crashes that lead to assertion errors and other crashes that aren't related to your script errors, but directly exposes bugs in the REBOL kernel. This is helpful information for REBOL Technologies to fix these bugs.
+This is useful for analyzing hard Rebol crashes that lead to assertion errors and other crashes that aren't related to your script errors, but directly exposes bugs in the Rebol kernel. This is helpful information for Rebol Technologies to fix these bugs.
 
 To enable this kind of analysis, have this at the beginning of your program:
 ```rebol
@@ -3928,12 +3952,12 @@ secure [debug allow]
 evoke 'crash-dump
 ```
 
-If REBOL crashes, you will get a stack dump. You can force a crash using:
+If Rebol crashes, you will get a stack dump. You can force a crash using:
 ```rebol
 evoke 'crash
 ```
 ```text
---REBOL Kernel Dump--
+--Rebol Kernel Dump--
 Evaluator:
     Cycles:  50001
     Counter: 8027
@@ -3959,7 +3983,7 @@ Common for all operations with evoke is that debugging must be allowed using:
 secure [debug allow]
 ```
 
-`evoke` also allows other debug output, mostly used internally by REBOL Technologies to help test REBOL 3.
+`evoke` also allows other debug output, mostly used internally by Rebol Technologies to help test Rebol 3.
 
 The function can also be used to monitor the garbage collector:
 ```rebol
@@ -4161,7 +4185,7 @@ probe extract/index blk 2 2
 ["is" "given" "here"]
 ```
 
-Here is an example that uses `extract` to obtain the names of all the predefined REBOL/View VID styles:
+Here is an example that uses `extract` to obtain the names of all the predefined Rebol/View VID styles:
 
 
 ```rebol
@@ -4178,7 +4202,7 @@ See the `first` function for examples. If no value is found, none is returned.
 
 
 ```rebol
-print fifth "REBOL"
+print fifth "Rebol"
 L
 
 print fifth [11 22 33 44 55 66]
@@ -4198,7 +4222,7 @@ Returns false for all other values. Note that `file?` does not check for the exi
 print file? %file.txt
 true
 
-print file? "REBOL"
+print file? "Rebol"
 false
 ```
 
@@ -4272,7 +4296,7 @@ none
 ------------------------------------------------------------------
 ## FIND-SCRIPT
 
-This is a high-speed lower level function to scan UTF-8 for a REBOL script signature, useful during loading of scripts and to ensure that scripts are proper UTF-8.
+This is a high-speed lower level function to scan UTF-8 for a Rebol script signature, useful during loading of scripts and to ensure that scripts are proper UTF-8.
 
 
 Editor note: Not sure about the description
@@ -4284,7 +4308,7 @@ This is an ordinal. It returns the first value in any type of [series](https://w
 
 
 ```rebol
-print first "REBOL"
+print first "Rebol"
 R
 
 print first [11 22 33 44 55 66]
@@ -4442,7 +4466,7 @@ If the series is a string, each character will be fetched:
 
 
 ```rebol
-string: "REBOL"
+string: "Rebol"
 foreach char string [print char]
 R
 E
@@ -4599,7 +4623,7 @@ reform [1 + 2 3 + 4]
 "3 7"
 ```
 
-To produce REBOL-readable output, use the `mold` function.
+To produce Rebol-readable output, use the `mold` function.
 
 ------------------------------------------------------------------
 ## FORM-OID
@@ -4675,7 +4699,7 @@ See the `first` function for examples. If no value is found, none is returned.
 
 
 ```rebol
-print fourth "REBOL"
+print fourth "Rebol"
 O
 
 print fourth [11 22 33 44 55 66]
@@ -5075,7 +5099,7 @@ with all things
 
 ```rebol
 cds: [
-    "Rockin' REBOLs"
+    "Rockin' Rebols"
     "Carl's Addiction"
     "Jumpin' Jim"
 ]
@@ -5091,7 +5115,7 @@ until [
     print first cds
     head? cds
 ]
-Rockin' REBOLs
+Rockin' Rebols
 ```
 
 ------------------------------------------------------------------
@@ -5125,7 +5149,7 @@ to open the web browser to the page related to that function.
 ###### Help about Datatypes
 All datatypes are explained through help.
 
-To obtain a list of all REBOL datatypes, type:
+To obtain a list of all Rebol datatypes, type:
 ```code
 ? datatype!
 ```
@@ -5145,7 +5169,7 @@ and the result would be:
 Found these related words:
     ?               function! Prints information about words and values.
     ??              function! Debug print a word, path, or block of such, f...
-    about           function! Information about REBOL
+    about           function! Information about Rebol
     alter           function! If a value is not found in a series, append i...
     any-block?      function! Return TRUE if value is any type of block.
     any-function?   function! Return TRUE if value is any type of function.
@@ -5274,7 +5298,7 @@ Person found
 
 
 ###### Where's the Else?
-Unlike most other languages, REBOL uses functions, not commands to evaluate all expressions. Therefore, it's not desirable to use the word else if you need that behavior. Instead, use the `either` function:
+Unlike most other languages, Rebol uses functions, not commands to evaluate all expressions. Therefore, it's not desirable to use the word else if you need that behavior. Instead, use the `either` function:
 
 
 ```rebol
@@ -5873,14 +5897,14 @@ none
 ## LAUNCH
 [[ call do ]]
 
-The LAUNCH function is used to run REBOL scripts as a separate
+The LAUNCH function is used to run Rebol scripts as a separate
 process. When LAUNCH is called, a new process is created and
 passed the script file name or URL to be processed. The process
-is created as a subprocess of the main REBOL process.
+is created as a subprocess of the main Rebol process.
 
-Launch has certain restrictions depending on the REBOL system
+Launch has certain restrictions depending on the Rebol system
 used. Also, within Unix/Linux systems, launch will use the
-same shell standard files as the main REBOL process, and output
+same shell standard files as the main Rebol process, and output
 will be merged.
 
 
@@ -5902,7 +5926,7 @@ For example:
 
 
 ```rebol
-print length? "REBOL"
+print length? "Rebol"
 5
 ```
 
@@ -5910,7 +5934,7 @@ but, in the case of an offset position from `skip` :
 
 
 ```rebol
-print length? skip "REBOL" 2
+print length? skip "Rebol" 2
 3
 ```
 
@@ -5918,7 +5942,7 @@ or from `find` :
 
 
 ```rebol
-print length? find "REBOL" "L"
+print length? find "Rebol" "L"
 1
 ```
 
@@ -6023,8 +6047,8 @@ Returns TRUE if the value is a LIBRARY datatype.
 ## LICENSE
 [[ about ]]
 
-Returns the REBOL end user license agreement for the currently
-running version of REBOL.
+Returns the Rebol end user license agreement for the currently
+running version of Rebol.
 
 ```code
 license
@@ -6116,9 +6140,9 @@ data: load "1 2 luke fred@example.com"
 code: load {loop 10 [print "hello"]}
 ```
 
-LOAD is often called for a text file that contains REBOL code or
+LOAD is often called for a text file that contains Rebol code or
 data that needs to be brought into memory. The text is first
-searched for a REBOL header, and if a header is found, it is
+searched for a Rebol header, and if a header is found, it is
 evaluated first. (However, unlike the DO function, LOAD does not
 require that there be a header.)
 
@@ -6589,7 +6613,7 @@ See MOD for details.
 ## MOLD
 [[ form remold join insert reduce ]]
 
-The `mold` function converts values to a source-code formatted string (REBOL-readable).
+The `mold` function converts values to a source-code formatted string (Rebol-readable).
 
 
 ```rebol
@@ -6698,7 +6722,7 @@ The following datatypes are affected: `unset!`, `none!`, `logic!`, `bitset!`, `i
 
 ```html
 <fieldset class="fset"><legend>Note on Restoring Semantics</legend>
-<p>It should also be noted that some datatypes cannot be returned to a source form without losing semantic information. For example, functions cannot maintain the binding (scoping context) of their words. If such semantics reproduction is required it is recommended that your code output entire blocks that as a whole are evaluated to produce the correct semantic result. This is commonly done in REBOL code, including the common storage of mezzanine and module functions and other definitions.</p>
+<p>It should also be noted that some datatypes cannot be returned to a source form without losing semantic information. For example, functions cannot maintain the binding (scoping context) of their words. If such semantics reproduction is required it is recommended that your code output entire blocks that as a whole are evaluated to produce the correct semantic result. This is commonly done in Rebol code, including the common storage of mezzanine and module functions and other definitions.</p>
 </fieldset>
 ```
 
@@ -6969,7 +6993,7 @@ CDE
 print next [1 2 3 4]
 2 3 4
 
-str: "REBOL"
+str: "Rebol"
 loop length? str [
     print str
     str: next str
@@ -7273,7 +7297,7 @@ The `parse` function is used to match patterns of values and perform specific ac
 
 Both `string!` and `block!` datatypes can be parsed. Parsing of strings matches specific characters or substrings. Parsing of blocks matches specific values, or specific datatypes, or sub-blocks.
 
-Whereas most languages provide a method of parsing strings, the parsing of blocks is an important feature of the REBOL language.
+Whereas most languages provide a method of parsing strings, the parsing of blocks is an important feature of the Rebol language.
 
 The `parse` function takes two main arguments: an input to be parsed and the rules that are used to parse it. The rules are specified as a block of grammar productions that are to be matched.
 
@@ -7351,7 +7375,7 @@ Harry Haiku 264 River Rd. Ukiah 95482
 page: read http://hq.rebol.net
 parse page [thru <title> copy title to </title>]
 print title
-Now is REBOL
+Now is Rebol
 
 digits: charset "0123456789"
 area-code: ["(" 3 digits ")"]
@@ -7407,7 +7431,7 @@ of the series will return NONE.
 
 
 ```rebol
-str: "REBOL"
+str: "Rebol"
 
 print pick str 2
 E
@@ -7527,8 +7551,8 @@ If the value is a block, it will be processed by `reduce` to evaluate each of it
 print ["The time is" now/time]
 The time is 17:47:54
 
-print ["You are using REBOL" system/product system/version]
-You are using REBOL core 3.0.0.3.1
+print ["You are using Rebol" system/product system/version]
+You are using Rebol core 3.0.0.3.1
 ```
 
 
@@ -7537,8 +7561,8 @@ If you need to join strings and values together for output, use the `ajoin`, `jo
 
 
 ```rebol
-print ajoin ["REBOL/" system/product " V" system/version/1]]
-REBOL/core V3
+print ajoin ["Rebol/" system/product " V" system/version/1]]
+Rebol/core V3
 
 print ajoin ["The time is " 11:30 "AM"]
 The time is 11:30AM
@@ -7926,7 +7950,7 @@ Note that not all operating systems environments may support this quit code.
 
 ```html
 <fieldset class="fset"><legend>Rarely used</legend>
-<p>Most programs do not require <a href="#quit">quit</a>, and it can be problematic if your code is started by another REBOL program. Normally, when your program reaches the end, it will quit by itself. (If you want to prevent that behavior, use the -h command line option, or call <a href="#halt">halt</a> at the end of your code.)</p>
+<p>Most programs do not require <a href="#quit">quit</a>, and it can be problematic if your code is started by another Rebol program. Normally, when your program reaches the end, it will quit by itself. (If you want to prevent that behavior, use the -h command line option, or call <a href="#halt">halt</a> at the end of your code.)</p>
 </fieldset>
 ```
 
@@ -8178,7 +8202,7 @@ your program.
 ## REDUCE
 [[ compose do foreach ]]
 
-The `reduce` function evaluates multiple expressions and returns a block of results. This is one of the most useful functions in REBOL.
+The `reduce` function evaluates multiple expressions and returns a block of results. This is one of the most useful functions in Rebol.
 
 For example:
 
@@ -8277,7 +8301,7 @@ reduce/no-set [name: full-name time: now + 10]
 
 
 ###### Memory usage for large blocks
-For most blocks you don't need to worry about memory because REBOL's automatic storage manager will efficiently handle it; however, when building large block series with `reduce`, you can manage memory even more carefully.
+For most blocks you don't need to worry about memory because Rebol's automatic storage manager will efficiently handle it; however, when building large block series with `reduce`, you can manage memory even more carefully.
 
 For example, it is common to write:
 
@@ -8798,7 +8822,7 @@ You can also provide file list filters to show only specific files. For example:
 
 ```rebol
 file: request-file/filter [
-    "REBOL Scripts" "*.r"
+    "Rebol Scripts" "*.r"
     "Text files" "*.txt"
 ]
 ```
@@ -9121,7 +9145,7 @@ round/ceiling -1.999
 
 If you are rounding extremely large numbers (e.g. 562'949'953'421'314), or using
 very high precision decimal values (e.g. 13 or more decimal places), you may run
-up against REBOL's native limits for values and its internal rounding rules. The
+up against Rebol's native limits for values and its internal rounding rules. The
 ROUND function is a mezzanine and has no control over that behavior.
 
 Sometimes, it might appear that ROUND is doing something strange, so before 
@@ -9142,7 +9166,7 @@ using values in the range 0.96 to 0.99. Those are the expected results, because
 you're truncating, that is, truncating to the nearest multiple of SCALE.
 
 The design and development of the ROUND function involved many members 
-of the REBOL community. There was much debate about the interface (one
+of the Rebol community. There was much debate about the interface (one
 function with refinement versus individual functions for each rounding
 type, what words to use for parameter names, behavior with regards to
 type coercion).
@@ -9176,7 +9200,7 @@ false
 ## SAVE
 [[ load mold write ]]
 
-The `save` function is used to save REBOL code and data to a file, upload it to a URL, or store it into a local string.
+The `save` function is used to save Rebol code and data to a file, upload it to a URL, or store it into a local string.
 
 When saving to a file or URL, the output of this function is always UTF-8 (an Unicode encoded format where ASCII is normal, but other characters are encoded.)
 
@@ -9208,7 +9232,7 @@ make object! [
 ...
 ```
 
-In general, `save` performs the appropriate conversion and formatting to preserve datatypes. For instance, if the value is a REBOL block, it will be saved as a REBOL script that, when loaded, will be identical.
+In general, `save` performs the appropriate conversion and formatting to preserve datatypes. For instance, if the value is a Rebol block, it will be saved as a Rebol script that, when loaded, will be identical.
 
 
 Editor note: saving /all
@@ -9241,7 +9265,7 @@ function to avoid this error.
 
 
 ```rebol
-print second "REBOL"
+print second "Rebol"
 E
 
 print second [11 22 33 44 55 66]
@@ -9462,11 +9486,11 @@ will cause your program to immediately quit if any other code tries to modify th
 
 
 ###### User confirmation
-Note that lowering the security level produces a change security settings requestor to the user. The exception is when the REBOL session is running in quiet mode which will, instead, terminate the REBOL session. No request is generated when security levels are raised. Note that the security request includes an option to allow all access for the remainder of the scripts processing.
+Note that lowering the security level produces a change security settings requestor to the user. The exception is when the Rebol session is running in quiet mode which will, instead, terminate the Rebol session. No request is generated when security levels are raised. Note that the security request includes an option to allow all access for the remainder of the scripts processing.
 
 
 ###### Controlling security at startup
-To disable all security on startup, you can start REBOL with:
+To disable all security on startup, you can start Rebol with:
 
 
 ```rebol
@@ -9844,7 +9868,7 @@ stopped at the head or tail.
 
 
 ```rebol
-str: "REBOL"
+str: "Rebol"
 print skip str 3
 OL
 
@@ -9930,14 +9954,14 @@ probe sort [1x2 2x1 0x0 1x0 0x1 1x1]
 ## SOURCE
 [[ what help ? ?? trace ]]
 
-The `source` function displays the source code for REBOL defined functions.
+The `source` function displays the source code for Rebol defined functions.
 
 For example:
 ```code
 source join
 ```
 
-REBOL defined functions include the mezzanine functions (built-in interpreted functions) and user defined functions. Native functions have no source to display.
+Rebol defined functions include the mezzanine functions (built-in interpreted functions) and user defined functions. Native functions have no source to display.
 
 ------------------------------------------------------------------
 ## SPEC-OF
@@ -10127,7 +10151,7 @@ No description provided.
 ## STATS
 [[ help trace ]]
 
-The STATS function returns a wide range of useful REBOL system
+The STATS function returns a wide range of useful Rebol system
 statistics, including information about memory usage, interpreter
 cycles, and more.
 
@@ -10135,7 +10159,7 @@ If no refinement is provide, STATS returns the amount of memory
 that it is using. This value must be computed from tables.
 
 The /pools refinement returns information about the memory pools
-that REBOL uses for managing its memory.
+that Rebol uses for managing its memory.
 
 The /types refinement provides a summary of the number of each
 datatype currently allocated by the system.
@@ -10608,7 +10632,7 @@ take/last data
 2
 ```
 
-The data queued and stacked above can be any REBOL values, including string, functions, objects or whatever.
+The data queued and stacked above can be any Rebol values, including string, functions, objects or whatever.
 
 ------------------------------------------------------------------
 ## TAN
@@ -10655,7 +10679,7 @@ function to avoid this error.
 
 
 ```rebol
-print third "REBOL"
+print third "Rebol"
 B
 
 print third [11 22 33 44 55 66]
@@ -11048,7 +11072,7 @@ datatype). This allows you to convert hex values back to integers:
 == 123
 ```
 
-Note: To convert HTML hex color values (like #80FF80) to REBOL
+Note: To convert HTML hex color values (like #80FF80) to Rebol
 color values, it is easier to do the conversion to binary and
 then use a base 16 encoding:
 
@@ -11063,7 +11087,7 @@ FF9B32
 
 The TO-ISSUE function is just used to add the # to it.
 
-To convert from an HTML color back to a REBOL color tuple, you
+To convert from an HTML color back to a Rebol color tuple, you
 can use this:
 
 
@@ -11113,7 +11137,7 @@ image: to-image out
 save/png %test-image.png image
 ```
 
-This function provides a useful way to save REBOL generated
+This function provides a useful way to save Rebol generated
 images for use in other programs or web pages (which also allows
 you to print the images). For example, you can display the image
 above in a web browser with this code:
@@ -11227,7 +11251,7 @@ Returns a ilt-word! value made from the given value.
 [[ to-file to-rebol-file ]]
 
 This function provides a way to convert standard, system
-independent REBOL file formats into the file format used by
+independent Rebol file formats into the file format used by
 the local operating system.
 
 
@@ -11236,7 +11260,7 @@ probe to-local-file %/c/temp
 "c:\temp"
 
 probe to-local-file what-dir
-"C:\REBOL\3.0\docs\scripts\"
+"C:\Rebol\3.0\docs\scripts\"
 ```
 
 Note that the format of the file path depends on your local
@@ -11423,11 +11447,11 @@ probe to-port [scheme: 'checksum]
 ```
 
 ------------------------------------------------------------------
-## TO-REBOL-FILE
+## TO-Rebol-FILE
 [[ to-local-file to-real-file ]]
 
 This function provides a standard way to convert local operating
-system files into REBOL's standard machine independent format.
+system files into Rebol's standard machine independent format.
 
 
 ```rebol
@@ -11463,8 +11487,8 @@ Returns a `refinement!` value made from the given value.
 
 
 ```rebol
->> to-refinement 'REBOL
-== /REBOL
+>> to-refinement 'Rebol
+== /Rebol
 ```
 
 ------------------------------------------------------------------
@@ -11564,7 +11588,7 @@ Returns a `tuple!` value made from the given value.
 == 12.34.56
 ```
 
-To convert REBOL RGB color tuples to HTML hex color values, see
+To convert Rebol RGB color tuples to HTML hex color values, see
 the `to-hex` function.
 
 Tuples can have up to 12 segments.
@@ -11960,7 +11984,7 @@ So, it's not hard to see what was going on when the script crashed. Backtrace ca
 - Backtrace will slow down your program by a factor of 20 (because for each value that is evaluated, it must store a log record).
 - The internal backtrace buffer is 100KB. On average, the most it will hold is 100 pages of backtrace.
 - Enabling normal trace will disable backtrace and delete the backtrace buffer.
-- Backtrace may interfere with some kinds of tracing, especially if the bug is related to a defect within the REBOL interpreter itself.
+- Backtrace may interfere with some kinds of tracing, especially if the bug is related to a defect within the Rebol interpreter itself.
 
 The `stack` function can also be used to show stack related backtrace information.
 
@@ -11968,7 +11992,7 @@ The `stack` function can also be used to show stack related backtrace informatio
 ## TRANSCODE
 [[ to-block ]]
 
-The `transcode` function translates source code and data into the block value memory format that can be interpreted by REBOL.
+The `transcode` function translates source code and data into the block value memory format that can be interpreted by Rebol.
 
 
 ###### Input
@@ -11984,12 +12008,12 @@ data: transcode to-binary string
 
 ```html
 <fieldset class="fset"><legend>Reduced efficiency</legend>
-<p>In general, conversions to and from UTF-8 require extra time to for the Unicode conversion process. Therefore, is not a good idea to write REBOL code like TCL or PERL where computations are done on strings.</p>
+<p>In general, conversions to and from UTF-8 require extra time to for the Unicode conversion process. Therefore, is not a good idea to write Rebol code like TCL or PERL where computations are done on strings.</p>
 <p>Don't write code such as:</p>
 <div class="example-code"><pre class="code-block"><code class="rebol">do append "1 +" n</code></pre></div>
 <p>Because you can just as easily write:</p>
 <div class="example-code"><pre class="code-block"><code class="rebol">do append [1 +] n</code></pre></div>
-<p>in REBOL.</p>
+<p>in Rebol.</p>
 </fieldset>
 ```
 
@@ -12006,7 +12030,7 @@ Refinements are provided for partial translation:
 | /only | Translate the next singular value. If it is a block, translate only the first element of the block, and return it within a block. |
 | /error | Convert syntax errors to error objects and output them rather than throwing them as an error. |
 
-These refinements can be used in various ways to parse REBOL source a value at a time.
+These refinements can be used in various ways to parse Rebol source a value at a time.
 
 
 ###### Output
@@ -12815,7 +12839,7 @@ Returns FALSE for all other values.
 
 
 ```rebol
-print url? http://www.REBOL.com
+print url? http://www.Rebol.com
 true
 
 print url? "test"
@@ -12826,7 +12850,7 @@ false
 ## USAGE
 [[ help ? ]]
 
-Displays REBOL command line arguments, including
+Displays Rebol command line arguments, including
 options and examples.
 
 
@@ -12834,7 +12858,7 @@ options and examples.
 usage
 ```
 
-SDK and special versions of REBOL may not include usage
+SDK and special versions of Rebol may not include usage
 information.
 
 ------------------------------------------------------------------
@@ -12878,8 +12902,8 @@ use words copy/deep body
 It can be used in the following scenario:
 ```rebol
 >> set-user/n Test
- [REBOL] Initialize user: Test
- [REBOL] Creating a new persistent storage file: /C/Users/oldes/Rebol/.Test.safe
+ [Rebol] Initialize user: Test
+ [Rebol] Creating a new persistent storage file: /C/Users/oldes/Rebol/.Test.safe
 Enter password:
 
 >> user's key
@@ -12896,7 +12920,7 @@ Enter password:
 == #(none) ;; Because there is no user now
 
 >> set-user Test
- [REBOL] Initialize user: Test
+ [Rebol] Initialize user: Test
 Enter password:
 
 >> user's key
@@ -12983,7 +13007,7 @@ The word can be passed as a literal or as the result of other operations.
 ```rebol
 >> version
 == {Rebol/Bulk 3.18.3 (9-Mar-2025/22:36 UTC)
-Copyright (c) 2012 REBOL Technologies
+Copyright (c) 2012 Rebol Technologies
 Copyright (c) 2012-2025 Rebol Open Source Contributors
 Source:       https://github.com/Oldes/Rebol3
 }
@@ -13039,7 +13063,7 @@ For example:
 ```text
 >> what
 ...
-about               Information about REBOL
+about               Information about Rebol
 abs                 Returns the absolute value.
 absolute            Returns the absolute value.
 action              Creates datatype action (for internal usage only).

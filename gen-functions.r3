@@ -161,9 +161,9 @@ load-func-details: function/with [data][
 			  any [
 				"```" copy type: any alpha any SP LF copy code: to "^/```" 4 skip (
 					;? type
-					trim/head/tail code
+					trim/tail code
 					if type != "html" [
-						detab trim/head/tail code
+						detab code
 						either type == "code" [
 							code: gen-code-output code
 						][
