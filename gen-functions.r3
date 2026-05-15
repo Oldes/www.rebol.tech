@@ -150,31 +150,31 @@ load-func-details: function/with [data][
 				name: to word! lowercase name
 			  )
 			  opt [
-			  	"[[" copy see-also: to "]]" thru LF (
-			  		see-also: sort transcode see-also
-			  	)
-			  	|
-			  	"@@ " copy temp: thru LF to "^/--" (
-			  		detail: as ref! trim/head/tail temp
-			  	)
+				"[[" copy see-also: to "]]" thru LF (
+					see-also: sort transcode see-also
+				)
+				|
+				"@@ " copy temp: thru LF to "^/--" (
+					detail: as ref! trim/head/tail temp
+				)
 			  ]
 			  any [
-			  	"```" copy type: any alpha any SP LF copy code: to "^/```" 4 skip (
-			  		;? type
-			  		trim/head/tail code
-			  		if type != "html" [
-			  			detab trim/head/tail code
-			  			either type == "code" [
-			  				code: gen-code-output code
-			  			][
-				  			code: ajoin [
-				  				{<div class="example-code"><pre class="} type {-block"><code class="} type {">}
-				  				esc-html code {</code></pre></div>}
-				  			]
-				  		]
-			  		]
-			  		emit code
-			  	)
+				"```" copy type: any alpha any SP LF copy code: to "^/```" 4 skip (
+					;? type
+					trim/head/tail code
+					if type != "html" [
+						detab trim/head/tail code
+						either type == "code" [
+							code: gen-code-output code
+						][
+							code: ajoin [
+								{<div class="example-code"><pre class="} type {-block"><code class="} type {">}
+								esc-html code {</code></pre></div>}
+							]
+						]
+					]
+					emit code
+				)
 				| #"-" some "-" any SP opt LF (
 					if p? [append detail "</p>^/" p?: off]
 					if see-also [
@@ -195,13 +195,14 @@ load-func-details: function/with [data][
 				| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> temp </h4>])
 				| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> temp </h3>])
 				| ahead "- " (emit <ul>) some [
-	                "- " copy temp: to LF skip (emit ajoin [<li> md-text temp </li>])
-	            ] (emit </ul>)
+					"- " copy temp: to LF skip (emit ajoin [<li> md-text temp </li>])
+				] (emit </ul>)
+				| ahead #"|" table-rule (emit-table)
 				| LF (emit "")
-			  	| copy temp: thru LF (
-			  		unless p? [append detail "<p>^/" p?: true]
-			  		append detail md-text temp
-			  	)
+				| copy temp: thru LF (
+					unless p? [append detail "<p>^/" p?: true]
+					append detail md-text temp
+				)
 			  ]
 		]
 	]
@@ -235,6 +236,41 @@ load-func-details: function/with [data][
 			| keep some not-spec
 		]]
 		out
+	]
+	;- table rules -
+	cell: [] row: [] rows: []
+	cell-chars: complement charset "\|^/"
+	escaped-pipe: [#"\" #"|" (append cell #"|")]
+	cell-content: [
+		some [ 
+			  copy tmp: some cell-chars (append cell tmp)
+			| "\|" (append cell #"|")
+			| #"\" (append cell #"\")
+		] (
+			append row copy trim/head/tail cell
+			clear cell
+		)
+	]
+	table-cell: [ #"|" cell-content ]
+	separator-line: [ some [#"|" any [#"-" | #":" | #" "]] LF (append rows '---)]
+	empty-line: [ #"|" any #" " newline ]
+	table-row: [
+		some table-cell opt #"|" LF
+		(append/only rows copy row  row: copy [])
+	]
+	table-rule: [some [empty-line | separator-line | table-row]]
+	emit-table: function [][
+		emit "^/<table class=doctable>"
+		while [not tail? rows][
+			emit "^/<tr>"
+			row: first+ rows
+			type: either word? rows/1 [++ rows 'th]['td]
+			foreach cell row [
+				emit ajoin [#"<" type #">" md-text cell "</" type #">"]
+			]
+			emit"</tr>"
+		]
+		emit "^/</table>^/"
 	]
 ]
 
@@ -375,9 +411,9 @@ emit-funcs-html: does [
  <a name="} spec/name {"></a>
  <h2>} uppercase form spec/name {<a class="headerlink" href="#} spec/name {" title="Link to this heading">¶</a></h2>}]
 
- 		either ref? spec/details [
- 			emit [{<p>Note: Shell shortcut for <a href="#} lowercase spec/details {">} spec/details {</a>.</p>}]
- 		][
+		either ref? spec/details [
+			emit [{<p>Note: Shell shortcut for <a href="#} lowercase spec/details {">} spec/details {</a>.</p>}]
+		][
 			emit [<p> spec/description </p>]
 			emit [{
 <h6>Usage:</h6>
