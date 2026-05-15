@@ -116,11 +116,11 @@ gen-code-output: function[source][
 	code: transcode source
 	bind code lib
 	echo %.temp
-	try/with code :print
+	try/with [do source] :print
 	echo none
 	out: read/string %.temp
 	result: ajoin [
-		{<div class="example-code"><pre class="rebol-block"><code class="rebol">>> }
+		{<div class="example-code"><pre class="rebol-block"><code class="rebol">}
 		esc-html source {</code></pre></div>}
 	]
 	unless empty? out [
@@ -223,7 +223,7 @@ load-func-details: function/with [data][
 		parse val [collect into out any [
 			#"`" copy tmp: some not-spec opt #"`" keep (
 				ajoin case [
-					#"!" == last tmp                [[{<span class="datatype">} tmp </span>]]
+					#"!" == last tmp                [[{<code class="datatype">} tmp </code>]]
 					find lib attempt [to word! tmp] [[{<a href="#} tmp {">} tmp </a>]]
 					'else [[<code class=inline> tmp </code>]]
 				]

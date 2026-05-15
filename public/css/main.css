@@ -112,6 +112,7 @@
 	overflow-x: auto;
 	color: #fff;
 	font-size: 0.9em;
+	margin-bottom: 3px;
 }
 .code-container {
 	display: flex;
@@ -236,6 +237,10 @@ code.desc {
 }
 code.inline {
 	color: #FFA5A5;
+	font-size: 0.9em;
+}
+code.datatype {
+	color: #AFF5A5;
 	font-size: 0.9em;
 }
 div.extra-desc {
