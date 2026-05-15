@@ -18,20 +18,89 @@ esc-html: function/with [txt][
 	normal: complement charset "<>"
 ]
 
+
+colorize: function/with [
+	text [string!]
+][
+	clear out
+	underline?: off
+	code?: off
+	parse text [
+		any [
+			copy str: to delimiter (emit str) [
+				s:
+				"```" 4 skip to "^/```" e: 4 skip (
+					emit-code skip copy/part s e 4
+				)
+				|
+				#"`" (
+					emit either/only code? [</code>][<code>]
+					code?: not code?
+				)
+				|
+				#"^"" thru #"^"" e: (
+					emit either/only code? [
+						copy/part s e
+					][
+						<span class="ansi32">
+						copy/part s e
+						</span>
+					]
+				)
+				|
+				#"_" (
+					emit either/only underline? [</u>][<u>]
+					underline?: not underline?
+				)
+				|
+				#"^^" (emit copy/part s 1) skip
+				|
+				#"^/" (emit LF)
+			]
+		]
+		opt [copy str: to end (emit str)]
+	]
+	if underline? [emit </u>]
+	copy out
+][
+	out: ""
+	emit: func[str][
+		append out either block? str [ajoin str][str]
+	]
+	emit-code: func[text /local str][
+		emit [LF <code class="desc"> text LF </code>]
+	]
+	not-comm: complement make bitset! ";"  
+	delimiter: make bitset! {^/_`^^"}
+]
+
+
+remove-html: function [txt][
+	parse txt [any [to #"<" remove thru #">"]]
+	txt
+]
+
+used-ansi-classes: copy []
 ansi-to-html: function/with [text][
 	out: copy ""
 	end: clear []
 	parse text [ collect into out any [
-		"^[[" copy val: [
-			(cls: clear "")
-			any [copy num: 1 3 digit (append cls ajoin ["ansi" num sp]) opt #";"]
-			#"m"
+		"^[["
+		[
+			"38;5;" copy num: 1 3 digit #"m" (cls: ajoin ["ansiclr" num])
+			|
+			copy val: [
+				(cls: clear "")
+				any [copy num: 1 3 digit (append cls ajoin ["ansi" num sp]) opt #";"]
+				#"m"
+			]
 		] keep (
-			either find ["m" "0m"] val [
+			append used-ansi-classes copy trim/tail cls 
+			either find ["m" "0m" "39m"] val [
 				ajoin take/all end
 			][
 				append end </span>
-				ajoin [{<span class="} trim/tail cls {">}]
+				ajoin [{<span class="} cls {">}]
 			]
 		)
 		| keep not-esc
@@ -47,11 +116,11 @@ gen-code-output: function[source][
 	code: transcode source
 	bind code lib
 	echo %.temp
-	try/with code :print
+	try/with [do source] :print
 	echo none
 	out: read/string %.temp
 	result: ajoin [
-		{<div class="example-code"><pre class="rebol-block"><code class="rebol">>> }
+		{<div class="example-code"><pre class="rebol-block"><code class="rebol">}
 		esc-html source {</code></pre></div>}
 	]
 	unless empty? out [
@@ -121,11 +190,13 @@ load-func-details: function/with [data][
 						detail == "<p>No description provided.</p>"
 					][ out/:name: copy head detail]
 				) break
-				| "#######" some SP copy temp: to LF skip (emit ajoin [LF <h7> temp </h7>])
 				| "######" some SP copy temp: to LF skip (emit ajoin [LF <h6> temp </h6>])
 				| "#####" some SP copy temp: to LF skip (emit ajoin [LF <h5> temp </h5>])
 				| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> temp </h4>])
 				| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> temp </h3>])
+				| ahead "- " (emit <ul>) some [
+	                "- " copy temp: to LF skip (emit ajoin [<li> md-text temp </li>])
+	            ] (emit </ul>)
 				| LF (emit "")
 			  	| copy temp: thru LF (
 			  		unless p? [append detail "<p>^/" p?: true]
@@ -146,14 +217,16 @@ load-func-details: function/with [data][
 	not-spec: complement charset "[]\`"
 	url-text: complement charset "]^/^M"
 	url-href: complement charset ")^/^M"
-	md-text: func[val /local out txt href tmp][
+	md-text: func[val /local out txt href tmp wrd][
 		;; this is very simplified Markdown conversion of links and inline code
 		out: copy ""
 		parse val [collect into out any [
 			#"`" copy tmp: some not-spec opt #"`" keep (
-				ajoin either/only #"!" == last tmp [
-					{<span class="datatype">} tmp </span>
-				][	{<a href="#} tmp {">} tmp </a>]
+				ajoin case [
+					#"!" == last tmp                [[{<code class="datatype">} tmp </code>]]
+					find lib attempt [to word! tmp] [[{<a href="#} tmp {">} tmp </a>]]
+					'else [[<code class=inline> tmp </code>]]
+				]
 			)
 			| #"\" keep skip ;; escape char
 			| #"[" copy txt: some url-text "](" copy href: some url-href #")" keep (
@@ -168,20 +241,19 @@ load-func-details: function/with [data][
 get-func-info: function[key value][
 ;? key
 	spec: spec-of :value
-	;?? spec
 	args: copy []
 	refs: copy []
 	refa: copy []
 	retu: copy []
 	parse spec [
 		any block!
-		copy desc: any string!
+		set desc: string! copy desc-ext: any string!
 		(rets: none args: copy [])
 		any [
 			set arg: [word! | lit-word! | get-word!] 
 			set def: opt block!
-			set des: any string! (
-				repend args [arg def reform any [des ""]]
+			copy des: any string! (
+				repend args [arg any [def [any-type!]] des]
 			)
 			|
 			quote return: set rets: block! set des: opt string! (
@@ -191,14 +263,14 @@ get-func-info: function[key value][
 		any [
 			(refa: copy [])
 			set ref: refinement!
-			set des: opt string!
-			(repend refs [ref reform any [des ""]])
+			copy des: any string!
+			(repend refs [ref des])
 			any [
 				set arg: [word! | lit-word! | get-word!] 
 				set def: opt block!
 				copy des: any string!
 				(
-					repend refa [arg def reform any [des ""]]
+					repend refa [arg any [def [any-type!]] des]
 				)
 			]
 			(append/only refs copy refa)
@@ -213,7 +285,7 @@ get-func-info: function[key value][
 			append append usage #" " as-arg arg
 		]
 	]
-	desc: reform desc
+	case []
 	if empty? args [args: none]
 	if tmp: find refs /local [clear tmp] 
 	if empty? refs [refs: none]
@@ -221,6 +293,7 @@ get-func-info: function[key value][
 		name:        key
 		usage:       usage
 		description: desc
+		extra-desc:  desc-ext
 		type:        type?/word :value
 		arguments:   args
 		refinements: refs
@@ -228,6 +301,8 @@ get-func-info: function[key value][
 	]
 ]
 
+;probe get-func-info 'format :format
+;quit
 to-rebdoc-name: function/with[name][
 	name: form name
 	parse name [any [
@@ -254,8 +329,27 @@ to-rebdoc-name: function/with[name][
 
 out: clear ""
 emit: func[data][
+	if none? data [exit]
 	if block? data [data: ajoin data]
 	append append out data LF
+]
+
+emit-description: function [des][
+	if any [none? des empty? des] [return ""]
+	des: trim/auto ajoin/with des LF
+	des: split-lines colorize des
+	;; determine if the first string fits the width of the terminal
+	take/last out
+	either all [
+		pos: find/last/tail out LF
+		((length? remove-html copy pos) + (length? des/1)) < 100
+	][
+		emit [SP uppercase/part des/1 1]
+		++ des
+	][  append out LF ]
+	foreach line des [
+		emit ["              "  line]
+	]
 ]
 
 emit-funcs-html: does [
@@ -263,6 +357,7 @@ emit-funcs-html: does [
 	;? details
 	data: make block! 1000
 	foreach [key value] system/contexts/lib [
+	;foreach [key value] reduce ['format :format] [
 		if any-function? :value [
 			append data nm: to-rebdoc-name :key
 			append data m: get-func-info :key :value
@@ -287,29 +382,35 @@ emit-funcs-html: does [
 			emit [{
 <h6>Usage:</h6>
 <pre class="usage fs-6">} spec/usage {</span></pre>}]
-					if any [spec/arguments spec/refinements] [
-					emit {^/<pre class="help">}
-					if spec/arguments [
-						emit {<span class="tit">ARGUMENTS:</span>}
-						foreach [n t d] spec/arguments [
-							t: either t [ajoin [{[<span class="types">} t {</span>]}]][""]
-							emit reform [{ } pad n 11 t d]
-						]
+			if any [spec/arguments spec/refinements] [
+				emit {^/<pre class="help">}
+				if spec/arguments [
+					emit {<span class="tit">ARGUMENTS:</span>}
+					foreach [n t d] spec/arguments [
+						t: either t [ajoin [{[<span class="types">} t {</span>]}]][""]
+						emit reform [{ } pad n 11 t]
+						emit-description d
 					]
-					if spec/refinements [
-						emit {<span class="tit">REFINEMENTS:</span>}
-						foreach [n d a] spec/refinements [
-							emit reform [{ } pad mold n 11 d]
-							foreach [n t d] a [
-								t: either t [ajoin [{[<span class="types">} t {</span>]}]][""]
-								emit reform [{  } pad n 10 t d]
-							]
-						]
-					]
-					emit </pre>
 				]
-			if spec/details [
-				emit [{^/<h6>Description:</h6>^/} spec/details]
+				if spec/refinements [
+					emit {<span class="tit">REFINEMENTS:</span>}
+					foreach [n d a] spec/refinements [
+						emit reform [{ } pad mold n 11 d]
+						foreach [n t d] a [
+							t: either t [ajoin [{[<span class="types">} t {</span>]}]][""]
+							emit reform [{  } pad n 10 t]
+							emit-description d
+						]
+					]
+				]
+				emit </pre>
+			]
+			if any [spec/details not empty? spec/extra-desc] [
+				emit {^/<h5>Description:</h5>^/}
+				if not empty? spec/extra-desc [
+					emit [<div class="extra-desc"> colorize trim/auto ajoin/with spec/extra-desc LF </div>]
+				]
+				emit spec/details
 			]
 		]
 		emit {</section>}
@@ -324,4 +425,6 @@ emit-errors: function[][
 ]
 
 emit-funcs-html
+used-ansi-classes: sort unique used-ansi-classes
+?? used-ansi-classes
 

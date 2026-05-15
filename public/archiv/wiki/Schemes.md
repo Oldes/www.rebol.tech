@@ -85,6 +85,5 @@ The make-scheme function creates a new scheme from a block object specification.
 
 (show example)
 
-[Draft Notes](https://web.archive.org/web/20130614003009/http://www.rebol.net/wiki/Notes)
 
 Retrieved from "[http://www.rebol.net/wiki/Schemes](https://web.archive.org/web/20130614003009/http://www.rebol.net/wiki/Schemes)"

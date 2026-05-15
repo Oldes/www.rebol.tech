@@ -83,6 +83,7 @@
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Some function descriptions are sourced from the <a href="https://www.rebol.com/r3/docs/functions.html">old Rebol3 documentation</a> project and may be outdated. If you notice any outdated or incorrect information, please <a href="https://github.com/Oldes/www.rebol.tech">report it on GitHub</a>.</p>
+<p>Some functions described in this documentation may not be available in Rebol products other than the latest Rebol/Bulk.</p>
 </div>
 <%@ %functions.inc %>
 				</article>

@@ -21,12 +21,9 @@ about
 
 Returns a positive value equal in magnitude.
 ```rebol
->> absolute -123
-== 123
->> absolute -1:23
-== 1:23
->> absolute -1x4
-== 1x4
+absolute -123    ;== 123
+absolute -1:23   ;== 1:23
+absolute -1x4    ;== 1x4
 ```
 
 ------------------------------------------------------------------
@@ -35,20 +32,29 @@ Returns a positive value equal in magnitude.
 ## ACOS
 [[ arccosine ]]
 
+`acos` computes the inverse cosine of a `decimal!` value and returns the result in radians.
+The input must be in the range `[-1.0, 1.0]`; values outside this range will return `1.#NaN`.
+
+To work in degrees instead, use `arccosine`.
+
+```rebol
+acos   1.0  ;== 0.0
+acos   0.0  ;== 1.5707963267949  (π/2)
+acos  -1.0  ;== 3.14159265358979 (π)
+acos -10.0  ;== 1.#NaN
+acos  10.0  ;== 1.#NaN
+```
+
 ------------------------------------------------------------------
 ## ACTION?
 [[ function? op? native? any-function? type? ]]
 
 Actions are special functions that operate with datatypes. See `action!` for more.
 ```rebol
->> action? :add
-== true
->> action? :append
-== true
->> action? :+
-== false
->> action? "add"
-== false
+action? :add    ;== #(true)
+action? :append ;== #(true)
+action? :+      ;== #(false)
+action? "add"   ;== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -59,25 +65,13 @@ Note: The `+` operator is a special infix form for this function.
 
 Many different datatypes support addition.
 
-
 ```rebol
-print add 123 1
-124
-
-print add 1.23 .004
-1.234
-
-print add 1.2.3.4 4.3.2.1
-5.5.5.5
-
-print add $1.01 $0.0000000001
-$1.0100000001
-
-print add 3:00 -4:00
--1:00
-
-print add 31-Dec-1999 1
-1-Jan-2000
+add 123 1               ;== 124
+add 1.23 .004           ;== 1.234
+add 1.2.3.4 4.3.2.1     ;== 5.5.5.5
+add $1.01 $0.0000000001 ;== $1.0100000001
+add 3:00 -4:00          ;== -1:00
+add 31-Dec-1999 1       ;== 1-Jan-2000
 ```
 
 When adding values of different datatypes, the values must be compatible. Auto conversion of the values will occur into the datatype that has the most expansive representation. For example an integer added to a decimal will produce a decimal.
@@ -89,63 +83,39 @@ When adding values of different datatypes, the values must be compatible. Auto c
 The `join` and `rejoin` functions return the same datatype as their first element, be it a `string!`, `file!`, `binary!`, `tag!`, `email!` or whatever. However, there are times when you just want to construct a `string!`, and that's the purpose of `ajoin`.
 
 For example:
-
-
 ```rebol
-ajoin ["test" 123]
-"test123"
+ajoin ["test" 123]  ;== "test123"
 ```
 
 It is similar to `reform` but does not insert spaces between values:
-
-
 ```rebol
-reform ["test" 123]
-"test 123"
+reform ["test" 123] ;== "test 123"
 ```
 
 Note that the block is always evaluated:
-
-
 ```rebol
 time: 10:30
-ajoin [time/hour "h" time/minute "m"]
-"10h30m"
+ajoin [time/hour "h" time/minute "m"] ;== "10h30m"
 ```
 
 The `ajoin` function is equivalent to:
-
-
 ```rebol
-to-string reduce block
+to string! reduce block
 ```
 
 
 ###### How it differs
 Here are examples that show how `ajoin` differs from `join` and `rejoin`.
 
-Compare:
-
-
 ```rebol
-ajoin [<test> 123]
-"<test>123"
-```
+;; Compare:
+ajoin [<test> 123]   ;== "<test>123"
 
-with:
+;; with:
+rejoin [<test> 123]  ;== <test123>
 
-
-```rebol
-rejoin [<test> 123]
-<test123>
-```
-
-and:
-
-
-```rebol
-join <test> 123
-<test123>
+;; and:
+join <test> 123      ;== <test123>
 ```
 
 Notice that the last two examples return a `tag!`, not a `string!`.
@@ -165,45 +135,30 @@ It works by evaluating each expression in a block until one of the expressions r
 
 
 ```rebol
-print all [1 none]
-none
-
-print all [none 1]
-none
-
-print all [1 2]
-2
-
-print all [10 > 1 "yes"]
-yes
-
-print all [1 > 10 "yes"]
-none
+probe all [1 _]          ;== _
+probe all [_ 1]          ;== _
+probe all [1 2]          ;== 2
+probe all [10 > 1 "yes"] ;== "yes"
+probe all [1 > 10 "yes"] ;== _
 
 time: 10:30
-if all [time > 10:00 time < 11:00] [print "time is now"]
-time is now
+if all [time > 10:00 time < 11:00] ["time is now"] ;== "time is now"
 ```
 
 No other expressions are evaluated beyond the point where a value fails:
-
-
 ```rebol
 a: 0
 all [none a: 2]
-print a
-0
+probe a ;== 0
 
 a: 0
 all [1 a: 2]
-print a
-2
+probe a ;== 2
 
 day: 10
 time: 9:45
 ready: all [day > 5  time < 10:00  time: 12:00]
-print time
-12:00
+probe time ;== 12:00
 ```
 
 The `any` function is a companion of `all` to test for the opposite condition, where any one of the values will result in a true result.
@@ -213,11 +168,8 @@ The `any` function is a companion of `all` to test for the opposite condition, w
 [[ any-of ]]
 
 ```rebol
->> all-of x [33 -1 24] [x > 0]
-== #(none)
-
->> all-of x [33 -1 24] [integer? x]
-== #(true)
+all-of x [33 -1 24] [x > 0]      ;== _
+all-of x [33 -1 24] [integer? x] ;== #(true)
 ```
 
 ------------------------------------------------------------------
@@ -260,12 +212,10 @@ For example, let's say you want to keep track of a few options used by your code
 ```rebol
 options: copy []
 alter options 'salt
-probe options
-[salt]
+probe options ;== [salt]
 
 alter options 'sugar
-probe options
-[salt sugar]
+probe options ;== [salt sugar]
 ```
 
 You can use functions like `find` to test the presence of an option in the set:
@@ -299,50 +249,48 @@ Also, `alter` returns true if the value was added to the series, or false if the
 
 ------------------------------------------------------------------
 ## AND
-[[ or all not xor logic? integer? ]]
+[[ and~ or all not xor logic? integer? ]]
 
-For `logic!` values, both values must be true to return true, otherwise a false is returned. AND is an infix operator.
+For `logic!` values, both values must be true to return true, otherwise a false is returned. `and` is an infix operator.
 
 
 ```rebol
-print true and true
-true
-
-print true and false
-false
-
-print (10 < 20) and (20 > 15)
-true
+probe true and true            ;== #(true)
+probe true and false           ;== #(false)
+probe (10 < 20) and (20 > 15)  ;== #(true)
 ```
 
-
-```html
-<fieldset class="fset"><legend>Programming style</legend>
-<p>It's usually better to use <a href="#all">all</a> for anding conditional logic, such as the example above.</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">if all [10 &lt; 20 20 &gt; 15] ...</code></pre></div>
-</fieldset>
+**Programming style:**
+It's usually better to use `all` for anding conditional logic, such as the example above.
+```rebol
+if all [10 < 20  20 > 15][...]
 ```
 
 For `integer!`, `tuple!`, `binary!`, and other datatypes, each bit is separately anded.
-
-
 ```rebol
-print 123 and 1
-1
-
-print 1.2.3.4 and 255.0.255.0
-1.0.3.0
+123 and 1                ;== 1
+1.2.3.4 and 255.0.255.0  ;== 1.0.3.0
 ```
 
 ------------------------------------------------------------------
 ## AND~
 [[ and or xor or~ xor~ ]]
 
-This is the primary function behind the `and` operator. It can be used where you want prefix rather than infix notation:
-
+`and~` is the prefix form of the `and` operator, useful when infix notation is inconvenient —
+for example, when passing the operation as a value or composing it with other functions.
 
 ```rebol
-bits: and~ mask 3
+and~ mask 3          ;; equivalent to: mask and 3
+reduce [and~ 255 15] ;; prefix form composes naturally
+```
+
+Note that `and~` operates on both integers (bitwise AND) and logic values (logical AND),
+matching the behavior of the `and` operator exactly.
+```rebol
+probe and~ true true           ;== #(true)
+probe and~ true false          ;== #(false)
+probe and~ 10 < 20  20 > 15    ;== #(true)
+probe and~ 255 300             ;== 44
 ```
 
 ------------------------------------------------------------------
@@ -746,7 +694,7 @@ Note that the refinement itself must be set to true.
 
 ------------------------------------------------------------------
 ## ARCCOSINE
-[[ arcsine arctangent cosine exp log-10 log-2 log-e power sine square-root tangent ]]
+[[ acos arcsine arctangent cosine exp log-10 log-2 log-e power sine square-root tangent ]]
 
 The `arccosine` provides the inverse of the `cosine` function.
 
@@ -3349,6 +3297,7 @@ The greater speed of command blocks is obtained through the use of a special eva
 - Special variations of function arguments are not allowed. Only word and 'word forms are allowed.
 - Arguments must appear in the correct order and no optional arguments are allowed.
 - Arguments are placed directly within the command argument frame, not on the primary evaluator stack.
+
 
 
 ###### Why is it Useful?
@@ -5990,6 +5939,48 @@ obj: object [a: 10 b: 20]
 print length? obj
 2
 ```
+------------------------------------------------------------------
+## LERP
+
+`lerp` computes a linear interpolation using the formula:
+
+```
+result = start + (end - start) * factor
+```
+
+The `factor` argument is clamped to the range `0.0–1.0`, so values below `0.0` behave as `0.0` and values above `1.0` behave as `1.0`. This means `lerp` will never extrapolate beyond the `start`–`end` range.
+
+The function works component-wise for `tuple!` and `pair!` types, interpolating each component independently.
+
+###### Examples:
+
+```rebol
+; Interpolating between two numbers
+lerp 0.0 100.0 0.5           ;== 50.0
+lerp 0.0 100.0 0.25          ;== 25.0
+lerp 0.0 100.0 0.0           ;== 0.0
+lerp 0.0 100.0 1.0           ;== 100.0
+
+; Factor is clamped — no extrapolation
+lerp 0.0 100.0 1.5           ;== 100.0
+lerp 0.0 100.0 -0.5          ;== 0.0
+
+; Interpolating between colors (tuple!)
+lerp 0.0.0 255.255.255 0.5   ;== 127.127.127  (mid-grey)
+lerp 255.0.0 0.0.255   0.5   ;== 127.0.127    (purple)
+
+; Interpolating between positions (pair!)
+lerp 0x0 100x200 0.5         ;== 50x100
+lerp 10x20 90x80 0.25        ;== 30x35
+```
+
+###### Notes:
+
+- `start` and `end` must be the same type; mixing types (e.g. a `number!` with a `tuple!`) will raise an error.
+- For `tuple!` values, interpolation is applied to each channel (R, G, B and optionally A) independently, making `lerp` well-suited for color blending.
+- For `pair!` values, both the `x` and `y` components are interpolated independently, making it useful for 2D position or size transitions.
+- Unlike an unclamped lerp, this implementation does **not** support extrapolation. If you need values outside the `start`–`end` range, scale your `factor` before passing it in.
+
 
 ------------------------------------------------------------------
 ## LESSER-OR-EQUAL?
@@ -5999,19 +5990,11 @@ Returns FALSE for all other values. For string-based
 datatypes, the sorting order is used for comparison
 with character casing ignored (uppercase = lowercase).
 
-
 ```rebol
-print lesser-or-equal? "abc" "abd"
-true
-
-print lesser-or-equal? 10-June-1999 12-june-1999
-true
-
-print lesser-or-equal? 4.3.2.1 1.2.3.4
-false
-
-print lesser-or-equal? 1:23 10:00
-true
+lesser-or-equal? "abc" "abd"               ;== true
+lesser-or-equal? 10-June-1999 12-june-1999 ;== true
+lesser-or-equal? 4.3.2.1 1.2.3.4           ;== false
+lesser-or-equal? 1:23 10:00                ;== true
 ```
 
 ------------------------------------------------------------------
@@ -6024,19 +6007,11 @@ string-based datatypes, the sorting order is used for
 comparison with character casing ignored (uppercase =
 lowercase).
 
-
 ```rebol
-print lesser? "abc" "abcd"
-true
-
-print lesser? 12-june-1999 10-june-1999
-false
-
-print lesser? 1.2.3.4 4.3.2.1
-true
-
-print lesser? 1:30 2:00
-true
+lesser? "abc" "abcd"              ;== true
+lesser? 12-june-1999 10-june-1999 ;== false
+lesser? 1.2.3.4 4.3.2.1           ;== true
+lesser? 1:30 2:00                 ;== true
 ```
 
 ------------------------------------------------------------------
@@ -6051,16 +6026,10 @@ Returns TRUE if the value is a LIBRARY datatype.
 Returns the REBOL end user license agreement for the currently
 running version of REBOL.
 
-
 ```code
 license
 ```
 
-For SDK and other specially licensed versions of REBOL, the
-license function may return an empty string.
-
-------------------------------------------------------------------
-## LIMIT-USAGE
 ------------------------------------------------------------------
 ## LIST-DIR
 [[ change-dir make-dir what-dir read ]]
@@ -6070,8 +6039,7 @@ sorted multi-column output. If no path is specified, the
 directory specified in system/script/path is listed. Directory
 names are followed by a slash (/) in the output listing.
 
-
-```rebol
+```code
 list-dir
 ```
 
@@ -6079,12 +6047,9 @@ To obtain a block of files for use by your program, use the LOAD
 function. The example below returns a block that contains the names of all
 files and directories in the local directory.
 
-
 ```rebol
-files: load %./
-print length? files
-probe files
-[%autos.txt %build-docs.r %bulk-modify.r %cgi.r %convert-orig.r %CVS/ %emit-html.r %eval-examples.r %fix-args.r %fred/ %funcs.r %helloworld.txt %merge-funcs.r %newfile.txt %notes.txt %public/ %replace.r %scan-doc.r %scan-titles.r %strip-title.r %test-file.txt %trash.me]
+files: read %./      ;== [%.editorconfig %.git/ %.gitattributes %.gitignore ...
+length? files        ;== 11
 ```
 
 ------------------------------------------------------------------
@@ -6092,7 +6057,6 @@ probe files
 [[ get-env ]]
 
 This function will return a `map!` of OS environment variables and their values.
-
 
 ```rebol
 >> list-env
@@ -6104,35 +6068,30 @@ This function will return a `map!` of OS environment variables and their values.
 ```
 
 ------------------------------------------------------------------
-## LIST-THRU
-------------------------------------------------------------------
 ## LIT-PATH?
+[[ path? set-path? get-path? lit-word?]]
 
 Returns true if the value is a literal path datatype.
 
 ```rebol
->> lit-path? first ['some/path other/path]
-== #(true)
-
->> lit-path? second ['some/path other/path]
-== #(false)
+lit-path? first  ['some/path other/path] ;== #(true)
+lit-path? second ['some/path other/path] ;== #(false)
 ```
 
 ------------------------------------------------------------------
 ## LIT-WORD?
-[[ word? set-word? get-word? ]]
+[[ word? set-word? get-word? lit-path?]]
 
 Returns FALSE for all other values.
 
-
 ```rebol
->> lit-word? first ['foo bar]
-== #(true)
+lit-word? first  ['foo bar]              ;== #(true)
+lit-word? second ['foo bar]              ;== #(false)
 ```
 
 ------------------------------------------------------------------
 ## LOAD
-[[ save read do import bind ]]
+[[ save read do import bind transcode]]
 
 Reads and converts external data, including programs, data
 structures, images, and sounds into memory storage objects that
@@ -6144,7 +6103,6 @@ from disk or network first, then it is loaded. In the case of a
 string or binary value, it is loaded directly from memory.
 
 Here are a few examples of using LOAD:
-
 
 ```rebol
 script: load %dict-notes.r
@@ -6208,60 +6166,96 @@ It is same like using `decode`.
 ## LOG-10
 [[ exp log-2 log-e power ]]
 
-The LOG-10 function returns the base-10 logarithm of the number
-provided. The argument must be a positive value, otherwise an
-error will occur (which can be trapped with the TRY function).
-
+The `LOG-10` function returns the base-10 logarithm of the number provided.
 
 ```rebol
-print log-10 100
-2.0
-
-print log-10 1000
-3.0
-
-print log-10 1234
-3.091315159697223
+log-10 -10    ;==  1.#NaN
+log-10 0      ;== -1.#INF
+log-10 100    ;== 2.0
+log-10 1000   ;== 3.0
+log-10 1234   ;== 3.091315159697223
+log-10 -100   ;== 1.#NaN
 ```
 
 ------------------------------------------------------------------
 ## LOG-2
 [[ exp log-10 log-e power ]]
 
-The LOG-10 function returns the base-2 logarithm of the number
-provided. The argument must be a positive value, otherwise an
-error will occur (which can be trapped with the TRY function).
-
+The `LOG-10` function returns the base-2 logarithm of the number provided.
 
 ```rebol
-print log-2 2
-1.0
-
-print log-2 4
-2.0
-
-print log-2 256
-8.0
-
-print log-2 1234
-10.26912667914941
+log-2 -100    ;==  1.#NaN
+log-2 0       ;== -1.#INF
+log-2 2       ;== 1.0
+log-2 4       ;== 2.0
+log-2 256     ;== 8.0
+log-2 1234    ;== 10.26912667914941
 ```
+
+------------------------------------------------------------------
+## LOG-DEBUG
+[[ log-error log-info log-trace log-warn ]]
+
+Use for detailed diagnostic output during development or troubleshooting. The `id` argument acts as a label to categorize or filter messages by source. Messages are visible according `system/options/log/:id` value.
+
+```code
+log-debug 'TEST "This is a debug message!"
+system/options/log/test: 0 ;; disable TEST outputs
+log-debug 'TEST "This text is not visible!"
+```
+
+Error log messages are always visible:
+```code
+if error? try [1 / 0][
+    log-error 'TEST "There was an error!"
+    log-error 'TEST system/state/last-error
+]
+```
+
+Other possible traces are `log-info`, `log-trace` and `log-warn`
+```code
+system/options/log/test: 4 ;; maximum TEST outputs
+log-info  'TEST ["Current time is: " now]
+log-trace 'TEST "This is just a trace."
+log-warn  'TEST "This is warning message."
+
+```
+
+------------------------------------------------------------------
+## LOG-ERROR
+[[ log-debug log-info log-trace log-warn ]]
+
+See `log-debug` for more info.
+
+------------------------------------------------------------------
+## LOG-INFO
+[[ log-debug log-error log-trace log-warn ]]
+
+See `log-debug` for more info.
+
+------------------------------------------------------------------
+## LOG-TRACE
+[[ log-debug log-error log-info log-warn ]]
+
+See `log-debug` for more info.
+
+------------------------------------------------------------------
+## LOG-WARN
+[[ log-debug log-error log-info log-trace ]]
+
+See `log-debug` for more info.
 
 ------------------------------------------------------------------
 ## LOG-E
 [[ exp log-10 log-2 power ]]
 
-The LOG-E function returns the natural logarithm of the number
-provided. The argument must be a positive value, otherwise an
-error will occur (which can be trapped with the TRY function).
-
+The `LOG-E` function returns the natural logarithm of the number provided.
 
 ```rebol
-print log-e 1234
-7.118016204465333
-
-print exp log-e 1234
-1234.0
+log-e -100     ;==  1.#NaN
+log-e 0        ;== -1.#INF
+log-e 1234     ;== 7.118016204465333
+exp log-e 1234 ;== 1234.0
 ```
 
 ------------------------------------------------------------------
@@ -6273,13 +6267,9 @@ conditional functions will accept more than just a LOGIC
 value. A NONE will act as FALSE, and all other values
 other than logic will act as TRUE.
 
-
 ```rebol
-print logic? true
-true
-
-print logic? 123
-false
+logic? true  ;== #(true)
+logic? 123   ;== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -6288,55 +6278,39 @@ false
 
 The `loop` function is the simplest way to repeat the evaluation of a block. This function is very efficient and should be used if no loop counter is required.
 
-```rebol
+```code
 loop 3 [print "hi"]
-hi
-hi
-hi
 ```
 
 Here's an example that creates a block of 10 random integers:
-
-```rebol
+```code
 block: make block! 10
 loop 10 [append block random 100]
 probe block
-[31 25 53 20 40 2 30 79 47 79]
 ```
-
 
 ###### Returned Value
 When finished the `loop` function returns the final value the block:
-
-
-```rebol
+```code
 num: 0
-print loop 10 [num: num + 1]
-10
+print loop 10 [num: num + 1] ;== 10
 ```
-
 
 ###### Other Notes
 
 - Negative or zero loop counts do not evaluate the block.
 - If a `decimal!` count is used, it will be truncated to a lower integer value.
-- The <a href="#break">break</a> function can be used to stop the loop at any time.
-- The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.
+- The `break` function can be used to stop the loop at any time.
+- The `repeat` function is similar to `loop`, except that it allows a variable to keep track of the current loop counter.
 
 ------------------------------------------------------------------
 ## LOWERCASE
 [[ uppercase trim ]]
 
-The series passed to this function is modified as
-a result.
-
-
+The series passed to this function is modified as a result.
 ```rebol
->> lowercase "ABCDEF"
-== "abcdef"
-
->> lowercase/part "ABCDEF" 3
-== "abcDEF"
+lowercase "ABCDEF"           ;== "abcdef"
+lowercase/part "ABCDEF" 3    ;== "abcDEF"
 ```
 
 ------------------------------------------------------------------
@@ -6344,34 +6318,55 @@ a result.
 @@ LIST-DIR
 
 ------------------------------------------------------------------
-## MAKE
-[[ copy type? ]]
+## LUMINOSITY
 
-The TYPE argument indicates the datatype to create.
+Each pixel's RGB channels are reduced to a single luminance value using perceptual weights
+that reflect human sensitivity to each color.
+
+Without refinement, the BT.709 formula is used:
+```
+Y = 0.2126×R + 0.7152×G + 0.0722×B
+```
+With the `/luma` refinement, the BT.601 formula is used instead:
+```
+Y = 0.299×R + 0.587×G + 0.114×B
+```
+
+For a `tuple!` input, the luminance scalar is returned as an `integer!` — the original color is not modified. For an `image!`, the gray value is written back to all three channels (`R = G = B = Y`) of every pixel directly in the image buffer, and the modified image is returned.
+
+###### Examples:
+```rebol
+;; Tuple input - returns integer luminance, color unchanged
+luminosity 200.150.100 ;== 157
+
+;; Image input - modified in place, same image returned
+luminosity my-image
+
+;; Using BT.601 weights instead
+luminosity/luma my-image
+```
+
+
+------------------------------------------------------------------
+## MAKE
+[[ to copy type? ]]
+
+The `type` argument indicates the datatype to create.
 
 The form of the constructor is determined by the
 datatype. For most series datatypes, a number indicates
 the size of the initial allocation.
 
-
 ```rebol
-str: make string! 1000
-
-blk: make block! 10
-
-cash: make money! 1234.56
-print cash
-$1234.560000000000000
-
-time: make time! [10 30 40]
-print time
-10:30:40
+str:  make string! 1000     ;== ""
+blk:  make block! 10        ;== []
+cash: make money! 1234.56   ;== $1234.560000000000000
+time: make time! [10 30 40] ;== 10:30:40
 ```
 
-NOTE: MAKE when used with OBJECTS will modify the context of the
-spec block (as if BIND was used on it). If you need to reuse the
-spec block use MAKE in combination with COPY/deep like this:
-
+NOTE: `make` when used with OBJECTS will modify the context of the
+spec block (as if `bind` was used on it). If you need to reuse the
+spec block use `make` in combination with `copy/deep` like this:
 
 ```rebol
 make object! copy/deep spec
@@ -6379,9 +6374,21 @@ make object! copy/deep spec
 
 ------------------------------------------------------------------
 ## MAKE-BANNER
+
+Used on boot, but may be used to create custom banners like:
+```code
+print make-banner [
+    -
+    = Product: "Test Banner"
+    = "" "Just an example!"
+    = Date: [now]
+    -
+]
+```
+
 ------------------------------------------------------------------
 ## MAKE-DIR
-[[ change-dir what-dir list-dir delete ]]
+[[ change-dir what-dir list-dir delete dir? ]]
 
 Creates a new directory at the specified location. This
 operation can be performed for files or FTP URLs.

@@ -8,40 +8,40 @@
 <h6>Usage:</h6>
 <pre class="usage fs-6">about</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Displays REBOL title and version information on the REBOL console.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> about</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">about</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>╔══════════════════════════════════════════════════════════════════════════╗
 ║<span class="ansi30 ansi107">                                                                          </span>║
-║<span class="ansi30 ansi107">  <span class="ansi35">REBOL/Bulk 3.21.1 (Oldes branch)                                        <span class="ansi30 ansi107"></span></span></span>║
+║<span class="ansi30 ansi107">  <span class="ansi35">REBOL/Bulk 3.21.19 (Oldes branch)                                       </span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Copyright  <span class="ansi31">2012 REBOL Technologies                                    <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">2012-2025 Rebol Open Source Contributors                   <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Apache 2.0 License, see LICENSE.                           <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Website    <span class="ansi31">https://github.com/Oldes/Rebol3                            <span class="ansi30"></span></span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Copyright  <span class="ansi31">2012 REBOL Technologies                                    </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">2012-2026 Rebol Open Source Contributors                   </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Apache 2.0 License, see LICENSE.                           </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Website    <span class="ansi31">https://github.com/Oldes/Rebol3                            </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Platform   <span class="ansi31">Windows | x64-pc-win32-pe | cl                             <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Build      <span class="ansi31">9-Jan-2026/11:52                                           <span class="ansi30"></span></span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Platform   <span class="ansi31">Windows | x64-pc-win32-pe | cl                             </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Build      <span class="ansi31">15-May-2026/15:25                                          </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Home       <span class="ansi31">C:\Users\oldes\                                            <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Data       <span class="ansi31">C:\Users\oldes\Rebol\                                      <span class="ansi30"></span></span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Home       <span class="ansi31">C:\Users\oldes\                                            </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Data       <span class="ansi31">C:\Users\oldes\Rebol\                                      </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
-<span class="ansi1 ansi33">Important notes</span>:
+<span class="ansi93">Important notes</span>:
 
   * Sandbox and security are not fully available.
   * Direct access to TCP HTTP required (no proxies).
   * Use at your own risk.
-  * <span class="ansi1 ansi32">Try/except<span class="ansi1 ansi31"> is deprecated and will be removed!</span></span> Use <span class="ansi1 ansi32">try/with</span> instead.
-  * This Rebol version has switched map and construction syntax!
-    See: https://github.com/Oldes/Rebol-issues/issues/2589
+  * <span class="ansi92">//</span> is now used as <span class="ansi91">integer-divide</span>, for <span class="ansi91">remainder</span> use <span class="ansi92">%</span> or <span class="ansi92">%%</span> (Euclidean division)!
+  * For Python compatible <span class="ansi91">modulo</span> use <span class="ansi92">modulo/floor</span>.
 
-<span class="ansi1 ansi33">Special functions</span>:
+<span class="ansi93">Special functions</span>:
 
-  <span class="ansi1 ansi32">Help</span>  - show built-in help information
+  <span class="ansi92">Help</span> - show built-in help information
 
 </code></pre></div>
 <div class="see-also">See also: <a href="#help">help</a>, <a href="#license">license</a>, <a href="#usage">usage</a></div>
@@ -65,19 +65,17 @@ Displays REBOL title and version information on the REBOL console.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number! pair! money! time!</span>] 
+  value       [<span class="types">number! pair! money! time!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a positive value equal in magnitude.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; absolute -123
-== 123
-&gt;&gt; absolute -1:23
-== 1:23
-&gt;&gt; absolute -1x4
-== 1x4</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">absolute -123    ;== 123
+absolute -1:23   ;== 1:23
+absolute -1x4    ;== 1x4</code></pre></div>
 <div class="see-also">See also: <a href="#-">-</a>, <a href="#abs">abs</a>, <a href="#negate">negate</a>, <a href="#sign?">sign?</a></div>
 </section>
 
@@ -95,7 +93,8 @@ Returns a positive value equal in magnitude.
   field       [<span class="types">word!</span>] Valid words: uid, euid, gid, egid, pid
 <span class="tit">REFINEMENTS:</span>
   /set        To set or kill pid (sig 15)
-   value      [<span class="types">integer! block!</span>] Argument, such as uid, gid, or pid (in which case, it could be a block with the signal no)
+   value      [<span class="types">integer! block!</span>]
+              Argument, such as uid, gid, or pid (in which case, it could be a block with the signal no)
 </pre>
 </section>
 
@@ -113,8 +112,19 @@ Returns a positive value equal in magnitude.
   value       [<span class="types">decimal!</span>] In radians
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
 
+<p>
+<a href="#acos">acos</a> computes the inverse cosine of a <code class="datatype">decimal!</code> value and returns the result in radians.
+The input must be in the range </p>
+<p>
+To work in degrees instead, use <a href="#arccosine">arccosine</a>.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">acos   1.0  ;== 0.0
+acos   0.0  ;== 1.5707963267949  (π/2)
+acos  -1.0  ;== 3.14159265358979 (π)
+acos -10.0  ;== 1.#NaN
+acos  10.0  ;== 1.#NaN</code></pre></div>
 <div class="see-also">See also: <a href="#arccosine">arccosine</a></div>
 </section>
 
@@ -129,21 +139,18 @@ Returns a positive value equal in magnitude.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Actions are special functions that operate with datatypes. See <span class="datatype">action!</span> for more.
+Actions are special functions that operate with datatypes. See <code class="datatype">action!</code> for more.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; action? :add
-== true
-&gt;&gt; action? :append
-== true
-&gt;&gt; action? :+
-== false
-&gt;&gt; action? "add"
-== false</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">action? :add    ;== #(true)
+action? :append ;== #(true)
+action? :+      ;== #(false)
+action? "add"   ;== #(false)</code></pre></div>
 <div class="see-also">See also: <a href="#any-function?">any-function?</a>, <a href="#function?">function?</a>, <a href="#native?">native?</a>, <a href="#op?">op?</a>, <a href="#type?">type?</a></div>
 </section>
 
@@ -158,34 +165,24 @@ Actions are special functions that operate with datatypes. See <span class="data
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! vector!</span>] 
-  value2      [<span class="types">scalar! date! vector!</span>] 
+  value1      [<span class="types">scalar! date! vector!</span>]
+  value2      [<span class="types">scalar! date! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Note: The <a href="#+">+</a> operator is a special infix form for this function.
 </p>
 <p>
 Many different datatypes support addition.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print add 123 1
-124
-
-print add 1.23 .004
-1.234
-
-print add 1.2.3.4 4.3.2.1
-5.5.5.5
-
-print add $1.01 $0.0000000001
-$1.0100000001
-
-print add 3:00 -4:00
--1:00
-
-print add 31-Dec-1999 1
-1-Jan-2000</code></pre></div><p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">add 123 1               ;== 124
+add 1.23 .004           ;== 1.234
+add 1.2.3.4 4.3.2.1     ;== 5.5.5.5
+add $1.01 $0.0000000001 ;== $1.0100000001
+add 3:00 -4:00          ;== -1:00
+add 31-Dec-1999 1       ;== 1-Jan-2000</code></pre></div><p>
 When adding values of different datatypes, the values must be compatible. Auto conversion of the values will occur into the datatype that has the most expansive representation. For example an integer added to a decimal will produce a decimal.
 </p>
 
@@ -203,51 +200,44 @@ When adding values of different datatypes, the values must be compatible. Auto c
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block!</span>] 
+  block       [<span class="types">block!</span>]
 <span class="tit">REFINEMENTS:</span>
   /with       
-   delimiter  [<span class="types">any-type!</span>] 
+   delimiter  [<span class="types">any-type!</span>]
   /all        Do not ignore none and unset values
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#join">join</a> and <a href="#rejoin">rejoin</a> functions return the same datatype as their first element, be it a <span class="datatype">string!</span>, <span class="datatype">file!</span>, <span class="datatype">binary!</span>, <span class="datatype">tag!</span>, <span class="datatype">email!</span> or whatever. However, there are times when you just want to construct a <span class="datatype">string!</span>, and that's the purpose of <a href="#ajoin">ajoin</a>.
+The <a href="#join">join</a> and <a href="#rejoin">rejoin</a> functions return the same datatype as their first element, be it a <code class="datatype">string!</code>, <code class="datatype">file!</code>, <code class="datatype">binary!</code>, <code class="datatype">tag!</code>, <code class="datatype">email!</code> or whatever. However, there are times when you just want to construct a <code class="datatype">string!</code>, and that's the purpose of <a href="#ajoin">ajoin</a>.
 </p>
 <p>
 For example:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">ajoin ["test" 123]
-"test123"</code></pre></div><p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">ajoin ["test" 123]  ;== "test123"</code></pre></div><p>
 It is similar to <a href="#reform">reform</a> but does not insert spaces between values:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">reform ["test" 123]
-"test 123"</code></pre></div><p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">reform ["test" 123] ;== "test 123"</code></pre></div><p>
 Note that the block is always evaluated:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">time: 10:30
-ajoin [time/hour "h" time/minute "m"]
-"10h30m"</code></pre></div><p>
+ajoin [time/hour "h" time/minute "m"] ;== "10h30m"</code></pre></div><p>
 The <a href="#ajoin">ajoin</a> function is equivalent to:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">to-string reduce block</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">to string! reduce block</code></pre></div>
 <h6>How it differs</h6><p>
 Here are examples that show how <a href="#ajoin">ajoin</a> differs from <a href="#join">join</a> and <a href="#rejoin">rejoin</a>.
 </p>
-<p>
-Compare:
-</p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">ajoin [&lt;test&gt; 123]
-"&lt;test&gt;123"</code></pre></div><p>
-with:
-</p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">rejoin [&lt;test&gt; 123]
-&lt;test123&gt;</code></pre></div><p>
-and:
-</p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">join &lt;test&gt; 123
-&lt;test123&gt;</code></pre></div><p>
-Notice that the last two examples return a <span class="datatype">tag!</span>, not a <span class="datatype">string!</span>.
+<div class="example-code"><pre class="rebol-block"><code class="rebol">;; Compare:
+ajoin [&lt;test&gt; 123]   ;== "&lt;test&gt;123"
+
+;; with:
+rejoin [&lt;test&gt; 123]  ;== &lt;test123&gt;
+
+;; and:
+join &lt;test&gt; 123      ;== &lt;test123&gt;</code></pre></div><p>
+Notice that the last two examples return a <code class="datatype">tag!</code>, not a <code class="datatype">string!</code>.
 </p>
 
 <div class="see-also">See also: <a href="#append">append</a>, <a href="#combine">combine</a>, <a href="#form">form</a>, <a href="#join">join</a>, <a href="#reform">reform</a>, <a href="#rejoin">rejoin</a></div>
@@ -267,48 +257,36 @@ Notice that the last two examples return a <span class="datatype">tag!</span>, n
   block       [<span class="types">block!</span>] Block of expressions
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#all">all</a> function is the most common way to test multiple conditions, such as in the line:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">if all [num &gt; 1  num &lt; 1000] [do something]</code></pre></div><p>
-It works by evaluating each expression in a block until one of the expressions returns <span class="datatype">none!</span> or false, in which case a <span class="datatype">none!</span> is returned. Otherwise, the value of the last expression will be returned.
+It works by evaluating each expression in a block until one of the expressions returns <code class="datatype">none!</code> or false, in which case a <code class="datatype">none!</code> is returned. Otherwise, the value of the last expression will be returned.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print all [1 none]
-none
-
-print all [none 1]
-none
-
-print all [1 2]
-2
-
-print all [10 &gt; 1 "yes"]
-yes
-
-print all [1 &gt; 10 "yes"]
-none
+<div class="example-code"><pre class="rebol-block"><code class="rebol">probe all [1 _]          ;== _
+probe all [_ 1]          ;== _
+probe all [1 2]          ;== 2
+probe all [10 &gt; 1 "yes"] ;== "yes"
+probe all [1 &gt; 10 "yes"] ;== _
 
 time: 10:30
-if all [time &gt; 10:00 time &lt; 11:00] [print "time is now"]
-time is now</code></pre></div><p>
+if all [time &gt; 10:00 time &lt; 11:00] ["time is now"] ;== "time is now"</code></pre></div><p>
 No other expressions are evaluated beyond the point where a value fails:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">a: 0
 all [none a: 2]
-print a
-0
+probe a ;== 0
 
 a: 0
 all [1 a: 2]
-print a
-2
+probe a ;== 2
 
 day: 10
 time: 9:45
 ready: all [day &gt; 5  time &lt; 10:00  time: 12:00]
-print time
-12:00</code></pre></div><p>
+probe time ;== 12:00</code></pre></div><p>
 The <a href="#any">any</a> function is a companion of <a href="#all">all</a> to test for the opposite condition, where any one of the values will result in a true result.
 </p>
 
@@ -331,12 +309,10 @@ The <a href="#any">any</a> function is a companion of <a href="#all">all</a> to 
   test        [<span class="types">block!</span>] Condition to test each time
 </pre>
 
-<h6>Description:</h6>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; all-of x [33 -1 24] [x &gt; 0]
-== #(none)
+<h5>Description:</h5>
 
-&gt;&gt; all-of x [33 -1 24] [integer? x]
-== #(true)</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">all-of x [33 -1 24] [x &gt; 0]      ;== _
+all-of x [33 -1 24] [integer? x] ;== #(true)</code></pre></div>
 <div class="see-also">See also: <a href="#any-of">any-of</a></div>
 </section>
 
@@ -351,11 +327,12 @@ The <a href="#any">any</a> function is a companion of <a href="#all">all</a> to 
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#also">also</a> function lets you evaluate two expressions, but return the first, rather than the second. This function may seem a bit odd at first, but in many cases it can save you from needing another temporary variable.
 </p>
@@ -393,12 +370,13 @@ If you <a href="#close">close</a> the port first, the buffer cannot be accessed.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   series      [<span class="types">series! port! bitset!</span>] (modified)
-  value        
+  value       [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /case       Case-sensitive comparison
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#alter">alter</a> function helps you manage small data-sets. It either adds or removes a value depending on whether the value is already included. (The word <a href="#alter">alter</a> is short for the word "alternate", the action taking place.)
 </p>
@@ -407,12 +385,10 @@ For example, let's say you want to keep track of a few options used by your code
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">options: copy []
 alter options 'salt
-probe options
-[salt]
+probe options ;== [salt]
 
 alter options 'sugar
-probe options
-[salt sugar]</code></pre></div><p>
+probe options ;== [salt sugar]</code></pre></div><p>
 You can use functions like <a href="#find">find</a> to test the presence of an option in the set:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">if find options 'salt [print "Salt was found"]
@@ -445,32 +421,26 @@ Also, <a href="#alter">alter</a> returns true if the value was added to the seri
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-For <span class="datatype">logic!</span> values, both values must be true to return true, otherwise a false is returned. AND is an infix operator.
+For <code class="datatype">logic!</code> values, both values must be true to return true, otherwise a false is returned. <a href="#and">and</a> is an infix operator.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print true and true
-true
-
-print true and false
-false
-
-print (10 &lt; 20) and (20 &gt; 15)
-true</code></pre></div><fieldset class="fset"><legend>Programming style</legend>
-<p>It's usually better to use <a href="#all">all</a> for anding conditional logic, such as the example above.</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">if all [10 &lt; 20 20 &gt; 15] ...</code></pre></div>
-</fieldset><p>
-For <span class="datatype">integer!</span>, <span class="datatype">tuple!</span>, <span class="datatype">binary!</span>, and other datatypes, each bit is separately anded.
+<div class="example-code"><pre class="rebol-block"><code class="rebol">probe true and true            ;== #(true)
+probe true and false           ;== #(false)
+probe (10 &lt; 20) and (20 &gt; 15)  ;== #(true)</code></pre></div><p>
+**Programming style:**
+It's usually better to use <a href="#all">all</a> for anding conditional logic, such as the example above.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print 123 and 1
-1
-
-print 1.2.3.4 and 255.0.255.0
-1.0.3.0</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">if all [10 &lt; 20  20 &gt; 15][...]</code></pre></div><p>
+For <code class="datatype">integer!</code>, <code class="datatype">tuple!</code>, <code class="datatype">binary!</code>, and other datatypes, each bit is separately anded.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">123 and 1                ;== 1
+1.2.3.4 and 255.0.255.0  ;== 1.0.3.0</code></pre></div>
 <div class="see-also">See also: <a href="#all">all</a>, <a href="#integer?">integer?</a>, <a href="#logic?">logic?</a>, <a href="#not">not</a>, <a href="#or">or</a>, <a href="#xor">xor</a></div>
 </section>
 
@@ -485,16 +455,53 @@ print 1.2.3.4 and 255.0.255.0
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is the primary function behind the <a href="#and">and</a> operator. It can be used where you want prefix rather than infix notation:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">bits: and~ mask 3</code></pre></div>
 <div class="see-also">See also: <a href="#and">and</a>, <a href="#or">or</a>, <a href="#or~">or~</a>, <a href="#xor">xor</a>, <a href="#xor~">xor~</a></div>
+</section>
+
+<hr>
+<section id="ansi-colorize">
+ <a name="ansi-colorize"></a>
+ <h2>ANSI-COLORIZE<a class="headerlink" href="#ansi-colorize" title="Link to this heading">¶</a></h2>
+<p>Apply ANSI color and style markup to a string using a lightweight inline dialect.</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">ansi-colorize <span class="rebarg">text</span></span></pre>
+
+<pre class="help">
+<span class="tit">ARGUMENTS:</span>
+  text        [<span class="types">string!</span>]
+<span class="tit">REFINEMENTS:</span>
+  /init       
+   style      [<span class="types">any-type!</span>] Base ANSI color/style to use instead of the default foreground color
+</pre>
+
+<h5>Description:</h5>
+
+<div class="extra-desc">Returns the string unchanged if color output is disabled.
+
+Markup syntax:
+
+<code class="desc"> `text`   - monospace/code style (bright yellow); nestable with other markup
+ _text_   - underline style (bright cyan)
+ ```      - code block (default gray)
+ ^`       - literal backtick (escape sequence)
+ ^_       - literal underscore (escape sequence)
+</code>
+The base color defaults to the foreground color unless overridden with /init.
+Markup resets back to the enclosing style when closed, so partial nesting works:
+
+ <span class="ansi32">"normal _underline `code` still-underline_ normal"</span>
+</div>
 </section>
 
 <hr>
@@ -511,7 +518,8 @@ This is the primary function behind the <a href="#and">and</a> operator. It can 
   block       [<span class="types">block!</span>] Block of expressions
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#any">any</a> function is the most common way to test for one of multiple conditions, such as in the line:
 </p>
@@ -519,7 +527,7 @@ The <a href="#any">any</a> function is the most common way to test for one of mu
 Here, if any one of the conditions produces a true result, the <a href="#if">if</a> will evaluate the block.
 </p>
 <p>
-This function works by evaluating each expression in a block until one of the expressions returns a value other than <span class="datatype">none!</span> or false, in which case the value is returned. Otherwise, <span class="datatype">none!</span> will be returned.
+This function works by evaluating each expression in a block until one of the expressions returns a value other than <code class="datatype">none!</code> or false, in which case the value is returned. Otherwise, <code class="datatype">none!</code> will be returned.
 </p>
 <p>
 Examples to help show how it works:
@@ -562,7 +570,7 @@ print time
 The <a href="#any">any</a> function is also useful for setting default values. For example:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">size: any [size 100]</code></pre></div><p>
-If size was <span class="datatype">none!</span>, then it gets set to 100. This works even better if there are alternative defaults:
+If size was <code class="datatype">none!</code>, then it gets set to 100. This works even better if there are alternative defaults:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">size: any [size prefs/size 100]</code></pre></div><p>
 Another use for <a href="#any">any</a> is to emulate a sequence of if...elseif...elseif...else. Instead of writing:
@@ -609,12 +617,13 @@ The <a href="#all">all</a> function is a companion of <a href="#any">any</a> to 
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns true only if the value is a <span class="datatype">block!</span> (any kind of block) and false for all other values.
+Returns true only if the value is a <code class="datatype">block!</code> (any kind of block) and false for all other values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; any-object? "foo"
 == #(false)
@@ -648,10 +657,11 @@ block! paren! path! set-path! get-path! lit-path!</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns true if the value is any type of function and returns false for all other values.
 </p>
@@ -684,10 +694,11 @@ native! action! rebcode! command! op! closure! function!</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; any-object? system
 == #(true)
 
@@ -715,7 +726,8 @@ native! action! rebcode! command! op! closure! function!</code></pre></div>
   test        [<span class="types">block!</span>] Condition to test each time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; any-of x [-1 4 10] [x &gt; 0]
 == 4
 
@@ -735,12 +747,13 @@ native! action! rebcode! command! op! closure! function!</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns true if the value is any type of <span class="datatype">path!</span> and returns false for all other values.
+Returns true if the value is any type of <code class="datatype">path!</code> and returns false for all other values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; any-path? 'test/this
 == #(true)
@@ -770,10 +783,11 @@ path! set-path! get-path! lit-path!</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns true for any type of string, and false for all other values.
 </p>
@@ -812,10 +826,11 @@ string! file! email! ref! url! tag!</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns true for any type of word and false for all other values.
 </p>
@@ -861,13 +876,14 @@ word! set-word! get-word! lit-word! refinement! issue!</code></pre></div>
   value       [<span class="types">any-type!</span>] The value to insert
 <span class="tit">REFINEMENTS:</span>
   /part       Limits to a given length or position
-   range      [<span class="types">number! series! pair!</span>] 
+   range      [<span class="types">number! series! pair!</span>]
   /only       Only insert a block as a single value (not the contents of the block)
   /dup        Duplicates the insert a specified number of times
-   count      [<span class="types">number! pair!</span>] 
+   count      [<span class="types">number! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#append">append</a> function is a shortcut for doing an <a href="#insert">insert</a> at the tail of any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> and returning the head:
 </p>
@@ -917,7 +933,8 @@ To learn more about the operation of the other refinements, see the <a href="#in
   /only       Use arg values as-is, do not reduce the block
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 When you evaluate a function, you normally provide any arguments directly in-line with its call:
 </p>
@@ -929,7 +946,7 @@ or, using a variable to hold the block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">args: [data 123]
 apply :append args</code></pre></div><p>
-If any arguments are missing from the block, a <span class="datatype">none!</span> is passed instead:
+If any arguments are missing from the block, a <code class="datatype">none!</code> is passed instead:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">data: [456]
 apply :append [data]
@@ -963,12 +980,13 @@ Note that the refinement itself must be set to true.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number!</span>] 
+  value       [<span class="types">number!</span>]
 <span class="tit">REFINEMENTS:</span>
   /radians    Returns result in radians
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#arccosine">arccosine</a> provides the inverse of the <a href="#cosine">cosine</a> function.
 </p>
@@ -977,7 +995,7 @@ The <a href="#arccosine">arccosine</a> provides the inverse of the <a href="#cos
 Note that arccosine goes to infinity at 90 degrees and will cause a numeric overflow.
 </p>
 
-<div class="see-also">See also: <a href="#arcsine">arcsine</a>, <a href="#arctangent">arctangent</a>, <a href="#cosine">cosine</a>, <a href="#exp">exp</a>, <a href="#log-10">log-10</a>, <a href="#log-2">log-2</a>, <a href="#log-e">log-e</a>, <a href="#power">power</a>, <a href="#sine">sine</a>, <a href="#square-root">square-root</a>, <a href="#tangent">tangent</a></div>
+<div class="see-also">See also: <a href="#acos">acos</a>, <a href="#arcsine">arcsine</a>, <a href="#arctangent">arctangent</a>, <a href="#cosine">cosine</a>, <a href="#exp">exp</a>, <a href="#log-10">log-10</a>, <a href="#log-2">log-2</a>, <a href="#log-e">log-e</a>, <a href="#power">power</a>, <a href="#sine">sine</a>, <a href="#square-root">square-root</a>, <a href="#tangent">tangent</a></div>
 </section>
 
 <hr>
@@ -991,12 +1009,13 @@ Note that arccosine goes to infinity at 90 degrees and will cause a numeric over
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number!</span>] 
+  value       [<span class="types">number!</span>]
 <span class="tit">REFINEMENTS:</span>
   /radians    Returns result in radians
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#arcsine">arcsine</a> provides the inverse of the <a href="#sine">sine</a> function.
 </p>
@@ -1019,12 +1038,13 @@ Note that arccsine goes to infinity at 0 and each 180 degrees and will cause a n
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number!</span>] 
+  value       [<span class="types">number!</span>]
 <span class="tit">REFINEMENTS:</span>
   /radians    Returns result in radians
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#arctangent">arctangent</a> function provides the inverse of the <a href="#tangent">tangent</a> function.
 </p>
@@ -1064,10 +1084,11 @@ The <a href="#arctangent">arctangent</a> function provides the inverse of the <a
   size        [<span class="types">integer! block!</span>] Size or block of sizes for each dimension
 <span class="tit">REFINEMENTS:</span>
   /initial    Specify an initial value for all elements
-   value       Initial value (will be called each time if a function)
+   value      [<span class="types">any-type!</span>] Initial value (will be called each time if a function)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 In REBOL, arrays are simply blocks that are initialized to a specific size with all elements set to an initial value (v:none by default). The <a href="#array">array</a> function is used to create and initialize arrays.
 </p>
@@ -1159,7 +1180,7 @@ In other words, REBOL does not require you to specify the size of data arrays (b
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1174,7 +1195,7 @@ In other words, REBOL does not require you to specify the size of data arrays (b
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1189,7 +1210,7 @@ In other words, REBOL does not require you to specify the size of data arrays (b
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1204,7 +1225,7 @@ In other words, REBOL does not require you to specify the size of data arrays (b
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1219,13 +1240,14 @@ In other words, REBOL does not require you to specify the size of data arrays (b
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  x           [<span class="types">number!</span>] 
-  y           [<span class="types">number!</span>] 
+  x           [<span class="types">number!</span>]
+  y           [<span class="types">number!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Provides a shortcut for creating <span class="datatype">pair!</span> values from separate X and
+Provides a shortcut for creating <code class="datatype">pair!</code> values from separate X and
 Y integers.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-pair 100 50
@@ -1244,7 +1266,7 @@ Y integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1259,7 +1281,7 @@ Y integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1274,7 +1296,7 @@ Y integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1289,7 +1311,7 @@ Y integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -1304,10 +1326,11 @@ Y integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-string! char! integer!</span>] 
+  value       [<span class="types">any-string! char! integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; ascii? "hello"
 == #(true)
 
@@ -1349,7 +1372,8 @@ Y integers.
    limit      [<span class="types">bitset! string! block! char! none!</span>] Limit input to specified chars or control words
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Provides a common prompting function that is the same as a <a href="#prin">prin</a> followed by an <a href="#input">input</a>. The resulting input will
 have spaces trimmed from its head and tail. The /hide refinement hides input with "*" characters. The function returns a string!.
@@ -1374,12 +1398,13 @@ Your name, please? Luke
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  conditions  [<span class="types">block!</span>] 
+  conditions  [<span class="types">block!</span>]
 <span class="tit">REFINEMENTS:</span>
   /type       Safely check datatypes of variables (words and paths)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 In code, it is common to check conditions that should always be valid or true. For example, a check may be made for a value to be in range or of a given datatype.
 </p>
@@ -1393,7 +1418,7 @@ To make it easier to check such conditions, the <a href="#assert">assert</a> fun
 Assert can check "truth" conditions, or with a refinement, it can check datatype validity conditions.
 </p>
 
-<h7>Asserting truth</h7><p>
+<h6>Asserting truth</h6><p>
 To check truth conditions, the argument of <a href="#assert">assert</a> is a block of one or more conditions, and each is checked (similar to <a href="#all">all</a>) to be true:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">num: 10
@@ -1415,7 +1440,7 @@ Look at the error line closely, and you can tell which one failed.
 Note: only the first three elements of the failed assertion will be shown (to help avoid long error lines.)
 </p>
 
-<h7>Asserting datatypes</h7><p>
+<h6>Asserting datatypes</h6><p>
 It is also common to validate datatypes using the /type refinement:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">age: "37"
@@ -1453,11 +1478,12 @@ Note that <a href="#assert">assert</a> is safe to use on all function datatypes.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
-  index       [<span class="types">number! logic! pair!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
+  index       [<span class="types">number! logic! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Provides a simple way to index into any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>. <a href="#at">at</a> returns the series at the new index point.
 </p>
@@ -1537,12 +1563,13 @@ probe words
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block! paren!</span>] 
+  block       [<span class="types">block! paren!</span>]
 <span class="tit">REFINEMENTS:</span>
   /safer      Capture all possible errors and exceptions
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#attempt">attempt</a> function is a shortcut for the frequent case of:
 </p>
@@ -1587,11 +1614,12 @@ probe value
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
-  index       [<span class="types">number! logic! pair!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
+  index       [<span class="types">number! logic! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; blk: [1 2 3 4]
 == [1 2 3 4]
 
@@ -1614,10 +1642,11 @@ probe value
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block! vector! paren!</span>] 
+  block       [<span class="types">block! vector! paren!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; average [1 2 3]
 == 2</code></pre></div>
 </section>
@@ -1633,10 +1662,11 @@ probe value
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Works on any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>. If the series is at its head, it will remain at its head. <a href="#back">back</a> will not go past the head, nor will it wrap to the tail.
 </p>
@@ -1681,7 +1711,7 @@ until [
   ctx         [<span class="types">object! binary! integer! none!</span>] Bincode context. If none, it will create a new one.
 <span class="tit">REFINEMENTS:</span>
   /init       Initializes buffers in the context
-   spec       [<span class="types">binary! integer! none!</span>] 
+   spec       [<span class="types">binary! integer! none!</span>]
   /write      Write data into output buffer
    data       [<span class="types">binary! block!</span>] Data dialect
   /read       Read data from the input buffer
@@ -1692,7 +1722,8 @@ until [
    num        [<span class="types">integer!</span>] Bits/bytes number used with WORD! code type to resolve just single value
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is quite complex dialect which requires own documentation. But it may be
 used for binary data streaming in both directions like:
@@ -1736,10 +1767,11 @@ used for binary data streaming in both directions like:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -1766,7 +1798,7 @@ Returns FALSE for all other values.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   word        [<span class="types">block! any-word!</span>] A word or block (modified) (returned)
-  context     [<span class="types">any-word! object! module! port!</span>] A reference to the target context
+  context     [<span class="types">any-word! any-object!</span>] A reference to the target context
 <span class="tit">REFINEMENTS:</span>
   /copy       Bind and return a deep copy of a block, don't modify original
   /only       Bind only first block (not deep)
@@ -1774,7 +1806,8 @@ Returns FALSE for all other values.
   /set        Add to context any new set-words found
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Binds meaning to words in a block. That is, it gives words a context in which they can be interpreted. This allows blocks to be exchanged between different contexts, which permits their words to be understood. For instance a function may want to treat words in a global database as being local to that function.
 </p>
@@ -1825,10 +1858,11 @@ Editor note: Describe /set here
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -1854,10 +1888,11 @@ Returns FALSE for all other values.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -1887,7 +1922,8 @@ Returns FALSE for all other values.
   radius      [<span class="types">number!</span>] Blur amount
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">img: load %same/image.png
 blur img 5 ;; blurs the original image!</code></pre></div>
 </section>
@@ -1903,10 +1939,11 @@ blur img 5 ;; blurs the original image!</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-function! any-object! map! struct!</span>] 
+  value       [<span class="types">any-function! any-object! map! struct!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; body-of object [a: 1]
 == [
     a: 1
@@ -1929,10 +1966,11 @@ blur img 5 ;; blurs the original image!</code></pre></div>
 <pre class="help">
 <span class="tit">REFINEMENTS:</span>
   /return     Forces the loop function to return a value
-   value      [<span class="types">any-type!</span>] 
+   value      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#break">break</a> function stops loop functions.
 </p>
@@ -2000,10 +2038,11 @@ repeat a 3 [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  url         [<span class="types">url! file! none!</span>] 
+  url         [<span class="types">url! file! none!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the browser cannot be found, nothing will happen.
 </p>
@@ -2024,28 +2063,40 @@ If the browser cannot be found, nothing will happen.
 <section id="call">
  <a name="call"></a>
  <h2>CALL<a class="headerlink" href="#call" title="Link to this heading">¶</a></h2>
-<p>Run another program; return immediately with the process ID.</p>
+<p>Execute an external process.</p>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">call <span class="rebarg">command</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  command     [<span class="types">any-string! block! file!</span>] An OS-local command line (quoted as necessary), a block with arguments, or an executable file
+  command     [<span class="types">any-string! block! file!</span>]
+              Command to execute. Use a string for shell-style commands (e.g. <span class="ansi32">"ls -la"</span>),
+              a block for pre-split argument lists (e.g. [<span class="ansi32">"ffmpeg"</span> <span class="ansi32">"-i"</span> %in.mp4 %out.mp4]),
+              or a file! for direct executable paths without shell interpretation.
 <span class="tit">REFINEMENTS:</span>
-  /wait       Wait for command to terminate and then return the exit code
-  /console    Runs command with I/O redirected to console
-  /shell      Forces command to be run from shell
-  /info       Returns process information object containing the ID of the process (or 0 if failed to run), includes the exit code when used with /wait
-  /input      
-   in         [<span class="types">string! binary! file! none!</span>] Redirects stdin to in
-  /output     
-   out        [<span class="types">string! binary! file! none!</span>] Redirects stdout to out
-  /error      
-   err        [<span class="types">string! binary! file! none!</span>] Redirects stderr to err
+  /wait       Block until the process exits and return its exit code
+  /console    Attach the process to the current console for interactive I/O
+  /shell      Run the command through the system shell (e.g. cmd.exe or /bin/sh)
+  /info       
+		Return a process-info object instead of a plain integer.
+		Fields: id (PID), exit-code (only with /wait), error (OS error string, if any).
+  /input      Redirect stdin.
+   in         [<span class="types">string! binary! file! none!</span>] String!/binary! pipes data directly (implies /wait);
+              file! reads from a file path; none! closes stdin.
+  /output     Redirect stdout.
+   out        [<span class="types">string! binary! file! none!</span>]
+              string!/binary! captures output into the value (implies /wait);
+              file! writes to a file path; none! discards output.
+  /error      Redirect stderr.
+   err        [<span class="types">string! binary! file! none!</span>]
+              string!/binary! captures errors into the value (implies /wait);
+              file! writes to a file path; none! discards stderr.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
+<div class="extra-desc">Returns the process ID by default, or the exit code with /wait.</div>
 <p>
 The <a href="#call">call</a> function interfaces to the operating system's command shell to execute programs, shell commands, and redirect command input and output.
 </p>
@@ -2115,7 +2166,8 @@ Editor note: Proper link to the REBOL Command Shell Interface?
   /all        Evaluate all cases (do not stop at first true case)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#case">case</a> function provides a useful way to evaluate different expressions depending on specific conditions. It differs from the <a href="#switch">switch</a> function because the conditions are evaluated and can be an expression of any length.
 </p>
@@ -2192,7 +2244,8 @@ large</code></pre></div>
    callback   [<span class="types">block! function!</span>] Code to be evaluated on a catch
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 <a href="#catch">catch</a> and <a href="#throw">throw</a> go together. They provide a way to exit from a block without evaluating the rest of the block.
 To use it, provide <a href="#catch">catch</a> with a block to evaluate. If within that block a <a href="#throw">throw</a> is evaluated, it will return from the <a href="#catch">catch</a> at that point.
@@ -2229,15 +2282,16 @@ Editor note: Example of using catch in a function spec.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  err-type    [<span class="types">word!</span>] 
-  err-id      [<span class="types">word!</span>] 
-  args         
+  err-type    [<span class="types">word!</span>]
+  err-id      [<span class="types">word!</span>]
+  args        [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Editor note: Description is a stub.
-<a href="#cause-error">cause-error</a> constructs and immediately throws an <span class="datatype">error!</span>.
+<a href="#cause-error">cause-error</a> constructs and immediately throws an <code class="datatype">error!</code>.
 </p>
 <p>
 Editor note: Link to concept of error types?
@@ -2289,10 +2343,11 @@ Similarly, the two-argument no-arg error can be caused as follows:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path         Accepts %file, :variables and just words (as dirs)
+  path        [<span class="types">any-type!</span>] Accepts %file, :variables and just words (as dirs)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Variant of <a href="#change-dir">change-dir</a> for shell use. Supports inputting words as directory names:
 </p>
@@ -2316,18 +2371,19 @@ cd somewhere</code></pre></div>
   value       [<span class="types">any-type!</span>] The new value
 <span class="tit">REFINEMENTS:</span>
   /part       Limits the amount to change to a given length or position
-   range      [<span class="types">number! series! pair!</span>] 
+   range      [<span class="types">number! series! pair!</span>]
   /only       Only change a block as a single value (not the contents of the block)
   /dup        Duplicates the change a specified number of times
-   count      [<span class="types">number! pair!</span>] 
+   count      [<span class="types">number! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#change">change</a> function modifies any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as a <span class="datatype">string!</span> or <span class="datatype">block!</span>, at its current index position.
+The <a href="#change">change</a> function modifies any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as a <code class="datatype">string!</code> or <code class="datatype">block!</code>, at its current index position.
 </p>
 <p>
-It has many variations, but let's take a simple example that modifies a <span class="datatype">string!</span> series:
+It has many variations, but let's take a simple example that modifies a <code class="datatype">string!</code> series:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">name: "bog"
 change name "d"
@@ -2341,7 +2397,7 @@ probe name
 change tail name "it"
 probe name
 "digit"</code></pre></div><p>
-Here is an example that changes a <span class="datatype">block!</span> series:
+Here is an example that changes a <code class="datatype">block!</code> series:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">colors: [red green blue]
 change colors 'gold
@@ -2432,10 +2488,11 @@ probe string
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file!</span>] 
+  path        [<span class="types">file!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Changes the value of system/script/path. This value is used for file-related operations. Any file path that does not begin with a slash (/) will be relative to the path in system/script/path. When a script file is executed using the <a href="#do">do</a> native, the path will automatically be set to the directory containing the path. When REBOL starts, it is set to the current directory where REBOL is started.
 </p>
@@ -2479,10 +2536,11 @@ Note that the shorter shell friendly <a href="#cd">cd</a> also exists.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -2505,13 +2563,14 @@ Returns FALSE for all other values.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  chars       [<span class="types">string! block! binary! char! integer!</span>] 
+  chars       [<span class="types">string! block! binary! char! integer!</span>]
 <span class="tit">REFINEMENTS:</span>
   /length     Preallocate this many bits
    len        [<span class="types">integer!</span>] Must be > 0
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#charset">charset</a> function is a shortcut for:
 </p>
@@ -2544,7 +2603,7 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  val         [<span class="types">series!</span>] 
+  val         [<span class="types">series!</span>]
 </pre>
 </section>
 
@@ -2559,16 +2618,19 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">binary! string! file!</span>] If string, it will be UTF8 encoded. File is dispatched to file-checksum function.
-  method      [<span class="types">word!</span>] One of `system/catalog/checksums` and HASH
+  data        [<span class="types">binary! string! file!</span>]
+              If string, it will be UTF8 encoded. File is dispatched to file-checksum function.
+  method      [<span class="types">word!</span>] One of <code>system/catalog/checksums</code> and HASH
 <span class="tit">REFINEMENTS:</span>
   /with       Extra value for HMAC key or hash table size; not compatible with TCP/CRC24/CRC32/ADLER32 methods.
-   spec       [<span class="types">any-string! binary! integer!</span>] String or binary for MD5/SHA* HMAC key, integer for hash table size.
+   spec       [<span class="types">any-string! binary! integer!</span>]
+              String or binary for MD5/SHA* HMAC key, integer for hash table size.
   /part       Limits to a given length
-   length      
+   length     [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Generally, a checksum is a number which accompanies data to verify that the data has not changed (did not have 
 errors).
@@ -2611,13 +2673,14 @@ tcp        39201</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  file        [<span class="types">file! url! string!</span>] 
+  file        [<span class="types">file! url! string!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       Do not prepend current directory
   /dir        Add a trailing / if missing
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Rebuilds a directory path after decoding parent (..) and
 current (.) path indicators.
@@ -2648,10 +2711,12 @@ be known).
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! port! map! gob! bitset! struct! none!</span>] At position, if ordered collection (modified)
+  series      [<span class="types">series! port! map! gob! bitset! struct! none!</span>]
+              At position, if ordered collection (modified)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 <a href="#clear">clear</a> is similar to <a href="#remove">remove</a> but removes through the end of the series rather than just a single value. It returns at the current index position in the series.
 </p>
@@ -2697,10 +2762,11 @@ head clear find %file.txt %.txt
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port!</span>] 
+  port        [<span class="types">port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Closes a port opened earlier with the <a href="#open">open</a> function. Any changes to the port data that have been buffered will be written.
 </p>
@@ -2735,7 +2801,8 @@ read</code></pre></div>
    words      [<span class="types">block!</span>] These words are not local
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 A closure is a special type of function that has persistent variables.
 </p>
@@ -2774,12 +2841,13 @@ More about the benefits and costs of closures <a href="http://www.rebol.net/wiki
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns true if the input is a <span class="datatype">closure!</span>
+Returns true if the input is a <code class="datatype">closure!</code>
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; closure? make closure! [[][]]
 == #(true)</code></pre></div><p>
@@ -2806,7 +2874,8 @@ Editor note: Are there better examples?
    output     [<span class="types">series!</span>] The buffer series (modified)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Using the internal keep function, will collect values spread around a block to be stored in another block and returned:
 </p>
@@ -2841,7 +2910,7 @@ The keep function has a refinement /only to append blocks as blocks to the outpu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block!</span>] 
+  block       [<span class="types">block!</span>]
 <span class="tit">REFINEMENTS:</span>
   /deep       Include nested blocks
   /set        Only include set-words
@@ -2851,7 +2920,8 @@ The keep function has a refinement /only to append blocks as blocks to the outpu
    type       [<span class="types">datatype!</span>] Any word type
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; collect-words [a: 1 + b]
 == [a + b]
 
@@ -2873,11 +2943,12 @@ The keep function has a refinement /only to append blocks as blocks to the outpu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  a           [<span class="types">tuple!</span>] 
-  b           [<span class="types">tuple!</span>] 
+  a           [<span class="types">tuple!</span>]
+  b           [<span class="types">tuple!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; color-distance 0.0.0 0.0.0
 == 0.0
 
@@ -2905,15 +2976,16 @@ The keep function has a refinement /only to append blocks as blocks to the outpu
   data        [<span class="types">block!</span>] Input values
 <span class="tit">REFINEMENTS:</span>
   /with       Add delimiter between values
-   delimiter   
+   delimiter  [<span class="types">any-type!</span>]
   /into       Output results into a serie of required type
-   out        [<span class="types">series!</span>] 
+   out        [<span class="types">series!</span>]
   /ignore     Fine tune, what value types will be ignored
    ignored    [<span class="types">typeset!</span>] Default is: #(typeset! [none! unset! error! any-function!])
   /only       Insert a block as a single value
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; combine [a b c]
 == "abc"
 
@@ -2939,7 +3011,7 @@ The keep function has a refinement /only to append blocks as blocks to the outpu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -2954,10 +3026,11 @@ The keep function has a refinement /only to append blocks as blocks to the outpu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        A string, block, file, etc.
+  value       [<span class="types">any-type!</span>] A string, block, file, etc.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function can be used to add comments to a script or to remove a block from evaluation. Note that this function is only effective in evaluated code and has no effect in data blocks. That is, within a data block comments will appear as data. In many cases, using <a href="#comment">comment</a> is not necessary. Placing braces around any expression will prevent if from being evaluated (so long as it is not part of another expression).
 </p>
@@ -2983,12 +3056,13 @@ Note also that if the expression can't be loaded using <a href="#load">load</a>,
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">logic! integer! tuple! binary! bitset! typeset! image!</span>] 
+  value       [<span class="types">logic! integer! tuple! binary! bitset! typeset! image!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#complement">complement</a> function is used for bit-masking <span class="datatype">integer!</span> and <span class="datatype">tuple!</span> values or inverting <span class="datatype">bitset!</span> values (charsets).
+The <a href="#complement">complement</a> function is used for bit-masking <code class="datatype">integer!</code> and <code class="datatype">tuple!</code> values or inverting <code class="datatype">bitset!</code> values (charsets).
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">complement 0
 -1
@@ -3016,7 +3090,7 @@ it goes</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">bitset!</span>] 
+  value       [<span class="types">bitset!</span>]
 </pre>
 </section>
 
@@ -3031,21 +3105,22 @@ it goes</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        Block to compose
+  value       [<span class="types">any-type!</span>] Block to compose
 <span class="tit">REFINEMENTS:</span>
   /deep       Compose nested blocks
   /only       Insert a block as a single value (not the contents of the block)
   /into       Output results into a block with no intermediate storage
-   out        [<span class="types">any-block!</span>] 
+   out        [<span class="types">any-block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#compose">compose</a> function builds a block of values, evaluating <span class="datatype">paren!</span> expressions and inserting their results. It is a very useful method of building new blocks.
+The <a href="#compose">compose</a> function builds a block of values, evaluating <code class="datatype">paren!</code> expressions and inserting their results. It is a very useful method of building new blocks.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">compose [result of 1 + 2 = (1 + 2)]
 [result of 1 + 2 = 3]</code></pre></div><p>
-Notice that only the <span class="datatype">paren!</span> expression is evaluated. All other values are left unchanged.
+Notice that only the <code class="datatype">paren!</code> expression is evaluated. All other values are left unchanged.
 </p>
 <p>
 Here's another example, as might be used to create a header block (that has field names):
@@ -3112,15 +3187,16 @@ It requires no intermediate storage.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   data        [<span class="types">binary! string!</span>] If string, it will be UTF8 encoded
-  method      [<span class="types">word!</span>] One of `system/catalog/compressions`
+  method      [<span class="types">word!</span>] One of <code>system/catalog/compressions</code>
 <span class="tit">REFINEMENTS:</span>
   /part       
-   length      Length of source data
+   length     [<span class="types">any-type!</span>] Length of source data
   /level      
    lvl        [<span class="types">integer!</span>] Compression level 0-9
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Editor note: Describe the method that compress uses to compress data
 </p>
@@ -3154,10 +3230,11 @@ As with all compressed files, keep an uncompressed copy of the original data fil
   question    [<span class="types">series!</span>] Prompt to user
 <span class="tit">REFINEMENTS:</span>
   /with       
-   choices    [<span class="types">string! block!</span>] 
+   choices    [<span class="types">string! block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function provides a method of prompting the user for a true ("y" or "yes") or false ("n" or "no") response. Alternate responses can be identified with the /with refinement.
 </p>
@@ -3181,11 +3258,12 @@ confirm/with "Use A or B? " ["A" "B"]</code></pre></div>
   block       [<span class="types">block! string! binary!</span>] Specification (modified)
 <span class="tit">REFINEMENTS:</span>
   /with       Default object
-   object     [<span class="types">object!</span>] 
+   object     [<span class="types">object!</span>]
   /only       Values are kept as-is
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function creates new objects but without evaluating the object's specification (as is done in the <a href="#make">make</a> and <a href="#context">context</a> functions).
 </p>
@@ -3261,14 +3339,15 @@ To provide a template object that contains default variable values (similar to <
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  spec        [<span class="types">block!</span>] 
+  spec        [<span class="types">block!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       Do not bind nested blocks
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-This function creates a unique new object. It is just a shortcut for <a href="#make">make</a> <span class="datatype">object!</span>.
+This function creates a unique new object. It is just a shortcut for <a href="#make">make</a> <code class="datatype">object!</code>.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">person: context [
     name: "Fred"
@@ -3321,7 +3400,8 @@ make object! [
 <h6>Usage:</h6>
 <pre class="usage fs-6">continue</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#continue">continue</a> function is the opposite of <a href="#break">break</a>. It jumps back to the top of the loop instead of exiting the loop.
 </p>
@@ -3352,15 +3432,16 @@ For example:
   value       [<span class="types">series! port! map! object! bitset! any-function! error! struct!</span>] At position
 <span class="tit">REFINEMENTS:</span>
   /part       Limits to a given length or end position
-   range      [<span class="types">number! series! pair!</span>] 
+   range      [<span class="types">number! series! pair!</span>]
   /deep       Also copies series values within the block
   /types      What datatypes to copy
-   kinds      [<span class="types">typeset! datatype!</span>] 
+   kinds      [<span class="types">typeset! datatype!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#copy">copy</a> function will copy any <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as <span class="datatype">string!</span> or <span class="datatype">block!</span>, and most other compound datatypes such as <span class="datatype">object!</span> or <span class="datatype">function!</span>. It is not used for immediate datatypes, such as <span class="datatype">integer!</span>, <span class="datatype">decimal!</span>, <span class="datatype">time!</span>, <span class="datatype">date!</span>, and others.
+The <a href="#copy">copy</a> function will copy any <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as <code class="datatype">string!</code> or <code class="datatype">block!</code>, and most other compound datatypes such as <code class="datatype">object!</code> or <code class="datatype">function!</code>. It is not used for immediate datatypes, such as <code class="datatype">integer!</code>, <code class="datatype">decimal!</code>, <code class="datatype">time!</code>, <code class="datatype">date!</code>, and others.
 </p>
 <fieldset class="fset"><legend>How it Works</legend>
 <p>It is important to understand <a href="#copy">copy</a> to program in REBOL properly.</p>
@@ -3452,7 +3533,7 @@ copy/part find name "Tesla" tail name
 Notice that the ending position can be a length or a position within the string (as shown by the <a href="#tail">tail</a> example above.)
 </p>
 
-<h7>About Substrings</h7><p>
+<h6>About Substrings</h6><p>
 If you use other languages, you will notice that this result is similar to what a substr function provides. Although we recommend using <a href="#copy">copy</a> with /part, you can easily define your own substr function this way:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">substr: func [arg [series!] start length] [
@@ -3587,7 +3668,8 @@ lowercase       native!   Converts string of characters to lowercase. (...
   /radians    Value is specified in radians
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Ratio between the length of the adjacent side to
 the length of the hypotenuse of a right triangle.
@@ -3614,10 +3696,11 @@ print cosine/radians pi
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port! file! url! block!</span>] 
+  port        [<span class="types">port! file! url! block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Creates the file or URL object that is specified.
 </p>
@@ -3637,10 +3720,11 @@ read %./
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  image       [<span class="types">integer! image! none!</span>] 
+  image       [<span class="types">integer! image! none!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This only works in a View window.
 </p>
@@ -3666,10 +3750,11 @@ Editor note: Describe all cursors here
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -3691,10 +3776,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -3722,10 +3808,11 @@ false</code></pre></div>
 <span class="tit">REFINEMENTS:</span>
   /url        Base 64 Decoding with URL and Filename Safe Alphabet
   /part       Limit the length of the input
-   limit      [<span class="types">integer! binary! any-string!</span>] 
+   limit      [<span class="types">integer! binary! any-string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Converts from an encoded string to the binary value. Primarily used for BASE-64 decoding.
 </p>
@@ -3768,10 +3855,11 @@ If the input value cannot be decoded (such as when the proper number of characte
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -3800,7 +3888,8 @@ Returns false for all other values.
   /with       Use a string! key as-is (do not generate hash)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 <a href="#decloak">decloak</a> is a low strength decryption method that is used with <a href="#encloak">encloak</a>. See the <a href="#encloak">encloak</a> function for a complete description and examples.
 </p>
@@ -3820,10 +3909,11 @@ Returns false for all other values.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   type        [<span class="types">word!</span>] Media type (jpeg, png, etc.)
-  data         The data to decode
+  data        [<span class="types">any-type!</span>] The data to decode
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Used to call codecs to decode binary data (bytes) into related datatypes.
 </p>
@@ -3859,10 +3949,11 @@ image: decode 'jpeg data</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  url         [<span class="types">url! string!</span>] 
+  url         [<span class="types">url! string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is a handy function that saves you the effort of writing
 your own URL parser.
@@ -3883,7 +3974,7 @@ your own URL parser.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   data        [<span class="types">binary!</span>] Source data to decompress
-  method      [<span class="types">word!</span>] One of `system/catalog/compressions`
+  method      [<span class="types">word!</span>] One of <code>system/catalog/compressions</code>
 <span class="tit">REFINEMENTS:</span>
   /part       Limits source data to a given length or position
    length     [<span class="types">number! series!</span>] Length of compressed data (must match end marker)
@@ -3891,7 +3982,8 @@ your own URL parser.
    bytes      [<span class="types">integer!</span>] Number of uncompressed bytes.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Examples:
 </p>
@@ -3948,7 +4040,7 @@ This can help avoiding that a decompress operation on a corrupt file suddenly ea
 <span class="tit">REFINEMENTS:</span>
   /case       Use case-sensitive comparison
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -3964,10 +4056,11 @@ This can help avoiding that a decompress operation on a corrupt file suddenly ea
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   word        [<span class="types">word! set-word! lit-word!</span>] The word (use :var for word! values)
-  value        The value
+  value       [<span class="types">any-type!</span>] The value
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#default">default</a> function is a clear way to indicate that you want a variable set to a default value if it's not already been set.
 </p>
@@ -4001,11 +4094,12 @@ However, <a href="#default">default</a> avoids the need to specify the size word
   value       [<span class="types">any-string! binary!</span>] The string to dehex
 <span class="tit">REFINEMENTS:</span>
   /escape     
-   char       [<span class="types">char!</span>] Can be used to change the default escape char #"%"
+   char       [<span class="types">char!</span>] Can be used to change the default escape char #<span class="ansi32">"%"</span>
   /uri        Decode space from a special char (#"+" by default or #"_" when escape char is #"=")
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Converts the standard URL hex sequence that begins with a % followed by a valid hex value. Otherwise, the sequence  is not converted and will appear as written.
 </p>
@@ -4040,7 +4134,8 @@ Converts the standard URL hex sequence that begins with a % followed by a valid 
   /all        Parse entire block, not just one command at a time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 DELECT stands for DEcode diaLECT. It is used to implement REBOL's internal dialects such as DRAW, EFFECT, RICH TEXT, SECURE, and VID, but its function is available to all users.
 </p>
@@ -4082,10 +4177,11 @@ To read more about <a href="#delect">delect</a>, see <a href="http://rebol.net/w
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port! file! url! block!</span>] 
+  port        [<span class="types">port! file! url! block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Deletes the file or URL object that is specified. If the file or URL refers to an empty directory, then the directory will be deleted.
 </p>
@@ -4106,7 +4202,7 @@ write</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file!</span>] 
+  path        [<span class="types">file!</span>]
 </pre>
 </section>
 
@@ -4126,7 +4222,8 @@ write</code></pre></div>
   /lines      Return block of lines (works for LF, CR, CR-LF endings) (no modify)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Useful for converting OS dependent string terminators to LF.
 </p>
@@ -4174,12 +4271,13 @@ Note that when reading from disk, READ/STRING provides the same functionality.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block!</span>] 
+  block       [<span class="types">block!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       Don't call recycle
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Provides detailed profiling information captured during the evaluation of a block.
 </p>
@@ -4218,10 +4316,11 @@ Simple example:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block!</span>] 
+  block       [<span class="types">block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the amount of time required to evaluate a given block.
 </p>
@@ -4250,10 +4349,11 @@ See <a href="http://www.rebol.net/wiki/Profiler">Profiler</a> for detailed infor
   string      [<span class="types">any-string! binary!</span>] (modified)
 <span class="tit">REFINEMENTS:</span>
   /size       Specifies the number of spaces per tab
-   number     [<span class="types">integer!</span>] 
+   number     [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The REBOL language default tab size is four spaces. <a href="#detab">detab</a> will remove tabs from the entire string even beyond the first non-space character.
 </p>
@@ -4281,7 +4381,7 @@ Use the /size refinement for other sizes such as eight:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  dh-key      [<span class="types">handle!</span>] DH key created using `dh-init` function
+  dh-key      [<span class="types">handle!</span>] DH key created using <code>dh-init</code> function
 <span class="tit">REFINEMENTS:</span>
   /public     Returns public key as a binary
   /secret     Computes secret result using peer's public key
@@ -4336,10 +4436,11 @@ Use the /size refinement for other sizes such as eight:
 <span class="tit">REFINEMENTS:</span>
   /case       Uses case-sensitive comparison
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the elements of two series that are not present in both. Both series arguments must be of the same datatype (string, block, etc.) Newer versions of REBOL also let you use <a href="#difference">difference</a> to compute the difference between date/times.
 </p>
@@ -4369,7 +4470,7 @@ This is different from when using <a href="#subtract">subtract</a>, which return
 
 probe subtract 1-Jan-2003/10:30 now
 -2477</code></pre></div><p>
-There is a limit to the time period that can be differenced between dates (determined by the internal size of the <span class="datatype">time!</span> datatype).
+There is a limit to the time period that can be differenced between dates (determined by the internal size of the <code class="datatype">time!</code> datatype).
 </p>
 <p>
 Note that performing this function over very large data sets can be CPU intensive.
@@ -4395,9 +4496,9 @@ Note that performing this function over very large data sets can be CPU intensiv
   /d          Dirs only
   /r          Recursive
   /i          
-   indent     [<span class="types">string! char!</span>] 
+   indent     [<span class="types">string! char!</span>]
   /l          Limit recursive output to given maximal depth
-   max-depth  [<span class="types">integer!</span>] 
+   max-depth  [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -4412,12 +4513,13 @@ Note that performing this function over very large data sets can be CPU intensiv
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">file! url! none!</span>] 
+  target      [<span class="types">file! url! none!</span>]
 <span class="tit">REFINEMENTS:</span>
   /check      If the file is a directory on local storage (don't have to end with a slash)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <fieldset class="fset"><legend>Under Review</legend>
 <p>This function is under review for redefinition.</p>
 </fieldset><p>
@@ -4449,9 +4551,9 @@ Note that the file that is input, is read from disk, if it exists. The function 
 <span class="tit">REFINEMENTS:</span>
   /d          Dirs only
   /i          
-   indent     [<span class="types">string! char!</span>] 
+   indent     [<span class="types">string! char!</span>]
   /l          
-   max-depth   
+   max-depth  [<span class="types">any-type!</span>]
   /callback   
    on-value   [<span class="types">function!</span>] Function with [value depth] args - responsible to format value line
 </pre>
@@ -4468,10 +4570,11 @@ Note that the file that is input, is read from disk, if it exists. The function 
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! string! url!</span>] 
+  path        [<span class="types">file! string! url!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Convert a file name to a directory name.
 </p>
@@ -4502,11 +4605,12 @@ This is useful because the PATH notation does not allow you to write:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! vector!</span>] 
-  value2      [<span class="types">scalar! vector!</span>] 
+  value1      [<span class="types">scalar! vector!</span>]
+  value2      [<span class="types">scalar! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the second value is zero, an error will occur.
 </p>
@@ -4541,12 +4645,13 @@ When dividing values of different datatypes, they must be compatible:
   value       [<span class="types">any-type!</span>] Normally a file name, URL, or block
 <span class="tit">REFINEMENTS:</span>
   /args       If value is a script, this will set its system/script/args
-   arg         Args passed to a script (normally a string)
+   arg        [<span class="types">any-type!</span>] Args passed to a script (normally a string)
   /next       Do next expression only, return it, update block variable
    var        [<span class="types">word!</span>] Variable updated with new block position
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#do">do</a> function evaluates a script file or a series of expressions and returns a result.
 </p>
@@ -4555,7 +4660,7 @@ It performs the fundamental interpretive action of the REBOL language and is use
 </p>
 
 <h6>Most Common Use</h6><p>
-Most of the time <a href="#do">do</a> is used to evaluate a script from a <span class="datatype">file!</span> or <span class="datatype">url!</span> as shown in these examples:
+Most of the time <a href="#do">do</a> is used to evaluate a script from a <code class="datatype">file!</code> or <code class="datatype">url!</code> as shown in these examples:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do %setup.r
 Settings done.
@@ -4565,13 +4670,13 @@ Console:   0:00:01.609 - 314 KC/S
 Processor: 0:00:00.406 - 2128 RHz (REBOL-Hertz)
 Memory:    0:00:00.657 - 72 MB/S
 Disk/File: 0:00:00.234 - 130 MB/S</code></pre></div><p>
-Note that <a href="#do">do</a> of a <span class="datatype">file!</span> or <span class="datatype">url!</span> requires that the script contain a valid REBOL header; otherwise, you'll get an "Script is missing a REBOL header" error.
+Note that <a href="#do">do</a> of a <code class="datatype">file!</code> or <code class="datatype">url!</code> requires that the script contain a valid REBOL header; otherwise, you'll get an "Script is missing a REBOL header" error.
 </p>
 <fieldset class="fset"><legend>Warning</legend>
 <p>Only <a href="#do">do</a> a <span class="datatype">url!</span> script that you have reason to trust. It is advised that you <a href="#read">read</a> a script first and examine it closely to make sure it is safe to evaluate.</p>
 </fieldset>
 <h6>Other Uses</h6><p>
-The <a href="#do">do</a> function can also be called to evaluate other types of arguments such as a <span class="datatype">block!</span>, <span class="datatype">path!</span>, <span class="datatype">string!</span>, or <span class="datatype">function!</span>.
+The <a href="#do">do</a> function can also be called to evaluate other types of arguments such as a <code class="datatype">block!</code>, <code class="datatype">path!</code>, <code class="datatype">string!</code>, or <code class="datatype">function!</code>.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do [1 + 2]
 3
@@ -4657,10 +4762,11 @@ In other words, you can <a href="#join">join</a> values in blocks just as easily
 <span class="tit">ARGUMENTS:</span>
   handle      [<span class="types">handle!</span>] Internal link to codec
   action      [<span class="types">word!</span>] Decode, encode, identify
-  data        [<span class="types">binary! image! string!</span>] 
+  data        [<span class="types">binary! image! string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is an internal native function used to call codecs. It is normally called by the <a href="#encode">encode</a> and <a href="#decode">decode</a> functions.
 </p>
@@ -4685,9 +4791,10 @@ See the system/catalog/codecs for a list of loaded codecs. Codecs can be native 
   commands    [<span class="types">block!</span>] Series of commands and their arguments
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-High speed <span class="datatype">command!</span> block evaluation for <a href="https://www.rebol.com/r3/docs/concepts/extensions.html">extensions</a>.
+High speed <code class="datatype">command!</code> block evaluation for <a href="https://www.rebol.com/r3/docs/concepts/extensions.html">extensions</a>.
 </p>
 <p>
 Originally created to evaluate <a href="https://www.rebol.com/r3/docs/view/draw.html">graphics rendering commands</a>, it can be used for any external sequence of commands that require maximum speed (e.g. high speed math processing such as FFTs, image processing, audio processing.)
@@ -4703,7 +4810,7 @@ The greater speed of command blocks is obtained through the use of a special eva
 <li>Arguments must appear in the correct order and no optional arguments are allowed.</li>
 <li>Arguments are placed directly within the command argument frame, not on the primary evaluator stack.</li>
 </ul>
-<h7>Why is it Useful?</h7><p>
+<h6>Why is it Useful?</h6><p>
 In subsystems like the <a href="https://www.rebol.com/r3/docs/gui/gui">R3 GUI</a>, graphical elements are rendered by generating semi-static <a href="https://www.rebol.com/r3/docs/view/draw.html">draw blocks</a> either during style definition (definition of a button), face instantiation (creating an instance of a button), or face state modification (eg. hovering over a button).
 </p>
 <p>
@@ -4764,7 +4871,8 @@ An error will also occur if an argument is not of the correct datatype, or if th
 <h6>Usage:</h6>
 <pre class="usage fs-6">do-events</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Process user events in GUI windows.  When this function is called the program becomes event driven. This function does not return until all windows have been closed.
 </p>
@@ -4785,7 +4893,8 @@ Process user events in GUI windows.  When this function is called the program be
   body        [<span class="types">block!</span>] The body block of the function
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 <a href="#does">does</a> provides a shortcut for defining functions that have no arguments or local variables.
 </p>
@@ -4818,7 +4927,8 @@ This function is provided as a coding convenience and it is otherwise identical 
 <h6>Usage:</h6>
 <pre class="usage fs-6">ds</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Having such a code in the console:
 </p>
@@ -4855,12 +4965,13 @@ STACK[5] fun[1] function!
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  v            
+  v           [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /fmt        only series format
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Note: A debug build is required to use this function!
 </p>
@@ -4878,17 +4989,16 @@ Note: A debug build is required to use this function!
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  obj         [<span class="types">any-object! map!</span>] 
+  obj         [<span class="types">any-object! map!</span>]
 <span class="tit">REFINEMENTS:</span>
-  /weak       Provides sorting and does not displays unset values
-  /match      Include only those that match a string or datatype
-   pattern     
-  /not-none   Ignore NONE values
-  /count      
-   w           
+  /match      Provides sorting; include only those that match a string or datatype
+   pattern    [<span class="types">any-type!</span>]
+  /ignore     Ignore specified value types
+   ignored    [<span class="types">datatype! typeset!</span>] Used to hide unset or none values.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function provides an easy way to view the contents of an object. The function is friendly to <a href="#print">print</a>. It is an alternative to <a href="#mold">mold</a> and <a href="#probe">probe</a> which may display too much information for deeply structured objects.
 </p>
@@ -4931,7 +5041,8 @@ This function provides an easy way to view the contents of an object. The functi
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  key         [<span class="types">handle! binary!</span>] Keypair to work with, created using ECDH function, or raw binary key (needs /curve)
+  key         [<span class="types">handle! binary!</span>]
+              Keypair to work with, created using ECDH function, or raw binary key (needs /curve)
   hash        [<span class="types">binary!</span>] Data to sign or verify
 <span class="tit">REFINEMENTS:</span>
   /sign       Use private key to sign data, returns ASN1 encoded result
@@ -4953,10 +5064,11 @@ This function provides an easy way to view the contents of an object. The functi
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">file! none! logic!</span>] 
+  target      [<span class="types">file! none! logic!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Write output to a file in addition to the user console. The previous contents of a file will be overwritten. The echo can be stopped with <a href="#echo">echo</a> none or by starting another <a href="#echo">echo</a>.
 </p>
@@ -4978,10 +5090,11 @@ Hello World!</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is an ordinal.
 </p>
@@ -5003,14 +5116,15 @@ See the <a href="#first">first</a> function for examples. If no value is found, 
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  condition   [<span class="types">any-type!</span>] 
-  true-branch  
-  false-branch  
+  condition   [<span class="types">any-type!</span>]
+  true-branch [<span class="types">any-type!</span>]
+  false-branch [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       Suppress evaluation of block args.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#either">either</a> function will evaluate one block or the other depending on a condition.
 </p>
@@ -5105,10 +5219,11 @@ You should have written:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -5131,10 +5246,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! object! gob! port! bitset! typeset! map! none!</span>] 
+  series      [<span class="types">series! object! gob! port! bitset! typeset! map! none!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is a synonym for <a href="#tail?">tail?</a> The check is made relative to the current location in the series.
 </p>
@@ -5170,11 +5286,12 @@ It is often used in conjunction with <a href="#trim">trim</a> to remove black sp
 <span class="tit">REFINEMENTS:</span>
   /url        Base 64 Encoding with URL and Filename Safe Alphabet
   /part       Limit the length of the input
-   limit      [<span class="types">integer! binary! any-string!</span>] 
+   limit      [<span class="types">integer! binary! any-string!</span>]
   /flat       No line breaks
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Converts from a string or binary into an encode string value.
 </p>
@@ -5210,7 +5327,8 @@ The <a href="#debase">debase</a> function is used to convert the binary back aga
   /with       Use a string! key as-is (do not generate hash)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 <a href="#encloak">encloak</a> is a low strength encryption method that can be useful for hiding passwords and other such values. It is not a replacement for AES or Blowfish, but works for noncritical data.
 </p>
@@ -5267,13 +5385,14 @@ Note that by default, the cloak functions will hash your key strings into 160 bi
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   type        [<span class="types">word!</span>] Media type (jpeg, png, etc.)
-  data         The data to encode
+  data        [<span class="types">any-type!</span>] The data to encode
 <span class="tit">REFINEMENTS:</span>
   /as         Special encoding options
-   options     Value specific to type of codec
+   options    [<span class="types">any-type!</span>] Value specific to type of codec
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Used to call codecs to encode datatypes into binary data (bytes).
 </p>
@@ -5306,10 +5425,11 @@ write %photo.bmp data</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">binary!</span>] 
+  data        [<span class="types">binary!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; encoding? read %test.wav
 == wav
 
@@ -5332,13 +5452,14 @@ write %photo.bmp data</code></pre></div>
   value       [<span class="types">any-string! binary!</span>] The string to encode
 <span class="tit">REFINEMENTS:</span>
   /escape     Can be used to change the default escape char #"%"
-   char       [<span class="types">char!</span>] 
+   char       [<span class="types">char!</span>]
   /except     Can be used to specify, which chars can be left unescaped
    unescaped  [<span class="types">bitset!</span>] By default it is URI bitset when value is file or url, else URI-Component
   /uri        Encode space using a special char (#"+" by default or #"_" when escape char is #"=")
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; enhex "a b"
 == "a%20b"
 
@@ -5364,7 +5485,8 @@ write %photo.bmp data</code></pre></div>
   series      [<span class="types">any-string! block!</span>] (modified)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Basic example:
 </p>
@@ -5394,10 +5516,11 @@ See <a href="#deline">deline</a> for more information about string termination f
   string      [<span class="types">any-string! binary!</span>] (modified)
 <span class="tit">REFINEMENTS:</span>
   /size       Specifies the number of spaces per tab
-   number     [<span class="types">integer!</span>] 
+   number     [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The REBOL language default tab-size is four spaces. Use the /size refinement for other sizes such as eight. <a href="#entab">entab</a> will only place tabs at the beginning of the line (prior to the first non-space character).
 </p>
@@ -5491,11 +5614,12 @@ probe detab text
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 String-based datatypes are considered equal when they
 are identical or differ only by character casing
@@ -5533,8 +5657,8 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -5549,10 +5673,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values. This is useful for determining if a <a href="#try">try</a> function returned an error.
 </p>
@@ -5573,10 +5698,11 @@ Did not work.</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number! char! date! money! time! pair!</span>] 
+  number      [<span class="types">number! char! date! money! time! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns true only if the argument is an even integer value. If the argument is a decimal, only its integer portion is
 examined.
@@ -5600,10 +5726,11 @@ examined.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns true if the value is an event datatype.
 </p>
@@ -5624,7 +5751,8 @@ Returns true if the value is an event datatype.
   chant       [<span class="types">word! block! integer!</span>] Single or block of words ('? to list)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is useful for analyzing hard REBOL crashes that lead to assertion errors and other crashes that aren't related to your script errors, but directly exposes bugs in the REBOL kernel. This is helpful information for REBOL Technologies to fix these bugs.
 </p>
@@ -5689,10 +5817,11 @@ or to debug <a href="#delect">delect</a> information:
 <span class="tit">REFINEMENTS:</span>
   /case       Uses case-sensitive comparison
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the elements of the first set less the elements
 of the second set. In other words, it removes from the
@@ -5736,10 +5865,11 @@ data sets can be CPU intensive.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">file! url!</span>] 
+  target      [<span class="types">file! url!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false if the file does not exist.
 </p>
@@ -5760,7 +5890,8 @@ false</code></pre></div>
 <h6>Usage:</h6>
 <pre class="usage fs-6">exit</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 <a href="#exit">exit</a> is used to return from a function without returning a value.
 </p>
@@ -5787,10 +5918,11 @@ Note: Use <a href="#quit">quit</a> to exit the interpreter.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  power       [<span class="types">number!</span>] 
+  power       [<span class="types">number!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#exp">exp</a> function returns the exponential value of the argument provided.
 </p>
@@ -5813,14 +5945,15 @@ On overflow, an error is returned (which can be trapped with the <a href="#try">
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  obj         [<span class="types">object! map! block! paren!</span>] object to extend (modified)
-  word        [<span class="types">any-word!</span>] 
-  val          
+  obj         [<span class="types">object! map! block! paren!</span>] Object to extend (modified)
+  word        [<span class="types">any-word!</span>]
+  val         [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-This function is useful to extend <span class="datatype">object!</span>, <span class="datatype">map!</span> or <span class="datatype">block!</span> values using a word/value pair. It returns the input value. It performs no copy.
+This function is useful to extend <code class="datatype">object!</code>, <code class="datatype">map!</code> or <code class="datatype">block!</code> values using a word/value pair. It returns the input value. It performs no copy.
 </p>
 <p>
 Examples:
@@ -5864,14 +5997,15 @@ make map! [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series!</span>] 
+  series      [<span class="types">series!</span>]
   width       [<span class="types">integer!</span>] Size of each entry (the skip)
 <span class="tit">REFINEMENTS:</span>
   /index      Extract from an offset position
-   pos         The position(s)
+   pos        [<span class="types">any-type!</span>] The position(s)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a series of values from regularly spaced positions within a specified series. For example:
 </p>
@@ -5929,10 +6063,11 @@ Here is an example that uses <a href="#extract">extract</a> to obtain the names 
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is an ordinal.
 </p>
@@ -5974,10 +6109,11 @@ print fifth [11 22 33 44 55 66]
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values. Note that <a href="#file?">file?</a> does not check for the existence of a file, but whether or not a value is the FILE! datatype.
 </p>
@@ -6003,7 +6139,7 @@ Note also this is not a direct opposite to the <a href="#dir?">dir?</a> function
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  file        [<span class="types">file! url!</span>] 
+  file        [<span class="types">file! url!</span>]
 </pre>
 </section>
 
@@ -6038,11 +6174,11 @@ Note also this is not a direct opposite to the <a href="#dir?">dir?</a> function
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port! bitset! typeset! object! map! none!</span>] 
-  value       [<span class="types">any-type!</span>] 
+  series      [<span class="types">series! map! any-object! gob! bitset! typeset! none!</span>]
+  value       [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /part       Limits the search to a given length or position
-   range      [<span class="types">number! series! pair!</span>] 
+   range      [<span class="types">number! series! pair!</span>]
   /only       Treats a series value as only a single value
   /case       Characters are case-sensitive
   /same       Use "same?" as comparator
@@ -6050,19 +6186,20 @@ Note also this is not a direct opposite to the <a href="#dir?">dir?</a> function
   /with       Allows custom wildcards
    wild       [<span class="types">string!</span>] Specifies alternates for * and ?
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
   /last       Backwards from end of series
   /reverse    Backwards from the current position
   /tail       Returns the end of the series
   /match      Performs comparison and returns the head of the match (not imply /tail)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns <span class="datatype">none!</span> if the value was not found. Otherwise, returns a position in the series where the value was found. Many refinements to this function are available.
+Returns <code class="datatype">none!</code> if the value was not found. Otherwise, returns a position in the series where the value was found. Many refinements to this function are available.
 </p>
 
-<h7>Refinements</h7><p>
+<h6>Refinements</h6><p>
 Use /tail to return the position just past the match.
 </p>
 <p>
@@ -6127,7 +6264,7 @@ none</code></pre></div>
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   series      [<span class="types">word!</span>] Variable for block, string, or other series
-  value        
+  value       [<span class="types">any-type!</span>]
   body        [<span class="types">block!</span>] Evaluated for each occurrence
 </pre>
 </section>
@@ -6146,7 +6283,7 @@ none</code></pre></div>
   series      [<span class="types">series!</span>] Series to search
 <span class="tit">REFINEMENTS:</span>
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -6164,7 +6301,7 @@ none</code></pre></div>
   series      [<span class="types">series!</span>] Series to search
 <span class="tit">REFINEMENTS:</span>
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -6179,10 +6316,11 @@ none</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  script      [<span class="types">binary!</span>] 
+  script      [<span class="types">binary!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is a high-speed lower level function to scan UTF-8 for a REBOL script signature, useful during loading of scripts and to ensure that scripts are proper UTF-8.
 </p>
@@ -6203,10 +6341,11 @@ Editor note: Not sure about the description
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is an ordinal. It returns the first value in any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> at the current position. If no value is found, none is returned.
 </p>
@@ -6241,7 +6380,8 @@ print first 12:34:56.78
   word        [<span class="types">word!</span>] Word must refer to a series
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Example:
 </p>
@@ -6270,7 +6410,7 @@ none</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port!</span>] 
+  port        [<span class="types">port!</span>]
 </pre>
 </section>
 
@@ -6292,7 +6432,8 @@ none</code></pre></div>
   body        [<span class="types">block!</span>] Block to evaluate
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The first argument is used as a local variable to keep track of the current value. It is initially set to the START value and after each evaluation of the block the BUMP value is added to it until the END value is reached (inclusive).
 </p>
@@ -6319,7 +6460,8 @@ for num 4 -37 -15 [ print num ]
   body        [<span class="types">block!</span>] Block to evaluate each time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#forall">forall</a> function moves through a series one value at a time.
 </p>
@@ -6389,7 +6531,8 @@ The <a href="#forall">forall</a> function can be thought of as a shortcut for:
   body        [<span class="types">block!</span>] Block to evaluate each time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#foreach">foreach</a> function repeats the evaluation of a block for each element of a series. It is used often in programs.
 </p>
@@ -6451,7 +6594,7 @@ specifies that three values are to be fetched from movies for each evaluation of
 </p>
 
 <h6>Series Reference</h6><p>
-To reference the series itself during <a href="#foreach">foreach</a> you can use a <span class="datatype">set-word!</span> within the variable block. This operation is similar to the <a href="#forall">forall</a> and <a href="#forskip">forskip</a> functions.
+To reference the series itself during <a href="#foreach">foreach</a> you can use a <code class="datatype">set-word!</code> within the variable block. This operation is similar to the <a href="#forall">forall</a> and <a href="#forskip">forskip</a> functions.
 </p>
 <p>
 Example:
@@ -6467,7 +6610,7 @@ If you are using this option to remove values, please see the <a href="#remove-e
 </p>
 
 <h6>Foreach of Objects and Maps</h6><p>
-The <a href="#foreach">foreach</a> function can also be used with <span class="datatype">object!</span> and <span class="datatype">map!</span> datatypes.
+The <a href="#foreach">foreach</a> function can also be used with <code class="datatype">object!</code> and <code class="datatype">map!</code> datatypes.
 </p>
 <p>
 When using a single word argument, <a href="#foreach">foreach</a> will obtain the object field name or map key.
@@ -6486,10 +6629,10 @@ If a second word argument is provided, it will obtain the value of each entry:
 apple 10
 orange 12
 banana 30</code></pre></div><p>
-The same behavior applies to the <span class="datatype">map!</span> datatype, except that empty keys (those set to none) will be skipped.
+The same behavior applies to the <code class="datatype">map!</code> datatype, except that empty keys (those set to none) will be skipped.
 </p>
 <p>
-When a <span class="datatype">set-word!</span> is used in the variables block, it will obtain the object value itself.
+When a <code class="datatype">set-word!</code> is used in the variables block, it will obtain the object value itself.
 </p>
 
 <div class="see-also">See also: <a href="#for">for</a>, <a href="#forall">forall</a>, <a href="#forskip">forskip</a>, <a href="#map-each">map-each</a>, <a href="#remove-each">remove-each</a>, <a href="#repeat">repeat</a></div>
@@ -6509,7 +6652,8 @@ When a <span class="datatype">set-word!</span> is used in the variables block, i
   body        [<span class="types">block!</span>] Block to evaluate each time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Evaluates a block continuously, or until a break or error condition is met.
 </p>
@@ -6533,7 +6677,8 @@ Evaluates a block continuously, or until a break or error condition is met.
   value       [<span class="types">any-type!</span>] The value to form
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#form">form</a> function converts a value to a human readable string. It is commonly used by <a href="#print">print</a> for output.
 </p>
@@ -6573,7 +6718,7 @@ To produce REBOL-readable output, use the <a href="#mold">mold</a> function.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  oid         [<span class="types">binary!</span>] 
+  oid         [<span class="types">binary!</span>]
 </pre>
 </section>
 
@@ -6581,21 +6726,46 @@ To produce REBOL-readable output, use the <a href="#mold">mold</a> function.
 <section id="format">
  <a name="format"></a>
  <h2>FORMAT<a class="headerlink" href="#format" title="Link to this heading">¶</a></h2>
-<p>Format a string according to the format dialect.</p>
+<p>Format a string by applying layout rules to a list of values.</p>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">format <span class="rebarg">rules</span> <span class="rebarg">values</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  rules        A block in the format dialect. E.g. [10 -10 #"-" 4 $32 "green" $0]
-  values       
+  rules       [<span class="types">any-type!</span>] A block of formatting rules applied left to right. Supported rule types:
+              
+              <code class="desc">integer!    - field width: positive = left-aligned, negative = right-aligned
+                            value is truncated if longer than the field
+              decimal!    - combined rounding and field width: the fractional part (e.g. .2 in 8.2)
+                            sets rounding precision, the integer part sets field width (0 = no field)
+                            sign controls alignment, same as integer!
+                            examples: 8.2 (left, width 8, 2 decimal places)
+                                     -8.2 (right, width 8, 2 decimal places)
+                                      0.2 (no field, just round to 2 decimal places)
+              string!     - inserted literally
+              char!       - inserted literally
+              refinement! - ANSI color/style code (e.g. /red, /bold, /reset);
+                            ignored when color output is disabled
+              tag!        - type-aware formatting: the tag specifies the format pattern
+                            and the next value determines how it is applied:
+                              date! time! - formatted via `format-datetime`
+                            unrecognised value types emit the tag and leave the value unconsumed
+              word!       - fetched and treated as one of the above
+              </code>
+              Example: <code>[10 -8.2 #"-" /green <dd-mmm-yyyy> /reset]</code>
+  values      [<span class="types">any-type!</span>] Values consumed by integer!, decimal!, and tag! rules, in order.
+              If a block!, it is reduced before use.
+              Any values not consumed by rules are appended at the end.
 <span class="tit">REFINEMENTS:</span>
   /pad        
-   p           Pattern to use instead of spaces
+   p          [<span class="types">any-type!</span>] String or character to use for padding instead of a space.
+              Multi-character strings are tiled and trimmed to fit the field width exactly.
+              Example: <span class="ansi32">"+-"</span> in a width-8 field produces <span class="ansi32">"+-+-+-+-"</span>
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is useful for table output in the console, where fixed-width fonts are used. It can also be used to specially format numbers or complex values.
 </p>
@@ -6630,19 +6800,31 @@ It can also be used to pad zeroes to a single numeric value:
 </section>
 
 <hr>
-<section id="format-date-time">
- <a name="format-date-time"></a>
- <h2>FORMAT-DATE-TIME<a class="headerlink" href="#format-date-time" title="Link to this heading">¶</a></h2>
-<p>replaces a subset of ISO 8601 abbreviations such as yyyy-MM-dd hh:mm:ss</p>
+<section id="format-datetime">
+ <a name="format-datetime"></a>
+ <h2>FORMAT-DATETIME<a class="headerlink" href="#format-datetime" title="Link to this heading">¶</a></h2>
+<p>Formats date! or time! values using ISO 8601-style abbreviations.</p>
 
 <h6>Usage:</h6>
-<pre class="usage fs-6">format-date-time <span class="rebarg">value</span> <span class="rebarg">rule</span></span></pre>
+<pre class="usage fs-6">format-datetime <span class="rebarg">value</span> <span class="rebarg">rule</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">date! time!</span>] 
-  rule        [<span class="types">string! tag!</span>] 
+  value       [<span class="types">date! time!</span>] Input date/time to format
+  rule        [<span class="types">string! tag!</span>] Format pattern with tokens to replace
 </pre>
+
+<h5>Description:</h5>
+
+<div class="extra-desc">
+<code class="desc"> format-datetime now "yyyy-MM-dd hh:mm:ss.sss"  ;== 2026-05-06 19:03:45.123
+ format-datetime now/date "dddd, mmmm dd yyyy"  ;== Wednesday, May 06 2026
+</code>
+Supported tokens:
+
+<code class="desc"> yyyy/mm/dd  dddd/ddd  mmmm/mmm/mm/m  hh/h  ss/s  unixepoch  ±zz:zz/zzzz
+ .sss     ;; handles fractional seconds (pads/trims to match token length)
+</code></div>
 </section>
 
 <hr>
@@ -6656,7 +6838,7 @@ It can also be used to pad zeroes to a single numeric value:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  time        [<span class="types">time!</span>] 
+  time        [<span class="types">time!</span>]
 </pre>
 </section>
 
@@ -6676,7 +6858,8 @@ It can also be used to pad zeroes to a single numeric value:
   body        [<span class="types">block!</span>] Block to evaluate each time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Prior to evaluation, the word must be set to the desired starting position within the series (normally the head, but any position is valid). After each evaluation of the block, the word's position in the series is changed by skipping the number of values specified by the second argument (see the <a href="#skip">skip</a> function).
 </p>
@@ -6703,10 +6886,11 @@ Sacramento area code is 916</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is an ordinal.
 </p>
@@ -6735,7 +6919,7 @@ print fourth 199.4.80.1
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">decimal!</span>] 
+  number      [<span class="types">decimal!</span>]
 </pre>
 </section>
 
@@ -6750,7 +6934,7 @@ print fourth 199.4.80.1
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -6769,7 +6953,8 @@ print fourth 199.4.80.1
   body        [<span class="types">block!</span>] The body block of the function
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#func">func</a> function creates new functions from a spec block and a body block.
 </p>
@@ -6825,7 +7010,8 @@ testing</code></pre></div>
   body        [<span class="types">block!</span>] The body block of the function
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Similar to <a href="#func">func</a>, except the spec or body is not copied.
 </p>
@@ -6853,7 +7039,8 @@ Similar to <a href="#func">func</a>, except the spec or body is not copied.
    words      [<span class="types">block!</span>] These words are not local
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is similar to <a href="#func">func</a>, except all set-words are assumed locals. This way, it's not necessary to specify the /local part of the spec, although you still can.
 </p>
@@ -6913,7 +7100,8 @@ c
    words      [<span class="types">block!</span>] These words are not local
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <fieldset class="fset"><legend>Warning!</legend>
 <p>The descripton of <a href="#function">function</a> given below is up-to-date, however the spec shown above is not current. <a href="#function">function</a> was <a href="http://www.rebol.com/article/0543.html" class="lnk">recently adapted</a> from a 3-argument to a 2-argument variant.</p>
 </fieldset><p>
@@ -6969,10 +7157,11 @@ c
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -6995,8 +7184,8 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  a           [<span class="types">integer!</span>] 
-  b           [<span class="types">integer!</span>] 
+  a           [<span class="types">integer!</span>]
+  b           [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -7026,12 +7215,13 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  word         Word, path, object to get
+  word        [<span class="types">any-type!</span>] Word, path, object to get
 <span class="tit">REFINEMENTS:</span>
   /any        Allows word to have no value (allows unset)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The argument to <a href="#get">get</a> must be a word, so the argument must be quoted or extracted from a block. To get the value of a word residing in an object, use the <a href="#in">in</a> function.
 </p>
@@ -7077,10 +7267,11 @@ If the argument to <a href="#get">get</a> is an object, the result is the same a
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  var         [<span class="types">any-string! any-word!</span>] 
+  var         [<span class="types">any-string! any-word!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function will return the string associated with an OS environment variable.
 </p>
@@ -7103,10 +7294,11 @@ To obtain a list of all environment variables and their values, use <a href="#li
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -7126,10 +7318,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -7149,15 +7342,31 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">gob? make gob! [text: "this is a gob!"]
 true</code></pre></div>
+</section>
+
+<hr>
+<section id="grayscale">
+ <a name="grayscale"></a>
+ <h2>GRAYSCALE<a class="headerlink" href="#grayscale" title="Link to this heading">¶</a></h2>
+<p>Convert a color or an image to grayscale using Average method</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">grayscale <span class="rebarg">target</span></span></pre>
+
+<pre class="help">
+<span class="tit">ARGUMENTS:</span>
+  target      [<span class="types">tuple! image!</span>] Target RGB color or image (modifed)
+</pre>
 </section>
 
 <hr>
@@ -7171,11 +7380,12 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values. Both values must be of the same datatype or an error will occur. For string-based datatypes, the sorting order is used for comparison with character casing ignored (uppercase = lowercase).
 </p>
@@ -7204,11 +7414,12 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values. The values must be of the same datatype or an error will occur. For string-based datatypes, the sorting order is used for comparison with character casing ignored (uppercase = lowercase).
 </p>
@@ -7237,10 +7448,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  keyword     [<span class="types">word!</span>] Available keywords: SCREENS, BORDER-FIXED, BORDER-SIZE, SCREEN-DPI, LOG-SIZE, PHYS-SIZE, SCREEN-SIZE, VIRTUAL-SCREEN-SIZE, TITLE-SIZE, WINDOW-MIN-SIZE, WORK-ORIGIN and WORK-SIZE.
+  keyword     [<span class="types">word!</span>]
+              Available keywords: SCREENS, BORDER-FIXED, BORDER-SIZE, SCREEN-DPI, LOG-SIZE, PHYS-SIZE, SCREEN-SIZE, VIRTUAL-SCREEN-SIZE, TITLE-SIZE, WINDOW-MIN-SIZE, WORK-ORIGIN and WORK-SIZE.
 <span class="tit">REFINEMENTS:</span>
   /set        
-   val         Value used to set specific setting(works only on 'writable' keywords).
+   val        [<span class="types">any-type!</span>] Value used to set specific setting(works only on 'writable' keywords).
   /display    
    idx        [<span class="types">integer!</span>] Display index, starting with 0
 </pre>
@@ -7255,7 +7467,8 @@ false</code></pre></div>
 <h6>Usage:</h6>
 <pre class="usage fs-6">halt</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Useful for program debugging.
 </p>
@@ -7278,10 +7491,11 @@ if error? try [100 / div] [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  handler     [<span class="types">block!</span>] 
+  handler     [<span class="types">block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is used internally in the <a href="#view">view</a> function.
 </p>
@@ -7299,10 +7513,11 @@ This is used internally in the <a href="#view">view</a> function.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns false for all other values.
 </p>
@@ -7323,7 +7538,7 @@ Editor note: Need example.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  name         
+  name        [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -7342,7 +7557,8 @@ Editor note: Need example.
   body        [<span class="types">block!</span>] The body block of the function
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Defines a function that consists of local variables only. This is a shortcut for <a href="#func">func</a> and <a href="#function">function</a>.
 </p>
@@ -7373,7 +7589,7 @@ The example above is a shortcut for:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -7388,7 +7604,7 @@ The example above is a shortcut for:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -7403,10 +7619,11 @@ The example above is a shortcut for:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The insert function returns at the current string position, so <a href="#head">head</a> adjusts the index back to the head:
 </p>
@@ -7436,10 +7653,11 @@ with all things</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">cds: [
     "Rockin' REBOLs"
     "Carl's Addiction"
@@ -7472,65 +7690,66 @@ Rockin' REBOLs</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  word        [<span class="types">any-type!</span>] 
+  word        [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /doc        Open web browser to related documentation
   /into       Help text will be inserted into provided string instead of printed
    string     [<span class="types">string!</span>] Returned series will be past the insertion
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#help">help</a> function provides information about words and values.
 </p>
 <p>
 Type <a href="#help">help</a> or <a href="#?">?</a> at the console prompt to view a summary of help:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> help</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">help</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>
-  <span class="ansi4 ansi1 ansi36">Use <span class="ansi1 ansi32">HELP<span class="ansi1 ansi36"> or <span class="ansi1 ansi32">?<span class="ansi1 ansi36"> to see built-in info</span></span></span></span></span>:
-  <span class="ansi1 ansi32">
-      help insert
-      ? insert
-  </span>
-  <span class="ansi4 ansi1 ansi36">To search within the system, use quotes</span>:
-  <span class="ansi1 ansi32">
-      ? "insert"
-  </span>
-  <span class="ansi4 ansi1 ansi36">To browse online web documents</span>:
-  <span class="ansi1 ansi32">
-      help/doc insert
-  </span>
-  <span class="ansi4 ansi1 ansi36">To view words and values of a context or object</span>:
+  <span class="ansi4"><span class="ansi96">Use <span class="ansi93">HELP<span class="ansi96"> or <span class="ansi93">?<span class="ansi96"> to see built-in info<span class="ansi24"></span></span></span></span></span></span></span>:
+
+	  <span class="ansi93">help insert</span>
+	  <span class="ansi93">? insert</span>
+
+  <span class="ansi4"><span class="ansi96">To search within the system, use quotes<span class="ansi24"></span></span></span>:
+
+	  <span class="ansi93">? "insert"</span>
+
+  <span class="ansi4"><span class="ansi96">To browse online web documents<span class="ansi24"></span></span></span>:
+
+	  <span class="ansi93">help/doc insert</span>
+
+  <span class="ansi4"><span class="ansi96">To view words and values of a context or object<span class="ansi24"></span></span></span>:
+
+	  <span class="ansi93">? lib</span>            - the runtime library
+	  <span class="ansi93">? self</span>           - your user context
+	  <span class="ansi93">? system</span>         - the system object
+	  <span class="ansi93">? system/options</span> - special settings
   
-      <span class="ansi1 ansi32">? lib</span>            - the runtime library
-      <span class="ansi1 ansi32">? self</span>           - your user context
-      <span class="ansi1 ansi32">? system</span>         - the system object
-      <span class="ansi1 ansi32">? system/options</span> - special settings
+  <span class="ansi4"><span class="ansi96">To see all words of a specific datatype<span class="ansi24"></span></span></span>:
+
+	  <span class="ansi93">? native!</span>
+	  <span class="ansi93">? function!</span>
+	  <span class="ansi93">? datatype!</span>
+
+  <span class="ansi4"><span class="ansi96">To see all available codecs<span class="ansi24"></span></span></span>:
+
+	  <span class="ansi93">? codecs</span>
+
+  <span class="ansi4"><span class="ansi96">Other debug functions<span class="ansi24"></span></span></span>:
   
-  <span class="ansi4 ansi1 ansi36">To see all words of a specific datatype</span>:
-  <span class="ansi1 ansi32">
-      ? native!
-      ? function!
-      ? datatype!
-  </span>
-  <span class="ansi4 ansi1 ansi36">To see all available codecs</span>:
-  <span class="ansi1 ansi32">
-      ? codecs
-  </span>
-  <span class="ansi4 ansi1 ansi36">Other debug functions</span>:
+	  <span class="ansi93">??</span>      - display a variable and its value
+	  <span class="ansi93">probe</span>   - print a value (molded)
+	  <span class="ansi93">source</span>  - show source code of func
+	  <span class="ansi93">trace</span>   - trace evaluation steps
+	  <span class="ansi93">what</span>    - show a list of known functions
   
-      <span class="ansi1 ansi32">??</span>      - display a variable and its value
-      <span class="ansi1 ansi32">probe</span>   - print a value (molded)
-      <span class="ansi1 ansi32">source</span>  - show source code of func
-      <span class="ansi1 ansi32">trace</span>   - trace evaluation steps
-      <span class="ansi1 ansi32">what</span>    - show a list of known functions
+  <span class="ansi4"><span class="ansi96">Other information<span class="ansi24"></span></span></span>:
   
-  <span class="ansi4 ansi1 ansi36">Other information</span>:
-  
-      <span class="ansi1 ansi32">about</span>   - see general product info
-      <span class="ansi1 ansi32">license</span> - show user license
-      <span class="ansi1 ansi32">usage</span>   - program cmd line options
+	  <span class="ansi93">about</span>   - see general product info
+	  <span class="ansi93">license</span> - show user license
+	  <span class="ansi93">usage</span>   - program cmd line options
 
 </code></pre></div>
 <h6>Help about a Function</h6><p>
@@ -7539,24 +7758,24 @@ If you provide a function word as an argument, <a href="#help">help</a> prints a
 <p>
 For example:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> help insert</code></pre></div>
-<div class="example-code"><pre class="text-block"><code><span class="ansi4 ansi1 ansi36">USAGE</span>:
-     <span class="ansi1 ansi32">INSERT series value</span>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">help insert</code></pre></div>
+<div class="example-code"><pre class="text-block"><code><span class="ansi96"><span class="ansi4">USAGE</span></span>:
+     <span class="ansi92">INSERT series value</span>
 
-<span class="ansi4 ansi1 ansi36">DESCRIPTION</span>:
-     Inserts element(s); for series, returns just past the insert. 
-     INSERT is an <span class="ansi1 ansi33">action!</span> value.
+<span class="ansi96"><span class="ansi4">DESCRIPTION</span></span>:
+     Inserts element(s); for series, returns just past the insert.
+     INSERT is an <span class="ansi93">action!</span> value.
 
-<span class="ansi4 ansi1 ansi36">ARGUMENTS</span>:
-     <span class="ansi1 ansi32">series        </span><span class="ansi32">[series! port! map! gob! object! bitset!]</span> At position (modified).
-     <span class="ansi1 ansi32">value         </span><span class="ansi32">[any-type!]</span> The value to insert.
+<span class="ansi96"><span class="ansi4">ARGUMENTS</span></span>:
+     <span class="ansi92">series        </span><span class="ansi32">[series! port! map! gob! object! bitset!]</span> At position (modified).
+     <span class="ansi92">value         </span><span class="ansi32">[any-type!]</span> The value to insert.
 
-<span class="ansi4 ansi1 ansi36">REFINEMENTS</span>:
-     <span class="ansi1 ansi32">/part         </span>Limits to a given length or position
-      <span class="ansi1 ansi33">range        <span class="ansi0 ansi32">[number! series! pair!]</span></span> 
-     <span class="ansi1 ansi32">/only         </span>Only insert a block as a single value (not the contents of the block)
-     <span class="ansi1 ansi32">/dup          </span>Duplicates the insert a specified number of times
-      <span class="ansi1 ansi33">count        <span class="ansi0 ansi32">[number! pair!]</span></span> 
+<span class="ansi96"><span class="ansi4">REFINEMENTS</span></span>:
+     <span class="ansi92">/part        </span> Limits to a given length or position.
+      <span class="ansi93">range        <span class="ansi32">[number! series! pair!]</span></span>
+     <span class="ansi92">/only        </span> Only insert a block as a single value (not the contents of the block).
+     <span class="ansi92">/dup         </span> Duplicates the insert a specified number of times.
+      <span class="ansi93">count        <span class="ansi32">[number! pair!]</span></span>
 
 </code></pre></div><p>
 For more detailed information, you can use the doc refinement:
@@ -7571,81 +7790,81 @@ All datatypes are explained through help.
 <p>
 To obtain a list of all REBOL datatypes, type:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> ? datatype!</code></pre></div>
-<div class="example-code"><pre class="text-block"><code><span class="ansi1 ansi32">DATATYPE!</span> is a datatype.
+<div class="example-code"><pre class="rebol-block"><code class="rebol">? datatype!</code></pre></div>
+<div class="example-code"><pre class="text-block"><code><span class="ansi92">DATATYPE!</span> is a datatype.
 It is defined as a type of datatype.
-It is of the general type <span class="ansi1 ansi32">symbol</span>.
+It is of the general type <span class="ansi92">symbol</span>.
 
-Found these 58 related words:
-  <span class="ansi1 ansi32">end!           </span> datatype!  <span class="ansi32">internal marker for end of block</span>
-  <span class="ansi1 ansi32">unset!         </span> datatype!  <span class="ansi32">no value returned or set</span>
-  <span class="ansi1 ansi32">none!          </span> datatype!  <span class="ansi32">no value represented</span>
-  <span class="ansi1 ansi32">logic!         </span> datatype!  <span class="ansi32">boolean true or false</span>
-  <span class="ansi1 ansi32">integer!       </span> datatype!  <span class="ansi32">64 bit integer</span>
-  <span class="ansi1 ansi32">decimal!       </span> datatype!  <span class="ansi32">64bit floating point number (IEEE standard)</span>
-  <span class="ansi1 ansi32">percent!       </span> datatype!  <span class="ansi32">special form of decimals (used mainly for layout)</span>
-  <span class="ansi1 ansi32">money!         </span> datatype!  <span class="ansi32">high precision decimals with denomination (opt)</span>
-  <span class="ansi1 ansi32">char!          </span> datatype!  <span class="ansi32">8bit and 16bit character</span>
-  <span class="ansi1 ansi32">pair!          </span> datatype!  <span class="ansi32">two dimensional point or size</span>
-  <span class="ansi1 ansi32">tuple!         </span> datatype!  <span class="ansi32">sequence of small integers (colors, versions, IP)</span>
-  <span class="ansi1 ansi32">time!          </span> datatype!  <span class="ansi32">time of day or duration</span>
-  <span class="ansi1 ansi32">date!          </span> datatype!  <span class="ansi32">day, month, year, time of day, and timezone</span>
-  <span class="ansi1 ansi32">binary!        </span> datatype!  <span class="ansi32">string series of bytes</span>
-  <span class="ansi1 ansi32">string!        </span> datatype!  <span class="ansi32">string series of characters</span>
-  <span class="ansi1 ansi32">file!          </span> datatype!  <span class="ansi32">file name or path</span>
-  <span class="ansi1 ansi32">email!         </span> datatype!  <span class="ansi32">email address</span>
-  <span class="ansi1 ansi32">ref!           </span> datatype!  <span class="ansi32">reference</span>
-  <span class="ansi1 ansi32">url!           </span> datatype!  <span class="ansi32">uniform resource locator or identifier</span>
-  <span class="ansi1 ansi32">tag!           </span> datatype!  <span class="ansi32">markup string (HTML or XML)</span>
-  <span class="ansi1 ansi32">bitset!        </span> datatype!  <span class="ansi32">set of bit flags</span>
-  <span class="ansi1 ansi32">image!         </span> datatype!  <span class="ansi32">RGB image with alpha channel</span>
-  <span class="ansi1 ansi32">vector!        </span> datatype!  <span class="ansi32">high performance arrays (single datatype)</span>
-  <span class="ansi1 ansi32">block!         </span> datatype!  <span class="ansi32">series of values</span>
-  <span class="ansi1 ansi32">paren!         </span> datatype!  <span class="ansi32">automatically evaluating block</span>
-  <span class="ansi1 ansi32">path!          </span> datatype!  <span class="ansi32">refinements to functions, objects, files</span>
-  <span class="ansi1 ansi32">set-path!      </span> datatype!  <span class="ansi32">definition of a path's value</span>
-  <span class="ansi1 ansi32">get-path!      </span> datatype!  <span class="ansi32">the value of a path</span>
-  <span class="ansi1 ansi32">lit-path!      </span> datatype!  <span class="ansi32">literal path value</span>
-  <span class="ansi1 ansi32">hash!          </span> datatype!  <span class="ansi32">series of values (using hash table)</span>
-  <span class="ansi1 ansi32">map!           </span> datatype!  <span class="ansi32">name-value pairs (hash associative)</span>
-  <span class="ansi1 ansi32">datatype!      </span> datatype!  <span class="ansi32">type of datatype</span>
-  <span class="ansi1 ansi32">typeset!       </span> datatype!  <span class="ansi32">set of datatypes</span>
-  <span class="ansi1 ansi32">word!          </span> datatype!  <span class="ansi32">word (symbol or variable)</span>
-  <span class="ansi1 ansi32">set-word!      </span> datatype!  <span class="ansi32">definition of a word's value</span>
-  <span class="ansi1 ansi32">get-word!      </span> datatype!  <span class="ansi32">the value of a word (variable)</span>
-  <span class="ansi1 ansi32">lit-word!      </span> datatype!  <span class="ansi32">literal word value</span>
-  <span class="ansi1 ansi32">refinement!    </span> datatype!  <span class="ansi32">variation of meaning or location</span>
-  <span class="ansi1 ansi32">issue!         </span> datatype!  <span class="ansi32">identifying marker word</span>
-  <span class="ansi1 ansi32">native!        </span> datatype!  <span class="ansi32">direct CPU evaluated function</span>
-  <span class="ansi1 ansi32">action!        </span> datatype!  <span class="ansi32">datatype native function (standard polymorphic)</span>
-  <span class="ansi1 ansi32">rebcode!       </span> datatype!  <span class="ansi32">virtual machine function</span>
-  <span class="ansi1 ansi32">command!       </span> datatype!  <span class="ansi32">special dispatch-based function</span>
-  <span class="ansi1 ansi32">op!            </span> datatype!  <span class="ansi32">infix operator (special evaluation exception)</span>
-  <span class="ansi1 ansi32">closure!       </span> datatype!  <span class="ansi32">function with persistent locals (indefinite extent)</span>
-  <span class="ansi1 ansi32">function!      </span> datatype!  <span class="ansi32">interpreted function (user-defined or mezzanine)</span>
-  <span class="ansi1 ansi32">frame!         </span> datatype!  <span class="ansi32">internal context frame</span>
-  <span class="ansi1 ansi32">object!        </span> datatype!  <span class="ansi32">context of names with values</span>
-  <span class="ansi1 ansi32">module!        </span> datatype!  <span class="ansi32">loadable context of code and data</span>
-  <span class="ansi1 ansi32">error!         </span> datatype!  <span class="ansi32">errors and throws</span>
-  <span class="ansi1 ansi32">task!          </span> datatype!  <span class="ansi32">evaluation environment</span>
-  <span class="ansi1 ansi32">port!          </span> datatype!  <span class="ansi32">external series, an I/O channel</span>
-  <span class="ansi1 ansi32">gob!           </span> datatype!  <span class="ansi32">graphical object</span>
-  <span class="ansi1 ansi32">event!         </span> datatype!  <span class="ansi32">user interface event (efficiently sized)</span>
-  <span class="ansi1 ansi32">handle!        </span> datatype!  <span class="ansi32">arbitrary internal object or value</span>
-  <span class="ansi1 ansi32">struct!        </span> datatype!  <span class="ansi32">native structure definition</span>
-  <span class="ansi1 ansi32">library!       </span> datatype!  <span class="ansi32">external library reference</span>
-  <span class="ansi1 ansi32">utype!         </span> datatype!  <span class="ansi32">user defined datatype</span>
+Found these related words:
+  <span class="ansi92">action!          </span> <span class="ansi93">datatype!  <span class="ansi32">datatype native function (standard polymorphic)</span></span>
+  <span class="ansi92">binary!          </span> <span class="ansi93">datatype!  <span class="ansi32">string series of bytes</span></span>
+  <span class="ansi92">bitset!          </span> <span class="ansi93">datatype!  <span class="ansi32">set of bit flags</span></span>
+  <span class="ansi92">block!           </span> <span class="ansi93">datatype!  <span class="ansi32">series of values</span></span>
+  <span class="ansi92">char!            </span> <span class="ansi93">datatype!  <span class="ansi32">8bit and 16bit character</span></span>
+  <span class="ansi92">closure!         </span> <span class="ansi93">datatype!  <span class="ansi32">function with persistent locals (indefinite extent)</span></span>
+  <span class="ansi92">command!         </span> <span class="ansi93">datatype!  <span class="ansi32">special dispatch-based function</span></span>
+  <span class="ansi92">datatype!        </span> <span class="ansi93">datatype!  <span class="ansi32">type of datatype</span></span>
+  <span class="ansi92">date!            </span> <span class="ansi93">datatype!  <span class="ansi32">day, month, year, time of day, and timezone</span></span>
+  <span class="ansi92">decimal!         </span> <span class="ansi93">datatype!  <span class="ansi32">64bit floating point number (IEEE standard)</span></span>
+  <span class="ansi92">email!           </span> <span class="ansi93">datatype!  <span class="ansi32">email address</span></span>
+  <span class="ansi92">end!             </span> <span class="ansi93">datatype!  <span class="ansi32">internal marker for end of block</span></span>
+  <span class="ansi92">error!           </span> <span class="ansi93">datatype!  <span class="ansi32">errors and throws</span></span>
+  <span class="ansi92">event!           </span> <span class="ansi93">datatype!  <span class="ansi32">user interface event (efficiently sized)</span></span>
+  <span class="ansi92">file!            </span> <span class="ansi93">datatype!  <span class="ansi32">file name or path</span></span>
+  <span class="ansi92">frame!           </span> <span class="ansi93">datatype!  <span class="ansi32">internal context frame</span></span>
+  <span class="ansi92">function!        </span> <span class="ansi93">datatype!  <span class="ansi32">interpreted function (user-defined or mezzanine)</span></span>
+  <span class="ansi92">get-path!        </span> <span class="ansi93">datatype!  <span class="ansi32">the value of a path</span></span>
+  <span class="ansi92">get-word!        </span> <span class="ansi93">datatype!  <span class="ansi32">the value of a word (variable)</span></span>
+  <span class="ansi92">gob!             </span> <span class="ansi93">datatype!  <span class="ansi32">graphical object</span></span>
+  <span class="ansi92">handle!          </span> <span class="ansi93">datatype!  <span class="ansi32">arbitrary internal object or value</span></span>
+  <span class="ansi92">hash!            </span> <span class="ansi93">datatype!  <span class="ansi32">series of values (using hash table)</span></span>
+  <span class="ansi92">image!           </span> <span class="ansi93">datatype!  <span class="ansi32">RGB image with alpha channel</span></span>
+  <span class="ansi92">integer!         </span> <span class="ansi93">datatype!  <span class="ansi32">64 bit integer</span></span>
+  <span class="ansi92">issue!           </span> <span class="ansi93">datatype!  <span class="ansi32">identifying marker word</span></span>
+  <span class="ansi92">library!         </span> <span class="ansi93">datatype!  <span class="ansi32">external library reference</span></span>
+  <span class="ansi92">lit-path!        </span> <span class="ansi93">datatype!  <span class="ansi32">literal path value</span></span>
+  <span class="ansi92">lit-word!        </span> <span class="ansi93">datatype!  <span class="ansi32">literal word value</span></span>
+  <span class="ansi92">logic!           </span> <span class="ansi93">datatype!  <span class="ansi32">boolean true or false</span></span>
+  <span class="ansi92">map!             </span> <span class="ansi93">datatype!  <span class="ansi32">name-value pairs (hash associative)</span></span>
+  <span class="ansi92">module!          </span> <span class="ansi93">datatype!  <span class="ansi32">loadable context of code and data</span></span>
+  <span class="ansi92">money!           </span> <span class="ansi93">datatype!  <span class="ansi32">high precision decimals with denomination (opt)</span></span>
+  <span class="ansi92">native!          </span> <span class="ansi93">datatype!  <span class="ansi32">direct CPU evaluated function</span></span>
+  <span class="ansi92">none!            </span> <span class="ansi93">datatype!  <span class="ansi32">no value represented</span></span>
+  <span class="ansi92">object!          </span> <span class="ansi93">datatype!  <span class="ansi32">context of names with values</span></span>
+  <span class="ansi92">op!              </span> <span class="ansi93">datatype!  <span class="ansi32">infix operator (special evaluation exception)</span></span>
+  <span class="ansi92">pair!            </span> <span class="ansi93">datatype!  <span class="ansi32">two dimensional point or size</span></span>
+  <span class="ansi92">paren!           </span> <span class="ansi93">datatype!  <span class="ansi32">automatically evaluating block</span></span>
+  <span class="ansi92">path!            </span> <span class="ansi93">datatype!  <span class="ansi32">refinements to functions, objects, files</span></span>
+  <span class="ansi92">percent!         </span> <span class="ansi93">datatype!  <span class="ansi32">special form of decimals (used mainly for layout)</span></span>
+  <span class="ansi92">port!            </span> <span class="ansi93">datatype!  <span class="ansi32">external series, an I/O channel</span></span>
+  <span class="ansi92">rebcode!         </span> <span class="ansi93">datatype!  <span class="ansi32">virtual machine function</span></span>
+  <span class="ansi92">ref!             </span> <span class="ansi93">datatype!  <span class="ansi32">reference</span></span>
+  <span class="ansi92">refinement!      </span> <span class="ansi93">datatype!  <span class="ansi32">variation of meaning or location</span></span>
+  <span class="ansi92">set-path!        </span> <span class="ansi93">datatype!  <span class="ansi32">definition of a path's value</span></span>
+  <span class="ansi92">set-word!        </span> <span class="ansi93">datatype!  <span class="ansi32">definition of a word's value</span></span>
+  <span class="ansi92">string!          </span> <span class="ansi93">datatype!  <span class="ansi32">string series of characters</span></span>
+  <span class="ansi92">struct!          </span> <span class="ansi93">datatype!  <span class="ansi32">native structure definition</span></span>
+  <span class="ansi92">tag!             </span> <span class="ansi93">datatype!  <span class="ansi32">markup string (HTML or XML)</span></span>
+  <span class="ansi92">task!            </span> <span class="ansi93">datatype!  <span class="ansi32">evaluation environment</span></span>
+  <span class="ansi92">time!            </span> <span class="ansi93">datatype!  <span class="ansi32">time of day or duration</span></span>
+  <span class="ansi92">tuple!           </span> <span class="ansi93">datatype!  <span class="ansi32">sequence of small integers (colors, versions, IP)</span></span>
+  <span class="ansi92">typeset!         </span> <span class="ansi93">datatype!  <span class="ansi32">set of datatypes</span></span>
+  <span class="ansi92">unset!           </span> <span class="ansi93">datatype!  <span class="ansi32">no value returned or set</span></span>
+  <span class="ansi92">url!             </span> <span class="ansi93">datatype!  <span class="ansi32">uniform resource locator or identifier</span></span>
+  <span class="ansi92">utype!           </span> <span class="ansi93">datatype!  <span class="ansi32">user defined datatype</span></span>
+  <span class="ansi92">vector!          </span> <span class="ansi93">datatype!  <span class="ansi32">high performance arrays (single datatype)</span></span>
+  <span class="ansi92">word!            </span> <span class="ansi93">datatype!  <span class="ansi32">word (symbol or variable)</span></span>
 
 </code></pre></div><p>
 For help on a specific datatype:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> help integer!</code></pre></div>
-<div class="example-code"><pre class="text-block"><code><span class="ansi1 ansi32">INTEGER!</span> is a datatype.
+<div class="example-code"><pre class="rebol-block"><code class="rebol">help integer!</code></pre></div>
+<div class="example-code"><pre class="text-block"><code><span class="ansi92">INTEGER!</span> is a datatype.
 It is defined as a 64 bit integer.
-It is of the general type <span class="ansi1 ansi32">scalar</span>.
+It is of the general type <span class="ansi92">scalar</span>.
 
-Found these 1 related words:
-  <span class="ansi1 ansi32">zero           </span> integer!   <span class="ansi32">0</span>
+Found these related words:
+  <span class="ansi92">zero             </span> <span class="ansi93">integer!   <span class="ansi32">0</span></span>
 
 </code></pre></div><p>
 To list all words that are function! datatypes, type:
@@ -7669,7 +7888,7 @@ and the result would be:
     ask             function! Ask the user for input.
     ...</code></pre></div>
 <h6>Help Search</h6><p>
-The <a href="#help">help</a> function also finds words that contain a specified string. For example, to find all of the words that include the string <span class="datatype">path!</span>, type:
+The <a href="#help">help</a> function also finds words that contain a specified string. For example, to find all of the words that include the string <code class="datatype">path!</code>, type:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; ? "path"</code></pre></div><p>
 and the result will be:
@@ -7688,34 +7907,35 @@ and the result will be:
 <h6>Help on Objects</h6><p>
 If you use <a href="#help">help</a> on an object, it will list a summary of the object's fields.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> ? system</code></pre></div>
-<div class="example-code"><pre class="text-block"><code><span class="ansi1 ansi32">SYSTEM</span> is an <span class="ansi1 ansi33">object</span> of value: <span class="ansi32">
-  <span class="ansi1 ansi32">product        </span></span> word!      <span class="ansi32">Bulk</span>
-  <span class="ansi1 ansi32">platform       </span> word!      <span class="ansi32">Windows</span>
-  <span class="ansi1 ansi32">version        </span> tuple!     <span class="ansi32">3.21.1</span>
-  <span class="ansi1 ansi32">build          </span> object!    <span class="ansi32">[os os-version abi sys arch libc vendor target compiler date git]</span>
-  <span class="ansi1 ansi32">user           </span> object!    <span class="ansi32">[name data]</span>
-  <span class="ansi1 ansi32">options        </span> object!    <span class="ansi32">[boot path home data modules flags script args do-arg import debug secure version...</span>
-  <span class="ansi1 ansi32">catalog        </span> object!    <span class="ansi32">[datatypes actions natives handles errors reflectors boot-flags bitsets structs c...</span>
-  <span class="ansi1 ansi32">contexts       </span> object!    <span class="ansi32">[root sys lib user]</span>
-  <span class="ansi1 ansi32">state          </span> object!    <span class="ansi32">[note last-error last-result wait-list cookies]</span>
-  <span class="ansi1 ansi32">modules        </span> object!    <span class="ansi32">[help blend2d blurhash brotli deflate easing mathpresso miniaudio speak sqlite tr...</span>
-  <span class="ansi1 ansi32">codecs         </span> object!    <span class="ansi32">[text markup qoi pkix der crt ppk ssh-key safe utc-time unixtime ar gzip zip tar ...</span>
-  <span class="ansi1 ansi32">dialects       </span> object!    <span class="ansi32">[secure draw effect text rebcode]</span>
-  <span class="ansi1 ansi32">schemes        </span> object!    <span class="ansi32">[system console callback file dir event dns tcp udp checksum crypt clipboard seri...</span>
-  <span class="ansi1 ansi32">ports          </span> object!    <span class="ansi32">[system event input output echo mail callback]</span>
-  <span class="ansi1 ansi32">locale         </span> object!    <span class="ansi32">[language language* locale locale* months days]</span>
-  <span class="ansi1 ansi32">script         </span> object!    <span class="ansi32">[title header parent path args]</span>
-  <span class="ansi1 ansi32">standard       </span> object!    <span class="ansi32">[codec enum error script header scheme port port-spec-head port-spec-file port-sp...</span>
-  <span class="ansi1 ansi32">view           </span> object!    <span class="ansi32">[screen-gob handler metrics]</span>
-  <span class="ansi1 ansi32">license        </span> string!    <span class="ansi32">{^[[0m╔════════════════════════...</span>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">? system</code></pre></div>
+<div class="example-code"><pre class="text-block"><code><span class="ansi92">SYSTEM</span> is an <span class="ansi93">object</span> of value: <span class="ansi32">
+</span>  <span class="ansi92">product          </span> <span class="ansi93">word!      <span class="ansi32">Bulk</span></span>
+  <span class="ansi92">platform         </span> <span class="ansi93">word!      <span class="ansi32">Windows</span></span>
+  <span class="ansi92">version          </span> <span class="ansi93">tuple!     <span class="ansi32">3.21.19</span></span>
+  <span class="ansi92">build            </span> <span class="ansi93">object!    <span class="ansi32">[os os-version abi sys arch libc vendor target compiler date git]</span></span>
+  <span class="ansi92">user             </span> <span class="ansi93">object!    <span class="ansi32">[name data]</span></span>
+  <span class="ansi92">options          </span> <span class="ansi93">object!    <span class="ansi32">[boot path home data modules flags script args do-arg import debug secure version...</span></span>
+  <span class="ansi92">catalog          </span> <span class="ansi93">object!    <span class="ansi32">[datatypes actions natives handles errors reflectors boot-flags bitsets structs c...</span></span>
+  <span class="ansi92">contexts         </span> <span class="ansi93">object!    <span class="ansi32">[root sys lib user]</span></span>
+  <span class="ansi92">state            </span> <span class="ansi93">object!    <span class="ansi32">[note last-error last-result control? shift? alt? quit? wait-list cookies]</span></span>
+  <span class="ansi92">modules          </span> <span class="ansi93">object!    <span class="ansi32">[help blend2d blurhash brotli bzip2 deflate easing mathpresso miniaudio speak sql...</span></span>
+  <span class="ansi92">codecs           </span> <span class="ansi93">object!    <span class="ansi32">[text markup qoi pkix der crt ppk ssh-key safe utc-time unixtime ar gzip zip tar ...</span></span>
+  <span class="ansi92">dialects         </span> <span class="ansi93">object!    <span class="ansi32">[secure draw effect text rebcode]</span></span>
+  <span class="ansi92">schemes          </span> <span class="ansi93">object!    <span class="ansi32">[system console callback file dir event dns tcp udp checksum crypt clipboard seri...</span></span>
+  <span class="ansi92">ports            </span> <span class="ansi93">object!    <span class="ansi32">[system event input output echo mail callback]</span></span>
+  <span class="ansi92">locale           </span> <span class="ansi93">object!    <span class="ansi32">[language language* locale locale* months days]</span></span>
+  <span class="ansi92">script           </span> <span class="ansi93">object!    <span class="ansi32">[title header parent path args]</span></span>
+  <span class="ansi92">standard         </span> <span class="ansi93">object!    <span class="ansi32">[codec enum error script header scheme port port-spec-head port-spec-file port-sp...</span></span>
+  <span class="ansi92">view             </span> <span class="ansi93">object!    <span class="ansi32">[screen-gob handler metrics]</span></span>
+  <span class="ansi92">console          </span> <span class="ansi93">object!    <span class="ansi32">[history current]</span></span>
+  <span class="ansi92">license          </span> <span class="ansi93">string!    <span class="ansi32">{^[[0m╔════════════════════════...</span></span>
 
 </code></pre></div>
 <h6>Help on Errors</h6><p>
 There is a special mechanism for getting help on errors.
 </p>
 <p>
-When you get an error message at the console, you can type <a href="#why?">why?</a> to see info about that specific error.
+When you get an error message at the console, you can type <code class=inline>why?</code> to see info about that specific error.
 </p>
 <p>
 For example:
@@ -7728,7 +7948,7 @@ Opening web browser...</code></pre></div><p>
 and, this page, <a href="https://www.rebol.com/r3/docs/errors/script-no-value.html">no-value</a>, would be displayed.
 </p>
 <p>
-See <a href="#why?">why?</a> for more about this function.
+See <code class=inline>why?</code> for more about this function.
 </p>
 
 <div class="see-also">See also: <a href="#?">?</a>, <a href="#??">??</a>, <a href="#docs">docs</a>, <a href="#what">what</a></div>
@@ -7745,7 +7965,7 @@ See <a href="#why?">why?</a> for more about this function.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  hsv         [<span class="types">tuple!</span>] 
+  hsv         [<span class="types">tuple!</span>]
 </pre>
 </section>
 
@@ -7760,7 +7980,7 @@ See <a href="#why?">why?</a> for more about this function.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">binary!</span>] 
+  data        [<span class="types">binary!</span>]
   codepage    [<span class="types">word! integer! tag! string!</span>] Source codepage id
 <span class="tit">REFINEMENTS:</span>
   /to         Transcode to a new binary
@@ -7779,13 +7999,14 @@ See <a href="#why?">why?</a> for more about this function.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  condition   [<span class="types">any-type!</span>] 
-  true-branch  
+  condition   [<span class="types">any-type!</span>]
+  true-branch [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       Return block arg instead of evaluating it.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#if">if</a> function will evaluate the block when its first argument is true.
 </p>
@@ -7889,7 +8110,7 @@ The /Else refinement is obsolete and will be removed in future versions. Avoid i
 <pre class="help">
 <span class="tit">REFINEMENTS:</span>
   /load       Image file to load or binary to decode
-   src-file   [<span class="types">file! binary!</span>] 
+   src-file   [<span class="types">file! binary!</span>]
   /save       Encodes image to file or binary
    dst-file   [<span class="types">none! file! binary!</span>] If NONE is used, binary is made internally
    dst-image  [<span class="types">none! image!</span>] If NONE, loaded image may be used if there is any
@@ -7931,12 +8152,13 @@ The /Else refinement is obsolete and will be removed in future versions. Avoid i
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns true if the value is an <span class="datatype">image!</span> datatype.
+Returns true if the value is an <code class="datatype">image!</code> datatype.
 </p>
 <p>
 This function is often used after the <a href="#load">load</a> function to verify that the data is in fact an image. For example:
@@ -7957,7 +8179,7 @@ if not image? img [alert "Not an image file!"]</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  module      [<span class="types">any-word! file! url! string! binary! module! block!</span>] 
+  module      [<span class="types">any-word! file! url! string! binary! module! block!</span>]
 <span class="tit">REFINEMENTS:</span>
   /version    
    needs      [<span class="types">tuple!</span>] Module must be this version or greater
@@ -7968,7 +8190,8 @@ if not image? img [alert "Not an image file!"]</code></pre></div>
   /no-user    Don't export to the user context
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#import">import</a> function is used to import modules into your runtime environment. For a full description see the <a href="https://www.rebol.com/r3/docs/concepts/modules-loading.html">modules: loading modules</a> section of this documentation.
 </p>
@@ -7984,8 +8207,8 @@ You can also use a filename or URL for the module identifier:
 <div class="example-code"><pre class="rebol-block"><code class="rebol">import %mysql.r
 
 import http://www.rebol.com/mods/mysql.r</code></pre></div>
-<h7>Return value</h7><p>
-When successful, the <a href="#import">import</a> function returns a <span class="datatype">module!</span> datatype as its result.
+<h6>Return value</h6><p>
+When successful, the <a href="#import">import</a> function returns a <code class="datatype">module!</code> datatype as its result.
 </p>
 <p>
 This allows you to write:
@@ -8000,7 +8223,7 @@ For example the module value is used here to reference a function:
 See below for more.
 </p>
 
-<h7>Useful refinements</h7><p>
+<h6>Useful refinements</h6><p>
 Like the header needs field, the <a href="#import">import</a> function also lets you specify a version and a checksum.
 </p>
 <p>
@@ -8011,7 +8234,7 @@ These are all supported:
 import/check mysql #{A94A8FE5CCB19BA61C4C0873D391E987982FBBD3}
 
 import/version/check mysql 1.2.3 #{A94A8FE5CCB19BA61C4C0873D391E987982FBBD3}</code></pre></div>
-<h7>When to use IMPORT</h7><p>
+<h6>When to use IMPORT</h6><p>
 The benefit of using the <a href="#import">import</a> function compared to the needs header field is that the arguments can be variables.
 </p>
 <p>
@@ -8044,11 +8267,12 @@ foreach [id ver] mod-list [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  object      [<span class="types">any-object! block!</span>] 
+  object      [<span class="types">any-object! block!</span>]
   word        [<span class="types">any-word! block! paren!</span>] (modified if series)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Return the word from within another context. This function is normally used with <a href="#set">set</a> and <a href="#get">get</a>.
 </p>
@@ -8106,7 +8330,7 @@ In R3, <a href="#in">in</a> can also be used for binding a block to an object to
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do in example [age + 1]
 25</code></pre></div><p>
-Identically, a <span class="datatype">paren!</span> can be used as the rebound block:
+Identically, a <code class="datatype">paren!</code> can be used as the rebound block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do in example second [(age + 1) (age + 20)]
 44</code></pre></div>
@@ -8128,7 +8352,8 @@ Identically, a <span class="datatype">paren!</span> can be used as the rebound b
   block       [<span class="types">block!</span>] Block to evaluate
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is useful if you need to temporarily switch to a different directory to do something, and then switch back without manually doing so.
 </p>
@@ -8149,12 +8374,13 @@ Example:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port! none!</span>] 
+  series      [<span class="types">series! gob! port! none!</span>]
 <span class="tit">REFINEMENTS:</span>
   /xy         Returns index as an XY pair offset
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The index function returns the position within a series. For
 example, the first value in a series is an index of one, the
@@ -8188,7 +8414,7 @@ between two positions in a series.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port! none!</span>] 
+  series      [<span class="types">series! gob! port! none!</span>]
 <span class="tit">REFINEMENTS:</span>
   /xy         Returns index as an XY pair offset
 </pre>
@@ -8201,12 +8427,7 @@ between two positions in a series.
 <p></p>
 
 <h6>Usage:</h6>
-<pre class="usage fs-6">init-words <span class="rebarg">words</span></span></pre>
-
-<pre class="help">
-<span class="tit">ARGUMENTS:</span>
-  words       [<span class="types">block!</span>] 
-</pre>
+<pre class="usage fs-6">init-words</span></pre>
 </section>
 
 <hr>
@@ -8223,7 +8444,8 @@ between two positions in a series.
   /hide       Turns off echoing inputs
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a string from the standard input device
 (normally the keyboard, but can also be a file or an
@@ -8255,13 +8477,14 @@ Luke is 4 characters long</code></pre></div>
   value       [<span class="types">any-type!</span>] The value to insert
 <span class="tit">REFINEMENTS:</span>
   /part       Limits to a given length or position
-   range      [<span class="types">number! series! pair!</span>] 
+   range      [<span class="types">number! series! pair!</span>]
   /only       Only insert a block as a single value (not the contents of the block)
   /dup        Duplicates the insert a specified number of times
-   count      [<span class="types">number! pair!</span>] 
+   count      [<span class="types">number! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the value is a series compatible with the first
 (block or string-based datatype), then all of its values
@@ -8270,7 +8493,7 @@ insert is returned, allowing multiple inserts to be
 cascaded together.
 </p>
 
-<h7>Refinements</h7><p>
+<h6>Refinements</h6><p>
 /part allows you to specify how many elements you want
 to insert.
 </p>
@@ -8327,6 +8550,22 @@ probe blk
 </section>
 
 <hr>
+<section id="integer-divide">
+ <a name="integer-divide"></a>
+ <h2>INTEGER-DIVIDE<a class="headerlink" href="#integer-divide" title="Link to this heading">¶</a></h2>
+<p>Returns the first integer divided by the second</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">integer-divide <span class="rebarg">value1</span> <span class="rebarg">value2</span></span></pre>
+
+<pre class="help">
+<span class="tit">ARGUMENTS:</span>
+  value1      [<span class="types">number!</span>]
+  value2      [<span class="types">number!</span>]
+</pre>
+</section>
+
+<hr>
 <section id="integer?">
  <a name="integer?"></a>
  <h2>INTEGER?<a class="headerlink" href="#integer?" title="Link to this heading">¶</a></h2>
@@ -8337,10 +8576,11 @@ probe blk
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -8378,15 +8618,16 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  set1        [<span class="types">block! string! bitset! typeset! map!</span>] first set
-  set2        [<span class="types">block! string! bitset! typeset! map!</span>] second set
+  set1        [<span class="types">block! string! bitset! typeset! map!</span>] First set
+  set2        [<span class="types">block! string! bitset! typeset! map!</span>] Second set
 <span class="tit">REFINEMENTS:</span>
   /case       Uses case-sensitive comparison
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns all elements within two blocks or series that 
 exist in both.
@@ -8433,7 +8674,7 @@ data sets can be CPU intensive.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">binary!</span>] 
+  data        [<span class="types">binary!</span>]
 <span class="tit">REFINEMENTS:</span>
   /utf        Check encodings other than UTF-8
    num        [<span class="types">integer!</span>] Bit size - positive for BE negative for LE
@@ -8451,10 +8692,11 @@ data sets can be CPU intensive.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -8480,11 +8722,12 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        Base value
-  rest         Value or block of values
+  value       [<span class="types">any-type!</span>] Base value
+  rest        [<span class="types">any-type!</span>] Value or block of values
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a new <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> that joins together a value with another value or block of values.
 </p>
@@ -8498,13 +8741,13 @@ This differs from <a href="#append">append</a> and <a href="#repend">repend</a> 
 <p>
 The <b>first argument determines the datatype of the returned value</b>.
 When the first argument is a type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, the return value will 
-be that type of series (d:string, <span class="datatype">file!</span>, <span class="datatype">url!</span>, <span class="datatype">block!</span>, etc.)
+be that type of series (d:string, <code class="datatype">file!</code>, <code class="datatype">url!</code>, <code class="datatype">block!</code>, etc.)
 </p>
 <p>
-When the first argument is a scalar value (such as <span class="datatype">integer!</span>, <span class="datatype">date!</span>, <span class="datatype">time!</span>, and others), the return  will always be a <span class="datatype">string!</span>.
+When the first argument is a scalar value (such as <code class="datatype">integer!</code>, <code class="datatype">date!</code>, <code class="datatype">time!</code>, and others), the return  will always be a <code class="datatype">string!</code>.
 </p>
 <p>
-When the second argument is a <span class="datatype">block!</span>, it will be evaluated and all of its values joined 
+When the second argument is a <code class="datatype">block!</code>, it will be evaluated and all of its values joined 
 to the return value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">join http:// ["www.rebol.com/" %index.html]
@@ -8515,7 +8758,7 @@ join "t" ["e" "s" "t"]
 
 join 11:11 "PM"
 "11:11PM"</code></pre></div><p>
-Note that it also works for <span class="datatype">block!</span> series, but returns a block, not a string:
+Note that it also works for <code class="datatype">block!</code> series, but returns a block, not a string:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">join [1] ["two" 3 "four"]
 [1 "two" 3 "four"]</code></pre></div><p>
@@ -8526,7 +8769,7 @@ And, this case is important to note:
 (See <a href="#rejoin">rejoin</a> for more detail on this case.)
 </p>
 <p>
-If you want the result here to be a <span class="datatype">string!</span>, use the <a href="#ajoin">ajoin</a> function instead.
+If you want the result here to be a <code class="datatype">string!</code>, use the <a href="#ajoin">ajoin</a> function instead.
 </p>
 
 <div class="see-also">See also: <a href="#ajoin">ajoin</a>, <a href="#append">append</a>, <a href="#form">form</a>, <a href="#mold">mold</a>, <a href="#reform">reform</a>, <a href="#rejoin">rejoin</a>, <a href="#remold">remold</a>, <a href="#repend">repend</a></div>
@@ -8543,7 +8786,7 @@ If you want the result here to be a <span class="datatype">string!</span>, use t
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-function! any-object! map! date! handle! struct!</span>] 
+  value       [<span class="types">any-function! any-object! map! date! handle! struct!</span>]
 </pre>
 </section>
 
@@ -8558,10 +8801,11 @@ If you want the result here to be a <span class="datatype">string!</span>, use t
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">series! tuple! gob!</span>] 
+  value       [<span class="types">series! tuple! gob!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 LAST returns the last value of a series. If the series is empty,
 LAST will cause an error.
@@ -8596,7 +8840,7 @@ none</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! port! map! tuple! bitset! object! gob! any-word!</span>] 
+  series      [<span class="types">series! port! map! tuple! bitset! object! gob! any-word!</span>]
 </pre>
 </section>
 
@@ -8611,10 +8855,11 @@ none</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-string! char! integer!</span>] 
+  value       [<span class="types">any-string! char! integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; latin1? "mýdlo"
 == #(true) ;; because (to integer! #"ý") == 253
 
@@ -8641,7 +8886,8 @@ none</code></pre></div>
   /wait       Wait for the process to terminate
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The LAUNCH function is used to run REBOL scripts as a separate
 process. When LAUNCH is called, a new process is created and
@@ -8671,8 +8917,8 @@ launch http://www.rebol.com/scripts/news.r</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  a           [<span class="types">integer!</span>] 
-  b           [<span class="types">integer!</span>] 
+  a           [<span class="types">integer!</span>]
+  b           [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -8687,10 +8933,11 @@ launch http://www.rebol.com/scripts/news.r</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! port! map! tuple! bitset! object! gob! struct! any-word! none!</span>] 
+  series      [<span class="types">series! port! map! tuple! bitset! object! gob! struct! any-word! none!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The length? function returns the number of values from the current position of a series to the tail of the series.
 </p>
@@ -8725,6 +8972,54 @@ print length? obj
 </section>
 
 <hr>
+<section id="lerp">
+ <a name="lerp"></a>
+ <h2>LERP<a class="headerlink" href="#lerp" title="Link to this heading">¶</a></h2>
+<p>Linearly interpolates between start and end by factor</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">lerp <span class="rebarg">start</span> <span class="rebarg">end</span> <span class="rebarg">factor</span></span></pre>
+
+<pre class="help">
+<span class="tit">ARGUMENTS:</span>
+  start       [<span class="types">number! tuple! pair!</span>]
+  end         [<span class="types">number! tuple! pair!</span>]
+  factor      [<span class="types">number!</span>] Interpolation factor, clamped to 0.0-1.0
+</pre>
+
+<h5>Description:</h5>
+
+<p>
+<a href="#lerp">lerp</a> computes a linear interpolation using the formula:
+</p>
+<div class="example-code"><pre class="-block"><code class="">result = start + (end - start) * factor</code></pre></div><p>
+The <code class=inline>factor</code> argument is clamped to the range <code class=inline>0.0–1.0</code>, so values below <code class=inline>0.0</code> behave as <code class=inline>0.0</code> and values above <code class=inline>1.0</code> behave as <code class=inline>1.0</code>. This means <a href="#lerp">lerp</a> will never extrapolate beyond the <code class=inline>start</code>–<code class=inline>end</code> range.
+</p>
+<p>
+The function works component-wise for <code class="datatype">tuple!</code> and <code class="datatype">pair!</code> types, interpolating each component independently.
+</p>
+
+<h6>Examples:</h6><div class="example-code"><pre class="rebol-block"><code class="rebol">; Interpolating between two numbers
+lerp 0.0 100.0 0.5           ;== 50.0
+lerp 0.0 100.0 0.25          ;== 25.0
+lerp 0.0 100.0 0.0           ;== 0.0
+lerp 0.0 100.0 1.0           ;== 100.0
+
+; Factor is clamped — no extrapolation
+lerp 0.0 100.0 1.5           ;== 100.0
+lerp 0.0 100.0 -0.5          ;== 0.0
+
+; Interpolating between colors (tuple!)
+lerp 0.0.0 255.255.255 0.5   ;== 127.127.127  (mid-grey)
+lerp 255.0.0 0.0.255   0.5   ;== 127.0.127    (purple)
+
+; Interpolating between positions (pair!)
+lerp 0x0 100x200 0.5         ;== 50x100
+lerp 10x20 90x80 0.25        ;== 30x35</code></pre></div>
+<h6>Notes:</h6><ul><li><code class=inline>start</code> and <code class=inline>end</code> must be the same type; mixing types (e.g. a <code class="datatype">number!</code> with a <code class="datatype">tuple!</code>) will raise an error.</li><li>For <code class="datatype">tuple!</code> values, interpolation is applied to each channel (R, G, B and optionally A) independently, making <a href="#lerp">lerp</a> well-suited for color blending.</li><li>For <code class="datatype">pair!</code> values, both the <code class=inline>x</code> and <code class=inline>y</code> components are interpolated independently, making it useful for 2D position or size transitions.</li><li>Unlike an unclamped lerp, this implementation does **not** support extrapolation. If you need values outside the <code class=inline>start</code>–<code class=inline>end</code> range, scale your <code class=inline>factor</code> before passing it in.</li></ul>
+</section>
+
+<hr>
 <section id="lesser-or-equal?">
  <a name="lesser-or-equal?"></a>
  <h2>LESSER-OR-EQUAL?<a class="headerlink" href="#lesser-or-equal?" title="Link to this heading">¶</a></h2>
@@ -8735,27 +9030,21 @@ print length? obj
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values. For string-based
 datatypes, the sorting order is used for comparison
 with character casing ignored (uppercase = lowercase).
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print lesser-or-equal? "abc" "abd"
-true
-
-print lesser-or-equal? 10-June-1999 12-june-1999
-true
-
-print lesser-or-equal? 4.3.2.1 1.2.3.4
-false
-
-print lesser-or-equal? 1:23 10:00
-true</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">lesser-or-equal? "abc" "abd"               ;== true
+lesser-or-equal? 10-June-1999 12-june-1999 ;== true
+lesser-or-equal? 4.3.2.1 1.2.3.4           ;== false
+lesser-or-equal? 1:23 10:00                ;== true</code></pre></div>
 <div class="see-also">See also: <a href="#<">&lt;</a>, <a href="#<=">&lt;=</a>, <a href="#<>">&lt;&gt;</a>, <a href="#=">=</a>, <a href="#>">&gt;</a>, <a href="#>=">&gt;=</a>, <a href="#max">max</a>, <a href="#min">min</a></div>
 </section>
 
@@ -8770,11 +9059,12 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values. The values must be
 of the same datatype, or an error will occur. For
@@ -8782,17 +9072,10 @@ string-based datatypes, the sorting order is used for
 comparison with character casing ignored (uppercase =
 lowercase).
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print lesser? "abc" "abcd"
-true
-
-print lesser? 12-june-1999 10-june-1999
-false
-
-print lesser? 1.2.3.4 4.3.2.1
-true
-
-print lesser? 1:30 2:00
-true</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">lesser? "abc" "abcd"              ;== true
+lesser? 12-june-1999 10-june-1999 ;== false
+lesser? 1.2.3.4 4.3.2.1           ;== true
+lesser? 1:30 2:00                 ;== true</code></pre></div>
 <div class="see-also">See also: <a href="#<=">&lt;=</a>, <a href="#<>">&lt;&gt;</a>, <a href="#=">=</a>, <a href="#>">&gt;</a>, <a href="#>=">&gt;=</a>, <a href="#max">max</a>, <a href="#min">min</a></div>
 </section>
 
@@ -8807,10 +9090,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns TRUE if the value is a LIBRARY datatype.
 </p>
@@ -8826,45 +9110,26 @@ Returns TRUE if the value is a LIBRARY datatype.
 <h6>Usage:</h6>
 <pre class="usage fs-6">license</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the REBOL end user license agreement for the currently
 running version of REBOL.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> license</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">license</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>╔══════════════════════════════════════════════════════════════════════════╗
 ║<span class="ansi30 ansi107">                                                                          </span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Copyright  <span class="ansi31">2012 REBOL Technologies                                    <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">2012-2025 Rebol Open Source Contributors                   <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Licensed under the Apache License, Version 2.0.            <span class="ansi30"></span></span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">https://www.apache.org/licenses/LICENSE-2.0                <span class="ansi30"></span></span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Copyright  <span class="ansi31">2012 REBOL Technologies                                    </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">2012-2026 Rebol Open Source Contributors                   </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Licensed under the Apache License, Version 2.0.            </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">https://www.apache.org/licenses/LICENSE-2.0                </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Notice     <span class="ansi31">https://github.com/Oldes/Rebol3/blob/master/NOTICE         <span class="ansi30"></span></span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Notice     <span class="ansi31">https://github.com/Oldes/Rebol3/blob/master/NOTICE         </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
-</code></pre></div><p>
-For SDK and other specially licensed versions of REBOL, the
-license function may return an empty string.
-</p>
-
+</code></pre></div>
 <div class="see-also">See also: <a href="#about">about</a></div>
-</section>
-
-<hr>
-<section id="limit-usage">
- <a name="limit-usage"></a>
- <h2>LIMIT-USAGE<a class="headerlink" href="#limit-usage" title="Link to this heading">¶</a></h2>
-<p>Set a usage limit only once (used for SECURE).</p>
-
-<h6>Usage:</h6>
-<pre class="usage fs-6">limit-usage <span class="rebarg">field</span> <span class="rebarg">limit</span></span></pre>
-
-<pre class="help">
-<span class="tit">ARGUMENTS:</span>
-  field       [<span class="types">word!</span>] eval (count) or memory (bytes)
-  limit       [<span class="types">number!</span>] 
-</pre>
 </section>
 
 <hr>
@@ -8884,27 +9149,40 @@ license function may return an empty string.
   /d          Dirs only
   /r          Recursive
   /i          
-   indent     [<span class="types">string! char!</span>] 
+   indent     [<span class="types">string! char!</span>]
   /l          Limit recursive output to given maximal depth
-   max-depth  [<span class="types">integer!</span>] 
+   max-depth  [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Lists the files and directories of the specified path in a
 sorted multi-column output. If no path is specified, the
 directory specified in system/script/path is listed. Directory
 names are followed by a slash (/) in the output listing.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">list-dir</code></pre></div><p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">list-dir</code></pre></div>
+<div class="example-code"><pre class="text-block"><code><span class="ansi31">[</span><span class="ansi33 ansi1">DIR: <span class="ansi32 ansi1">C:\Dev\Builder\tree\www\rebol.tech\</span></span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">14-May-2026  23:54</span> <span class="ansi32 ansi1">         .git/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">08-Mar-2025  01:18</span> <span class="ansi32 ansi1">         _logs/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  12:08</span> <span class="ansi32 ansi1">         _utils/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">30-Apr-2026  12:17</span> <span class="ansi32 ansi1">         public/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     311</span> <span class="ansi93">.editorconfig
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     920</span> <span class="ansi93">.gitattributes
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">      40</span> <span class="ansi93">.gitignore
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  16:04</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  13:21</span> <span class="ansi33">    9974</span> <span class="ansi93">gen-functions.r3
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">   32749</span> <span class="ansi93">httpd.reb
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">12-Mar-2025  13:27</span> <span class="ansi33">    1024</span> <span class="ansi93">parse-errors.r3
+<span class="ansi31 ansi1">└───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     691</span> <span class="ansi93">server.r3
+</code></pre></div><p>
 To obtain a block of files for use by your program, use the LOAD
 function. The example below returns a block that contains the names of all
 files and directories in the local directory.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">files: load %./
-print length? files
-probe files
-[%autos.txt %build-docs.r %bulk-modify.r %cgi.r %convert-orig.r %CVS/ %emit-html.r %eval-examples.r %fix-args.r %fred/ %funcs.r %helloworld.txt %merge-funcs.r %newfile.txt %notes.txt %public/ %replace.r %scan-doc.r %scan-titles.r %strip-title.r %test-file.txt %trash.me]</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">files: read %./      ;== [%.editorconfig %.git/ %.gitattributes %.gitignore ...
+length? files        ;== 11</code></pre></div>
 <div class="see-also">See also: <a href="#change-dir">change-dir</a>, <a href="#make-dir">make-dir</a>, <a href="#read">read</a>, <a href="#what-dir">what-dir</a></div>
 </section>
 
@@ -8917,9 +9195,10 @@ probe files
 <h6>Usage:</h6>
 <pre class="usage fs-6">list-env</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-This function will return a <span class="datatype">map!</span> of OS environment variables and their values.
+This function will return a <code class="datatype">map!</code> of OS environment variables and their values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; list-env
 == #[
@@ -8941,18 +9220,17 @@ This function will return a <span class="datatype">map!</span> of OS environment
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns true if the value is a literal path datatype.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; lit-path? first ['some/path other/path]
-== #(true)
-
-&gt;&gt; lit-path? second ['some/path other/path]
-== #(false)</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">lit-path? first  ['some/path other/path] ;== #(true)
+lit-path? second ['some/path other/path] ;== #(false)</code></pre></div>
+<div class="see-also">See also: <a href="#get-path?">get-path?</a>, <a href="#lit-word?">lit-word?</a>, <a href="#path?">path?</a>, <a href="#set-path?">set-path?</a></div>
 </section>
 
 <hr>
@@ -8966,16 +9244,17 @@ Returns true if the value is a literal path datatype.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; lit-word? first ['foo bar]
-== #(true)</code></pre></div>
-<div class="see-also">See also: <a href="#get-word?">get-word?</a>, <a href="#set-word?">set-word?</a>, <a href="#word?">word?</a></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">lit-word? first  ['foo bar]              ;== #(true)
+lit-word? second ['foo bar]              ;== #(false)</code></pre></div>
+<div class="see-also">See also: <a href="#get-word?">get-word?</a>, <a href="#lit-path?">lit-path?</a>, <a href="#set-word?">set-word?</a>, <a href="#word?">word?</a></div>
 </section>
 
 <hr>
@@ -8997,7 +9276,8 @@ Returns FALSE for all other values.
    type       [<span class="types">word! none!</span>] E.g. text, markup, jpeg, unbound, etc.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Reads and converts external data, including programs, data
 structures, images, and sounds into memory storage objects that
@@ -9045,7 +9325,7 @@ The header is not evaluated.
 The /NEXT refinement was removed - use TRANSCODE/NEXT instead
 </p>
 
-<div class="see-also">See also: <a href="#bind">bind</a>, <a href="#do">do</a>, <a href="#import">import</a>, <a href="#read">read</a>, <a href="#save">save</a></div>
+<div class="see-also">See also: <a href="#bind">bind</a>, <a href="#do">do</a>, <a href="#import">import</a>, <a href="#read">read</a>, <a href="#save">save</a>, <a href="#transcode">transcode</a></div>
 </section>
 
 <hr>
@@ -9080,7 +9360,8 @@ The /NEXT refinement was removed - use TRANSCODE/NEXT instead
   input       [<span class="types">string!</span>] The JSON string
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; load-json to-json [1 2 3]
 == [1 2 3]
 
@@ -9110,23 +9391,20 @@ It is same like using <a href="#decode">decode</a>.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number!</span>] 
+  value       [<span class="types">number!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The LOG-10 function returns the base-10 logarithm of the number
-provided. The argument must be a positive value, otherwise an
-error will occur (which can be trapped with the TRY function).
+The <a href="#LOG-10">LOG-10</a> function returns the base-10 logarithm of the number provided.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print log-10 100
-2.0
-
-print log-10 1000
-3.0
-
-print log-10 1234
-3.091315159697223</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">log-10 -10    ;==  1.#NaN
+log-10 0      ;== -1.#INF
+log-10 100    ;== 2.0
+log-10 1000   ;== 3.0
+log-10 1234   ;== 3.091315159697223
+log-10 -100   ;== 1.#NaN</code></pre></div>
 <div class="see-also">See also: <a href="#exp">exp</a>, <a href="#log-2">log-2</a>, <a href="#log-e">log-e</a>, <a href="#power">power</a></div>
 </section>
 
@@ -9141,26 +9419,20 @@ print log-10 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number!</span>] 
+  value       [<span class="types">number!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The LOG-10 function returns the base-2 logarithm of the number
-provided. The argument must be a positive value, otherwise an
-error will occur (which can be trapped with the TRY function).
+The <a href="#LOG-10">LOG-10</a> function returns the base-2 logarithm of the number provided.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print log-2 2
-1.0
-
-print log-2 4
-2.0
-
-print log-2 256
-8.0
-
-print log-2 1234
-10.26912667914941</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">log-2 -100    ;==  1.#NaN
+log-2 0       ;== -1.#INF
+log-2 2       ;== 1.0
+log-2 4       ;== 2.0
+log-2 256     ;== 8.0
+log-2 1234    ;== 10.26912667914941</code></pre></div>
 <div class="see-also">See also: <a href="#exp">exp</a>, <a href="#log-10">log-10</a>, <a href="#log-e">log-e</a>, <a href="#power">power</a></div>
 </section>
 
@@ -9175,9 +9447,42 @@ print log-2 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  id          [<span class="types">any-word!</span>] 
-  message      
+  id          [<span class="types">any-word!</span>]
+  message     [<span class="types">any-type!</span>]
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+Use for detailed diagnostic output during development or troubleshooting. The <code class=inline>id</code> argument acts as a label to categorize or filter messages by source. Messages are visible according <code class=inline>system/options/log/:id</code> value.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">log-debug 'TEST "This is a debug message!"
+system/options/log/test: 0 ;; disable TEST outputs
+log-debug 'TEST "This text is not visible!"</code></pre></div>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi33">[TEST] <span class="ansi36">This is a debug message!</span></span>
+</code></pre></div><p>
+Error log messages are always visible:
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">if error? try [1 / 0][
+    log-error 'TEST "There was an error!"
+    log-error 'TEST system/state/last-error
+]</code></pre></div>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi35">[TEST] <span class="ansi95">** Error: There was an error!</span></span>
+ <span class="ansi35">[TEST] <span class="ansi95">** Math error: attempt to divide by zero</span></span>
+ <span class="ansi35">[TEST] <span class="ansi95">** Where: / try catch either -apply- do try gen-code-output either if parse load-func-details emit-funcs-html do either either if -apply-</span></span>
+ <span class="ansi35">[TEST] <span class="ansi95">** Near: / 0</span></span>
+</code></pre></div><p>
+Other possible traces are <a href="#log-info">log-info</a>, <a href="#log-trace">log-trace</a> and <a href="#log-warn">log-warn</a>
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">system/options/log/test: 4 ;; maximum TEST outputs
+log-info  'TEST ["Current time is: " now]
+log-trace 'TEST "This is just a trace."
+log-warn  'TEST "This is warning message."</code></pre></div>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  15-May-2026/16:04:29+2:00</span></span>
+ <span class="ansi33">[TEST] <span class="ansi32">This is just a trace.</span></span>
+ <span class="ansi93">[TEST] <span class="ansi31">This is warning message.</span></span>
+</code></pre></div>
+<div class="see-also">See also: <a href="#log-error">log-error</a>, <a href="#log-info">log-info</a>, <a href="#log-trace">log-trace</a>, <a href="#log-warn">log-warn</a></div>
 </section>
 
 <hr>
@@ -9191,20 +9496,18 @@ print log-2 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number!</span>] 
+  value       [<span class="types">number!</span>]
 </pre>
 
-<h6>Description:</h6>
-<p>
-The LOG-E function returns the natural logarithm of the number
-provided. The argument must be a positive value, otherwise an
-error will occur (which can be trapped with the TRY function).
-</p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print log-e 1234
-7.118016204465333
+<h5>Description:</h5>
 
-print exp log-e 1234
-1234.0</code></pre></div>
+<p>
+The <a href="#LOG-E">LOG-E</a> function returns the natural logarithm of the number provided.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">log-e -100     ;==  1.#NaN
+log-e 0        ;== -1.#INF
+log-e 1234     ;== 7.118016204465333
+exp log-e 1234 ;== 1234.0</code></pre></div>
 <div class="see-also">See also: <a href="#exp">exp</a>, <a href="#log-10">log-10</a>, <a href="#log-2">log-2</a>, <a href="#power">power</a></div>
 </section>
 
@@ -9219,9 +9522,17 @@ print exp log-e 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  id          [<span class="types">any-word!</span>] 
-  message      
+  id          [<span class="types">any-word!</span>]
+  message     [<span class="types">any-type!</span>]
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+See <a href="#log-debug">log-debug</a> for more info.
+</p>
+
+<div class="see-also">See also: <a href="#log-debug">log-debug</a>, <a href="#log-info">log-info</a>, <a href="#log-trace">log-trace</a>, <a href="#log-warn">log-warn</a></div>
 </section>
 
 <hr>
@@ -9235,9 +9546,17 @@ print exp log-e 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  id          [<span class="types">any-word!</span>] 
-  message      
+  id          [<span class="types">any-word!</span>]
+  message     [<span class="types">any-type!</span>]
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+See <a href="#log-debug">log-debug</a> for more info.
+</p>
+
+<div class="see-also">See also: <a href="#log-debug">log-debug</a>, <a href="#log-error">log-error</a>, <a href="#log-trace">log-trace</a>, <a href="#log-warn">log-warn</a></div>
 </section>
 
 <hr>
@@ -9251,9 +9570,17 @@ print exp log-e 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  id          [<span class="types">any-word!</span>] 
-  message      
+  id          [<span class="types">any-word!</span>]
+  message     [<span class="types">any-type!</span>]
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+See <a href="#log-debug">log-debug</a> for more info.
+</p>
+
+<div class="see-also">See also: <a href="#log-debug">log-debug</a>, <a href="#log-error">log-error</a>, <a href="#log-info">log-info</a>, <a href="#log-warn">log-warn</a></div>
 </section>
 
 <hr>
@@ -9267,9 +9594,17 @@ print exp log-e 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  id          [<span class="types">any-word!</span>] 
-  message      
+  id          [<span class="types">any-word!</span>]
+  message     [<span class="types">any-type!</span>]
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+See <a href="#log-debug">log-debug</a> for more info.
+</p>
+
+<div class="see-also">See also: <a href="#log-debug">log-debug</a>, <a href="#log-error">log-error</a>, <a href="#log-info">log-info</a>, <a href="#log-trace">log-trace</a></div>
 </section>
 
 <hr>
@@ -9283,21 +9618,19 @@ print exp log-e 1234
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values. Note that all
 conditional functions will accept more than just a LOGIC
 value. A NONE will act as FALSE, and all other values
 other than logic will act as TRUE.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print logic? true
-true
-
-print logic? 123
-false</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">logic? true  ;== #(true)
+logic? 123   ;== #(false)</code></pre></div>
 <div class="see-also">See also: <a href="#type?">type?</a></div>
 </section>
 
@@ -9316,32 +9649,31 @@ false</code></pre></div>
   block       [<span class="types">block!</span>] Block to evaluate
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#loop">loop</a> function is the simplest way to repeat the evaluation of a block. This function is very efficient and should be used if no loop counter is required.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">loop 3 [print "hi"]
+<div class="example-code"><pre class="rebol-block"><code class="rebol">loop 3 [print "hi"]</code></pre></div>
+<div class="example-code"><pre class="text-block"><code>hi
 hi
 hi
-hi</code></pre></div><p>
+</code></pre></div><p>
 Here's an example that creates a block of 10 random integers:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: make block! 10
 loop 10 [append block random 100]
-probe block
-[31 25 53 20 40 2 30 79 47 79]</code></pre></div>
+probe block</code></pre></div>
+<div class="example-code"><pre class="text-block"><code>[52 82 25 70 88 25 90 32 65 23]
+</code></pre></div>
 <h6>Returned Value</h6><p>
 When finished the <a href="#loop">loop</a> function returns the final value the block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">num: 0
-print loop 10 [num: num + 1]
-10</code></pre></div>
-<h6>Other Notes</h6><ul>
-<li>Negative or zero loop counts do not evaluate the block.</li>
-<li>If a <span class="datatype">decimal!</span> count is used, it will be truncated to a lower integer value.</li>
-<li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li>
-<li>The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.</li>
-</ul>
+print loop 10 [num: num + 1] ;== 10</code></pre></div>
+<div class="example-code"><pre class="text-block"><code>10
+</code></pre></div>
+<h6>Other Notes</h6><ul><li>Negative or zero loop counts do not evaluate the block.</li><li>If a <code class="datatype">decimal!</code> count is used, it will be truncated to a lower integer value.</li><li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li><li>The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.</li></ul>
 <div class="see-also">See also: <a href="#break">break</a>, <a href="#continue">continue</a>, <a href="#do">do</a>, <a href="#for">for</a>, <a href="#repeat">repeat</a>, <a href="#until">until</a>, <a href="#while">while</a></div>
 </section>
 
@@ -9359,19 +9691,16 @@ print loop 10 [num: num + 1]
   string      [<span class="types">any-string! char!</span>] (modified if series)
 <span class="tit">REFINEMENTS:</span>
   /part       Limits to a given length or position
-   length     [<span class="types">number! any-string!</span>] 
+   length     [<span class="types">number! any-string!</span>]
 </pre>
 
-<h6>Description:</h6>
-<p>
-The series passed to this function is modified as
-a result.
-</p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; lowercase "ABCDEF"
-== "abcdef"
+<h5>Description:</h5>
 
-&gt;&gt; lowercase/part "ABCDEF" 3
-== "abcDEF"</code></pre></div>
+<p>
+The series passed to this function is modified as a result.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">lowercase "ABCDEF"           ;== "abcdef"
+lowercase/part "ABCDEF" 3    ;== "abcDEF"</code></pre></div>
 <div class="see-also">See also: <a href="#trim">trim</a>, <a href="#uppercase">uppercase</a></div>
 </section>
 
@@ -9380,6 +9709,48 @@ a result.
  <a name="ls"></a>
  <h2>LS<a class="headerlink" href="#ls" title="Link to this heading">¶</a></h2>
 <p>Note: Shell shortcut for <a href="#list-dir">list-dir</a>.</p>
+</section>
+
+<hr>
+<section id="luminosity">
+ <a name="luminosity"></a>
+ <h2>LUMINOSITY<a class="headerlink" href="#luminosity" title="Link to this heading">¶</a></h2>
+<p>Convert a color or an image to grayscale using the BT.709 Luminosity formula</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">luminosity <span class="rebarg">target</span></span></pre>
+
+<pre class="help">
+<span class="tit">ARGUMENTS:</span>
+  target      [<span class="types">tuple! image!</span>] Target RGB color or image (modifed)
+<span class="tit">REFINEMENTS:</span>
+  /luma       Use BT.601 gamma-compressed values
+</pre>
+
+<h5>Description:</h5>
+
+<p>
+Each pixel's RGB channels are reduced to a single luminance value using perceptual weights
+that reflect human sensitivity to each color.
+</p>
+<p>
+Without refinement, the BT.709 formula is used:
+</p>
+<div class="example-code"><pre class="-block"><code class="">Y = 0.2126×R + 0.7152×G + 0.0722×B</code></pre></div><p>
+With the <code class=inline>/luma</code> refinement, the BT.601 formula is used instead:
+</p>
+<div class="example-code"><pre class="-block"><code class="">Y = 0.299×R + 0.587×G + 0.114×B</code></pre></div><p>
+For a <code class="datatype">tuple!</code> input, the luminance scalar is returned as an <code class="datatype">integer!</code> — the original color is not modified. For an <code class="datatype">image!</code>, the gray value is written back to all three channels (<code class=inline>R = G = B = Y</code>) of every pixel directly in the image buffer, and the modified image is returned.
+</p>
+
+<h6>Examples:</h6><div class="example-code"><pre class="rebol-block"><code class="rebol">;; Tuple input - returns integer luminance, color unchanged
+luminosity 200.150.100 ;== 157
+
+;; Image input - modified in place, same image returned
+luminosity my-image
+
+;; Using BT.601 weights instead
+luminosity/luma my-image</code></pre></div>
 </section>
 
 <hr>
@@ -9397,32 +9768,26 @@ a result.
   spec        [<span class="types">any-type!</span>] Attributes or size of the new value (modified)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The TYPE argument indicates the datatype to create.
+The <code class=inline>type</code> argument indicates the datatype to create.
 </p>
 <p>
 The form of the constructor is determined by the
 datatype. For most series datatypes, a number indicates
 the size of the initial allocation.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">str: make string! 1000
-
-blk: make block! 10
-
-cash: make money! 1234.56
-print cash
-$1234.560000000000000
-
-time: make time! [10 30 40]
-print time
-10:30:40</code></pre></div><p>
-NOTE: MAKE when used with OBJECTS will modify the context of the
-spec block (as if BIND was used on it). If you need to reuse the
-spec block use MAKE in combination with COPY/deep like this:
+<div class="example-code"><pre class="rebol-block"><code class="rebol">str:  make string! 1000     ;== ""
+blk:  make block! 10        ;== []
+cash: make money! 1234.56   ;== $1234.560000000000000
+time: make time! [10 30 40] ;== 10:30:40</code></pre></div><p>
+NOTE: <a href="#make">make</a> when used with OBJECTS will modify the context of the
+spec block (as if <a href="#bind">bind</a> was used on it). If you need to reuse the
+spec block use <a href="#make">make</a> in combination with <code class=inline>copy/deep</code> like this:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">make object! copy/deep spec</code></pre></div>
-<div class="see-also">See also: <a href="#copy">copy</a>, <a href="#type?">type?</a></div>
+<div class="see-also">See also: <a href="#copy">copy</a>, <a href="#to">to</a>, <a href="#type?">type?</a></div>
 </section>
 
 <hr>
@@ -9436,8 +9801,30 @@ spec block use MAKE in combination with COPY/deep like this:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  fmt          
+  fmt         [<span class="types">any-type!</span>]
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+Used on boot, but may be used to create custom banners like:
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">print make-banner [
+    -
+    = Product: "Test Banner"
+    = "" "Just an example!"
+    = Date: [now]
+    -
+]</code></pre></div>
+<div class="example-code"><pre class="text-block"><code>╔══════════════════════════════════════════════════════════════════════════╗
+║<span class="ansi30 ansi107">                                                                          </span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Product    <span class="ansi31">Test Banner                                                </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Just an example!                                           </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">15-May-2026/16:04:29+2:00                                  </span></span></span>║
+║<span class="ansi30 ansi107">                                                                          </span>║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+</code></pre></div>
 </section>
 
 <hr>
@@ -9451,19 +9838,20 @@ spec block use MAKE in combination with COPY/deep like this:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! url!</span>] 
+  path        [<span class="types">file! url!</span>]
 <span class="tit">REFINEMENTS:</span>
   /deep       Create subdirectories too
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Creates a new directory at the specified location. This
 operation can be performed for files or FTP URLs.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">make-dir %New-Dir/
 delete %New-Dir/</code></pre></div>
-<div class="see-also">See also: <a href="#change-dir">change-dir</a>, <a href="#delete">delete</a>, <a href="#list-dir">list-dir</a>, <a href="#what-dir">what-dir</a></div>
+<div class="see-also">See also: <a href="#change-dir">change-dir</a>, <a href="#delete">delete</a>, <a href="#dir?">dir?</a>, <a href="#list-dir">list-dir</a>, <a href="#what-dir">what-dir</a></div>
 </section>
 
 <hr>
@@ -9477,10 +9865,11 @@ delete %New-Dir/</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  val          
+  val         [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -9503,7 +9892,8 @@ Description is needed.
   body        [<span class="types">block!</span>] Block to evaluate each time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; map-each w [1 2 3][w * 100]
 == [100 200 300]</code></pre></div>
 </section>
@@ -9519,10 +9909,11 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  event       [<span class="types">event!</span>] 
+  event       [<span class="types">event!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -9546,7 +9937,8 @@ No description provided.
   /reverse    Translate from deeper gob to top gob.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -9564,10 +9956,11 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -9589,11 +9982,12 @@ Returns FALSE for all other values.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! series!</span>] 
-  value2      [<span class="types">scalar! date! series!</span>] 
+  value1      [<span class="types">scalar! date! series!</span>]
+  value2      [<span class="types">scalar! date! series!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the maximum of two values.
 </p>
@@ -9638,11 +10032,12 @@ coordinate separately.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! series!</span>] 
-  value2      [<span class="types">scalar! date! series!</span>] 
+  value1      [<span class="types">scalar! date! series!</span>]
+  value2      [<span class="types">scalar! date! series!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 See the MAX function for details.
 </p>
@@ -9661,11 +10056,12 @@ See the MAX function for details.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! series!</span>] 
-  value2      [<span class="types">scalar! date! series!</span>] 
+  value1      [<span class="types">scalar! date! series!</span>]
+  value2      [<span class="types">scalar! date! series!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the minimum of two values.
 </p>
@@ -9710,11 +10106,12 @@ coordinate separately.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! series!</span>] 
-  value2      [<span class="types">scalar! date! series!</span>] 
+  value1      [<span class="types">scalar! date! series!</span>]
+  value2      [<span class="types">scalar! date! series!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 See the MIN function for details.
 </p>
@@ -9733,12 +10130,13 @@ See the MIN function for details.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! url!</span>] 
+  path        [<span class="types">file! url!</span>]
 <span class="tit">REFINEMENTS:</span>
   /deep       Create subdirectories too
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Note: Shell shortcut for <a href="#make-dir">make-dir</a>.
 </p>
@@ -9750,18 +10148,20 @@ Note: Shell shortcut for <a href="#make-dir">make-dir</a>.
 <section id="mod">
  <a name="mod"></a>
  <h2>MOD<a class="headerlink" href="#mod" title="Link to this heading">¶</a></h2>
-<p>Compute a nonnegative remainder of A divided by B.</p>
+<p>Returns the remainder of dividing two numbers using truncated division.</p>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">mod <span class="rebarg">a</span> <span class="rebarg">b</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  a           [<span class="types">number! money! char! time!</span>] 
-  b           [<span class="types">number! money! char! time!</span>] Must be nonzero.
+  a           [<span class="types">number! money! char! time!</span>] Dividend
+  b           [<span class="types">number! money! char! time!</span>] Divisor (must be nonzero)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
+<div class="extra-desc">The sign of the result follows the sign of the dividend.</div>
 <p>
 Similar to REMAINDER, but the result is always non-negative.
 </p>
@@ -9780,10 +10180,11 @@ Similar to REMAINDER, but the result is always non-negative.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">file! url!</span>] 
+  target      [<span class="types">file! url!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns NONE if the file does not exist.
 </p>
@@ -9803,9 +10204,9 @@ none</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">port! file!</span>] 
-  field       [<span class="types">word! none!</span>] 
-  value        
+  target      [<span class="types">port! file!</span>]
+  field       [<span class="types">word! none!</span>]
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -9827,7 +10228,8 @@ none</code></pre></div>
    words      [<span class="types">object!</span>] Words collected into an object
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -9845,10 +10247,11 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -9863,18 +10266,22 @@ Returns FALSE for all other values.
 <section id="modulo">
  <a name="modulo"></a>
  <h2>MODULO<a class="headerlink" href="#modulo" title="Link to this heading">¶</a></h2>
-<p>Wrapper for MOD that handles errors like REMAINDER. Negligible values (compared to A and B) are rounded to zero.</p>
+<p>Returns the modulo of dividing two numbers using Euclidean division.</p>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">modulo <span class="rebarg">a</span> <span class="rebarg">b</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  a           [<span class="types">number! money! char! time!</span>] 
-  b           [<span class="types">number! money! char! time!</span>] Absolute value will be used.
+  a           [<span class="types">number! money! char! time!</span>] Dividend
+  b           [<span class="types">number! money! char! time!</span>] Divisor (must be nonzero)
+<span class="tit">REFINEMENTS:</span>
+  /floor      Use floor division; the sign of the result follows the sign of the divisor
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
+<div class="extra-desc">The result is always non-negative: 0 <= result < abs(divisor).</div>
 <p>
 See MOD for details.
 </p>
@@ -9899,10 +10306,11 @@ See MOD for details.
   /all        Use construction syntax
   /flat       No indentation
   /part       Limit the length of the result
-   limit      [<span class="types">integer!</span>] 
+   limit      [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#mold">mold</a> function converts values to a source-code formatted string (REBOL-readable).
 </p>
@@ -9946,7 +10354,7 @@ For example:
 
 mold true
 "true"</code></pre></div><p>
-The first is the word true the second is the <span class="datatype">logic!</span> value true -- they are different but represented by the same word. If you <a href="#load">load</a> the resulting string, you will only obtain the word true not the logic value:
+The first is the word true the second is the <code class="datatype">logic!</code> value true -- they are different but represented by the same word. If you <a href="#load">load</a> the resulting string, you will only obtain the word true not the logic value:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">type? load mold true
 word!</code></pre></div><p>
@@ -9971,14 +10379,14 @@ Another difference occurs with strings that are indexed from their <a href="#hea
 
 mold/all next "ABC"
 {#[string! "ABC" 2]}</code></pre></div>
-<h7>Affected Datatypes</h7><p>
-The following datatypes are affected: <span class="datatype">unset!</span>, <span class="datatype">none!</span>, <span class="datatype">logic!</span>, <span class="datatype">bitset!</span>, <span class="datatype">image!</span>, <span class="datatype">map!</span>, <span class="datatype">datatype!</span>, <span class="datatype">typeset!</span>, <span class="datatype">native!</span>, <span class="datatype">action!</span>, <span class="datatype">op!</span>, <span class="datatype">closure!</span>, <span class="datatype">function!</span>, <span class="datatype">object!</span>, <span class="datatype">module!</span>, <span class="datatype">error!</span>, <span class="datatype">task!</span>, <span class="datatype">port!</span>, <span class="datatype">gob!</span>, <span class="datatype">event!</span>, <span class="datatype">handle!</span>.
+<h6>Affected Datatypes</h6><p>
+The following datatypes are affected: <code class="datatype">unset!</code>, <code class="datatype">none!</code>, <code class="datatype">logic!</code>, <code class="datatype">bitset!</code>, <code class="datatype">image!</code>, <code class="datatype">map!</code>, <code class="datatype">datatype!</code>, <code class="datatype">typeset!</code>, <code class="datatype">native!</code>, <code class="datatype">action!</code>, <code class="datatype">op!</code>, <code class="datatype">closure!</code>, <code class="datatype">function!</code>, <code class="datatype">object!</code>, <code class="datatype">module!</code>, <code class="datatype">error!</code>, <code class="datatype">task!</code>, <code class="datatype">port!</code>, <code class="datatype">gob!</code>, <code class="datatype">event!</code>, <code class="datatype">handle!</code>.
 </p>
 <fieldset class="fset"><legend>Note on Restoring Semantics</legend>
 <p>It should also be noted that some datatypes cannot be returned to a source form without losing semantic information. For example, functions cannot maintain the binding (scoping context) of their words. If such semantics reproduction is required it is recommended that your code output entire blocks that as a whole are evaluated to produce the correct semantic result. This is commonly done in REBOL code, including the common storage of mezzanine and module functions and other definitions.</p>
 </fieldset>
-<h7>Accuracy of Decimals</h7><p>
-The <span class="datatype">decimal!</span> datatype is implemented as IEEE 754 binary floating point type. When molding <span class="datatype">decimal!</span> values, mold/all will need to use the maximal precision 17 digits to allow for accurate transformation of Rebol decimals to string and back, as opposed to just <a href="#mold">mold</a>, which uses a default precision 15 decimal digits.
+<h6>Accuracy of Decimals</h6><p>
+The <code class="datatype">decimal!</code> datatype is implemented as IEEE 754 binary floating point type. When molding <code class="datatype">decimal!</code> values, mold/all will need to use the maximal precision 17 digits to allow for accurate transformation of Rebol decimals to string and back, as opposed to just <a href="#mold">mold</a>, which uses a default precision 15 decimal digits.
 </p>
 
 <h6>The /flat Refinement</h6><p>
@@ -10015,7 +10423,7 @@ It should be noted that <a href="#mold">mold</a> function is used for computing 
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data         
+  data        [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -10030,10 +10438,11 @@ It should be noted that <a href="#mold">mold</a> function is used for computing 
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -10059,7 +10468,8 @@ false</code></pre></div>
   file        [<span class="types">file! word! path! string!</span>] Accepts %file and also just words (as file names)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -10087,7 +10497,8 @@ Description is needed.
   /to         Move to an index relative to the head of the series
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -10105,11 +10516,12 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! vector!</span>] 
-  value2      [<span class="types">scalar! vector!</span>] 
+  value1      [<span class="types">scalar! vector!</span>]
+  value2      [<span class="types">scalar! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The datatype of the second value may be restricted to
 INTEGER or DECIMAL, depending on the datatype of the
@@ -10137,10 +10549,11 @@ print multiply 0:01 60
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values. When passing a
 function to NATIVE? to be checked, it must be denoted
@@ -10171,10 +10584,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number! pair! money! time! bitset!</span>] 
+  number      [<span class="types">number! pair! money! time! bitset!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the negative of the value provided.
 </p>
@@ -10212,10 +10626,11 @@ print negate 100x-20
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number! money! time! pair!</span>] 
+  number      [<span class="types">number! money! time! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -10239,14 +10654,15 @@ false</code></pre></div>
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   position    [<span class="types">block! paren!</span>] Position to change marker (modified)
-  value        Set TRUE for newline
+  value       [<span class="types">any-type!</span>] Set TRUE for newline
 <span class="tit">REFINEMENTS:</span>
   /all        Set/clear marker to end of series
   /skip       Set/clear marker periodically to the end of the series
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Where the NEW-LINE? function queries the status of the a 
 block for markers, the NEW-LINE function inserts or removes 
@@ -10323,7 +10739,8 @@ probe new-line/skip b on 2
   position    [<span class="types">block! paren!</span>] Position to check marker
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Given a block at a specified offset, new-line? will return 
 true if there is a line marker at that position.
@@ -10352,10 +10769,11 @@ forall b [if new-line? b [print index? b]]
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the series is at its tail, it will remain at its
 tail. NEXT will not go past the tail, nor will it wrap
@@ -10397,10 +10815,11 @@ loop length? blk [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 See the FIRST function for examples.
 </p>
@@ -10422,10 +10841,11 @@ An error will occur if no value is found. Use the PICK function to avoid this er
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -10453,9 +10873,10 @@ true</code></pre></div>
   value       [<span class="types">any-type!</span>] (Only FALSE and NONE return TRUE)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#not">not</a> function is a <span class="datatype">logic!</span> function that returns true if the value is false or none. It will return false for all other values.
+The <a href="#not">not</a> function is a <code class="datatype">logic!</code> function that returns true if the value is false or none. It will return false for all other values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">not true
 false
@@ -10471,7 +10892,7 @@ false  ; take note of this
 
 not 1
 false</code></pre></div><p>
-To complement an <span class="datatype">integer!</span> use the <a href="#complement">complement</a> function or <a href="#negate">negate</a> function.
+To complement an <code class="datatype">integer!</code> use the <a href="#complement">complement</a> function or <a href="#negate">negate</a> function.
 </p>
 
 <div class="see-also">See also: <a href="#and">and</a>, <a href="#complement">complement</a>, <a href="#negate">negate</a>, <a href="#or">or</a>, <a href="#unless">unless</a>, <a href="#xor">xor</a></div>
@@ -10488,11 +10909,12 @@ To complement an <span class="datatype">integer!</span> use the <a href="#comple
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 String-based datatypes are considered equal when they
 are identical or differ only by character casing
@@ -10521,8 +10943,8 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -10549,7 +10971,8 @@ true</code></pre></div>
   /utc        Universal time (no zone)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 For accuracy, first verify that the time, date and
 timezone are correctly set on the computer.
@@ -10582,10 +11005,11 @@ print now/weekday
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type! unset!</span>] 
+  value       [<span class="types">any-type! unset!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -10611,12 +11035,13 @@ Returns FALSE for all other values.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  spec        [<span class="types">block!</span>] 
+  spec        [<span class="types">block!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       Do not bind nested blocks
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -10634,10 +11059,11 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -10660,10 +11086,11 @@ Returns FALSE for all other values.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number! char! date! money! time! pair!</span>] 
+  number      [<span class="types">number! char! date! money! time! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns TRUE only if the argument is an odd integer value.
 If the argument is a decimal, only its integer portion is
@@ -10691,11 +11118,12 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series1     [<span class="types">series!</span>] 
-  series2     [<span class="types">series!</span>] 
+  series1     [<span class="types">series!</span>]
+  series2     [<span class="types">series!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Return the difference of the indexes for two positions within a
 series.
@@ -10724,10 +11152,11 @@ print offset? p1 p2
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -10749,17 +11178,18 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  spec        [<span class="types">port! file! url! block! word!</span>] 
+  spec        [<span class="types">port! file! url! block! word!</span>]
 <span class="tit">REFINEMENTS:</span>
   /new        Create new file - if it exists, reset it (truncate)
   /read       Open for read access
   /write      Open for write access
   /seek       Optimize for random access
   /allow      Specifies protection attributes
-   access     [<span class="types">block!</span>] 
+   access     [<span class="types">block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Opens a port for I/O operations. The value returned from
 OPEN can be used to examine or modify the data
@@ -10788,10 +11218,11 @@ print read %autos.txt</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port!</span>] 
+  port        [<span class="types">port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -10809,11 +11240,12 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 An infix-operator. For LOGIC values, both must be FALSE
 to return FALSE; otherwise a TRUE is returned. For
@@ -10845,11 +11277,12 @@ print 1.2.3.4 or 255.255.255.0
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The trampoline action function for OR operator.
 </p>
@@ -10868,11 +11301,11 @@ The trampoline action function for OR operator.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  str          Value to pad, FORM it if not a string
+  str         [<span class="types">any-type!</span>] Value to pad, FORM it if not a string
   n           [<span class="types">integer!</span>] Total size (in characters) of the new string (pad on left side if negative)
 <span class="tit">REFINEMENTS:</span>
   /with       Pad with char
-   c          [<span class="types">char!</span>] 
+   c          [<span class="types">char!</span>]
 </pre>
 </section>
 
@@ -10887,10 +11320,11 @@ The trampoline action function for OR operator.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns true if the value is an xy pair datatype.
 </p>
@@ -10916,10 +11350,11 @@ See the PAIR! word for more detail.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values. A paren is identical
 to a block, but is immediately evaluated when found.
@@ -10949,12 +11384,13 @@ false</code></pre></div>
   /case       Uses case-sensitive comparison
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#parse">parse</a> function is used to match patterns of values and perform specific actions upon  such matches. A full summary can be found in <a href="https://www.rebol.com/r3/docs/concepts/parsing-summary.html">parsing: summary of parse operations</a> .
 </p>
 <p>
-Both <span class="datatype">string!</span> and <span class="datatype">block!</span> datatypes can be parsed. Parsing of strings matches specific characters or substrings. Parsing of blocks matches specific values, or specific datatypes, or sub-blocks.
+Both <code class="datatype">string!</code> and <code class="datatype">block!</code> datatypes can be parsed. Parsing of strings matches specific characters or substrings. Parsing of blocks matches specific values, or specific datatypes, or sub-blocks.
 </p>
 <p>
 Whereas most languages provide a method of parsing strings, the parsing of blocks is an important feature of the REBOL language.
@@ -11202,10 +11638,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -11223,10 +11660,11 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -11246,10 +11684,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -11271,11 +11710,12 @@ Returns FALSE for all other values.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  aggregate   [<span class="types">series! map! gob! pair! date! time! tuple! bitset! port!</span>] 
-  index        Index offset, symbol, or other value to use as index
+  aggregate   [<span class="types">series! map! gob! pair! date! time! tuple! bitset! port!</span>]
+  index       [<span class="types">any-type!</span>] Index offset, symbol, or other value to use as index
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The value is picked relative to the current position in
 the series (not necessarily the head of the series).
@@ -11311,7 +11751,7 @@ this</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  aggregate   [<span class="types">series! bitset! tuple!</span>] 
+  aggregate   [<span class="types">series! bitset! tuple!</span>]
   index       [<span class="types">integer!</span>] Zero based
 </pre>
 </section>
@@ -11328,11 +11768,12 @@ this</code></pre></div>
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   series      [<span class="types">series! port! map! gob! bitset!</span>] (modified)
-  index        Index offset, symbol, or other value to use as index
+  index       [<span class="types">any-type!</span>] Index offset, symbol, or other value to use as index
   value       [<span class="types">any-type!</span>] The new value (returned)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Similar to CHANGE, but also takes an index into the series.
 </p>
@@ -11374,10 +11815,11 @@ print poke 1.2.3.4 2 10
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -11402,10 +11844,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number! money! time! pair!</span>] 
+  number      [<span class="types">number! money! time! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -11428,11 +11871,12 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number!</span>] 
-  exponent    [<span class="types">number!</span>] 
+  number      [<span class="types">number!</span>]
+  exponent    [<span class="types">number!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print power 12.3 5
 281530.5684300001</code></pre></div>
 <div class="see-also">See also: <a href="#exp">exp</a>, <a href="#log-10">log-10</a>, <a href="#log-2">log-2</a>, <a href="#log-e">log-e</a></div>
@@ -11464,7 +11908,7 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">integer!</span>] 
+  number      [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -11479,10 +11923,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No line termination is used, so the next value printed
 will appear on the same line. If the value is a block,
@@ -11509,7 +11954,8 @@ prin ["The time is" now/time]</code></pre></div>
   value       [<span class="types">any-type!</span>] The value to print
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#print">print</a> function outputs values in "human-friendly" format (without source code syntax.)
 </p>
@@ -11581,13 +12027,21 @@ print "Copying to file"</code></pre></div>
 </section>
 
 <hr>
-<section id="print-horizontal-line">
- <a name="print-horizontal-line"></a>
- <h2>PRINT-HORIZONTAL-LINE<a class="headerlink" href="#print-horizontal-line" title="Link to this heading">¶</a></h2>
-<p></p>
+<section id="print-hline">
+ <a name="print-hline"></a>
+ <h2>PRINT-HLINE<a class="headerlink" href="#print-hline" title="Link to this heading">¶</a></h2>
+<p>Print a horizontal line across the terminal</p>
 
 <h6>Usage:</h6>
-<pre class="usage fs-6">print-horizontal-line</span></pre>
+<pre class="usage fs-6">print-hline</span></pre>
+
+<pre class="help">
+<span class="tit">REFINEMENTS:</span>
+  /with       
+   string     [<span class="types">any-string! char!</span>] Fill character or string
+  /width      
+   cols       [<span class="types">integer!</span>] Line width in columns
+</pre>
 </section>
 
 <hr>
@@ -11601,8 +12055,8 @@ print "Copying to file"</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  headers     [<span class="types">block!</span>] 
-  block       [<span class="types">block!</span>] 
+  headers     [<span class="types">block!</span>]
+  block       [<span class="types">block!</span>]
 </pre>
 </section>
 
@@ -11610,18 +12064,19 @@ print "Copying to file"</code></pre></div>
 <section id="printf">
  <a name="printf"></a>
  <h2>PRINTF<a class="headerlink" href="#printf" title="Link to this heading">¶</a></h2>
-<p>Formatted print.</p>
+<p>Print a formatted string to the console. See `format` for the format dialect</p>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">printf <span class="rebarg">fmt</span> <span class="rebarg">val</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  fmt          Format
-  val          Value or block of values
+  fmt         [<span class="types">any-type!</span>] Format rules — a block or single rule
+  val         [<span class="types">any-type!</span>] Value or block of values consumed by the rules (block is reduced)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -11642,7 +12097,8 @@ Description is needed.
   value       [<span class="types">any-type!</span>] The output is truncated to size defined in: system/options/probe-limit
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#probe">probe</a> function will <a href="#mold">mold</a> a value into reloadable source format and display it.
 </p>
@@ -11710,7 +12166,7 @@ See the <a href="#print">print</a> function for information about related functi
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">word! series! bitset! map! object! module!</span>] 
+  value       [<span class="types">word! series! bitset! map! object! module!</span>]
 <span class="tit">REFINEMENTS:</span>
   /deep       Protect all sub-series/objects as well
   /words      Process list as words (and path words)
@@ -11719,7 +12175,8 @@ See the <a href="#print">print</a> function for information about related functi
   /lock       Protect permanently (unprotect will fail)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#protect">protect</a> function provides the following features:
 </p>
@@ -11901,16 +12358,6 @@ For security reasons, once hidden, a variable cannot be unhidden.
 </section>
 
 <hr>
-<section id="protect-system-object">
- <a name="protect-system-object"></a>
- <h2>PROTECT-SYSTEM-OBJECT<a class="headerlink" href="#protect-system-object" title="Link to this heading">¶</a></h2>
-<p>Protect the system object and selected sub-objects.</p>
-
-<h6>Usage:</h6>
-<pre class="usage fs-6">protect-system-object</span></pre>
-</section>
-
-<hr>
 <section id="protected?">
  <a name="protected?"></a>
  <h2>PROTECTED?<a class="headerlink" href="#protected?" title="Link to this heading">¶</a></h2>
@@ -11921,7 +12368,7 @@ For security reasons, once hidden, a variable cannot be unhidden.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">word! series! bitset! map! object! module!</span>] 
+  value       [<span class="types">word! series! bitset! map! object! module!</span>]
 </pre>
 </section>
 
@@ -11937,12 +12384,12 @@ For security reasons, once hidden, a variable cannot be unhidden.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   series      [<span class="types">any-block! map! port! object!</span>] (modified)
-  key         [<span class="types">any-type!</span>] 
+  key         [<span class="types">any-type!</span>]
   value       [<span class="types">any-type!</span>] The new value (returned)
 <span class="tit">REFINEMENTS:</span>
   /case       Perform a case-sensitive search
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -11955,7 +12402,8 @@ For security reasons, once hidden, a variable cannot be unhidden.
 <h6>Usage:</h6>
 <pre class="usage fs-6">pwd</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Note: Shell shortcut for <a href="#what-dir">what-dir</a>.
 </p>
@@ -11981,13 +12429,14 @@ Note: Shell shortcut for <a href="#what-dir">what-dir</a>.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">port! file! url! block! vector! date! handle! word!</span>] 
+  target      [<span class="types">port! file! url! block! vector! date! handle! word!</span>]
   field       [<span class="types">word! block! none! datatype!</span>] NONE will return valid modes for target type
 <span class="tit">REFINEMENTS:</span>
   /mode       ** DEPRECATED **
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Its argument is an unopened port specification. The
 size, date and status fields in the port specification
@@ -12010,11 +12459,12 @@ query succeeds.
 <pre class="help">
 <span class="tit">REFINEMENTS:</span>
   /return     Returns a value (to prior script or command shell)
-   value       Note: use integers for command shell
+   value      [<span class="types">any-type!</span>] Note: use integers for command shell
   /now        Quit immediately
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 You can call <a href="#quit">quit</a> to exit (terminate) your program at any point.
 </p>
@@ -12029,7 +12479,7 @@ Without refinements, <a href="#quit">quit</a> is a non-forceful exception (it wi
 To force an immediate quit (no exception), use the /now refinement:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">if bad-data [quit/now]</code></pre></div><p>
-You can also return an <span class="datatype">integer!</span> quit code to the operating system (shell) by using the <a href="#return">return</a> refinement:
+You can also return an <code class="datatype">integer!</code> quit code to the operating system (shell) by using the <a href="#return">return</a> refinement:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">quit/return 40</code></pre></div><p>
 Note that not all operating systems environments may support this quit code.
@@ -12051,10 +12501,11 @@ Note that not all operating systems environments may support this quit code.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; quote foo
 == foo</code></pre></div><p>
 Without <a href="#quote">quote</a> it throws an error:
@@ -12075,14 +12526,15 @@ Without <a href="#quote">quote</a> it throws an error:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        Maximum value of result (modified when series)
+  value       [<span class="types">any-type!</span>] Maximum value of result (modified when series)
 <span class="tit">REFINEMENTS:</span>
   /seed       Restart or randomize
   /secure     Returns a cryptographically secure random number
   /only       Pick a random value from a series
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The value passed can be used to restrict the range of
 the random result. For integers random begins at one,
@@ -12228,19 +12680,20 @@ r
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  source      [<span class="types">port! file! url! block! word!</span>] 
+  source      [<span class="types">port! file! url! block! word!</span>]
 <span class="tit">REFINEMENTS:</span>
   /part       Partial read a given number of units (source relative)
-   length     [<span class="types">number!</span>] 
+   length     [<span class="types">number!</span>]
   /seek       Read from a specific position (source relative)
-   index      [<span class="types">number!</span>] 
+   index      [<span class="types">number!</span>]
   /string     Convert UTF and line terminators to standard text string
   /binary     Preserves contents exactly
   /lines      Convert to block of strings (implies /string)
   /all        Response may include additional information (source relative)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Using READ is the simplest way to get information from
 a file or URL. This is a higher level port operation
@@ -12287,6 +12740,16 @@ write/append %matrix.avi to-binary "abcdefg"</code></pre></div>
 </section>
 
 <hr>
+<section id="read-key">
+ <a name="read-key"></a>
+ <h2>READ-KEY<a class="headerlink" href="#read-key" title="Link to this heading">¶</a></h2>
+<p>Reads a single keypress from the console without echoing it.</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">read-key</span></pre>
+</section>
+
+<hr>
 <section id="rebcode?">
  <a name="rebcode?"></a>
  <h2>REBCODE?<a class="headerlink" href="#rebcode?" title="Link to this heading">¶</a></h2>
@@ -12297,14 +12760,31 @@ write/append %matrix.avi to-binary "abcdefg"</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
 
+</section>
+
+<hr>
+<section id="rebol-console">
+ <a name="rebol-console"></a>
+ <h2>REBOL-CONSOLE<a class="headerlink" href="#rebol-console" title="Link to this heading">¶</a></h2>
+<p>Start an interactive REPL using the line editor.</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">rebol-console</span></pre>
+
+<pre class="help">
+<span class="tit">REFINEMENTS:</span>
+  /with       Customize the console by overriding line-editor! defaults.
+   spec       [<span class="types">block!</span>]
+</pre>
 </section>
 
 <hr>
@@ -12321,12 +12801,13 @@ No description provided.
   /off        Disable auto-recycling
   /on         Enable auto-recycling
   /ballast    Trigger for auto-recycle (memory used)
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
   /torture    Constant recycle (for internal debugging)
   /pools      Release empty memory pool segments
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function will force a garbage collection of unused words
 and values found in memory. This function is not required or
@@ -12358,16 +12839,17 @@ your program.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /no-set     Keep set-words as-is. Do not set them.
   /only       Only evaluate words and paths, not functions
    words      [<span class="types">block! none!</span>] Optional words that are not evaluated (keywords)
   /into       Output results into a block with no intermediate storage
-   out        [<span class="types">any-block!</span>] 
+   out        [<span class="types">any-block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#reduce">reduce</a> function evaluates multiple expressions and returns a block of results. This is one of the most useful functions in REBOL.
 </p>
@@ -12488,7 +12970,7 @@ or, for blocks that contain multiple strings or other values:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -12503,10 +12985,11 @@ or, for blocks that contain multiple strings or other values:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -12528,11 +13011,12 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
   field       [<span class="types">word!</span>] Such as: spec, body, words, values, title
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; reflect object [a: 1 b: 2] 'words
 == [a b]
 
@@ -12559,10 +13043,11 @@ Or used on function:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        Value to reduce and form
+  value       [<span class="types">any-type!</span>] Value to reduce and form
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Identical to FORM but reduces its argument first.
 Spaces are inserted between each value.
@@ -12620,7 +13105,8 @@ probe form ["the time is:" now/time]
   block       [<span class="types">block!</span>] Values to reduce and join
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Similar to <a href="#join">join</a> but accepts only one argument, the
 block (which will be reduced first). No spaces are
@@ -12640,7 +13126,7 @@ But you can see it creates a problem in this case:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">rejoin [&lt;a href=test.html&gt; "test" &lt;/a&gt;]
 &lt;a href=test.htmltest&lt;/a&gt;&gt;</code></pre></div><p>
-If you want the result to be a <span class="datatype">string!</span>, use the <a href="#ajoin">ajoin</a> function instead.
+If you want the result to be a <code class="datatype">string!</code>, use the <a href="#ajoin">ajoin</a> function instead.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">ajoin [&lt;a href=test.html&gt; "test" &lt;/a&gt;]
 "&lt;a href=test.html&gt;test&lt;/a&gt;"</code></pre></div>
@@ -12658,7 +13144,7 @@ If you want the result to be a <span class="datatype">string!</span>, use the <a
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  handle      [<span class="types">handle!</span>] 
+  handle      [<span class="types">handle!</span>]
 </pre>
 </section>
 
@@ -12673,11 +13159,12 @@ If you want the result to be a <span class="datatype">string!</span>, use the <a
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! vector!</span>] 
-  value2      [<span class="types">scalar! vector!</span>] 
+  value1      [<span class="types">scalar! vector!</span>]
+  value2      [<span class="types">scalar! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the second number is zero, an error will occur.
 </p>
@@ -12709,16 +13196,17 @@ If the first value is negative, then the returned remainder is nonpositive.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        The value to reduce and mold
+  value       [<span class="types">any-type!</span>] The value to reduce and mold
 <span class="tit">REFINEMENTS:</span>
   /only       For a block value, mold only its contents, no outer []
   /all        Mold in serialized format
   /flat       No indentation
   /part       Limit the length of the result
-   limit      [<span class="types">integer!</span>] 
+   limit      [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Identical to MOLD, but reduces its argument first.
 Spaces are inserted between each values in a block.
@@ -12742,12 +13230,13 @@ Spaces are inserted between each values in a block.
   series      [<span class="types">series! gob! port! bitset! none! map!</span>] At position (modified)
 <span class="tit">REFINEMENTS:</span>
   /part       Removes multiple elements or to a given position
-   range      [<span class="types">number! series! pair! char!</span>] 
+   range      [<span class="types">number! series! pair! char!</span>]
   /key        Removes a key from map.
-   key-arg    [<span class="types">any-type!</span>] 
+   key-arg    [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Removes a single value from the current position in any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>.
 </p>
@@ -12798,7 +13287,8 @@ probe blk
   /count      Returns removal count
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#remove-each">remove-each</a> function is a high performance method of removing specific elements from a series. It is similar to <a href="#foreach">foreach</a> but will remove one or more values depending on the result of the evaluated block.
 </p>
@@ -12853,11 +13343,12 @@ Also, notice here the way <a href="#if">if</a> is used for its return value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  from        [<span class="types">port! file! url! block!</span>] 
-  to          [<span class="types">port! file! url! block!</span>] 
+  from        [<span class="types">port! file! url! block!</span>]
+  to          [<span class="types">port! file! url! block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Renames a file within the same directory:
 </p>
@@ -12889,7 +13380,8 @@ one directory to another.
   body        [<span class="types">block!</span>] Block to evaluate each time
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#repeat">repeat</a> function is an easy way to repeat the evaluation of a block with a loop counter.
 </p>
@@ -12932,16 +13424,17 @@ Editor note: Determine if this is intentional
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   series      [<span class="types">series! port! map! gob! object! bitset!</span>] Series at point to insert (modified)
-  value        The value to insert
+  value       [<span class="types">any-type!</span>] The value to insert
 <span class="tit">REFINEMENTS:</span>
   /part       Limits to a given length or position
-   length     [<span class="types">number! series! pair!</span>] 
+   length     [<span class="types">number! series! pair!</span>]
   /only       Appends a block value as a block
   /dup        Duplicates the insert a specified number of times
-   count      [<span class="types">number! pair!</span>] 
+   count      [<span class="types">number! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 REPEND stands for REDUCE APPEND. It performs the same operation
 as APPEND (inserting elements at the tail of a series) but
@@ -13000,15 +13493,16 @@ print html
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   target      [<span class="types">series!</span>] Series to replace within (modified)
-  search       Value to be replaced (converted if necessary)
-  replace      Value to replace with (called each time if a function)
+  search      [<span class="types">any-type!</span>] Value to be replaced (converted if necessary)
+  replace     [<span class="types">any-type!</span>] Value to replace with (called each time if a function)
 <span class="tit">REFINEMENTS:</span>
   /all        Replace all occurrences
   /case       Case-sensitive replacement
   /tail       Return target after the last replacement position
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Searches target block or series for specified data and 
 replaces it with data from the replacement block or 
@@ -13051,7 +13545,7 @@ print numbers
 <pre class="help">
 <span class="tit">REFINEMENTS:</span>
   /default    Default RGB color
-   color      [<span class="types">tuple!</span>] 
+   color      [<span class="types">tuple!</span>]
 </pre>
 </section>
 
@@ -13067,9 +13561,9 @@ print numbers
 <pre class="help">
 <span class="tit">REFINEMENTS:</span>
   /title      Change heading on request
-   text       [<span class="types">string!</span>] 
+   text       [<span class="types">string!</span>]
   /dir        Set starting directory
-   name       [<span class="types">file!</span>] 
+   name       [<span class="types">file!</span>]
   /keep       Keep previous directory path
 </pre>
 </section>
@@ -13088,20 +13582,21 @@ print numbers
   /save       File save mode
   /multi      Allows multiple file selection, returned as a block
   /file       Default file name or directory
-   name       [<span class="types">file!</span>] 
+   name       [<span class="types">file!</span>]
   /title      Window title
-   text       [<span class="types">string!</span>] 
+   text       [<span class="types">string!</span>]
   /filter     Block of filters (filter-name filter)
-   list       [<span class="types">block!</span>] 
+   list       [<span class="types">block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Opens the standard operating system file requester to allow the user to select one or more files.
 </p>
 
 <h6>Details</h6>
-<h7>Normal usage for read or load</h7><p>
+<h6>Normal usage for read or load</h6><p>
 The line:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">file: request-file</code></pre></div><p>
@@ -13111,14 +13606,14 @@ will open the file requester and return a single file name as a full file path. 
 If the user clicks CANCEL or closes the file requestor, a NONE is returned.
 </p>
 
-<h7>For saving or writing files</h7><p>
+<h6>For saving or writing files</h6><p>
 To open the file requester to save a file:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">file: request-file/save</code></pre></div><p>
 This will change the text of the window to indicate that a save (write) will be done.
 </p>
 
-<h7>Specifying a default file or directory</h7><p>
+<h6>Specifying a default file or directory</h6><p>
 A default name can be provided for the file:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">file: request-file/file %test.txt</code></pre></div><p>
@@ -13131,7 +13626,7 @@ In addition, just a directory can be used:
 Be sure to include the terminating slash to indicate a directory. Otherwise it will be treated as a file.
 </p>
 
-<h7>Allowing multiple file selection</h7><p>
+<h6>Allowing multiple file selection</h6><p>
 To allow the selection of multiple files at the same time:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">files: request-file/multi
@@ -13140,14 +13635,14 @@ foreach file files [print file]</code></pre></div><p>
 The result is returned as a block, and each file within the block is a full path.
 </p>
 
-<h7>Filtering file views</h7><p>
+<h6>Filtering file views</h6><p>
 You can also provide file list filters to show only specific files. For example:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">file: request-file/filter [
     "REBOL Scripts" "*.r"
     "Text files" "*.txt"
 ]</code></pre></div>
-<h7>Setting the window title</h7><p>
+<h6>Setting the window title</h6><p>
 The /title refinement lets you modify the window title for the file requester to help make it more clear to users.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">file: request-file/save/title "Save your data file"
@@ -13200,7 +13695,7 @@ either file [save file data] [print "data not saved"]</code></pre></div><fieldse
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   target      [<span class="types">any-object!</span>] (modified)
-  source      [<span class="types">any-object!</span>] 
+  source      [<span class="types">any-object!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       
    from       [<span class="types">block! integer!</span>] Only specific words (exports) or new words in target (index to tail)
@@ -13208,7 +13703,8 @@ either file [save file data] [print "data not saved"]</code></pre></div><fieldse
   /extend     Add source words to the target if necessary
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#resolve">resolve</a> function is used to merge values from one context into another but avoids replacing existing values.
 </p>
@@ -13216,7 +13712,7 @@ The <a href="#resolve">resolve</a> function is used to merge values from one con
 It is used mainly to support runtime environments, where newly exported functions must be merged into an existing lib context. Because lib can become quite large, performance must be optimized, which is the reason why <a href="#resolve">resolve</a> is a native function.
 </p>
 
-<h7>Basic Concept</h7><p>
+<h6>Basic Concept</h6><p>
 This example will help to show the basic concept:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">obj1: object [a: 10]
@@ -13241,7 +13737,7 @@ So, <a href="#resolve">resolve</a> has no affect on values that have already bee
 Note that protected words will not be modified, they are ignored. No error occurs.
 </p>
 
-<h7>Refinements</h7><table class="doctable">
+<h6>Refinements</h6><table class="doctable">
 <tr><td valign="top" nowrap><b>/only</b></td><td valign="top" width="95%">only affect word values that are provided in a block argument that follows this refinement. In addition, this refinement also supports a special optimization where you can indicate the index of the starting point for changes. That is useful with large contexts such as lib and others.
 </td></tr>
 <tr><td valign="top" nowrap><b>/all</b></td><td valign="top" width="95%">forces <a href="#resolve">resolve</a> to change all values, not just those that are unset. This is similar to <a href="#append">append</a> on an <span class="datatype">object!</span> except that the source is an object, not a block.
@@ -13262,10 +13758,11 @@ Note that protected words will not be modified, they are ignored. No error occur
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Exits the current function immediately, returning
 a value as the result of the function. To return no
@@ -13295,10 +13792,11 @@ print fun 18:00</code></pre></div>
   series      [<span class="types">series! gob! tuple! pair!</span>] At position (modified)
 <span class="tit">REFINEMENTS:</span>
   /part       Limits to a given length or position
-   range      [<span class="types">number! series!</span>] 
+   range      [<span class="types">number! series!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Reverses the order of elements in a series or tuple.
 </p>
@@ -13355,12 +13853,13 @@ print reverse/part 1.2.3.4 2
   /case       Characters are case-sensitive
   /only       Use values as-is, do not reduce the block, insert block values
   /escape     Choose your own escape char(s) or [begin end] delimiters
-   char       [<span class="types">char! any-string! binary! block! none!</span>] Default "$"
+   char       [<span class="types">char! any-string! binary! block! none!</span>] Default <span class="ansi32">"$"</span>
   /into       Insert into a buffer instead (returns position after insert)
    output     [<span class="types">any-string! binary!</span>] The buffer series (modified)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is a general substitution function useful for building web pages, form letters, and other documents.
 </p>
@@ -13383,7 +13882,7 @@ The block substitution abilities are still pending but string substitution works
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  rgb         [<span class="types">tuple!</span>] 
+  rgb         [<span class="types">tuple!</span>]
 </pre>
 </section>
 
@@ -13398,10 +13897,11 @@ The block substitution abilities are still pending but string substitution works
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port! file! url! block!</span>] 
+  port        [<span class="types">port! file! url! block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Note: Shell shortcut for <a href="#delete">delete</a>.
 </p>
@@ -13432,7 +13932,8 @@ Note: Shell shortcut for <a href="#delete">delete</a>.
   /half-ceiling Halves round in positive direction
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 "Rounding is meant to loose precision in a controlled way." -- Volker Nitsch
 </p>
@@ -13579,7 +14080,7 @@ type coercion).
 <section id="rsa">
  <a name="rsa"></a>
  <h2>RSA<a class="headerlink" href="#rsa" title="Link to this heading">¶</a></h2>
-<p>Encrypt, decrypt, sign, or verify data using the RSA cryptosystem. Only one of the action refinements may be used per call.</p>
+<p>Encrypt, decrypt, sign, or verify data using the RSA cryptosystem.</p>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">rsa <span class="rebarg">rsa-key</span> <span class="rebarg">data</span></span></pre>
@@ -13599,6 +14100,10 @@ type coercion).
   /oaep       Enable RSAES-OAEP for encrypt/decrypt
   /pss        Enable RSASSA-PSS for sign/verify
 </pre>
+
+<h5>Description:</h5>
+
+<div class="extra-desc">Only one of the action refinements may be used per call.</div>
 </section>
 
 <hr>
@@ -13633,11 +14138,12 @@ type coercion).
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns TRUE if the values are identical objects, not
 just in value. For example, a TRUE would be returned if
@@ -13667,17 +14173,18 @@ false</code></pre></div>
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   where       [<span class="types">file! url! binary! string! none!</span>] Where to save (suffix determines encoding)
-  value        Value(s) to save
+  value       [<span class="types">any-type!</span>] Value(s) to save
 <span class="tit">REFINEMENTS:</span>
   /header     Provide a REBOL header block (or output non-code datatypes)
    header-data [<span class="types">block! object! logic!</span>] Header block, object, or TRUE (header is in value)
   /all        Save in serialized format
   /length     Save the length of the script content in the header
   /compress   Save in a compressed format or not
-   method     [<span class="types">logic! word!</span>] true = compressed, false = not, 'script = encoded string
+   method     [<span class="types">logic! word!</span>] True = compressed, false = not, 'script = encoded string
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#save">save</a> function is used to save REBOL code and data to a file, upload it to a URL, or store it into a local string.
 </p>
@@ -13729,10 +14236,11 @@ Note: Users must take care in how saved data is loaded. More on this below.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -13750,10 +14258,11 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  source      [<span class="types">file! url! binary! string!</span>] 
+  source      [<span class="types">file! url! binary! string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the header is found, the script string will be returned
 as of that point. If not found, then NONE is returned.
@@ -13772,10 +14281,11 @@ as of that point. If not found, then NONE is returned.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 An error will occur if no value is found. Use the PICK
 function to avoid this error.
@@ -13811,7 +14321,8 @@ print second 12:34:56.78
   policy      [<span class="types">word! lit-word! block! unset!</span>] Set single or multiple policies (or HELP)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#secure">secure</a> function controls file, network, evaluation, and all other external access and related policies.
 </p>
@@ -13855,7 +14366,7 @@ A list of these for your current release can always be obtained with the line:
 <h6>Usage</h6><fieldset class="fset"><legend>R3 ASK not available</legend>
 <p>In current releases of R3, the ASK option is not available. Use either THROW or QUIT instead.</p>
 </fieldset>
-<h7>The main argument</h7><p>
+<h6>The main argument</h6><p>
 The argument to the <a href="#secure">secure</a> function can be a word or a block.
 </p>
 <table class="doctable">
@@ -13864,7 +14375,7 @@ The argument to the <a href="#secure">secure</a> function can be a word or a blo
 <tr><td valign="top" nowrap><b>block</b></td><td valign="top" width="95%">specify separate security policies for files, directories, networking, extensions, debugging, and other features.
 </td></tr>
 </table>
-<h7>Argument as a word</h7><p>
+<h6>Argument as a word</h6><p>
 If the argument is a word, it can be:
 </p>
 <table class="doctable">
@@ -13895,7 +14406,7 @@ Another example is:
 the program will quit immediately if any security violation occurs. Of course, this is a little extreme, and you won't get far. You'll want to specify a block for greater control. See the next section.
 </p>
 
-<h7>Argument as a block</h7><p>
+<h6>Argument as a block</h6><p>
 To provide more detailed security, use a block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">secure [
@@ -14080,11 +14591,11 @@ The memory limit can be set only once and cannot be reset. However, for debuggin
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! port! map! object! module! none!</span>] 
-  value       [<span class="types">any-type!</span>] 
+  series      [<span class="types">series! map! any-object! none!</span>]
+  value       [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /part       Limits the search to a given length or position
-   range      [<span class="types">number! series! pair!</span>] 
+   range      [<span class="types">number! series! pair!</span>]
   /only       Treats a series value as only a single value
   /case       Characters are case-sensitive
   /same       Use "same?" as comparator
@@ -14092,12 +14603,13 @@ The memory limit can be set only once and cannot be reset. However, for debuggin
   /with       Allows custom wildcards
    wild       [<span class="types">string!</span>] Specifies alternates for * and ?
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
   /last       Backwards from end of series
   /reverse    Backwards from the current position
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Similar to the <a href="#find">find</a> function, but returns the next value
 in the series rather than the position of the match.
@@ -14147,10 +14659,11 @@ probe select weather "Eureka"
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -14176,7 +14689,8 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  word        [<span class="types">word! lit-word! any-path! block! object!</span>] Word, block of words, path, or object to be set (modified)
+  word        [<span class="types">word! lit-word! any-path! block! object!</span>]
+              Word, block of words, path, or object to be set (modified)
   value       [<span class="types">any-type!</span>] Value or block of values
 <span class="tit">REFINEMENTS:</span>
   /any        Allows setting words to any value, including unset
@@ -14184,7 +14698,8 @@ false</code></pre></div>
   /some       None values in a block or object value argument, are not set
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the first argument is a block of words and the value
 is not a block, all of the words in the block will be
@@ -14217,7 +14732,7 @@ print d
 
 print e
 2</code></pre></div><p>
-You can also use <span class="datatype">set-word!</span> within the <a href="#set">set</a> function:
+You can also use <code class="datatype">set-word!</code> within the <a href="#set">set</a> function:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">set [a: b:] [1 2]</code></pre></div><p>
 This is useful if you use the <a href="#funct">funct</a> function, which auto-detects local variables that use the set-word notation.
@@ -14230,7 +14745,7 @@ This is useful if you use the <a href="#funct">funct</a> function, which auto-de
 <section id="set-cookies">
  <a name="set-cookies"></a>
  <h2>SET-COOKIES<a class="headerlink" href="#set-cookies" title="Link to this heading">¶</a></h2>
-<p>Processes `Set-Cookie` headers and stores cookies according to RFC 6265. Cookies are stored in `system/state/cookies` map.</p>
+<p>Processes `Set-Cookie` headers and stores cookies according to RFC 6265.</p>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">set-cookies <span class="rebarg">host</span> <span class="rebarg">data</span></span></pre>
@@ -14238,8 +14753,12 @@ This is useful if you use the <a href="#funct">funct</a> function, which auto-de
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   host        [<span class="types">string!</span>] Current host (used when the cookie doesn't set its domain)
-  data        [<span class="types">string! block!</span>] Either a string or block containing `Set-Cookie` lines.
+  data        [<span class="types">string! block!</span>] Either a string or block containing <code>Set-Cookie</code> lines.
 </pre>
+
+<h5>Description:</h5>
+
+<div class="extra-desc">Cookies are stored in <code>system/state/cookies</code> map.</div>
 </section>
 
 <hr>
@@ -14269,10 +14788,11 @@ This is useful if you use the <a href="#funct">funct</a> function, which auto-de
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -14292,7 +14812,7 @@ Path found</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  scheme      [<span class="types">object!</span>] 
+  scheme      [<span class="types">object!</span>]
 </pre>
 </section>
 
@@ -14310,9 +14830,9 @@ Path found</code></pre></div>
   name        [<span class="types">word! ref! string! email! unset! none!</span>] User's name
 <span class="tit">REFINEMENTS:</span>
   /p          Password used to encrypt the data
-   password   [<span class="types">string! binary!</span>] 
+   password   [<span class="types">string! binary!</span>]
   /f          Use custom persistent data file location
-   file       [<span class="types">file!</span>] 
+   file       [<span class="types">file!</span>]
   /n          Setup a user if does not exists
 </pre>
 </section>
@@ -14328,10 +14848,11 @@ Path found</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -14350,10 +14871,11 @@ it will be set</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 See the FIRST function for examples.
 </p>
@@ -14375,13 +14897,14 @@ An error will occur if no value is found. Use the PICK function to avoid this er
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">integer!</span>] 
+  value       [<span class="types">integer!</span>]
   bits        [<span class="types">integer!</span>] Positive for left shift, negative for right shift
 <span class="tit">REFINEMENTS:</span>
   /logical    Logical shift (sign bit ignored)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Supports right or left bits shifts on integers.
 </p>
@@ -14399,8 +14922,8 @@ Supports right or left bits shifts on integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">integer!</span>] 
-  bits        [<span class="types">integer!</span>] 
+  data        [<span class="types">integer!</span>]
+  bits        [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -14415,8 +14938,8 @@ Supports right or left bits shifts on integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">integer!</span>] 
-  bits        [<span class="types">integer!</span>] 
+  data        [<span class="types">integer!</span>]
+  bits        [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -14431,10 +14954,11 @@ Supports right or left bits shifts on integers.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  gob         [<span class="types">gob! none! block!</span>] 
+  gob         [<span class="types">gob! none! block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is a low-level View function that is used to display or
 update a face. The face being displayed must be part of a
@@ -14511,10 +15035,11 @@ unview</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number! money! time!</span>] 
+  number      [<span class="types">number! money! time!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The SIGN? function returns a positive, zero, or negative integer
 based on the sign of its argument.
@@ -14574,7 +15099,8 @@ print xy
   /radians    Value is specified in radians
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Ratio between the length of the opposite side to the
 length of the hypotenuse of a right triangle.
@@ -14601,7 +15127,7 @@ print sine/radians pi
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! port! map! tuple! bitset! object! gob! any-word!</span>] 
+  series      [<span class="types">series! port! map! tuple! bitset! object! gob! any-word!</span>]
 </pre>
 </section>
 
@@ -14616,10 +15142,11 @@ print sine/radians pi
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 See the FIRST function for examples.
 </p>
@@ -14641,10 +15168,11 @@ An error will occur if no value is found. Use the PICK function to avoid this er
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">file! url! port! vector!</span>] 
+  target      [<span class="types">file! url! port! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 If the file or URL is a directory, it returns the number
 of entries in the directory.
@@ -14665,11 +15193,12 @@ none</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
-  offset      [<span class="types">number! logic! pair!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
+  offset      [<span class="types">number! logic! pair!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 For example, SKIP series 1 is the same as NEXT. If skip
 attempts to move beyond the head or tail it will be
@@ -14702,14 +15231,16 @@ print skip blk 3
   /skip       Treat the series as records of fixed size
    size       [<span class="types">integer!</span>] Size of each record
   /compare    Comparator offset or function
-   comparator [<span class="types">integer! any-function!</span>] 
+   comparator [<span class="types">integer! block! any-function!</span>]
   /part       Limits the sorting to a given length or position
-   range      [<span class="types">number! series!</span>] 
+   range      [<span class="types">number! series!</span>]
   /all        Compare all fields
   /reverse    Reverse sort order
+  /unstable   Unstable Adaptive Symmetry Partition sort
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Sorting will modify any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> passed as the argument:
 </p>
@@ -14751,7 +15282,7 @@ The /ALL refinement will force the entire record to be passed as a series to the
 </p>
 <p>
 Editor note: Need a good working example. This may not be possible until remaining SORT bugs are fixed.
-When sorting <span class="datatype">pair!</span> data (points and area sizes), the y coordinate is dominant. This is preferred to support the y sorting used by various graphics algorithms.
+When sorting <code class="datatype">pair!</code> data (points and area sizes), the y coordinate is dominant. This is preferred to support the y sorting used by various graphics algorithms.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">probe sort [1x2 2x1 0x0 1x0 0x1 1x1]
 [0x0 1x0 0x1 1x1 2x1 1x2]</code></pre></div>
@@ -14769,17 +15300,18 @@ When sorting <span class="datatype">pair!</span> data (points and area sizes), t
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  word        [<span class="types">word! path!</span>] 
+  word        [<span class="types">word! path!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#source">source</a> function displays the source code for REBOL defined functions.
 </p>
 <p>
 For example:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> source join</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">source join</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>join: make function! [[
     "Concatenates values."
     value "Base value"
@@ -14805,10 +15337,11 @@ REBOL defined functions include the mezzanine functions (built-in interpreted fu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-function! any-object! vector! datatype! struct!</span>] 
+  value       [<span class="types">any-function! any-object! vector! datatype! struct!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; spec-of :join
 == [
     "Concatenates values."
@@ -14846,19 +15379,20 @@ REBOL defined functions include the mezzanine functions (built-in interpreted fu
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   series      [<span class="types">series!</span>] The series to split
-  dlm          
+  dlm         [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /parts      If dlm is an integer, split into n pieces, rather than pieces of length n.
   /at         Split into 2, at the index position if an integer or the first occurrence of the dlm
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#split">split</a> function is used to divide a <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> into subcomponents.
 It provides several ways to specify how you want the split done.
 </p>
 
-<h7>Split into equal segments:</h7><p>
+<h6>Split into equal segments:</h6><p>
 Given an integer as the dlm parameter, <a href="#split">split</a> will break the series
 up into pieces of that size.
 </p>
@@ -14871,7 +15405,7 @@ If the series can't be evenly split, the last value will be shorter.
 
 &gt;&gt; split "1234567812345678" 5
 == ["12345" "67812" "34567" "8"]</code></pre></div>
-<h7>Split into N segments:</h7><p>
+<h6>Split into N segments:</h6><p>
 Given an integer as dlm, and using the /parts refinement, it breaks
 the series into n pieces, rather than pieces of length n.
 </p>
@@ -14887,7 +15421,7 @@ If the series can't be evenly split, the last value will be longer.
 
 &gt;&gt; split/parts "1234567812345678" 5
 == ["123" "456" "781" "234" "5678"]</code></pre></div>
-<h7>Split into uneven segments:</h7><p>
+<h6>Split into uneven segments:</h6><p>
 If dlm is a block containing only integer values, those values 
 determine the size of each piece returned. That is, each piece
 can be a different size.
@@ -14923,7 +15457,7 @@ that part:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt;  split [1 2 3 4 5 6] [2 -2 2]
 == [[1 2] [5 6]]</code></pre></div>
-<h7>Simple delimiter splitting:</h7><p>
+<h6>Simple delimiter splitting:</h6><p>
 Char or any-string values can be used for simple splitting, much as
 you would with "parse", but with different behavior for strings
 that have embedded quotes.
@@ -14956,7 +15490,7 @@ Note that for greater control, you can use simple <a href="#parse">parse</a> rul
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">string!</span>] 
+  value       [<span class="types">string!</span>]
 </pre>
 </section>
 
@@ -14971,10 +15505,11 @@ Note that for greater control, you can use simple <a href="#parse">parse</a> rul
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  target      [<span class="types">file! url! string!</span>] 
+  target      [<span class="types">file! url! string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a block consisting of two elements, the path and the file.
 Can be used on URLs and files alike.
@@ -15002,7 +15537,7 @@ logo.gif</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">decimal!</span>] 
+  value       [<span class="types">decimal!</span>]
 </pre>
 </section>
 
@@ -15017,10 +15552,11 @@ logo.gif</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number!</span>] 
+  value       [<span class="types">number!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns the square-root of the number provided. If the
 number is negative, an error will occur (which you can
@@ -15056,7 +15592,8 @@ print square-root 2
   /limit      Stack bounds (auto expanding)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -15082,7 +15619,8 @@ No description provided.
    pool-id    [<span class="types">integer!</span>] Dump all series in pool pool-id, -1 for all pools
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The STATS function returns a wide range of useful REBOL system
 statistics, including information about memory usage, interpreter
@@ -15138,11 +15676,12 @@ print stats/evals</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Strict equality requires the values to not differ by
 datatype (so 1 would not be equal to 1.0) nor by
@@ -15167,11 +15706,12 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE if the values neither differ by datatype
 (so 1 would not be equal to 1.0) nor by character casing
@@ -15196,10 +15736,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -15222,10 +15763,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns TRUE if the value is a STRUCT datatype.
 </p>
@@ -15246,9 +15788,9 @@ Returns TRUE if the value is a STRUCT datatype.
   name        [<span class="types">word! ref! string! email! unset! none!</span>] User's name
 <span class="tit">REFINEMENTS:</span>
   /p          Password used to encrypt the data
-   password   [<span class="types">string! binary!</span>] 
+   password   [<span class="types">string! binary!</span>]
   /f          Use custom persistent data file location
-   file       [<span class="types">file!</span>] 
+   file       [<span class="types">file!</span>]
   /n          Setup a user if does not exists
 </pre>
 </section>
@@ -15264,11 +15806,12 @@ Returns TRUE if the value is a STRUCT datatype.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! vector!</span>] 
-  value2      [<span class="types">scalar! date! vector!</span>] 
+  value1      [<span class="types">scalar! date! vector!</span>]
+  value2      [<span class="types">scalar! date! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Note: The <a href="#+">+</a> operator is a special infix form for this function.
 </p>
@@ -15303,10 +15846,11 @@ When subtracting values of different datatypes, the values must be compatible. A
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! url! string!</span>] 
+  path        [<span class="types">file! url! string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The SUFFIX? function can be used to obtain the file extention
 (e.g. .exe, .txt, .jpg, etc.) that is part of a filename.
@@ -15361,7 +15905,7 @@ http://www.rebol.com/docs.html is a document file.</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  values      [<span class="types">block! vector! paren!</span>] 
+  values      [<span class="types">block! vector! paren!</span>]
 </pre>
 </section>
 
@@ -15377,7 +15921,7 @@ http://www.rebol.com/docs.html is a document file.</code></pre></div>
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   series      [<span class="types">block!</span>] (modified)
-  value        
+  value       [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /case       Case-sensitive comparison
 </pre>
@@ -15398,7 +15942,8 @@ http://www.rebol.com/docs.html is a document file.</code></pre></div>
   series2     [<span class="types">series! gob!</span>] At position (modified)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -15421,7 +15966,7 @@ Description is needed.
   /width      
    bytes      [<span class="types">integer!</span>] 2, 4 or 8 (default is 2)
   /part       Limits to a given length or position
-   range      [<span class="types">number! series!</span>] 
+   range      [<span class="types">number! series!</span>]
 </pre>
 </section>
 
@@ -15436,16 +15981,17 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        Target value
+  value       [<span class="types">any-type!</span>] Target value
   cases       [<span class="types">block!</span>] Block of cases to check
 <span class="tit">REFINEMENTS:</span>
   /default    
-   def         Default case if no others found
+   def        [<span class="types">any-type!</span>] Default case if no others found
   /all        Evaluate all matches (not just first one)
   /case       Perform a case-sensitive comparison
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#switch">switch</a> function selects the block for a given choice and evaluates it.
 </p>
@@ -15508,7 +16054,7 @@ switch type?/word [
     date! [print "it's a date"]
 ]
 it's integer</code></pre></div><p>
-Here the <a href="#type?">type?</a> function returns the word (name) of the <span class="datatype">datatype!</span>, not the datatype's type value.
+Here the <a href="#type?">type?</a> function returns the word (name) of the <code class="datatype">datatype!</code>, not the datatype's type value.
 </p>
 <p>
 Another possible approach is to evaluate the block of cases. For the example above:
@@ -15574,10 +16120,11 @@ However, you can <a href="#reduce">reduce</a> the case block to its actual value
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -15599,10 +16146,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port!</span>] 
+  series      [<span class="types">series! gob! port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Access to the tail allows insertion at the end of a
 series (because insertion always occurs before the
@@ -15626,10 +16174,11 @@ print blk
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  series      [<span class="types">series! gob! port! bitset! typeset! map!</span>] 
+  series      [<span class="types">series! gob! port! bitset! typeset! map!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function is the best way to detect the end of a
 series while moving through it.
@@ -15677,13 +16226,14 @@ true</code></pre></div>
   series      [<span class="types">series! port! gob! none!</span>] At the current position (modified)
 <span class="tit">REFINEMENTS:</span>
   /part       Specifies a length or end position
-   range      [<span class="types">number! series! pair!</span>] 
+   range      [<span class="types">number! series! pair!</span>]
   /deep       Also copies series values within the block
   /last       Takes from the tail end
   /all        Copies the complete content of the series and then clears it
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#take">take</a> function removes a value from a series and returns it as the result. It's a useful combination of <a href="#pick">pick</a> with <a href="#remove">remove</a>.
 </p>
@@ -15766,7 +16316,8 @@ The data queued and stacked above can be any REBOL values, including string, fun
   /radians    Value is specified in radians
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Ratio between the length of the opposite side to
 the length of the adjacent side of a right triangle.
@@ -15794,7 +16345,8 @@ print tangent/radians 2 * pi
   body        [<span class="types">block!</span>] The body block of the task
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Description is needed.
 </p>
@@ -15812,10 +16364,11 @@ Description is needed.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -15833,10 +16386,11 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 See the FIRST function for examples.
 </p>
@@ -15858,10 +16412,11 @@ An error will occur if no value is found. Use the PICK function to avoid this er
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 An error will occur if no value is found. Use the PICK
 function to avoid this error.
@@ -15897,10 +16452,11 @@ print third 12:34:56.78
   value       [<span class="types">any-type!</span>] Value returned from catch
 <span class="tit">REFINEMENTS:</span>
   /name       Throws to a named catch
-   word       [<span class="types">word!</span>] 
+   word       [<span class="types">word!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 CATCH and THROW go together. They provide a method of
 exiting from a block without evaluating the rest of the
@@ -15930,10 +16486,11 @@ none</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -15973,10 +16530,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-function! datatype! module!</span>] 
+  value       [<span class="types">any-function! datatype! module!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; title-of :print
 == "Outputs a value followed by a line break."</code></pre></div>
 <div class="see-also">See also: <a href="#body-of">body-of</a>, <a href="#reflect">reflect</a>, <a href="#spec-of">spec-of</a>, <a href="#types-of">types-of</a>, <a href="#values-of">values-of</a>, <a href="#words-of">words-of</a></div>
@@ -15997,7 +16555,8 @@ false</code></pre></div>
   value       [<span class="types">any-type!</span>] The attributes of the new value
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Every datatype provides a TO method to allow conversions from
 other datatypes. The to-binary, to-block, and all other to-
@@ -16047,10 +16606,11 @@ print to time! 600  ; # of seconds
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a binary! value made from the given value.
 </p>
@@ -16074,10 +16634,11 @@ Notice, that the binary returned is not how the "actual storage" in computer mem
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a bitset! value made from the given value.
 </p>
@@ -16097,10 +16658,11 @@ make bitset! #{00000000000000007FFFFFE07FFFFFE0}</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a block! value made from the given value.
 </p>
@@ -16146,10 +16708,11 @@ For conversions from another block-like type, one can use the <a href="#as">as</
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a char! value made from the given value.
 </p>
@@ -16172,10 +16735,11 @@ Returns a char! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -16193,7 +16757,7 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -16208,12 +16772,13 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Can be used to convert a <span class="datatype">word!</span> containing a valid datatype name into a <span class="datatype">datatype!</span>.
+Can be used to convert a <code class="datatype">word!</code> containing a valid datatype name into a <code class="datatype">datatype!</code>.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-datatype 'integer!
 == #(integer!)
@@ -16243,7 +16808,8 @@ Can be used to convert a <span class="datatype">word!</span> containing a valid 
   /utc        Returns the date with UTC zone
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a date! value made from the given value.
 </p>
@@ -16256,7 +16822,7 @@ Also accepts a string in the Internet Message Date format (RFC2822).
 
 &gt;&gt; to-date "Thu, 28 Mar 2019 20:00:59 +0100"
 == 28-Mar-2019/20:00:59+1:00</code></pre></div><p>
-When the input is of type <span class="datatype">integer!</span> or <span class="datatype">decimal!</span>, it is treated as a Unix timestamp.
+When the input is of type <code class="datatype">integer!</code> or <code class="datatype">decimal!</code>, it is treated as a Unix timestamp.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-date 123456789
 == 29-Nov-1973/21:33:09
@@ -16280,10 +16846,11 @@ When the input is of type <span class="datatype">integer!</span> or <span class=
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a decimal! value made from the given value.
 </p>
@@ -16309,7 +16876,8 @@ Returns a decimal! value made from the given value.
   radians     [<span class="types">integer! decimal!</span>] Radians to convert
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-degrees pi
 == 180.0</code></pre></div>
 <div class="see-also">See also: <a href="#to-radians">to-radians</a></div>
@@ -16326,10 +16894,11 @@ Returns a decimal! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns an email! value made from the given value.
 </p>
@@ -16349,10 +16918,11 @@ lukerebol.com</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns an error! value made from the given value.
 </p>
@@ -16388,10 +16958,11 @@ error it makes.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -16409,10 +16980,11 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a file! value made from the given value.
 </p>
@@ -16432,10 +17004,11 @@ Returns a file! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; fun: to-function [[a][a * 10]]
 &gt;&gt; fun 1
 == 10</code></pre></div>
@@ -16452,12 +17025,13 @@ Returns a file! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">get-path!</span> value made from the given value.
+Returns a <code class="datatype">get-path!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-get-path [path to word]
 == :path/to/word</code></pre></div>
@@ -16474,12 +17048,13 @@ Returns a <span class="datatype">get-path!</span> value made from the given valu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">get-word!</span> value made from the given value.
+Returns a <code class="datatype">get-word!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">probe to-get-word "test"
 :test</code></pre></div>
@@ -16497,10 +17072,11 @@ Returns a <span class="datatype">get-word!</span> value made from the given valu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -16518,7 +17094,7 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -16536,10 +17112,11 @@ No description provided.
   value       [<span class="types">integer! char! tuple!</span>] Value to be converted
 <span class="tit">REFINEMENTS:</span>
   /size       Specify number of hex digits in result
-   len        [<span class="types">integer!</span>] 
+   len        [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The TO-HEX function provides an easy way to convert an integer to
 a hexidecimal value.
@@ -16595,7 +17172,7 @@ to-rebol-color2 "#FF9B32"</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  date        [<span class="types">date!</span>] 
+  date        [<span class="types">date!</span>]
 <span class="tit">REFINEMENTS:</span>
   /gmt        Converts local time to GMT (Greenwich Mean Time)
 </pre>
@@ -16612,10 +17189,11 @@ to-rebol-color2 "#FF9B32"</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This is a special conversion function that is used for
 converting a FACE object (such as those created by the layout
@@ -16659,10 +17237,11 @@ write</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns an integer! value made from the given value.
 </p>
@@ -16691,10 +17270,11 @@ print to-integer #102030 ; convert hex value (see to-hex for info)
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns an issue! value made from the given value.
 </p>
@@ -16718,10 +17298,11 @@ the to-hex function.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  time        [<span class="types">time! number! block! none!</span>] 
+  time        [<span class="types">time! number! block! none!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-itime now/time
 == "09:46:03"</code></pre></div>
 </section>
@@ -16737,14 +17318,15 @@ the to-hex function.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data         
+  data        [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /pretty     
    indent     [<span class="types">string!</span>] Pretty format the output, using given indentation
   /ascii      Force ASCII output (instead of UTF-8)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-json #[a: 1 b: ["hello"]]
 == {{"a":1,"b":["hello"]}}</code></pre></div><p>
 <a href="#to-json">to-json</a> is basically the same as using <a href="#encode">encode</a>
@@ -16774,10 +17356,11 @@ But it provides easy option for producing nicely formatted output.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a lit-path! value made from the given value.
 </p>
@@ -16797,10 +17380,11 @@ Returns a lit-path! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a ilt-word! value made from the given value.
 </p>
@@ -16820,12 +17404,13 @@ Returns a ilt-word! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! string!</span>] 
+  path        [<span class="types">file! string!</span>]
 <span class="tit">REFINEMENTS:</span>
   /full       Prepends current dir for full path (for relative paths only)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function provides a way to convert standard, system
 independent REBOL file formats into the file format used by
@@ -16854,10 +17439,11 @@ system. Be careful how you use this function across systems.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a logic! value made from the given value.
 </p>
@@ -16878,10 +17464,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-map [a: 1 b: 2]
 == #[
     a: 1
@@ -16901,10 +17488,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 
 <div class="see-also">See also: <a href="#make">make</a>, <a href="#to">to</a></div>
 </section>
@@ -16920,10 +17508,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a money! value made from the given value.
 </p>
@@ -16946,12 +17535,13 @@ NOTE: Currency types are not supported yet!
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-This function currently works only for conversions from an <span class="datatype">error!</span> value.
+This function currently works only for conversions from an <code class="datatype">error!</code> value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-object try [1 / 0]
 == make object! [
@@ -16978,10 +17568,11 @@ This function currently works only for conversions from an <span class="datatype
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a pair! value made from the given value.
 </p>
@@ -17009,10 +17600,11 @@ This last line is done so often that the <a href="#as-pair">as-pair</a> function
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a paren! value made from the given value.
 </p>
@@ -17052,10 +17644,11 @@ For conversions from another block-like type, one can use the <a href="#as">as</
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a path! value made from the given value.
 </p>
@@ -17087,10 +17680,11 @@ colors/reds/"bright"</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -17108,10 +17702,11 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns a port! value made from the given value.
 </p>
@@ -17133,7 +17728,8 @@ Returns a port! value made from the given value.
   degrees     [<span class="types">integer! decimal!</span>] Degrees to convert
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-radians 180.0
 == 3.14159265358979</code></pre></div>
 <div class="see-also">See also: <a href="#to-degrees">to-degrees</a></div>
@@ -17150,10 +17746,11 @@ Returns a port! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! string!</span>] 
+  path        [<span class="types">file! string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-real-file %../Rebol
 == %/C/Users/oldes/Rebol/
 
@@ -17173,10 +17770,11 @@ Returns a port! value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! string!</span>] 
+  path        [<span class="types">file! string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 This function provides a standard way to convert local operating
 system files into REBOL's standard machine independent format.
@@ -17207,12 +17805,13 @@ system. Be careful how you use this function across systems.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">ref!</span> value made from the given value.
+Returns a <code class="datatype">ref!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-ref "Oldes"
 == @Oldes</code></pre></div>
@@ -17230,12 +17829,13 @@ Returns a <span class="datatype">ref!</span> value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">refinement!</span> value made from the given value.
+Returns a <code class="datatype">refinement!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-refinement 'REBOL
 == /REBOL</code></pre></div>
@@ -17260,7 +17860,8 @@ Returns a <span class="datatype">refinement!</span> value made from the given va
   /as-local   Convert to local-style filename if not
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="-block"><code class="">&gt;&gt; what-dir
 == %/C/Users/oldes/Rebol/
 
@@ -17280,12 +17881,13 @@ Returns a <span class="datatype">refinement!</span> value made from the given va
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">set-path!</span> value made from the given value.
+Returns a <code class="datatype">set-path!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-set-path [some path]
 == some/path:</code></pre></div>
@@ -17303,12 +17905,13 @@ Returns a <span class="datatype">set-path!</span> value made from the given valu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">set-word!</span> value made from the given value.
+Returns a <code class="datatype">set-word!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-set-word "test"
 == test:</code></pre></div>
@@ -17326,12 +17929,13 @@ Returns a <span class="datatype">set-word!</span> value made from the given valu
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">string!</span> value made from the given value.
+Returns a <code class="datatype">string!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-string [123 456]
 == "123456"</code></pre></div>
@@ -17349,12 +17953,13 @@ Returns a <span class="datatype">string!</span> value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">tag!</span> value made from the given value.
+Returns a <code class="datatype">tag!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-tag ";comment:"
 == &lt;;comment:&gt;</code></pre></div>
@@ -17372,12 +17977,13 @@ Returns a <span class="datatype">tag!</span> value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">time!</span> value made from the given value.
+Returns a <code class="datatype">time!</code> value made from the given value.
 </p>
 <p>
 Integer and decimal values are interpreted as a number of seconds.
@@ -17408,12 +18014,13 @@ to the number of seconds.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">tuple!</span> value made from the given value.
+Returns a <code class="datatype">tuple!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-tuple [12 34 56]
 == 12.34.56</code></pre></div><p>
@@ -17438,12 +18045,13 @@ Tuples can have up to 12 segments.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">typeset!</span> value made from the given value.
+Returns a <code class="datatype">typeset!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; types: to-typeset [string! file! url!]
 == make typeset! [string! file! url!]
@@ -17463,12 +18071,13 @@ Returns a <span class="datatype">typeset!</span> value made from the given value
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">url!</span> value made from the given value.
+Returns a <code class="datatype">url!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-url "http://www.rebol.com"
 == http://www.rebol.com</code></pre></div>
@@ -17486,10 +18095,11 @@ Returns a <span class="datatype">url!</span> value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-value ()
 == #(none)
 
@@ -17512,10 +18122,11 @@ Returns a <span class="datatype">url!</span> value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Currently, <a href="#to-vector">to-vector</a> can only be used with a valid vector specification.
 </p>
@@ -17532,10 +18143,10 @@ Vectors can be created using construction syntax.
 &gt;&gt; #(int16! [1 2 3])
 == make vector! [integer! 16 3 [1 2 3]]</code></pre></div><p>
 Currently there are these vector types:
-* Signed integers: <span class="datatype">int8!</span>, <span class="datatype">int16!</span>, <span class="datatype">int32!</span>, <span class="datatype">int64!</span>
-* Unsigned integers: <span class="datatype">uint8!</span>, <span class="datatype">uint16!</span>, <span class="datatype">uint32!</span>, <span class="datatype">uint64!</span>
-* 32bit decimal: <span class="datatype">float!</span>
-* 64bit decimal: <span class="datatype">double!</span>
+* Signed integers: <code class="datatype">int8!</code>, <code class="datatype">int16!</code>, <code class="datatype">int32!</code>, <code class="datatype">int64!</code>
+* Unsigned integers: <code class="datatype">uint8!</code>, <code class="datatype">uint16!</code>, <code class="datatype">uint32!</code>, <code class="datatype">uint64!</code>
+* 32bit decimal: <code class="datatype">float!</code>
+* 64bit decimal: <code class="datatype">double!</code>
 </p>
 
 </section>
@@ -17551,12 +18162,13 @@ Currently there are these vector types:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Returns a <span class="datatype">word!</span> value made from the given value.
+Returns a <code class="datatype">word!</code> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-word "test"
 == test</code></pre></div>
@@ -17574,13 +18186,14 @@ Returns a <span class="datatype">word!</span> value made from the given value.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  mode        [<span class="types">integer! logic!</span>] 
+  mode        [<span class="types">integer! logic!</span>]
 <span class="tit">REFINEMENTS:</span>
   /back       Set mode ON to enable or integer for lines to display
   /function   Traces functions only (less output)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#trace">trace</a> lets you watch the evaluation of your script, expression by expression.
 </p>
@@ -17631,7 +18244,7 @@ Entry into a function, followed by its formal argument list.
 </td><td valign="top">
 Return from a function, followed by the value it returned (==).
 </td></tr></table>
-<h7>Simple example</h7><p>
+<h6>Simple example</h6><p>
 To help understand the format, here's a description for each line in the earlier example:
 </p>
 <table class="doctable">
@@ -17676,7 +18289,7 @@ Output is printed.
 </td><td valign="top">
 The <a href="#print">print</a> function returns, but it has no return value (it is unset.) The &lt;-- means "return from the function."
 </td></tr></table>
-<h7>Larger example</h7><p>
+<h6>Larger example</h6><p>
 Here is a user defined function to compute the average of a block of numbers.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">ave: func [nums [block!] /local val][
@@ -17737,7 +18350,7 @@ At times the trace output will be a lot more than you want. The trick becomes ho
 </ol>
 </p>
 
-<h7>Setting trace depth</h7><p>
+<h6>Setting trace depth</h6><p>
 Using the example above, set the trace depth to 2, and run it again. You will see:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; trace 2
@@ -17765,7 +18378,7 @@ Using the example above, set the trace depth to 2, and run it again. You will se
 The output has been reduced. You no longer see the foreach loop operate.
 </p>
 
-<h7>Locating trace within your code</h7><p>
+<h6>Locating trace within your code</h6><p>
 Most of the time you don't need to trace your entire program, just part of it. So, it is useful just to put <a href="#trace">trace</a> in your code where you need it.
 </p>
 <p>
@@ -17809,7 +18422,7 @@ You will now see:
 10: off : false
 --&gt; trace
 == 2</code></pre></div>
-<h7>Tracing functions only</h7><p>
+<h6>Tracing functions only</h6><p>
 With the /function refinement you can trace just function calls and their returns. The evaluation of each code block value is not shown, saving a few lines.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; trace/function on
@@ -17863,7 +18476,7 @@ To use backtrace with the /function refinement:
 This will also speed-up trace evaluation.
 </p>
 
-<h7>Example backtrace</h7><p>
+<h6>Example backtrace</h6><p>
 Here is an example session:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; trace/back on
@@ -17887,7 +18500,7 @@ Here is an example session:
 So, it's not hard to see what was going on when the script crashed. Backtrace can be quite handy when you need it.
 </p>
 
-<h7>Important notes</h7><ul>
+<h6>Important notes</h6><ul>
 <li>Tracing is disabled automatically when you display the backtrace. (This prevents additional accumulation of trace information, allowing you to redisplay the buffer without interference from additional console lines.)</li>
 <li>Backtrace will slow down your program by a factor of 20 (because for each value that is evaluated, it must store a log record).</li>
 <li>The internal backtrace buffer is 100KB. On average, the most it will hold is 100 pages of backtrace.</li>
@@ -17923,13 +18536,14 @@ The <a href="#stack">stack</a> function can also be used to show stack related b
    length     [<span class="types">integer!</span>] Length of source to decode
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#transcode">transcode</a> function translates source code and data into the block value memory format that can be interpreted by REBOL.
 </p>
 
 <h6>Input</h6><p>
-The source input to <a href="#transcode">transcode</a> must be Unicode UTF-8. This is a <span class="datatype">binary!</span> encoded format, and should not be confused with a <span class="datatype">string!</span>, which is a decoded in-memory indexable string.
+The source input to <a href="#transcode">transcode</a> must be Unicode UTF-8. This is a <code class="datatype">binary!</code> encoded format, and should not be confused with a <code class="datatype">string!</code>, which is a decoded in-memory indexable string.
 </p>
 <p>
 If you need to <a href="#transcode">transcode</a> a string, you must convert it to a UTF-8 binary first. This can be done with <a href="#to-binary">to-binary</a>.
@@ -17960,7 +18574,7 @@ These refinements can be used in various ways to parse REBOL source a value at a
 </p>
 
 <h6>Output</h6><p>
-The output from <a href="#transcode">transcode</a> is a <span class="datatype">block!</span> containing two values:
+The output from <a href="#transcode">transcode</a> is a <code class="datatype">block!</code> containing two values:
 </p>
 <p>
 <ol>
@@ -17999,9 +18613,10 @@ transcode/only a
    str        [<span class="types">char! string! binary! integer!</span>] Same as /all, but removes characters in 'str'
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-Trim removes unwanted values, normally it trims whitespace from a <span class="datatype">string!</span> or <span class="datatype">none!</span> values from a <span class="datatype">block!</span> or <span class="datatype">object!</span>.
+Trim removes unwanted values, normally it trims whitespace from a <code class="datatype">string!</code> or <code class="datatype">none!</code> values from a <code class="datatype">block!</code> or <code class="datatype">object!</code>.
 </p>
 <p>
 Here is an example of a string:
@@ -18012,17 +18627,17 @@ probe trim str
 Note that the str is modified. To avoid that, use copy:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">new-str: trim copy str</code></pre></div><p>
-For a <span class="datatype">block!</span> :
+For a <code class="datatype">block!</code> :
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">trim reduce [none 'a none 'b none]
 [a b]</code></pre></div><p>
-It removes the <span class="datatype">none!</span> values from the block. (And it will also remove <span class="datatype">unset!</span> values as well.)
+It removes the <code class="datatype">none!</code> values from the block. (And it will also remove <code class="datatype">unset!</code> values as well.)
 </p>
 <p>
 Note that the block is modified. But, in this example, <a href="#reduce">reduce</a> creates a unique copy, so the original is not effected.
 </p>
 <p>
-And for an <span class="datatype">object!</span> :
+And for an <code class="datatype">object!</code> :
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">trim system/options
 make object! [
@@ -18179,7 +18794,7 @@ str: {This- is- a- line.}
 probe trim/with str "- ."
 "Thisisaline"</code></pre></div>
 <h6>TRIM on blocks</h6><p>
-When <a href="#trim">trim</a> is used on a <span class="datatype">block!</span>, it strips all <span class="datatype">none!</span> values from the block:
+When <a href="#trim">trim</a> is used on a <code class="datatype">block!</code>, it strips all <code class="datatype">none!</code> values from the block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">trim reduce [1 2 none]
 [1 2]</code></pre></div><p>
@@ -18187,7 +18802,7 @@ Note that <a href="#trim">trim</a> modifies the argument block.
 </p>
 
 <h6>TRIM on objects</h6><p>
-When <a href="#trim">trim</a> is used on an <span class="datatype">object!</span>, it will return a new object that has all <span class="datatype">none!</span> values removed:
+When <a href="#trim">trim</a> is used on an <code class="datatype">object!</code>, it will return a new object that has all <code class="datatype">none!</code> values removed:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">obj: make object [arg1: 10 arg2: none]
 trim obj
@@ -18211,7 +18826,8 @@ make object! [
   value       [<span class="types">any-type!</span>] Value to test
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; true? 1
 == #(true)
 
@@ -18223,7 +18839,7 @@ make object! [
 
 &gt;&gt; true? off
 == #(false)</code></pre></div><p>
-Note that <span class="datatype">unset!</span> value is truthy!
+Note that <code class="datatype">unset!</code> value is truthy!
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; true? #(unset)
 == #(true)</code></pre></div>
@@ -18244,10 +18860,11 @@ Note that <span class="datatype">unset!</span> value is truthy!
   series      [<span class="types">series!</span>] Series to be truncated
 <span class="tit">REFINEMENTS:</span>
   /part       Also shorten resulted series to a length or end position
-   range      [<span class="types">number! series!</span>] 
+   range      [<span class="types">number! series!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; str: "12345"
 == "12345"
 
@@ -18270,16 +18887,15 @@ This function is useful for removing processed data from an input buffer.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block! paren!</span>] 
+  block       [<span class="types">block! paren!</span>]
 <span class="tit">REFINEMENTS:</span>
   /all        Catch also BREAK, CONTINUE, RETURN, EXIT and THROW exceptions.
   /with       On error, evaluate the handler and return its result
-   handler    [<span class="types">block! any-function!</span>] 
-  /except     ** DEPRERCATED **
-   code       [<span class="types">block! any-function!</span>] 
+   handler    [<span class="types">block! any-function!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#try">try</a> function evaluates a block and will capture any errors that occur during that evaluation.
 </p>
@@ -18314,7 +18930,7 @@ either error? val: try [1 + 2] [print "nope"] [print val]
 The <a href="#try">try</a> function is for error handling, but there are times when you may be returning error objects as values, and you cannot distinguish between an error occurring and the error value itself. This is case rare, but it does happen.
 </p>
 <p>
-For this situation the <a href="#/with">/with</a> refinement is provided. If an error occurs, it will evaluate a exception handling function (or just a block). This indicates that an error exception happened (not just an error value being passed.)
+For this situation the <code class=inline>/with</code> refinement is provided. If an error occurs, it will evaluate a exception handling function (or just a block). This indicates that an error exception happened (not just an error value being passed.)
 </p>
 <p>
 The example below will catch the "zero-divide" error within a function. The error is passed as the argument to the exception function, and a value (zero in this case) is returned from the <a href="#try">try</a> function:
@@ -18328,7 +18944,7 @@ Or to provide a default value in case of the error:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; try/with [1 / 0] ['oh-no]
 == oh-no</code></pre></div><p>
-Last error is stored in the <a href="#system/state">system/state</a> object and may be used like:
+Last error is stored in the <code class=inline>system/state</code> object and may be used like:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; try [1 / 0]
 
@@ -18352,6 +18968,16 @@ The data will be either the data or none, if it failed to load.
 </section>
 
 <hr>
+<section id="tty?">
+ <a name="tty?"></a>
+ <h2>TTY?<a class="headerlink" href="#tty?" title="Link to this heading">¶</a></h2>
+<p>Returns TRUE if standard input is connected to a terminal.</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6">tty?</span></pre>
+</section>
+
+<hr>
 <section id="tuple?">
  <a name="tuple?"></a>
  <h2>TUPLE?<a class="headerlink" href="#tuple?" title="Link to this heading">¶</a></h2>
@@ -18362,10 +18988,11 @@ The data will be either the data or none, if it failed to load.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -18388,12 +19015,13 @@ Returns FALSE for all other values.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /word       Returns the datatype as a word
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 To check for a single datatype, use its datatype test
 function (e.g. string?, time?) The /WORD refinement
@@ -18426,10 +19054,11 @@ print switch type?/word value [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-function!</span>] 
+  value       [<span class="types">any-function!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; spec-of :to-radians
 == [
     "Converts degrees to radians"
@@ -18452,10 +19081,11 @@ print switch type?/word value [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; typeset? any-string!
 == #(true)
 
@@ -18479,7 +19109,8 @@ print switch type?/word value [
   /deep       Process nested blocks
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; a: 1 b: [a a]
 == [a a] ;; words inside the block are bound
 
@@ -18512,10 +19143,11 @@ print switch type?/word value [
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file! string! url!</span>] 
+  path        [<span class="types">file! string! url!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; undirize %some/path/
 == %some/path</code></pre></div>
 <div class="see-also">See also: <a href="#dirize">dirize</a></div>
@@ -18541,7 +19173,8 @@ print switch type?/word value [
    bpp        [<span class="types">integer!</span>] Bytes per pixel
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Compression preprocessing, as used in PNG images.
 </p>
@@ -18567,10 +19200,11 @@ Compression preprocessing, as used in PNG images.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  handler     [<span class="types">object!</span>] 
+  handler     [<span class="types">object!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -18588,15 +19222,16 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  set1        [<span class="types">block! string! bitset! typeset! map!</span>] first set
-  set2        [<span class="types">block! string! bitset! typeset! map!</span>] second set
+  set1        [<span class="types">block! string! bitset! typeset! map!</span>] First set
+  set2        [<span class="types">block! string! bitset! typeset! map!</span>] Second set
 <span class="tit">REFINEMENTS:</span>
   /case       Use case-sensitive comparison
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns all elements present within two blocks or strings 
 ignoring the duplicates.
@@ -18643,14 +19278,15 @@ data sets can be CPU intensive.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  set1        [<span class="types">block! string! bitset! typeset! map!</span>] 
+  set1        [<span class="types">block! string! bitset! typeset! map!</span>]
 <span class="tit">REFINEMENTS:</span>
   /case       Use case-sensitive comparison (except bitsets)
   /skip       Treat the series as records of fixed size
-   size       [<span class="types">integer!</span>] 
+   size       [<span class="types">integer!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Removes all duplicate values from a set or series:
 </p>
@@ -18682,13 +19318,14 @@ data sets can be CPU intensive.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  condition   [<span class="types">any-type!</span>] 
-  false-branch  
+  condition   [<span class="types">any-type!</span>]
+  false-branch [<span class="types">any-type!</span>]
 <span class="tit">REFINEMENTS:</span>
   /only       Return block arg instead of evaluating it.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#unless">unless</a> function is the equivalent of writing <a href="#if">if</a> <a href="#not">not</a> of a condition.
 </p>
@@ -18714,14 +19351,15 @@ This function can take some getting used to. It has been provided to make PERL p
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">word! series! bitset! map! object! module!</span>] 
+  value       [<span class="types">word! series! bitset! map! object! module!</span>]
 <span class="tit">REFINEMENTS:</span>
   /deep       Protect all sub-series as well
   /words      Block is a list of words
   /values     Process list of values (implied GET)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Unprotects a series, variable, or object that was protected earlier with <a href="#protect">protect</a>.
 </p>
@@ -18767,7 +19405,8 @@ See <a href="#protect">protect</a> for other usage and information.
   word        [<span class="types">word! block! none!</span>] Word or block of words
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Using UNSET, the word's current value will be lost. If
 a block is specified, all the words within the block
@@ -18791,10 +19430,11 @@ false</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns TRUE if a value is UNSET. Normally you should
 use VALUE? to test if a word has a value.
@@ -18815,10 +19455,11 @@ test</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  block       [<span class="types">block!</span>] 
+  block       [<span class="types">block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#until">until</a> function evaluates a block until the block returns true. It is different from <a href="#while">while</a> because it only requires a single block, which also serves as the condition. However, the block is always evaluated at least once.
 </p>
@@ -18873,7 +19514,8 @@ The last value of the block is returned from the <a href="#until">until</a> func
   window      [<span class="types">object! gob! word! none!</span>] Window face or GOB. 'all for all. none for last
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The UNVIEW function is used to close a window previously opened
 with the VIEW function. By default, the last window that has
@@ -18917,10 +19559,11 @@ You could have closed both windows with the line:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port!</span>] 
+  port        [<span class="types">port!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Updates the input or output of a port. If input is
 expected, the port is checked for more input. If output
@@ -18948,10 +19591,11 @@ close out</code></pre></div>
   string      [<span class="types">any-string! char!</span>] (modified if series)
 <span class="tit">REFINEMENTS:</span>
   /part       Limits to a given length or position
-   length     [<span class="types">number! any-string!</span>] 
+   length     [<span class="types">number! any-string!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The series passed to this function is modified as a
 result.
@@ -18975,10 +19619,11 @@ Abcdef</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values.
 </p>
@@ -18999,50 +19644,52 @@ false</code></pre></div>
 <h6>Usage:</h6>
 <pre class="usage fs-6">usage</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Displays REBOL command line arguments, including
 options and examples.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> usage</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">usage</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>
-  <span class="ansi4 ansi1 ansi36">Command line usage</span>:
+  <span class="ansi4"><span class="ansi96">Command line usage<span class="ansi24"></span></span></span>:
   
-      <span class="ansi1 ansi32">REBOL |options| |script| |arguments|</span>
+	  <span class="ansi93">REBOL |options| |script| |arguments|</span>
   
-  <span class="ansi4 ansi1 ansi36">Standard options</span>:
+  <span class="ansi4"><span class="ansi96">Standard options<span class="ansi24"></span></span></span>:
   
-      <span class="ansi1 ansi32">--args data</span>      Explicit arguments to script (quoted)
-      <span class="ansi1 ansi32">--do expr</span>        Evaluate expression (quoted)
-      <span class="ansi1 ansi32">--help (-?)</span>      Display this usage information (then quit)
-      <span class="ansi1 ansi32">--script file</span>    Explicit script filename
-      <span class="ansi1 ansi32">--version tuple</span>  Script must be this version or greater
+	  <span class="ansi93">--args data</span>      Explicit arguments to script (quoted)
+	  <span class="ansi93">--do expr</span>        Evaluate expression (quoted)
+	  <span class="ansi93">--help (-?)</span>      Display this usage information (then quit)
+	  <span class="ansi93">--script file</span>    Explicit script filename
+	  <span class="ansi93">--version tuple</span>  Script must be this version or greater
   
-  <span class="ansi4 ansi1 ansi36">Special options</span>:
+  <span class="ansi4"><span class="ansi96">Special options<span class="ansi24"></span></span></span>:
   
-      <span class="ansi1 ansi32">--boot level</span>     Valid levels: base sys mods
-      <span class="ansi1 ansi32">--debug flags</span>    For user scripts (system/options/debug)
-      <span class="ansi1 ansi32">--halt (-h)</span>      Leave console open when script is done
-      <span class="ansi1 ansi32">--import file</span>    Import a module prior to script
-      <span class="ansi1 ansi32">--quiet (-q)</span>     No startup banners or information
-      <span class="ansi1 ansi32">--secure policy</span>  Can be: none allow ask throw quit
-      <span class="ansi1 ansi32">--trace (-t)</span>     Enable trace mode during boot
-      <span class="ansi1 ansi32">--verbose</span>        Show detailed startup information
-      <span class="ansi1 ansi32">--cgi (-c)</span>       Starts in a CGI mode
-      <span class="ansi1 ansi32">--no-color</span>       Reduce the use of ANSI color escape sequences
+	  <span class="ansi93">--boot level</span>     Valid levels: base sys mods
+	  <span class="ansi93">--cgi (-c)</span>       Starts in CGI mode
+	  <span class="ansi93">--debug flags</span>    For user scripts (system/options/debug)
+	  <span class="ansi93">--halt (-h)</span>      Keep console open after script completion
+	  <span class="ansi93">--import file</span>    Import a module prior to script
+	  <span class="ansi93">--legacy-repl</span>    Run the interactive console in legacy (pre-modern) mode
+	  <span class="ansi93">--no-color</span>       Reduce the use of ANSI color escape sequences
+	  <span class="ansi93">--quiet (-q)</span>     No startup banners or information
+	  <span class="ansi93">--secure policy</span>  Can be: none allow ask throw quit
+	  <span class="ansi93">--trace (-t)</span>     Enable trace mode during boot
+	  <span class="ansi93">--verbose</span>        Show detailed startup information
 
-  <span class="ansi4 ansi1 ansi36">Other quick options</span>:
+  <span class="ansi4"><span class="ansi96">Other quick options<span class="ansi24"></span></span></span>:
   
-      <span class="ansi1 ansi32">-s</span>               No security
-      <span class="ansi1 ansi32">+s</span>               Full security
-      <span class="ansi1 ansi32">-v</span>               Display version only (then quit)
+	  <span class="ansi93">-s</span>               No security
+	  <span class="ansi93">+s</span>               Full security
+	  <span class="ansi93">-v</span>               Display version only (then quit)
   
-  <span class="ansi4 ansi1 ansi36">Examples</span>:
+  <span class="ansi4"><span class="ansi96">Examples<span class="ansi24"></span></span></span>:
   
-      REBOL script.r
-      REBOL -s script.r
-      REBOL script.r 10:30 test@example.com
-      REBOL --do "watch: on" script.r
+	  REBOL script.r
+	  REBOL -s script.r
+	  REBOL script.r 10:30 test@example.com
+	  REBOL --do <span class="ansi32">"watch: on"</span> script.r
 </code></pre></div><p>
 SDK and special versions of REBOL may not include usage
 information.
@@ -19066,7 +19713,8 @@ information.
   body        [<span class="types">block!</span>] Block to evaluate
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The first block contains a list of words which will be
 local to the second block. The second block will be
@@ -19104,10 +19752,11 @@ use words copy/deep body</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  key          
+  key         [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 It can be used in the following scenario:
 </p>
@@ -19149,10 +19798,11 @@ Enter password:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">binary!</span>] 
+  data        [<span class="types">binary!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; utf? #{FEFF005700720069007400650072}
 == 16
 
@@ -19178,10 +19828,11 @@ Enter password:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -19199,12 +19850,13 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">word!</span>] 
+  value       [<span class="types">word!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#value?">value?</a> function returns true if the specified <span class="datatype">word!</span> has a value. It returns false if not.
+The <a href="#value?">value?</a> function returns true if the specified <code class="datatype">word!</code> has a value. It returns false if not.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; value? 'system
 == #(true)
@@ -19232,10 +19884,11 @@ The word can be passed as a literal or as the result of other operations.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-object! map! struct!</span>] 
+  value       [<span class="types">any-object! map! struct!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; values-of #[a: 1 b: 2]
 == [1 2]
 
@@ -19255,10 +19908,11 @@ The word can be passed as a literal or as the result of other operations.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; vector? #(uint8! 3)
 == #(true)
 
@@ -19280,7 +19934,8 @@ The word can be passed as a literal or as the result of other operations.
   /data       loadable version
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; version
 == {Rebol/Bulk 3.18.3 (9-Mar-2025/22:36 UTC)
 Copyright (c) 2012 REBOL Technologies
@@ -19309,7 +19964,8 @@ Source:       https://github.com/Oldes/Rebol3
   /as-is      Leave window as is. Do not add a parent gob.
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 NOTE: GUI system is only partially supported in this Rebol version!
 </p>
@@ -19327,18 +19983,19 @@ NOTE: GUI system is only partially supported in this Rebol version!
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">number! time! port! block! none!</span>] 
+  value       [<span class="types">number! time! port! block! none!</span>]
 <span class="tit">REFINEMENTS:</span>
   /all        Returns all in a block
   /only       only check for ports given in the block to this function
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-If the value is a <span class="datatype">time!</span>, delay for that period. If the
-value is an <span class="datatype">integer!</span> or <span class="datatype">decimal!</span>, wait that number of
-seconds. If the value is a <span class="datatype">port!</span>, wait for an event from
-that port. If a <span class="datatype">block!</span> is specified, wait for any of the
+If the value is a <code class="datatype">time!</code>, delay for that period. If the
+value is an <code class="datatype">integer!</code> or <code class="datatype">decimal!</code>, wait that number of
+seconds. If the value is a <code class="datatype">port!</code>, wait for an event from
+that port. If a <code class="datatype">block!</code> is specified, wait for any of the
 times or ports to occur. Return the port that caused
 the wait to complete or return none if the timeout
 occurred.
@@ -19382,11 +20039,12 @@ print now/time
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  port        [<span class="types">port!</span>] 
-  event       [<span class="types">event!</span>] 
+  port        [<span class="types">port!</span>]
+  event       [<span class="types">event!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -19409,7 +20067,8 @@ No description provided.
   /args       Show arguments not titles
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The <a href="#what">what</a> function lists globally exported functions and their titles or arguments.
 </p>
@@ -19444,27 +20103,29 @@ Also see the <a href="#help">help</a> function which allows searching for functi
 <h6>Module Export Lists</h6><p>
 To see a list of functions for a specific module, provide the module name:
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">>> what/args help</code></pre></div>
-<div class="example-code"><pre class="text-block"><code><span class="ansi1 ansi32">?              </span> ['word /doc /into string]
-<span class="ansi1 ansi32">a-an           </span> [s]
-<span class="ansi1 ansi32">about          </span> []
-<span class="ansi1 ansi32">browse         </span> [url]
-<span class="ansi1 ansi32">bugs           </span> []
-<span class="ansi1 ansi32">changes        </span> []
-<span class="ansi1 ansi32">dot            </span> [value]
-<span class="ansi1 ansi32">dump-obj       </span> [obj /weak /match pattern /not-none /count 'w]
-<span class="ansi1 ansi32">form-pad       </span> [val size]
-<span class="ansi1 ansi32">form-type      </span> [value]
-<span class="ansi1 ansi32">form-val       </span> [val]
-<span class="ansi1 ansi32">help           </span> ['word /doc /into string]
-<span class="ansi1 ansi32">license        </span> []
-<span class="ansi1 ansi32">list-codecs    </span> []
-<span class="ansi1 ansi32">out-description</span> [des]
-<span class="ansi1 ansi32">output         </span> [value]
-<span class="ansi1 ansi32">pad            </span> [val size]
-<span class="ansi1 ansi32">source         </span> ['word]
-<span class="ansi1 ansi32">usage          </span> []
-<span class="ansi1 ansi32">what           </span> ['name /args]
+<div class="example-code"><pre class="rebol-block"><code class="rebol">what/args help</code></pre></div>
+<div class="example-code"><pre class="text-block"><code><span class="ansi32">?              </span> ['word /doc /into string]
+<span class="ansi32">a-an           </span> [s]
+<span class="ansi32">about          </span> []
+<span class="ansi32">browse         </span> [url]
+<span class="ansi32">bugs           </span> []
+<span class="ansi32">changes        </span> []
+<span class="ansi32">dot            </span> [value]
+<span class="ansi32">dump-obj       </span> [obj /match pattern /ignore ignored]
+<span class="ansi32">form-pad       </span> [val size]
+<span class="ansi32">form-type      </span> [value]
+<span class="ansi32">form-val       </span> [val]
+<span class="ansi32">help           </span> ['word /doc /into string]
+<span class="ansi32">license        </span> []
+<span class="ansi32">list-codecs    </span> []
+<span class="ansi32">out-description</span> [des]
+<span class="ansi32">out-title      </span> [title /line]
+<span class="ansi32">output         </span> [value]
+<span class="ansi32">pad            </span> [val size]
+<span class="ansi32">source         </span> ['word]
+<span class="ansi32">usage          </span> []
+<span class="ansi32">what           </span> ['name /args]
+<span class="ansi32">why?           </span> ['err]
 </code></pre></div>
 <div class="see-also">See also: <a href="#?">?</a>, <a href="#help">help</a></div>
 </section>
@@ -19478,7 +20139,8 @@ To see a list of functions for a specific module, provide the module name:
 <h6>Usage:</h6>
 <pre class="usage fs-6">what-dir</span></pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; what-dir
 == %/C/Users/oldes/Rebol/</code></pre></div>
 <div class="see-also">See also: <a href="#change-dir">change-dir</a>, <a href="#list-dir">list-dir</a>, <a href="#make-dir">make-dir</a></div>
@@ -19495,13 +20157,14 @@ To see a list of functions for a specific module, provide the module name:
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  cond-block  [<span class="types">block!</span>] 
-  body-block  [<span class="types">block!</span>] 
+  cond-block  [<span class="types">block!</span>]
+  body-block  [<span class="types">block!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
-The <a href="#while">while</a> function repeats the evaluation of its two block arguments while the first block returns true. The first block is the condition block, the second block is the evaluation block. When the condition block returns false or <span class="datatype">none!</span>, the expression block will no longer be evaluated and the loop terminates.
+The <a href="#while">while</a> function repeats the evaluation of its two block arguments while the first block returns true. The first block is the condition block, the second block is the evaluation block. When the condition block returns false or <code class="datatype">none!</code>, the expression block will no longer be evaluated and the loop terminates.
 </p>
 <p>
 The general form is:
@@ -19593,7 +20256,7 @@ first argument (the condition).</li>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  path        [<span class="types">file!</span>] 
+  path        [<span class="types">file!</span>]
 </pre>
 </section>
 
@@ -19624,10 +20287,11 @@ first argument (the condition).</li>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-type!</span>] 
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Returns FALSE for all other values. To test for "word:",
 ":word", or "'word", use the SET?, GET?, and LITERAL?
@@ -19649,10 +20313,11 @@ true</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value       [<span class="types">any-function! any-object! map! date! handle! struct!</span>] 
+  value       [<span class="types">any-function! any-object! map! date! handle! struct!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 No description provided.
 </p>
@@ -19674,7 +20339,8 @@ No description provided.
   body        [<span class="types">block!</span>] Block to evaluate
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; a: 1 ;; Having some value....
 == 1
 
@@ -19697,22 +20363,23 @@ No description provided.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  destination [<span class="types">port! file! url! block! word!</span>] 
-  data         Data to write (non-binary converts to UTF-8)
+  destination [<span class="types">port! file! url! block! word!</span>]
+  data        [<span class="types">any-type!</span>] Data to write (non-binary converts to UTF-8)
 <span class="tit">REFINEMENTS:</span>
   /part       Partial write a given number of units
-   length     [<span class="types">number!</span>] 
+   length     [<span class="types">number!</span>]
   /seek       Write at a specific position
-   index      [<span class="types">number!</span>] 
+   index      [<span class="types">number!</span>]
   /append     Write data at end of file
   /allow      Specifies protection attributes
-   access     [<span class="types">block!</span>] 
+   access     [<span class="types">block!</span>]
   /lines      Write each value in a block as a separate line
   /binary     Preserves contents exactly
   /all        Response may include additional information (source relative)
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 WRITE is typically used to write a file to disk, but
 many other operations, such as writing data to URLs and
@@ -19791,11 +20458,12 @@ print read %rebol-test-file.r</code></pre></div>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 For integers, each bit
 is exclusively-or'd. For logic values, this is the
@@ -19826,11 +20494,12 @@ print 1.2.3.4 xor 1.0.0.0
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 The trampoline action function for XOR operator.
 </p>
@@ -19859,10 +20528,11 @@ The trampoline action function for XOR operator.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        
+  value       [<span class="types">any-type!</span>]
 </pre>
 
-<h6>Description:</h6>
+<h5>Description:</h5>
+
 <p>
 Check the value of a word is zero.
 </p>
@@ -19885,8 +20555,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! vector!</span>] 
-  value2      [<span class="types">scalar! date! vector!</span>] 
+  value1      [<span class="types">scalar! date! vector!</span>]
+  value2      [<span class="types">scalar! date! vector!</span>]
 </pre>
 </section>
 
@@ -19916,7 +20586,7 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value        A string, block, file, etc.
+  value       [<span class="types">any-type!</span>] A string, block, file, etc.
 </pre>
 </section>
 
@@ -19931,8 +20601,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 </section>
 
@@ -19947,8 +20617,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! vector!</span>] 
-  value2      [<span class="types">scalar! vector!</span>] 
+  value1      [<span class="types">scalar! vector!</span>]
+  value2      [<span class="types">scalar! vector!</span>]
 </pre>
 </section>
 
@@ -19956,15 +20626,15 @@ Check the value of a word is zero.
 <section id="//">
  <a name="//"></a>
  <h2>//<a class="headerlink" href="#//" title="Link to this heading">¶</a></h2>
-<p>Wrapper for MOD that handles errors like REMAINDER. Negligible values (compared to A and B) are rounded to zero.</p>
+<p>Returns the first integer divided by the second</p>
 
 <h6>Usage:</h6>
-<pre class="usage fs-6"><span class="rebarg">a</span> // <span class="rebarg">b</span></span></pre>
+<pre class="usage fs-6"><span class="rebarg">value1</span> // <span class="rebarg">value2</span></span></pre>
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  a           [<span class="types">number! money! char! time!</span>] 
-  b           [<span class="types">number! money! char! time!</span>] Absolute value will be used.
+  value1      [<span class="types">number!</span>]
+  value2      [<span class="types">number!</span>]
 </pre>
 </section>
 
@@ -19979,8 +20649,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -19995,8 +20665,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20011,8 +20681,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20027,8 +20697,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20043,8 +20713,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20059,8 +20729,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">integer!</span>] 
-  bits        [<span class="types">integer!</span>] 
+  data        [<span class="types">integer!</span>]
+  bits        [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -20075,8 +20745,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! vector!</span>] 
-  value2      [<span class="types">scalar! vector!</span>] 
+  value1      [<span class="types">scalar! vector!</span>]
+  value2      [<span class="types">scalar! vector!</span>]
 </pre>
 </section>
 
@@ -20091,8 +20761,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  number      [<span class="types">number!</span>] 
-  exponent    [<span class="types">number!</span>] 
+  number      [<span class="types">number!</span>]
+  exponent    [<span class="types">number!</span>]
 </pre>
 </section>
 
@@ -20107,9 +20777,31 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! vector!</span>] 
-  value2      [<span class="types">scalar! vector!</span>] 
+  value1      [<span class="types">scalar! vector!</span>]
+  value2      [<span class="types">scalar! vector!</span>]
 </pre>
+</section>
+
+<hr>
+<section id="%%">
+ <a name="%%"></a>
+ <h2>%%<a class="headerlink" href="#%%" title="Link to this heading">¶</a></h2>
+<p>Returns the modulo of dividing two numbers using Euclidean division.</p>
+
+<h6>Usage:</h6>
+<pre class="usage fs-6"><span class="rebarg">a</span> %% <span class="rebarg">b</span></span></pre>
+
+<pre class="help">
+<span class="tit">ARGUMENTS:</span>
+  a           [<span class="types">number! money! char! time!</span>] Dividend
+  b           [<span class="types">number! money! char! time!</span>] Divisor (must be nonzero)
+<span class="tit">REFINEMENTS:</span>
+  /floor      Use floor division; the sign of the result follows the sign of the divisor
+</pre>
+
+<h5>Description:</h5>
+
+<div class="extra-desc">The result is always non-negative: 0 <= result < abs(divisor).</div>
 </section>
 
 <hr>
@@ -20123,8 +20815,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
-  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>] 
+  value1      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
+  value2      [<span class="types">logic! integer! char! tuple! binary! bitset! typeset! datatype! pair! vector!</span>]
 </pre>
 </section>
 
@@ -20139,8 +20831,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">scalar! date! vector!</span>] 
-  value2      [<span class="types">scalar! date! vector!</span>] 
+  value1      [<span class="types">scalar! date! vector!</span>]
+  value2      [<span class="types">scalar! date! vector!</span>]
 </pre>
 </section>
 
@@ -20177,7 +20869,7 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  name         Word, path or block to obtain values.
+  name        [<span class="types">any-type!</span>] Word, path or block to obtain values.
 </pre>
 </section>
 
@@ -20192,8 +20884,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20208,8 +20900,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1       
-  value2       
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20224,8 +20916,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20240,8 +20932,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  data        [<span class="types">integer!</span>] 
-  bits        [<span class="types">integer!</span>] 
+  data        [<span class="types">integer!</span>]
+  bits        [<span class="types">integer!</span>]
 </pre>
 </section>
 
@@ -20271,8 +20963,8 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
 
@@ -20287,7 +20979,7 @@ Check the value of a word is zero.
 
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
-  value1      [<span class="types">any-type!</span>] 
-  value2      [<span class="types">any-type!</span>] 
+  value1      [<span class="types">any-type!</span>]
+  value2      [<span class="types">any-type!</span>]
 </pre>
 </section>
