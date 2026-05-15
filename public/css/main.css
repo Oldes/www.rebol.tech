@@ -238,6 +238,7 @@ code.desc {
 code.inline {
 	color: #FFA5A5;
 	font-size: 0.9em;
+	white-space: nowrap;
 }
 code.datatype {
 	color: #AFF5A5;

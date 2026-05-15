@@ -116,7 +116,8 @@ absolute -1x4    ;== 1x4</code></pre></div>
 
 <p>
 <a href="#acos">acos</a> computes the inverse cosine of a <code class="datatype">decimal!</code> value and returns the result in radians.
-The input must be in the range </p>
+The input must be in the range <code class=inline>[-1.0, 1.0]</code>; values outside this range will return <code class=inline>1.#NaN</code>.
+</p>
 <p>
 To work in degrees instead, use <a href="#arccosine">arccosine</a>.
 </p>
@@ -836,7 +837,7 @@ To see what datatypes are words:
 <h5>Description:</h5>
 
 <p>
-The <a href="#append">append</a> function is a shortcut for doing an <a href="#insert">insert</a> at the tail of any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> and returning the head:
+The <a href="#append">append</a> function is a shortcut for doing an <a href="#insert">insert</a> at the tail of any type of [series](https://www.rebol.com/r3/docs/concepts/series.html) and returning the head:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">head insert tail series value</code></pre></div><p>
 Basic examples:
@@ -932,9 +933,11 @@ Note that even when used the name instead of <a href="#true">true</a>, the posit
 <h5>Description:</h5>
 
 <p>
-Returns the angle whose cosine is <code class=inline>value</code> — the inverse of <a href="#cosine">cosine</a>. The result is in the range </p>
+Returns the angle whose cosine is <code class=inline>value</code> — the inverse of <a href="#cosine">cosine</a>. The result is in the range <code class=inline>[0°, 180°]</code> (or <code class=inline>[0, π]</code> with <code class=inline>/radians</code>).
+</p>
 <p>
-The input must be in the range </p>
+The input must be in the range <code class=inline>[-1, 1]</code>, which corresponds to all valid cosine values. Passing a value outside this range returns <code class=inline>1.#NaN</code>.
+</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">arccosine 1.0          ;== 0.0                (0° — cosine of 0° is 1)
 arccosine 0.5          ;== 60.0               (cosine of 60° is 0.5)
 arccosine 0            ;== 90.0               (cosine of 90° is 0)
@@ -965,9 +968,11 @@ arccosine 1.1          ;== 1.#NaN             (out of valid range)</code></pre><
 <h5>Description:</h5>
 
 <p>
-Returns the angle whose sine is <code class=inline>value</code> — the inverse of <a href="#sine">sine</a>. The result is in the range </p>
+Returns the angle whose sine is <code class=inline>value</code> — the inverse of <a href="#sine">sine</a>. The result is in the range <code class=inline>[-90°, 90°]</code> (or <code class=inline>[-π/2, π/2]</code> with <code class=inline>/radians</code>).
+</p>
 <p>
-The input must be in the range </p>
+The input must be in the range <code class=inline>[-1, 1]</code>, which corresponds to all valid sine values. Passing a value outside this range returns <code class=inline>1.#NaN</code>.
+</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">arcsine -1.0          ;== -90.0              (sine of -90° is -1)
 arcsine -0.5          ;== -30.0              (sine of -30° is -0.5)
 arcsine 0             ;== 0.0                (sine of 0° is 0)
@@ -1200,9 +1205,6 @@ as #{} "hello"                 ; ** Error: incompatible types</code></pre></div>
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-blue "This text is blue."
 probe as-blue "Raw blue string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi94">This text is blue.</span>
@@ -1226,9 +1228,6 @@ probe as-blue "Raw blue string."</code></pre></div>
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-cyan "This text is cyan."
 probe as-cyan "Raw cyan string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi96">This text is cyan.</span>
@@ -1252,9 +1251,6 @@ probe as-cyan "Raw cyan string."</code></pre></div>
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-gray "This text is gray."
 probe as-gray "Raw gray string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansiclr244">This text is gray.</span>
@@ -1278,9 +1274,6 @@ probe as-gray "Raw gray string."</code></pre></div>
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-green "This text is green."
 probe as-green "Raw green string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi92">This text is green.</span>
@@ -1306,11 +1299,17 @@ probe as-green "Raw green string."</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Provides a shortcut for creating <code class="datatype">pair!</code> values from separate X and
-Y integers.
+Creates a <code class="datatype">pair!</code> value from two separate numbers. Useful when X and Y are held in separate variables, as an alternative to the literal <code class=inline>XxY</code> syntax.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print as-pair 100 50
-100x50</code></pre></div>
+<p>
+Both integer and decimal values are preserved in the result.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">as-pair 100 50         ;== 100x50
+as-pair 0.5 10         ;== 0.5x10
+as-pair 1.5 2.5        ;== 1.5x2.5
+
+; Useful when components are in variables
+as-pair window-width window-height</code></pre></div>
 <div class="see-also">See also: <a href="#pair?">pair?</a>, <a href="#to-pair">to-pair</a></div>
 </section>
 
@@ -1330,9 +1329,6 @@ Y integers.
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-purple "This text is purple."
 probe as-purple "Raw purple string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi95">This text is purple.</span>
@@ -1356,9 +1352,6 @@ probe as-purple "Raw purple string."</code></pre></div>
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-red "This text is red."
 probe as-red "Raw red string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi91">This text is red.</span>
@@ -1382,9 +1375,6 @@ probe as-red "Raw red string."</code></pre></div>
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-white "This text is white."
 probe as-white "Raw white string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi97">This text is white.</span>
@@ -1408,9 +1398,6 @@ probe as-white "Raw white string."</code></pre></div>
 
 <h5>Description:</h5>
 
-<p>
-Example:
-</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print as-yellow "This text is yellow."
 probe as-yellow "Raw yellow string."</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi93">This text is yellow.</span>
@@ -1434,11 +1421,19 @@ probe as-yellow "Raw yellow string."</code></pre></div>
 
 <h5>Description:</h5>
 
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; ascii? "hello"
-== #(true)
+<p>
+Returns <a href="#true">true</a> if every character in <code class=inline>value</code> has a codepoint below 128. For <code class="datatype">any-string!</code>, a single non-ASCII character anywhere in the string is enough to return <a href="#false">false</a>. For <code class="datatype">char!</code> and <code class="datatype">integer!</code>, the check is applied to that single value.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">ascii? "hello"       ;== #(true)
+ascii? "česko"       ;== #(false)   (č has codepoint 269)
 
-&gt;&gt; ascii? "česko"
-== #(false) ;; because (to integer! #"č") == 269</code></pre></div>
+ascii? #"A"          ;== #(true)    (codepoint 65)
+ascii? #"č"          ;== #(false)   (codepoint 269)
+
+ascii? 65            ;== #(true)    (codepoint of A)
+ascii? 269           ;== #(false)   (codepoint of č)
+ascii? 127           ;== #(true)    (last ASCII codepoint)
+ascii? 128           ;== #(false)   (first non-ASCII codepoint)</code></pre></div>
 <div class="see-also">See also: <a href="#latin?">latin?</a>, <a href="#utf8?">utf8?</a></div>
 </section>
 
@@ -1455,6 +1450,22 @@ probe as-yellow "Raw yellow string."</code></pre></div>
 <span class="tit">ARGUMENTS:</span>
   value       [<span class="types">decimal!</span>] In radians
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+Equivalent to <code class=inline>arcsine/radians</code>. The result is in the range <code class=inline>[-π/2, π/2]</code>.
+</p>
+<p>
+The input must be in the range <code class=inline>[-1, 1]</code>, which corresponds to all valid sine values. Passing a value outside this range returns <code class=inline>1.#NaN</code>.
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">asin 0.0            ;== 0.0
+asin 0.5            ;== 0.523598775598299   (π/6)
+asin 1.0            ;== 1.5707963267949     (π/2)
+asin -1.0           ;== -1.5707963267949   (-π/2)
+
+asin 1.1            ;== 1.#NaN             (out of valid range)</code></pre></div>
+<div class="see-also">See also: <a href="#acos">acos</a>, <a href="#arcsine">arcsine</a>, <a href="#cos">cos</a>, <a href="#sin">sin</a></div>
 </section>
 
 <hr>
@@ -1588,7 +1599,7 @@ Note that <a href="#assert">assert</a> is safe to use on all function datatypes.
 <h5>Description:</h5>
 
 <p>
-Provides a simple way to index into any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>. <a href="#at">at</a> returns the series at the new index point.
+Provides a simple way to index into any type of [series](https://www.rebol.com/r3/docs/concepts/series.html). <a href="#at">at</a> returns the series at the new index point.
 </p>
 <p>
 Note that the operation is relative to the current position within the series.
@@ -1771,7 +1782,7 @@ probe value
 <h5>Description:</h5>
 
 <p>
-Works on any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>. If the series is at its head, it will remain at its head. <a href="#back">back</a> will not go past the head, nor will it wrap to the tail.
+Works on any type of [series](https://www.rebol.com/r3/docs/concepts/series.html). If the series is at its head, it will remain at its head. <a href="#back">back</a> will not go past the head, nor will it wrap to the tail.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print back tail "abcd"
 d
@@ -2483,7 +2494,7 @@ cd somewhere</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-The <a href="#change">change</a> function modifies any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as a <code class="datatype">string!</code> or <code class="datatype">block!</code>, at its current index position.
+The <a href="#change">change</a> function modifies any type of [series](https://www.rebol.com/r3/docs/concepts/series.html), such as a <code class="datatype">string!</code> or <code class="datatype">block!</code>, at its current index position.
 </p>
 <p>
 It has many variations, but let's take a simple example that modifies a <code class="datatype">string!</code> series:
@@ -2924,10 +2935,10 @@ Note, however, that this luxury provided by closures is not without its costs. C
 In essence a closure is an object. When you define the closure, it constructs a prototype object, and each time you call the closure, the prototype object is instantiated and the body code is evaluated within that context.
 </p>
 <p>
-More about closures <a href="http://www.rebol.net/wiki/Closures">here</a>.
+More about closures [here](http://www.rebol.net/wiki/Closures).
 </p>
 <p>
-More about the benefits and costs of closures <a href="http://www.rebol.net/wiki/R2_vs._R3_Contexts">here</a>.
+More about the benefits and costs of closures [here](http://www.rebol.net/wiki/R2_vs._R3_Contexts).
 </p>
 
 <div class="see-also">See also: <a href="#closure?">closure?</a>, <a href="#does">does</a>, <a href="#func">func</a>, <a href="#function">function</a>, <a href="#has">has</a></div>
@@ -3544,7 +3555,7 @@ For example:
 <h5>Description:</h5>
 
 <p>
-The <a href="#copy">copy</a> function will copy any <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as <code class="datatype">string!</code> or <code class="datatype">block!</code>, and most other compound datatypes such as <code class="datatype">object!</code> or <code class="datatype">function!</code>. It is not used for immediate datatypes, such as <code class="datatype">integer!</code>, <code class="datatype">decimal!</code>, <code class="datatype">time!</code>, <code class="datatype">date!</code>, and others.
+The <a href="#copy">copy</a> function will copy any [series](https://www.rebol.com/r3/docs/concepts/series.html), such as <code class="datatype">string!</code> or <code class="datatype">block!</code>, and most other compound datatypes such as <code class="datatype">object!</code> or <code class="datatype">function!</code>. It is not used for immediate datatypes, such as <code class="datatype">integer!</code>, <code class="datatype">decimal!</code>, <code class="datatype">time!</code>, <code class="datatype">date!</code>, and others.
 </p>
 <fieldset class="fset"><legend>How it Works</legend>
 <p>It is important to understand <a href="#copy">copy</a> to program in Rebol properly.</p>
@@ -4263,7 +4274,7 @@ Now the input is processed using <a href="#delect">delect</a>, one step at a tim
   ?? out
   ?? inp
 ]</code></pre></div><p>
-To read more about <a href="#delect">delect</a>, see <a href="http://rebol.net/wiki/Delect">here</a>.
+To read more about <a href="#delect">delect</a>, see [here](http://rebol.net/wiki/Delect).
 </p>
 
 <div class="see-also">See also: <a href="#parse">parse</a></div>
@@ -4385,7 +4396,7 @@ Note that when reading from disk, READ/STRING provides the same functionality.
 Provides detailed profiling information captured during the evaluation of a block.
 </p>
 <p>
-See <a href="http://www.rebol.net/wiki/Profiler">Profiler</a> for detailed examples.
+See [Profiler](http://www.rebol.net/wiki/Profiler) for detailed examples.
 </p>
 <p>
 Simple example:
@@ -4432,7 +4443,7 @@ Example:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; dt [loop 1000000 [next "a"]]
 0:00:00.25</code></pre></div><p>
-See <a href="http://www.rebol.net/wiki/Profiler">Profiler</a> for detailed information about timing and profiling.
+See [Profiler](http://www.rebol.net/wiki/Profiler) for detailed information about timing and profiling.
 </p>
 
 <div class="see-also">See also: <a href="#delta-profile">delta-profile</a>, <a href="#dp">dp</a>, <a href="#dt">dt</a></div>
@@ -4897,10 +4908,10 @@ See the system/catalog/codecs for a list of loaded codecs. Codecs can be native 
 <h5>Description:</h5>
 
 <p>
-High speed <code class="datatype">command!</code> block evaluation for <a href="https://www.rebol.com/r3/docs/concepts/extensions.html">extensions</a>.
+High speed <code class="datatype">command!</code> block evaluation for [extensions](https://www.rebol.com/r3/docs/concepts/extensions.html).
 </p>
 <p>
-Originally created to evaluate <a href="https://www.rebol.com/r3/docs/view/draw.html">graphics rendering commands</a>, it can be used for any external sequence of commands that require maximum speed (e.g. high speed math processing such as FFTs, image processing, audio processing.)
+Originally created to evaluate [graphics rendering commands](https://www.rebol.com/r3/docs/view/draw.html), it can be used for any external sequence of commands that require maximum speed (e.g. high speed math processing such as FFTs, image processing, audio processing.)
 </p>
 
 <h6>Special Evaluation Method</h6><p>
@@ -4908,7 +4919,7 @@ The greater speed of command blocks is obtained through the use of a special eva
 </p>
 <ul><li>Evaluation is strictly linear. Sub-expressions, control branching, and recursion are not allowed so no stack management is required.</li><li>Arguments are already reduced to their final values (or variables that hold those values.)</li><li>Special variations of function arguments are not allowed. Only word and 'word forms are allowed.</li><li>Arguments must appear in the correct order and no optional arguments are allowed.</li><li>Arguments are placed directly within the command argument frame, not on the primary evaluator stack.</li></ul>
 <h6>Why is it Useful?</h6><p>
-In subsystems like the <a href="https://www.rebol.com/r3/docs/gui/gui">R3 GUI</a>, graphical elements are rendered by generating semi-static <a href="https://www.rebol.com/r3/docs/view/draw.html">draw blocks</a> either during style definition (definition of a button), face instantiation (creating an instance of a button), or face state modification (eg. hovering over a button).
+In subsystems like the [R3 GUI](https://www.rebol.com/r3/docs/gui/gui), graphical elements are rendered by generating semi-static [draw blocks](https://www.rebol.com/r3/docs/view/draw.html) either during style definition (definition of a button), face instantiation (creating an instance of a button), or face state modification (eg. hovering over a button).
 </p>
 <p>
 The advantage of the static form of such draw blocks is that they require no further evaluation, hence take no additional memory or CPU time. In fact, the state of the GUI at any specific time is simply a sequence of draw block renderings. Therefore, a fast method of calling draw functions can greatly speed-up the rendering time of the GUI.
@@ -6132,7 +6143,7 @@ probe block
 block: extract/index people 3 2
 probe block
 ["Bob" "Cat" "Ted"]</code></pre></div><p>
-Of course, <a href="#extract">extract</a> works on any <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, not just those that appear in a row format (such as that above). The example below creates a block containing every other word from a string:
+Of course, <a href="#extract">extract</a> works on any [series](https://www.rebol.com/r3/docs/concepts/series.html), not just those that appear in a row format (such as that above). The example below creates a block containing every other word from a string:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">str: "This is a given block here"
 blk: parse str none
@@ -6444,7 +6455,7 @@ Editor note: Not sure about the description
 <h5>Description:</h5>
 
 <p>
-This is an ordinal. It returns the first value in any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> at the current position. If no value is found, none is returned.
+This is an ordinal. It returns the first value in any type of [series](https://www.rebol.com/r3/docs/concepts/series.html) at the current position. If no value is found, none is returned.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print first "Rebol"
 R
@@ -8042,7 +8053,7 @@ For example:
 
 &gt;&gt; why?
 Opening web browser...</code></pre></div><p>
-and, this page, <a href="https://www.rebol.com/r3/docs/errors/script-no-value.html">no-value</a>, would be displayed.
+and, this page, [no-value](https://www.rebol.com/r3/docs/errors/script-no-value.html), would be displayed.
 </p>
 <p>
 See <code class=inline>why?</code> for more about this function.
@@ -8290,7 +8301,7 @@ if not image? img [alert "Not an image file!"]</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-The <a href="#import">import</a> function is used to import modules into your runtime environment. For a full description see the <a href="https://www.rebol.com/r3/docs/concepts/modules-loading.html">modules: loading modules</a> section of this documentation.
+The <a href="#import">import</a> function is used to import modules into your runtime environment. For a full description see the [modules: loading modules](https://www.rebol.com/r3/docs/concepts/modules-loading.html) section of this documentation.
 </p>
 <p>
 For example, you can write:
@@ -8826,7 +8837,7 @@ false</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Returns a new <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> that joins together a value with another value or block of values.
+Returns a new [series](https://www.rebol.com/r3/docs/concepts/series.html) that joins together a value with another value or block of values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">join "super" "duper"
 "superduper"
@@ -8837,7 +8848,7 @@ This differs from <a href="#append">append</a> and <a href="#repend">repend</a> 
 </p>
 <p>
 The **first argument determines the datatype of the returned value**.
-When the first argument is a type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, the return value will 
+When the first argument is a type of [series](https://www.rebol.com/r3/docs/concepts/series.html), the return value will 
 be that type of series (d:string, <code class="datatype">file!</code>, <code class="datatype">url!</code>, <code class="datatype">block!</code>, etc.)
 </p>
 <p>
@@ -9261,15 +9272,15 @@ names are followed by a slash (/) in the output listing.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">list-dir</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi31">[</span><span class="ansi33 ansi1">DIR: <span class="ansi32 ansi1">C:\Dev\Builder\tree\www\rebol.tech\</span></span>
-<span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  22:44</span> <span class="ansi32 ansi1">         .git/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  23:28</span> <span class="ansi32 ansi1">         .git/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">08-Mar-2025  01:18</span> <span class="ansi32 ansi1">         _logs/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         _utils/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         public/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     311</span> <span class="ansi93">.editorconfig
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     920</span> <span class="ansi93">.gitattributes
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">      40</span> <span class="ansi93">.gitignore
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  23:16</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  22:49</span> <span class="ansi33">   10855</span> <span class="ansi93">gen-functions.r3
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  23:39</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  23:39</span> <span class="ansi33">   10853</span> <span class="ansi93">gen-functions.r3
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">   32749</span> <span class="ansi93">httpd.reb
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi33">    1024</span> <span class="ansi93">parse-errors.r3
 <span class="ansi31 ansi1">└───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     691</span> <span class="ansi93">server.r3
@@ -9575,7 +9586,7 @@ Other possible traces are <a href="#log-info">log-info</a>, <a href="#log-trace"
 log-info  'TEST ["Current time is: " now]
 log-trace 'TEST "This is just a trace."
 log-warn  'TEST "This is warning message."</code></pre></div>
-<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  15-May-2026/23:16:30+2:00</span></span>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  15-May-2026/23:39:20+2:00</span></span>
  <span class="ansi33">[TEST] <span class="ansi32">This is just a trace.</span></span>
  <span class="ansi93">[TEST] <span class="ansi31">This is warning message.</span></span>
 </code></pre></div>
@@ -9761,7 +9772,7 @@ Here's an example that creates a block of 10 random integers:
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: make block! 10
 loop 10 [append block random 100]
 probe block</code></pre></div>
-<div class="example-code"><pre class="text-block"><code>[17 8 86 18 62 92 29 29 68 79]
+<div class="example-code"><pre class="text-block"><code>[59 25 74 20 89 34 2 60 80 23]
 </code></pre></div>
 <h6>Returned Value</h6><p>
 When finished the <a href="#loop">loop</a> function returns the final value the block:
@@ -9917,7 +9928,7 @@ Used on boot, but may be used to create custom banners like:
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Product    <span class="ansi31">Test Banner                                                </span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Just an example!                                           </span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">15-May-2026/23:16:30+2:00                                  </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">15-May-2026/23:39:20+2:00                                  </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
@@ -10424,7 +10435,8 @@ The primary importance of <a href="#mold">mold</a> is to produce strings that ca
 <div class="example-code"><pre class="rebol-block"><code class="rebol">str: mold [1 + 2]
 probe load str
 [1 + 2]</code></pre></div><p>
-The <a href="#mold">mold</a> function is the cousin of <a href="#form">form</a> which produces a human-readable string (used by the <a href="#print">print</a> function.) For example a block will be shown with brackets </p>
+The <a href="#mold">mold</a> function is the cousin of <a href="#form">form</a> which produces a human-readable string (used by the <a href="#print">print</a> function.) For example a block will be shown with brackets [ ] and strings will be " " quoted or use braces { } (if it is long or contains special characters).
+</p>
 <p>
 Also, <a href="#remold">remold</a> first uses <a href="#reduce">reduce</a> then <a href="#mold">mold</a>.
 </p>
@@ -10503,7 +10515,7 @@ Note that if using R2, these lines must be modified to indicate binary format.
 </p>
 
 <h6>Code Complexity Comparisons</h6><p>
-It should be noted that <a href="#mold">mold</a> function is used for computing the relative complexity of code using the <a href="http://www.rebol.net/wiki/Load_Mold_Sizes">Load Mold Sizing method</a>.
+It should be noted that <a href="#mold">mold</a> function is used for computing the relative complexity of code using the [Load Mold Sizing method](http://www.rebol.net/wiki/Load_Mold_Sizes).
 </p>
 
 <div class="see-also">See also: <a href="#form">form</a>, <a href="#insert">insert</a>, <a href="#join">join</a>, <a href="#reduce">reduce</a>, <a href="#remold">remold</a></div>
@@ -10781,6 +10793,7 @@ probe dent-block b
 [
 
 1 2 3 4 5 6</code></pre></div><p>
+]
 </p>
 <p>
 If you want to put each item in a block on a new line, you 
@@ -10796,6 +10809,7 @@ probe new-line/all b on
 4
 5
 6</code></pre></div><p>
+]
 </p>
 <p>
 If you don't know whether a block contains markers, you may 
@@ -10817,6 +10831,7 @@ probe new-line/skip b on 2
 1 2
 3 4
 5 6</code></pre></div><p>
+]
 </p>
 
 <div class="see-also">See also: <a href="#new-line?">new-line?</a></div>
@@ -11484,7 +11499,7 @@ false</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-The <a href="#parse">parse</a> function is used to match patterns of values and perform specific actions upon  such matches. A full summary can be found in <a href="https://www.rebol.com/r3/docs/concepts/parsing-summary.html">parsing: summary of parse operations</a> .
+The <a href="#parse">parse</a> function is used to match patterns of values and perform specific actions upon  such matches. A full summary can be found in [parsing: summary of parse operations](https://www.rebol.com/r3/docs/concepts/parsing-summary.html) .
 </p>
 <p>
 Both <code class="datatype">string!</code> and <code class="datatype">block!</code> datatypes can be parsed. Parsing of strings matches specific characters or substrings. Parsing of blocks matches specific values, or specific datatypes, or sub-blocks.
@@ -11507,7 +11522,7 @@ Rules consist of these main elements:
 <tr><td> path </td><td> get or set a variable via a path (see below) </td></tr>
 <tr><td> value </td><td> match the input to a value (accepted datatypes depend on input datatype) </td></tr>
 <tr><td> "</td><td>" </td><td> backtrack and match to next alternate rule (or) </td></tr>
-<tr><td> </td><td> a block of sub-rules </td></tr>
+<tr><td> [block] </td><td> a block of sub-rules </td></tr>
 <tr><td> (paren) </td><td> evaluate an expression (a production) </td></tr>
 </table>
 
@@ -13148,7 +13163,7 @@ Spaces are inserted between each values in a block.
 <h5>Description:</h5>
 
 <p>
-Removes a single value from the current position in any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>.
+Removes a single value from the current position in any type of [series](https://www.rebol.com/r3/docs/concepts/series.html).
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">str: copy "send it here"
 remove str
@@ -14433,7 +14448,7 @@ However, add to that number a good margin of error for special conditions within
 <p>
 A few notes:
 </p>
-<ul><li>The maximum evaluation limit is 9e18.</li><li>The evaluation limit can be set only once and cannot be reset. However, for debugging after an eval THROW exception, you can use <w>secure to disable the trap (use: </li><li>The limit is approximate. It is sampled at regular intervals (to avoid slowing down evaluation.) The sampling period is 10000 cycles, so that is the resolution of the limit. For example, if you set the limit to 1, it won't trap an error until 10000.</li><li>If the program quits, the exit code is set to 101, the same as any security termination; however, we may want to use special codes to indicate the reason for the quit.</li><li>Some types of loops are not yet checked, but we will add them. For example, PARSE cycles are not yet counted.</li><li>Time limits are not yet supported, but may be added in the future. However, the cycle limit is better for most cases, because it is CPU speed independent.</li></ul>
+<ul><li>The maximum evaluation limit is 9e18.</li><li>The evaluation limit can be set only once and cannot be reset. However, for debugging after an eval THROW exception, you can use <w>secure to disable the trap (use: [eval allow]).</li><li>The limit is approximate. It is sampled at regular intervals (to avoid slowing down evaluation.) The sampling period is 10000 cycles, so that is the resolution of the limit. For example, if you set the limit to 1, it won't trap an error until 10000.</li><li>If the program quits, the exit code is set to 101, the same as any security termination; however, we may want to use special codes to indicate the reason for the quit.</li><li>Some types of loops are not yet checked, but we will add them. For example, PARSE cycles are not yet counted.</li><li>Time limits are not yet supported, but may be added in the future. However, the cycle limit is better for most cases, because it is CPU speed independent.</li></ul>
 <h6>Limiting memory</h6><p>
 You can set <a href="#secure">secure</a> to limit the amount of memory allocated by your program. This feature allows you to restrict server scripts (such as CGI) to a specific memory usage to prevent runaway programs.
 </p>
@@ -15122,7 +15137,7 @@ print skip blk 3
 <h5>Description:</h5>
 
 <p>
-Sorting will modify any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> passed as the argument:
+Sorting will modify any type of [series](https://www.rebol.com/r3/docs/concepts/series.html) passed as the argument:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">blk: [799 34 12 934 -24 0]
 sort blk
@@ -15268,7 +15283,7 @@ Rebol defined functions include the mezzanine functions (built-in interpreted fu
 <h5>Description:</h5>
 
 <p>
-The <a href="#split">split</a> function is used to divide a <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a> into subcomponents.
+The <a href="#split">split</a> function is used to divide a [series](https://www.rebol.com/r3/docs/concepts/series.html) into subcomponents.
 It provides several ways to specify how you want the split done.
 </p>
 
@@ -16817,6 +16832,7 @@ arg2: unset!
 arg3: none
 near: [to error! :value]
 where: [to to-error try do attempt if emit parse foreach catch if either if do begin do]</code></pre></div><p>
+]
 </p>
 <p>
 Note that this differs from TO and MAKE in that you
@@ -18110,7 +18126,7 @@ To help understand the format, here's a description for each line in the earlier
 <table class=doctable>
 <tr><th> Code </th><th> Meaning </th></tr>
 <tr><td> >> print 123 </td><td> Typed into the console to evaluate. </td></tr>
-<tr><td> 1: print : native! </td><td> The value at block index 1 is the word print. It's value is looked up and found to be a native! function that takes value as an argument. </td></tr>
+<tr><td> 1: print : native! [value] </td><td> The value at block index 1 is the word print. It's value is looked up and found to be a native! function that takes value as an argument. </td></tr>
 <tr><td> 2: 123 </td><td> The value at block index 2 is the integer 123. </td></tr>
 <tr><td> --> print </td><td> The argument is valid and the print function is entered. The --> means "enter into the function." </td></tr>
 <tr><td> 123 </td><td> Output is printed. </td></tr>
