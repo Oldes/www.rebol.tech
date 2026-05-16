@@ -2156,22 +2156,74 @@ It requires no intermediate storage.
 ## COMPRESS
 [[ decompress ]]
 
-Editor note: Describe the method that compress uses to compress data
+Compresses binary or string data using a specified compression algorithm. Returns compressed `binary!`.
 
+###### Examples:
 ```rebol
-print compress "now is the dawning"
-#{789CCBCB2F57C82C5628C9485548492CCFCBCC4B07003EB606BA12000000}
+;; Check available compression methods
+system/catalog/compressions
+;== [zlib deflate gzip lzma lz4 lz4hc]
 
-string: form first system/words
-print length? string
-8329
+;; Compress a string
+compress "Hello World" 'zlib
+;== #{789CCB48CDC9C95728CF2FCA49010005E0021D}
 
-small: compress string
-print length? small
-3947
+;; Compress binary data
+compress #{DEADBEEF} 'lz4
+
+;; Compress only part of data
+compress/part "Hello World" 'zlib 5
+;== #{789CCB48CDC9C9070086020391} ; only "Hello"
+
+;; Maximum compression
+compress/level "Hello World" 'zlib 9
+
+;; Combine both
+compress/part/level "Hello World" 'zlib 5 9
 ```
 
 As with all compressed files, keep an uncompressed copy of the original data file as a backup.
+
+> **Notes:**
+> Returns `binary!`` regardless of input type
+> To decompress use `decompress` with the same `method`
+> `/level` support and meaning may vary by algorithm — e.g. `lz4` ignores level, while `lzma` and `zlib` make full use of the 0-9 range
+> String input is UTF-8 encoded first, so `decompress` of a compressed string returns binary! — use `to string!` to recover the original string
+
+##### Available methods
+
+The list of supported compression methods may differ between Rebol versions and builds. Always check at runtime.
+Additional methods can be registered via native extensions, for example:
+
+```code
+;; Try to import additional compression methods.
+foreach m [brotli zstd zlib-ng deflate][ attempt [import (m)] ]
+;; List all available methods:
+probe system/catalog/compressions
+```
+
+> **Testing all available methods:**
+> ```code
+> bin: to binary! mold system/catalog
+> sum: checksum bin 'sha256 ;; Used to validate decompressed result
+> len: length? bin          ;; Used as a hint for the decompression
+> 
+> foreach level [1 5 9][
+>     print as-green ajoin ["^/Testing compression of " length? bin " bytes with level " level ".^/"]
+> 
+>     print as-yellow {Method      c.size    factor    com.time    dec.time    valid}
+>     foreach m system/catalog/compressions [
+>         t1: attempt [ to decimal! dt [out: compress/level bin m level] ]
+>         sz: attempt [ length? out ]
+>         fc: attempt [ round/to (len / sz) 0.001 ]
+>         t2: attempt [ to decimal! dt [out: decompress/size out m len] ]
+>         ok: attempt [ equal? sum checksum out 'sha256 ]
+>         printf [12 10 10 12 12] [m sz fc t1 t2 ok]
+>     ]
+>     print  "------------------------"
+> ]
+> ```
+
 
 ------------------------------------------------------------------
 ## CONFIRM
@@ -2682,53 +2734,15 @@ probe decode-url http://user:pass@www.rebol.com/file.txt
 
 ------------------------------------------------------------------
 ## DECOMPRESS
-[[ compress enbase debase ]]
+[[ compress ]]
 
-Examples:
+See `compress` for examples, available methods, and notes on compression levels and extensions.
 
-```rebol
-write %file.txt read http://www.rebol.net
-size? %file.txt
-5539
+> **Notes:**
+> - Always returns `binary!` — use `to string!` to recover an originally string value
+> - `method` must exactly match the one used in `compress` — mismatched methods will error
+> - `/size` hint the expected number of uncompressed bytes. Can improve performance by pre-allocating the output buffer.
 
-save %file.comp compress read %file.txt
-size? %file.comp
-2119
-
-write %file.decomp decompress load %file.comp
-size? %file.decomp
-5539
-```
-
-If the data passed to the `decompress` function has been altered or corrupted, a decompression error will occur.
-
-A typical error is out of memory, if the decompressed file length appears to be wrong (perhaps several gigabytes instead of 5539 bytes) to `decompress`.
-
-Using the `/size` refinement, puts a hard limit to the size of the decompressed file:
-
-
-```rebol
-decompress/limit read %file.comp 5000
-** Script error: maximum limit reached: 5539
-** Where: decompress
-** Near: decompress/limit read %file.comp 5000
-```
-
-This can help avoiding that a decompress operation on a corrupt file suddenly eats all system resources.
-
-
-###### Special Notes
-`decompress` can decompress any ZLIB data as long as the data has the length of the uncompressed data in binary little-endian representation appended:
-
-
-```rebol
-zlib-decompress: func [
-    zlib-data [binary!]
-    length [integer!] "known uncompressed zlib data length"
-][
-    decompress head insert tail zlib-data third make struct! [value [integer!]] reduce [length]
-]
-```
 
 ------------------------------------------------------------------
 ## DEDUPLICATE
@@ -3001,24 +3015,20 @@ Note that performing this function over very large data sets can be CPU intensiv
 ## DIR?
 [[ make-dir modified? exists? ]]
 
-```html
-<fieldset class="fset"><legend>Under Review</legend>
-<p>This function is under review for redefinition.</p>
-</fieldset>
-```
-
-Returns false if it is not a directory.
-
+Returns `true` if the value looks like a directory — i.e. ends with a slash or backslash. With `/check`, verifies against the actual filesystem.
 
 ```rebol
-print dir? %file.txt
-false
+;; Trailing slash detection
+dir? %/home/user/        ;== true
+dir? %/home/user/file    ;== false
+dir? http://example.com/ ;== true
+dir? none                ;== false
 
-print dir? %.
-true
+;; Filesystem check
+dir?/check %/home/user   ;== true  (even without trailing slash)
+dir?/check %/home/user/  ;== true
+dir?/check %myfile.txt   ;== false
 ```
-
-Note that the file that is input, is read from disk, if it exists. The function returns true, when the input either ends in / or if the name exists on disk as a directory.
 
 ------------------------------------------------------------------
 ## DIR-TREE
@@ -3106,39 +3116,28 @@ Disk/File: 0:00:00.234 - 130 MB/S
 Note that `do` of a `file!` or `url!` requires that the script contain a valid Rebol header; otherwise, you'll get an "Script is missing a Rebol header" error.
 
 
-```html
-<fieldset class="fset"><legend>Warning</legend>
-<p>Only <a href="#do">do</a> a <span class="datatype">url!</span> script that you have reason to trust. It is advised that you <a href="#read">read</a> a script first and examine it closely to make sure it is safe to evaluate.</p>
-</fieldset>
-```
+> **Warning:**
+> Only `do` a `url!` script that you have reason to trust. It is advised that you `read` a script first and examine it closely to make sure it is safe to evaluate.
 
 
 ###### Other Uses
 The `do` function can also be called to evaluate other types of arguments such as a `block!`, `path!`, `string!`, or `function!`.
 
-
 ```rebol
-do [1 + 2]
-3
-
-do "1 + 2"  ; see special note below
+do [1 + 2]  ;== 3
+do "1 + 2"  ;== 3 (see special note below)
 3
 ```
-
 Expressions are evaluated left to right and the final result is returned. For example:
 
-
 ```rebol
-do [1 + 2 3 * 4]
-12
+do [1 + 2 3 * 4] ;== 12
 ```
 
 To obtain all results, use the `reduce` function instead.
 
-
 ```rebol
-print reduce [1 + 2 3 * 4]
-3 12
+reduce [1 + 2 3 * 4] == [3 12]
 ```
 
 
@@ -3162,16 +3161,15 @@ loop
 
 
 ###### Refinements
-The /args refinement allows you to pass arguments to another script and is used with a file, or URL.  Arguments passed with /args are stored in system/script/args within the context of the loaded script.
+The `/args` refinement allows you to pass arguments to another script and is used with a file, or URL.  Arguments passed with `/args` are stored in `system/script/args` within the context of the loaded script.
 
-The /next refinement returns a block consisting of two elements. The first element is the evaluated return of the first expression encountered. The second element is the original block with the current index placed after  the last evaluated expression.
+The `/next` refinement returns a block consisting of two elements. The first element is the evaluated return of the first expression encountered. The second element is the original block with the current index placed after  the last evaluated expression.
 
 
 ###### Special Notes
 Evaluating strings is much slower than evaluating blocks and values. That's because Rebol is a symbolic language, not a string language. It is considered bad practice to convert values to strings and join them together to pass to `do` for evaluation. This can be done directly without strings.
 
 For example, writing code like this is a poor practice:
-
 
 ```rebol
 str: "1234 + "
@@ -3181,7 +3179,6 @@ do code
 ```
 
 Instead, just use:
-
 
 ```rebol
 blk: [1234 +]
@@ -7679,11 +7676,8 @@ quit/return 40
 Note that not all operating systems environments may support this quit code.
 
 
-```html
-<fieldset class="fset"><legend>Rarely used</legend>
-<p>Most programs do not require <a href="#quit">quit</a>, and it can be problematic if your code is started by another Rebol program. Normally, when your program reaches the end, it will quit by itself. (If you want to prevent that behavior, use the -h command line option, or call <a href="#halt">halt</a> at the end of your code.)</p>
-</fieldset>
-```
+> **Rarely used:**
+> Most programs do not require `quit`, and it can be problematic if your code is started by another Rebol program. Normally, when your program reaches the end, it will quit by itself. (If you want to prevent that behavior, use the `-h` command line option, or call `halt` at the end of your code.)
 
 ------------------------------------------------------------------
 ## QUOTE
@@ -8627,11 +8621,8 @@ either file [save file data] [print "data not saved"]
 ```
 
 
-```html
-<fieldset class="fset"><legend>Changes from R2</legend>
-<p>This function contains minor changes and cleanup relative to R2. Note that the default operation (with no refinements) returns a single file, not a block. This is the most common form of operation, so it is made standard here. In addition, the /multi option returns a block of full file paths, not a directory path followed by relative files.</p>
-</fieldset>
-```
+> **Changes from R2:**
+> This function contains minor changes and cleanup relative to R2. Note that the default operation (with no refinements) returns a single file, not a block. This is the most common form of operation, so it is made standard here. In addition, the /multi option returns a block of full file paths, not a directory path followed by relative files.
 
 ------------------------------------------------------------------
 ## REQUEST-PASSWORD
@@ -9100,19 +9091,8 @@ The `secure` function gives you control over policies for:
 A list of these for your current release can always be obtained with the line:
 
 
-```rebol
-secure query
-```
-
-(Which will also show their current policy settings.)
-
-
-###### Usage
-
-```html
-<fieldset class="fset"><legend>R3 ASK not available</legend>
-<p>In current releases of R3, the ASK option is not available. Use either THROW or QUIT instead.</p>
-</fieldset>
+```call
+secure query ;; will also show their current policy settings
 ```
 
 
@@ -9142,15 +9122,13 @@ If the argument is a word, it can be:
 
 For example, developers often type:
 
-
 ```rebol
 secure none
 ```
 
-to disable all security when developing new programs. **However, use this with care. Do not run (or <a href="#do">do</a>) any programs other than those that you trust.**
+to disable all security when developing new programs. However, use this with care. Do not run (or `do`) any programs other than those that you trust.
 
 Another example is:
-
 
 ```rebol
 secure quit
@@ -9172,7 +9150,6 @@ secure [
 ```
 
 This block will:
-
 
 - disable networking (force a quit if attempted)
 - ask for user approval for all file access, except:

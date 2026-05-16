@@ -3,6 +3,8 @@ REBOL [
 	Author: @Oldes
 ]
 
+foreach m [brotli zstd zlib-ng deflate][ attempt [import (m)] ]
+
 system/options/quiet: false
 
 
@@ -112,7 +114,7 @@ ansi-to-html: function/with [text][
 	not-esc: complement charset "^[" 
 ]
 
-gen-code-output: function[source][
+gen-code-output: function [source][
 	code: transcode source
 	bind code lib
 	echo %.temp
@@ -395,32 +397,7 @@ to-rebdoc-name: function/with[name][
 	esc: charset "?!=/<>+*|%&"
 ]
 
-out: clear ""
-emit: func[data][
-	if none? data [exit]
-	if block? data [data: ajoin data]
-	append append out data LF
-]
-
-emit-description: function [des][
-	if any [none? des empty? des] [return ""]
-	des: trim/auto ajoin/with des LF
-	des: split-lines colorize des
-	;; determine if the first string fits the width of the terminal
-	take/last out
-	either all [
-		pos: find/last/tail out LF
-		((length? remove-html copy pos) + (length? des/1)) < 100
-	][
-		emit [SP uppercase/part des/1 1]
-		++ des
-	][  append out LF ]
-	foreach line des [
-		emit ["              "  line]
-	]
-]
-
-emit-funcs-html: does [
+emit-funcs-html: function/with [] [
 	details: load-func-details %public/docs/functions.md
 	;? details
 	data: make block! 1000
@@ -486,7 +463,34 @@ emit-funcs-html: does [
 	]
 	write %public/docs/functions.inc out
 	out
+][
+	out: clear ""
+	emit: func[data][
+		if none? data [exit]
+		if block? data [data: ajoin data]
+		append append out data LF
+	]
+
+	emit-description: function [des][
+		if any [none? des empty? des] [return ""]
+		des: trim/auto ajoin/with des LF
+		des: split-lines colorize des
+		;; determine if the first string fits the width of the terminal
+		take/last out
+		either all [
+			pos: find/last/tail out LF
+			((length? remove-html copy pos) + (length? des/1)) < 100
+		][
+			emit [SP uppercase/part des/1 1]
+			++ des
+		][  append out LF ]
+		foreach line des [
+			emit ["              "  line]
+		]
+	]
 ]
+
+
 
 emit-errors: function[][
 
