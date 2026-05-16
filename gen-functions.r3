@@ -189,7 +189,7 @@ load-func-details: function/with [data][
 		if p? [append detail "</p>^/" p?: false]
 		append detail val
 	]
-	not-spec: complement charset "\`"
+	not-spec: complement charset "[\`"
 	url-text: complement charset "]^/^M"
 	url-href: complement charset ")^/^M"
 	md-text: func[val /local out txt href tmp wrd][
