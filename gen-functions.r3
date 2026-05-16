@@ -159,23 +159,8 @@ load-func-details: function/with [data][
 				)
 			  ]
 			  any [
-				"```" copy type: any alpha any SP LF copy code: to "^/```" 4 skip (
-					;? type
-					trim/tail code
-					if type != "html" [
-						detab code
-						either type == "code" [
-							code: gen-code-output code
-						][
-							code: ajoin [
-								{<div class="example-code"><pre class="} type {-block"><code class="} type {">}
-								esc-html code {</code></pre></div>}
-							]
-						]
-					]
-					emit code
-				)
-				| #"-" some "-" any SP opt LF (
+			  	;@@ break on ---- divider
+			  	"-" some "-" any SP opt LF (
 					if p? [append detail "</p>^/" p?: off]
 					if see-also [
 						append detail {^/<div class="see-also">See also: }
@@ -190,19 +175,8 @@ load-func-details: function/with [data][
 						detail == "<p>No description provided.</p>"
 					][ out/:name: copy head detail]
 				) break
-				| "######" some SP copy temp: to LF skip (emit ajoin [LF <h6> temp </h6>])
-				| "#####" some SP copy temp: to LF skip (emit ajoin [LF <h5> temp </h5>])
-				| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> temp </h4>])
-				| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> temp </h3>])
-				| ahead "- " (emit <ul>) some [
-					"- " copy temp: to LF skip (emit ajoin [<li> md-text temp </li>])
-				] (emit </ul>)
-				| ahead #"|" table-rule (emit-table)
-				| LF (emit "")
-				| copy temp: thru LF (
-					unless p? [append detail "<p>^/" p?: true]
-					append detail md-text temp
-				)
+				|
+			  	block-level
 			  ]
 		]
 	]
@@ -225,7 +199,7 @@ load-func-details: function/with [data][
 			#"`" copy tmp: some not-spec opt #"`" keep (
 				ajoin case [
 					#"!" == last tmp                [[{<code class="datatype">} tmp </code>]]
-					find lib attempt [to word! tmp] [[{<a href="#} tmp {">} tmp </a>]]
+					any-function? select lib attempt [to word! tmp] [[{<a href="#} tmp {">} tmp </a>]]
 					'else [[<code class=inline> tmp </code>]]
 				]
 			)
@@ -237,6 +211,41 @@ load-func-details: function/with [data][
 		]]
 		out
 	]
+	;- block level rules -
+	block-level: [
+		"```" copy type: any alpha any SP LF copy code: to "^/```" 4 skip (
+			;? type
+			trim/tail code
+			if type != "html" [
+				detab code
+				either type == "code" [
+					code: gen-code-output code
+				][
+					code: ajoin [
+						{<div class="example-code"><pre class="} type {-block"><code class="} type {">}
+						esc-html code {</code></pre></div>}
+					]
+				]
+			]
+			emit code
+		)
+		| "######" some SP copy temp: to LF skip (emit ajoin [LF <h6> temp </h6>])
+		| "#####" some SP copy temp: to LF skip (emit ajoin [LF <h5> temp </h5>])
+		| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> temp </h4>])
+		| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> temp </h3>])
+		;@@ note: H2 and H1 are ignored, as these are part of the upper context!
+		| ahead "- " (emit <ul>) some [
+			"- " copy temp: to LF skip (emit ajoin [<li> md-text temp </li>])
+		] (emit </ul>)
+		| ahead #"|" table-rule (emit-table)
+		| ahead #">" blockquote-rule
+		| LF (emit "")
+		| copy temp: thru LF (
+			unless p? [append detail "<p>^/" p?: true]
+			append detail md-text temp
+		)
+	]
+
 	;- table rules -
 	cell: [] row: [] rows: []
 	cell-chars: complement charset "\|^/"
@@ -271,6 +280,29 @@ load-func-details: function/with [data][
 			emit"</tr>"
 		]
 		emit "^/</table>^/"
+	]
+
+	;- blockquote rules -
+	s: e: _
+	blockquote-rule: [
+		s: some [#">" thru LF] e: (emit-blockquote copy/part s e)
+	]
+	emit-blockquote: function[text][
+		out: copy ""
+		parse text [any [remove [#">" opt SP] thru LF]]
+		parse text [any SP "**" copy title: to ":**" 3 skip any SP text:]
+		either title [
+			emit <div class="admonition note">
+			emit <p class="admonition-title"> 
+			emit title
+			emit </p>
+			parse text [any block-level]
+			emit </div>
+		][
+			emit <blockquote>
+			emit md-text text
+			emit </blockquote>
+		]
 	]
 ]
 
