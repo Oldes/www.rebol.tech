@@ -717,20 +717,22 @@ probe xy-block
 ;== [[1x1 2x1 3x1] [1x2 2x2 3x2]]
 ```
 
-###### Coding Style Notes
-Rebol uses the concept of expandable series for holding and manipulating data, rather than the concept of fixed size arrays. For example, in Rebol you would normally write:
-```rebol
-block: copy []
-repeat n 5 [append block n]
-;== [1 2 3 4 5]
-```
-rather than:
-```rebol
-block: array 5
-repeat n 5 [block/:n: n]
-```
-
-In other words, Rebol does not require you to specify the size of data arrays (blocks, bytes, or strings) in advance. They are dynamic.
+> **Coding Style Notes:**
+> Rebol uses the concept of expandable series for holding and manipulating data,
+> rather than the concept of fixed size arrays. For example, in Rebol you would normally write:
+> ```rebol
+> block: copy []
+> repeat n 5 [append block n]
+> ;== [1 2 3 4 5]
+> ```
+> rather than:
+> ```rebol
+> block: array 5
+> repeat n 5 [block/:n: n]
+> ```
+> 
+> In other words, Rebol does not require you to specify the size of data arrays (blocks,
+> bytes, or strings) in advance. They are dynamic.
 
 ------------------------------------------------------------------
 ## AS
@@ -884,14 +886,12 @@ asin 1.1            ;== 1.#NaN             (out of valid range)
 
 ------------------------------------------------------------------
 ## ASK
-[[ confirm input prin print ]]
+[[ confirm input prin print read-key ]]
 
 Provides a common prompting function that is the same as a `prin` followed by an `input`. The resulting input will
-have spaces trimmed from its head and tail. The /hide refinement hides input with "*" characters. The function returns a string!.
+have spaces trimmed from its head and tail. The `/hide` refinement hides input with "\*" characters. The function returns a string!.
 
 Example, where the user enters Luke as input:
-
-
 ```rebol
 ask "Your name, please? "
 Your name, please? Luke
@@ -923,23 +923,6 @@ assert [num > 20]
 ** Near: assert [num > 20]
 ```
 
-Note that for compound assertions, the error message will indicate the assertion that failed:
-
-
-```rebol
-num: 10
-age: 20
-assert [num > 0 age > 50]
-** Script error: assertion failed for: [age > 50]
-** Where: assert
-** Near: assert [num > 0 age > 50]
-```
-
-Look at the error line closely, and you can tell which one failed.
-
-Note: only the first three elements of the failed assertion will be shown (to help avoid long error lines.)
-
-
 ###### Asserting datatypes
 It is also common to validate datatypes using the /type refinement:
 
@@ -952,11 +935,9 @@ assert/type [age integer! name string!]
 ** Where: assert
 ** Near: assert/type [age integer! name string!]
 ```
-
 It fails because age is actually a string, not an integer.
 
 The `assert` function is useful for validating value before a section of code that depends on those value:
-
 
 ```rebol
 assert/type [
@@ -968,7 +949,10 @@ assert/type [
 ]
 ```
 
-Note that `assert` is safe to use on all function datatypes. The functions will not be evaluated as part of the process; therefore, `assert` is an easy way to prevent function passage in unwanted cases.
+> **Note:** `assert` is safe to use on all function datatypes. The functions will not be evaluated as part of the process; therefore, `assert` is an easy way to prevent function passage in unwanted cases.
+> ```rebol
+> assert/type [print native!] ;== #(true)
+> ```
 
 ------------------------------------------------------------------
 ## AT
@@ -8166,6 +8150,64 @@ write/append %matrix.avi to-binary "abcdefg"
 ```
 
 ------------------------------------------------------------------
+## READ-KEY
+[[ ask input wait-key]]
+
+Blocks until a key is pressed, then returns it without displaying it in the console. Regular printable keys return a `char!` value. Special keys (arrows, function keys, modifiers, etc.) return a `word!` from `system/catalog/event-keys`.
+
+For `char!` results, any modifier is encoded directly in the character value (e.g. Ctrl+C returns `#"^C"`). For `word!` results, the modifier flags `system/state/shift?`, `system/state/control?` and `system/state/alt?` are updated to reflect which modifiers were held at the time of the keypress.
+
+
+###### Return value:
+| Input         | Returns  | Example                    |
+|---------------|----------|----------------------------|
+| Printable key | `char!`  | `#"a"`, `#"A"`, `#" "`     |
+| Special key   | `word!`  | `up`, `f1`, `escape`       |
+
+###### Special key values:
+All possible `word!` values are listed in `system/catalog/event-keys`:
+```code
+probe system/catalog/event-keys
+```
+
+###### Examples:
+
+```rebol
+;; Wait for any keypress
+key: read-key
+
+;; Modifier encoded in char for printable keys
+key: read-key
+if key = #"^C" [print "CTRL+C"]
+
+;; Check modifier flags for special keys
+key: read-key
+if word? key [
+    if system/state/control? [
+        print ["Ctrl+" key]
+    ]
+]
+
+;; Handle printable vs special keys
+key: read-key
+either char? key [
+    print ["Character pressed:" key]
+][
+    switch key [
+        up     [move-cursor-up]
+        down   [move-cursor-down]
+        escape [quit]
+    ]
+]
+
+;; Simple confirm prompt
+confirm: does [
+    prin "Press Y to continue... "
+    #"y" == read-key ;== true or false  
+]
+```
+
+------------------------------------------------------------------
 ## READ-THRU
 ------------------------------------------------------------------
 ## REBCODE?
@@ -13045,7 +13087,41 @@ print now/time
 ```
 
 ------------------------------------------------------------------
-## WAIT-FOR-KEY
+## WAIT-KEY
+[[ read-key ask input ]]
+
+A convenience wrapper around `read-key`. Blocks until a key is pressed and returns a `char!` for printable keys or a `word!` for special keys (see `system/catalog/event-keys`). Returns `none` if the user interrupts with Ctrl+C.
+
+With `/only`, keypresses not matching `limit` are ignored and the function keeps blocking until an accepted key is pressed. Matching uses either direct equality (for a single `char!` or `word!`) or `find` (for `string!`, `block!`, or `bitset!`).
+
+> **Note:** `wait-key` is a blocking mezzanine — it does not yield to the event loop. For async scenarios where other events must continue to be processed while waiting for input, a non-blocking alternative should be used instead.
+
+###### Examples:
+
+```rebol
+;; Wait for any key
+wait-key
+
+;; Handle possible Ctrl+C interruption
+if none? wait-key [print "Interrupted!"]
+
+;; Accept only Y or N
+wait-key/only "yn"
+
+;; Accept a single char
+wait-key/only #"q"
+
+;; Accept a single control key
+wait-key/only 'escape
+
+;; Accept specific control keys and chars
+wait-key/only [#"y" #"n" escape]
+
+;; Use a bitset
+wait-key/only charset "0123456789"
+```
+
+
 ------------------------------------------------------------------
 ## WAKE-UP
 

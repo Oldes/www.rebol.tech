@@ -234,7 +234,7 @@ Displays Rebol title and version information on the Rebol console.
 ║<span class="ansi30 ansi107">    <span class="ansi32">Website    <span class="ansi31">https://github.com/Oldes/Rebol3                            </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Platform   <span class="ansi31">Windows | x64-pc-win32-pe | cl                             </span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Build      <span class="ansi31">15-May-2026/15:25                                          </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Build      <span class="ansi31">16-May-2026/14:52                                          </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Home       <span class="ansi31">C:\Users\oldes\                                            </span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Data       <span class="ansi31">C:\Users\oldes\Rebol\                                      </span></span></span>║
@@ -1118,7 +1118,7 @@ For better readability, it can be also written as:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">apply :append [data 2 _ _ _ /dup 2]
 probe data             ;== [456 1 1 1 2 2]</code></pre></div><p>
-Note that even when used the name instead of <a href="#true">true</a>, the position must be same!
+Note that even when used the name instead of <code class=inline>true</code>, the position must be same!
 </p>
 
 <div class="see-also">See also: <a href="#case">case</a>, <a href="#do">do</a>, <a href="#switch">switch</a></div>
@@ -1289,10 +1289,10 @@ arctangent2/radians 1x1  ;== 0.785398163397448 (π/4)</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-In Rebol, arrays are simply blocks that are initialized to a specific size with all elements set to an initial value (<a href="#none">none</a> by default). The <a href="#array">array</a> function is used to create and initialize arrays.
+In Rebol, arrays are simply blocks that are initialized to a specific size with all elements set to an initial value (<code class=inline>none</code> by default). The <a href="#array">array</a> function is used to create and initialize arrays.
 </p>
 <p>
-Supplying a single integer as the argument to <a href="#array">array</a> will create an array of a single dimension. The example below creates a five element array with values set to <a href="#none">none</a>:
+Supplying a single integer as the argument to <a href="#array">array</a> will create an array of a single dimension. The example below creates a five element array with values set to <code class=inline>none</code>:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: array 5            ;== [_ _ _ _ _]
 length? block             ;== 5</code></pre></div><p>
@@ -1333,9 +1333,9 @@ repeat y 2 [
     repeat x 3 [dim/:x: as-pair x y]
 ]
 probe xy-block
-;== [[1x1 2x1 3x1] [1x2 2x2 3x2]]</code></pre></div>
-<h6>Coding Style Notes</h6><p>
-Rebol uses the concept of expandable series for holding and manipulating data, rather than the concept of fixed size arrays. For example, in Rebol you would normally write:
+;== [[1x1 2x1 3x1] [1x2 2x2 3x2]]</code></pre></div><div class="admonition note"><p class="admonition-title">Coding Style Notes</p><p>
+Rebol uses the concept of expandable series for holding and manipulating data,
+rather than the concept of fixed size arrays. For example, in Rebol you would normally write:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: copy []
 repeat n 5 [append block n]
@@ -1344,9 +1344,10 @@ rather than:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: array 5
 repeat n 5 [block/:n: n]</code></pre></div><p>
-In other words, Rebol does not require you to specify the size of data arrays (blocks, bytes, or strings) in advance. They are dynamic.
+In other words, Rebol does not require you to specify the size of data arrays (blocks,
+bytes, or strings) in advance. They are dynamic.
 </p>
-
+</div>
 <div class="see-also">See also: <a href="#make">make</a>, <a href="#pick">pick</a>, <a href="#poke">poke</a></div>
 </section>
 
@@ -1632,7 +1633,7 @@ probe as-yellow "Raw yellow string."</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Returns <a href="#true">true</a> if every character in <code class=inline>value</code> has a codepoint below 128. For <code class="datatype">any-string!</code>, a single non-ASCII character anywhere in the string is enough to return <a href="#false">false</a>. For <code class="datatype">char!</code> and <code class="datatype">integer!</code>, the check is applied to that single value.
+Returns <code class=inline>true</code> if every character in <code class=inline>value</code> has a codepoint below 128. For <code class="datatype">any-string!</code>, a single non-ASCII character anywhere in the string is enough to return <code class=inline>false</code>. For <code class="datatype">char!</code> and <code class="datatype">integer!</code>, the check is applied to that single value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">ascii? "hello"       ;== #(true)
 ascii? "česko"       ;== #(false)   (č has codepoint 269)
@@ -1692,15 +1693,15 @@ asin 1.1            ;== 1.#NaN             (out of valid range)</code></pre></di
   question    [<span class="types">series!</span>] Prompt to user
 <span class="tit">REFINEMENTS:</span>
   /hide       Turns off echoing inputs
-  /char       Waits only on single key press and returns char as a result
-   limit      [<span class="types">bitset! string! block! char! none!</span>] Limit input to specified chars or control words
+  /only       Waits only on single key press and returns char as a result
+   limit      [<span class="types">bitset! string! block! char! word!</span>] Limit input to specified chars or control words
 </pre>
 
 <h5>Description:</h5>
 
 <p>
 Provides a common prompting function that is the same as a <a href="#prin">prin</a> followed by an <a href="#input">input</a>. The resulting input will
-have spaces trimmed from its head and tail. The /hide refinement hides input with "*" characters. The function returns a string!.
+have spaces trimmed from its head and tail. The <code class=inline>/hide</code> refinement hides input with "*" characters. The function returns a string!.
 </p>
 <p>
 Example, where the user enters Luke as input:
@@ -1708,7 +1709,7 @@ Example, where the user enters Luke as input:
 <div class="example-code"><pre class="rebol-block"><code class="rebol">ask "Your name, please? "
 Your name, please? Luke
 == "Luke"</code></pre></div>
-<div class="see-also">See also: <a href="#confirm">confirm</a>, <a href="#input">input</a>, <a href="#prin">prin</a>, <a href="#print">print</a></div>
+<div class="see-also">See also: <a href="#confirm">confirm</a>, <a href="#input">input</a>, <a href="#prin">prin</a>, <a href="#print">print</a>, <a href="#read-key">read-key</a></div>
 </section>
 
 <hr>
@@ -1749,21 +1750,7 @@ To check truth conditions, the argument of <a href="#assert">assert</a> is a blo
 assert [num &gt; 20]
 ** Script error: assertion failed for: [num &gt; 20]
 ** Where: assert
-** Near: assert [num &gt; 20]</code></pre></div><p>
-Note that for compound assertions, the error message will indicate the assertion that failed:
-</p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">num: 10
-age: 20
-assert [num &gt; 0 age &gt; 50]
-** Script error: assertion failed for: [age &gt; 50]
-** Where: assert
-** Near: assert [num &gt; 0 age &gt; 50]</code></pre></div><p>
-Look at the error line closely, and you can tell which one failed.
-</p>
-<p>
-Note: only the first three elements of the failed assertion will be shown (to help avoid long error lines.)
-</p>
-
+** Near: assert [num &gt; 20]</code></pre></div>
 <h6>Asserting datatypes</h6><p>
 It is also common to validate datatypes using the /type refinement:
 </p>
@@ -1784,10 +1771,10 @@ The <a href="#assert">assert</a> function is useful for validating value before 
     spec/size number!
     spec/name [string! none!]
     spec/options [block! none!]
-]</code></pre></div><p>
-Note that <a href="#assert">assert</a> is safe to use on all function datatypes. The functions will not be evaluated as part of the process; therefore, <a href="#assert">assert</a> is an easy way to prevent function passage in unwanted cases.
+]</code></pre></div><div class="admonition note"><p class="admonition-title">Note</p><p>
+<a href="#assert">assert</a> is safe to use on all function datatypes. The functions will not be evaluated as part of the process; therefore, <a href="#assert">assert</a> is an easy way to prevent function passage in unwanted cases.
 </p>
-
+<div class="example-code"><pre class="rebol-block"><code class="rebol">assert/type [print native!] ;== #(true)</code></pre></div></div>
 <div class="see-also">See also: <a href="#all">all</a>, <a href="#try">try</a></div>
 </section>
 
@@ -9482,15 +9469,15 @@ names are followed by a slash (/) in the output listing.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">list-dir</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi31">[</span><span class="ansi33 ansi1">DIR: <span class="ansi32 ansi1">C:\Dev\Builder\tree\www\rebol.tech\</span></span>
-<span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  23:28</span> <span class="ansi32 ansi1">         .git/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">16-May-2026  14:11</span> <span class="ansi32 ansi1">         .git/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">08-Mar-2025  01:18</span> <span class="ansi32 ansi1">         _logs/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         _utils/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         public/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     311</span> <span class="ansi93">.editorconfig
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     920</span> <span class="ansi93">.gitattributes
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">      40</span> <span class="ansi93">.gitignore
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  23:39</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  23:39</span> <span class="ansi33">   10853</span> <span class="ansi93">gen-functions.r3
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">16-May-2026  16:06</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">16-May-2026  15:54</span> <span class="ansi33">   11542</span> <span class="ansi93">gen-functions.r3
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">   32749</span> <span class="ansi93">httpd.reb
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi33">    1024</span> <span class="ansi93">parse-errors.r3
 <span class="ansi31 ansi1">└───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     691</span> <span class="ansi93">server.r3
@@ -9796,7 +9783,7 @@ Other possible traces are <a href="#log-info">log-info</a>, <a href="#log-trace"
 log-info  'TEST ["Current time is: " now]
 log-trace 'TEST "This is just a trace."
 log-warn  'TEST "This is warning message."</code></pre></div>
-<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  15-May-2026/23:39:20+2:00</span></span>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  16-May-2026/16:06:14+2:00</span></span>
  <span class="ansi33">[TEST] <span class="ansi32">This is just a trace.</span></span>
  <span class="ansi93">[TEST] <span class="ansi31">This is warning message.</span></span>
 </code></pre></div>
@@ -9982,7 +9969,7 @@ Here's an example that creates a block of 10 random integers:
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: make block! 10
 loop 10 [append block random 100]
 probe block</code></pre></div>
-<div class="example-code"><pre class="text-block"><code>[59 25 74 20 89 34 2 60 80 23]
+<div class="example-code"><pre class="text-block"><code>[92 40 41 82 67 9 17 31 58 45]
 </code></pre></div>
 <h6>Returned Value</h6><p>
 When finished the <a href="#loop">loop</a> function returns the final value the block:
@@ -10138,7 +10125,7 @@ Used on boot, but may be used to create custom banners like:
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Product    <span class="ansi31">Test Banner                                                </span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Just an example!                                           </span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">15-May-2026/23:39:20+2:00                                  </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">16-May-2026/16:06:14+2:00                                  </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
@@ -12882,6 +12869,96 @@ write/append %matrix.avi to-binary "abcdefg"</code></pre></div>
 
 <h6>Usage:</h6>
 <pre class="usage fs-6">read-key</span></pre>
+
+<h5>Description:</h5>
+
+<p>
+Blocks until a key is pressed, then returns it without displaying it in the console. Regular printable keys return a <code class="datatype">char!</code> value. Special keys (arrows, function keys, modifiers, etc.) return a <code class="datatype">word!</code> from <code class=inline>system/catalog/event-keys</code>.
+</p>
+<p>
+For <code class="datatype">char!</code> results, any modifier is encoded directly in the character value (e.g. Ctrl+C returns <code class=inline>#"^C"</code>). For <code class="datatype">word!</code> results, the modifier flags <code class=inline>system/state/shift?</code>, <code class=inline>system/state/control?</code> and <code class=inline>system/state/alt?</code> are updated to reflect which modifiers were held at the time of the keypress.
+</p>
+
+<h6>Return value:</h6>
+<table class=doctable>
+<tr><th> Input         </th><th> Returns  </th><th> Example                    </th></tr>
+<tr><td> Printable key </td><td> <code class="datatype">char!</code>  </td><td> <code class=inline>#"a"</code>, <code class=inline>#"A"</code>, <code class=inline>#" "</code>     </td></tr>
+<tr><td> Special key   </td><td> <code class="datatype">word!</code>  </td><td> <code class=inline>up</code>, <code class=inline>f1</code>, <code class=inline>escape</code>       </td></tr>
+</table>
+
+<h6>Special key values:</h6><p>
+All possible <code class="datatype">word!</code> values are listed in <code class=inline>system/catalog/event-keys</code>:
+</p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">probe system/catalog/event-keys</code></pre></div>
+<div class="example-code"><pre class="text-block"><code>[
+    page-up
+    page-down
+    end
+    home
+    left
+    up
+    right
+    down
+    insert
+    delete
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    paste-start
+    paste-end
+    escape
+    shift
+    control
+    alt
+    pause
+    capital
+    backtab
+    backspace
+    begin
+]
+</code></pre></div>
+<h6>Examples:</h6><div class="example-code"><pre class="rebol-block"><code class="rebol">;; Wait for any keypress
+key: read-key
+
+;; Modifier encoded in char for printable keys
+key: read-key
+if key = #"^C" [print "CTRL+C"]
+
+;; Check modifier flags for special keys
+key: read-key
+if word? key [
+    if system/state/control? [
+        print ["Ctrl+" key]
+    ]
+]
+
+;; Handle printable vs special keys
+key: read-key
+either char? key [
+    print ["Character pressed:" key]
+][
+    switch key [
+        up     [move-cursor-up]
+        down   [move-cursor-down]
+        escape [quit]
+    ]
+]
+
+;; Simple confirm prompt
+confirm: does [
+    prin "Press Y to continue... "
+    #"y" == read-key ;== true or false  
+]</code></pre></div>
+<div class="see-also">See also: <a href="#ask">ask</a>, <a href="#input">input</a>, <a href="#wait-key">wait-key</a></div>
 </section>
 
 <hr>
@@ -20046,19 +20123,53 @@ print now/time
 </section>
 
 <hr>
-<section id="wait-for-key">
- <a name="wait-for-key"></a>
- <h2>WAIT-FOR-KEY<a class="headerlink" href="#wait-for-key" title="Link to this heading">¶</a></h2>
-<p>Wait for single key press and return char (or word for control keys) as a result</p>
+<section id="wait-key">
+ <a name="wait-key"></a>
+ <h2>WAIT-KEY<a class="headerlink" href="#wait-key" title="Link to this heading">¶</a></h2>
+<p>Waits for a single keypress and returns it.</p>
 
 <h6>Usage:</h6>
-<pre class="usage fs-6">wait-for-key</span></pre>
+<pre class="usage fs-6">wait-key</span></pre>
 
 <pre class="help">
 <span class="tit">REFINEMENTS:</span>
-  /only       
-   limit      [<span class="types">bitset! string! block! none! char!</span>] Limit input to specified chars or control words
+  /only       Optionally restricts accepted input to a specified set of keys.
+   limit      [<span class="types">bitset! string! block! char! word!</span>] Limit input to specified chars or control words
 </pre>
+
+<h5>Description:</h5>
+
+<p>
+A convenience wrapper around <a href="#read-key">read-key</a>. Blocks until a key is pressed and returns a <code class="datatype">char!</code> for printable keys or a <code class="datatype">word!</code> for special keys (see <code class=inline>system/catalog/event-keys</code>). Returns <code class=inline>none</code> if the user interrupts with Ctrl+C.
+</p>
+<p>
+With <code class=inline>/only</code>, keypresses not matching <code class=inline>limit</code> are ignored and the function keeps blocking until an accepted key is pressed. Matching uses either direct equality (for a single <code class="datatype">char!</code> or <code class="datatype">word!</code>) or <a href="#find">find</a> (for <code class="datatype">string!</code>, <code class="datatype">block!</code>, or <code class="datatype">bitset!</code>).
+</p>
+<div class="admonition note"><p class="admonition-title">Note</p><p>
+<a href="#wait-key">wait-key</a> is a blocking mezzanine — it does not yield to the event loop. For async scenarios where other events must continue to be processed while waiting for input, a non-blocking alternative should be used instead.
+</p>
+</div>
+<h6>Examples:</h6><div class="example-code"><pre class="rebol-block"><code class="rebol">;; Wait for any key
+wait-key
+
+;; Handle possible Ctrl+C interruption
+if none? wait-key [print "Interrupted!"]
+
+;; Accept only Y or N
+wait-key/only "yn"
+
+;; Accept a single char
+wait-key/only #"q"
+
+;; Accept a single control key
+wait-key/only 'escape
+
+;; Accept specific control keys and chars
+wait-key/only [#"y" #"n" escape]
+
+;; Use a bitset
+wait-key/only charset "0123456789"</code></pre></div>
+<div class="see-also">See also: <a href="#ask">ask</a>, <a href="#input">input</a>, <a href="#read-key">read-key</a></div>
 </section>
 
 <hr>
