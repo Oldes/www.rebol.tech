@@ -2324,62 +2324,43 @@ repeat n 5 [
 The `copy` function will copy any [series](https://www.rebol.com/r3/docs/concepts/series.html), such as `string!` or `block!`, and most other compound datatypes such as `object!` or `function!`. It is not used for immediate datatypes, such as `integer!`, `decimal!`, `time!`, `date!`, and others.
 
 
-```html
-<fieldset class="fset"><legend>How it Works</legend>
-<p>It is important to understand <a href="#copy">copy</a> to program in Rebol properly.</p>
-<p>To save memory, all strings, blocks, and other <a href="https://www.rebol.com/r3/docs/concepts/series.html" class="con">series</a> are accessed by reference (e.g. as pointers.) If you need to modify a series, and you do not want it to change in other locations, you must use <a href="#copy">copy</a> first.</p>
-<p>Note that some functions, such as <a href="#join">join</a> and <a href="#rejoin">rejoin</a>, will copy automatically. That's because they are constructing new values.</p>
-</fieldset>
-```
+> **How it Works:
+> It is important to understand `copy` to program in Rebol properly.
+>
+> To save memory, all strings, blocks, and other `series!` are accessed by reference (e.g. as pointers.) If you need to modify a series, and you do not want it to change in other locations, you must use `copy` first.
+>
+> Note that some functions, such as `join` and `rejoin`, will copy automatically. That's because they are constructing new values.
 
 This example shows what happens if you don't copy:
 
-
 ```rebol
 name: "Tesla"
-print name
-Tesla
+probe name         ;== "Tesla"
 
 name2: name
 insert name2 "Nicola "
-print name2
-Nicola Tesla
+probe name2        ;== "Nicola Tesla"
+probe name         ;== "Nicola Tesla"
 
-print name
-Nicola Tesla
-```
-
-That's because, it's the same string:
-
-
-```rebol
-same? name name2
-true
+;; That's because, it's the same string:
+same? name name2   ;== #(true)
 ```
 
 Here's the example using `copy` for the second string:
 
-
 ```rebol
 name: "Tesla"
-print name
-Tesla
+probe name         ;== "Tesla"
 
 name2: copy name
 insert name2 "Nicola "
-print name2
-Nicola Tesla
+probe name2        ;== "Nicola Tesla"
+probe name         ;== "Tesla"
 
-print name
-Tesla
-
-same? name name2
-false
+same? name name2   ;== #(false)
 ```
 
 The same behavior is also true for blocks. This example shows various results:
-
-
 ```rebol
 block1: [1 2 3]
 block2: block1
@@ -2387,42 +2368,27 @@ block3: copy block1
 append block1 4
 append block2 5
 append block4 6
-probe block1
-[1 2 3 4 5]
-
-probe block2
-[1 2 3 4 5]
-
-probe block3
-[1 2 3 6]
+probe block1       ;== [1 2 3 4 5]
+probe block2       ;== [1 2 3 4 5]
+probe block3       ;== [1 2 3 6]
 ```
 
 There will be times in your code where you'll want to `append` to or `insert` in a string or other series. You will need to think about what result you desire.
 
 Compare this example:
-
-
 ```rebol
 str1: "Nicola"
 str2: append str1 " Tesla"
-print str1
-Nicola Tesla
-
-print str2
-Nicola Tesla
+probe str1          ;== "Nicola Tesla"
+probe str2          ;== "Nicola Tesla"
 ```
 
 with this example that uses the `copy` function:
-
-
 ```rebol
 str1: "Nicola"
 str2: append copy str1 " Tesla"
-print str1
-Nicola
-
-print str2
-Nicola Tesla
+probe str1          ;== "Nicola"
+probe str2          ;== "Nicola Tesla"
 ```
 
 
@@ -2432,21 +2398,16 @@ It is fairly common to copy just a sub-string or sub-block. To do so, use the /p
 
 ```rebol
 name: "Nicola Tesla"
-copy/part name 6
-"Nicola"
-
-copy/part skip name 7 5
-"Tesla"
-
-copy/part find name "Tesla" tail name
-"Tesla"
+copy/part name 6                      ;== "Nicola"
+copy/part skip name 7 5               ;== "Tesla"
+copy/part find name "Tesla" tail name ;== "Tesla"
 ```
 
 Notice that the ending position can be a length or a position within the string (as shown by the `tail` example above.)
 
 
 ###### About Substrings
-If you use other languages, you will notice that this result is similar to what a substr function provides. Although we recommend using `copy` with /part, you can easily define your own substr function this way:
+If you use other languages, you will notice that this result is similar to what a substr function provides. Although we recommend using `copy` with `/part`, you can easily define your own substr function this way:
 
 
 ```rebol
@@ -2457,16 +2418,13 @@ substr: func [arg [series!] start length] [
 
 For example:
 
-
 ```rebol
-substr "string example" 7 7
-"example"
+substr "string example" 7 7 ;== "example"
 ```
 
 We should explain why we don't normally define a substr function. Most of the time when you're extracting substrings, you are either using a function like `find` or you're using a loop of some kind. Therefore, you don't really care about the starting offset of a string, you only care about the current location.
 
 For example:
-
 
 ```rebol
 str: "This is an example string."
@@ -2474,7 +2432,6 @@ str2: copy/part find str "ex" 7
 ```
 
 And, in fact, it's common to write use two `find` functions in this way:
-
 
 ```rebol
 start: find str "ex"
@@ -2484,13 +2441,11 @@ str2: copy/part start end
 
 which advanced users often write in one line this way:
 
-
 ```rebol
 str2: copy/part s: find str "ex" find s "le"
 ```
 
 Of course, if the string might not be found, this is a helpful pattern to use:
-
 
 ```rebol
 str2: all [
@@ -2503,7 +2458,6 @@ str2: all [
 If the start or end are not found, then str2 is set to none.
 
 Here's an example of a simple loop that finds substrings:
-
 
 ```rebol
 str: "this example is an example"
@@ -2520,37 +2474,30 @@ When copying blocks, keep in mind that simple use of the `copy` function does no
 
 Notice that the `copy` here does not copy the name string:
 
-
 ```rebol
 person1: ["Tesla" 10-July-1856 Serbian]
 person2: copy person1
-insert person/2 "Nicola "
-probe person1
-["Nicola Tesla" 10-July-1856 Serbian]
+insert person2/1 "Nicola "
+probe person1 ;== ["Nicola Tesla" 10-Jul-1856 Serbian]
 ```
 
-If you need to copy both the block and all series values within it, use `copy` with the /deep refinement:
-
+If you need to copy both the block and all series values within it, use `copy` with the `/deep` refinement:
 
 ```rebol
 person1: ["Tesla" 10-July-1856 Serbian]
 person2: copy/deep person1
-insert person/2 "Nicola "
-probe person1
-["Tesla" 10-July-1856 Serbian]
-
-probe person2
-["Nicola Tesla" 10-July-1856 Serbian]
+insert person2/1 "Nicola "
+probe person1 ;== ["Tesla" 10-July-1856 Serbian]
+probe person2 ;== ["Nicola Tesla" 10-July-1856 Serbian]
 ```
 
 Here both the block and the string are separate series.
 
 Also be aware that if your block contains other blocks, they will be deep copied as well, including all strings and other series within them.
 
-If you want to deep copy only a specific datatype, such as just strings or just blocks, you can use the /types refinement.
+If you want to deep copy only a specific datatype, such as just strings or just blocks, you can use the `/types` refinement.
 
 Here are a few examples of its usage:
-
 
 ```rebol
 copy/deep/types block string!
@@ -2563,28 +2510,11 @@ copy/deep/types block make typeset! [string! url! file!]
 If you use `copy` on an object, a copy of the object is returned. This can be useful when objects are used only as simple storage structures. Note that rebinding is not done; therefore, do not use `copy` on objects when that is required.
 
 
-###### Helpful Hint
-To see a list of functions that modify their series (not copy), type this line:
-
-
-```rebol
-? modifies
-Found these related words:
-alter           function! If a value is not found in a series, append i...
-append          action!   Inserts a value at tail of series and returns...
-bind            native!   Binds words to the specified context. (Modifi...
-change          action!   Changes a value in a series and returns the s...
-clear           action!   Removes all values. For series, removes from ...
-decloak         native!   Decodes a binary string scrambled previously ...
-deline          native!   Converts string terminators to standard forma...
-detab           native!   Converts tabs in a string to spaces (default ...
-encloak         native!   Scrambles a binary string based on a key. (Mo...
-enline          native!   Converts standard string terminators to curre...
-entab           native!   Converts spaces in a string to tabs (default ...
-insert          action!   Inserts into a series and returns the series ...
-lowercase       native!   Converts string of characters to lowercase. (...
-...
-```
+> ** Helpful Hint:**
+> To see a list of functions that modify their series (not copy), type this line:
+> ```code
+> ? "(modified)"
+> ```
 
 ------------------------------------------------------------------
 ## COS
@@ -2597,21 +2527,15 @@ the length of the hypotenuse of a right triangle.
 
 
 ```rebol
-print cosine 90
-0.0
-
-print (cosine 45) = (sine 45)
-true
-
-print cosine/radians pi
--1.0
+cosine 90               ;== 0.0
+(cosine 45) = (sine 45) ;== #(true)
+cosine/radians pi       ;== -1.0
 ```
 
 ------------------------------------------------------------------
 ## CREATE
 
 Creates the file or URL object that is specified.
-
 
 ```rebol
 create %testfile.txt
@@ -2624,7 +2548,6 @@ read %./
 
 This only works in a View window.
 
-
 ```rebol
 cursor 1
 cursor 2
@@ -2634,20 +2557,18 @@ cursor 5
 cursor 6
 ```
 
-
 Editor note: Describe all cursors here
+
 ------------------------------------------------------------------
 ## DATATYPE?
+[[ type? ]]
 
 Returns false for all other values.
 
 
 ```rebol
-print datatype? integer!
-true
-
-print datatype? 1234
-false
+datatype? integer!  ;== #(true)
+datatype? 1234      ;== (false)
 ```
 
 ------------------------------------------------------------------
@@ -2658,11 +2579,8 @@ Returns false for all other values.
 
 
 ```rebol
-print date? 1/3/69
-true
-
-print date? 12:39
-false
+date? 1/3/69 ;== #(true)
+date? 12:39  ;== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -2673,34 +2591,36 @@ Converts from an encoded string to the binary value. Primarily used for BASE-64 
 
 
 ```rebol
->> debase "MTIzNA==" 64
-== #{31323334}
+debase "MTIzNA==" 64
+;== #{31323334}
 
->> debase "12AB C456" 16
-== #{12ABC456}
+debase "12AB C456" 16
+;== #{12ABC456}
 
->> enbased: enbase "a string of text" 64
-== "YSBzdHJpbmcgb2YgdGV4dA=="
+enbased: enbase "a string of text" 64
+;== "YSBzdHJpbmcgb2YgdGV4dA=="
 
->> string? enbased            ;; enbased value is a string
-== #(true)
+string? enbased            ;; enbased value is a string
+;== #(true)
 
->> debased: debase enbased 64 ;; converts to binary value
-== #{6120737472696E67206F662074657874}
+debased: debase enbased 64 ;; converts to binary value
+;== #{6120737472696E67206F662074657874}
 
->> to string! debased   ;; converts back to original string
-== "a string of text"        
+to string! debased   ;; converts back to original string
+;== "a string of text"        
 ```
 
 If the input value cannot be decoded (such as when the proper number of characters is missing), an 'invalid-data error is thrown. This behavior is different from Rebol2, where none is returned.
 
 ```rebol
->> debase "AA" 16
-== #{AA}
+debase "A" 16
+;== #{0A}
 
->> debase "A" 16
+debase "AA" 16
+;== #{AA}
 
-** Script error: data not in correct format: "A"
+debase "X" 16
+;** Script error: data not in correct format: "A"
 ```
 
 ------------------------------------------------------------------
@@ -2711,11 +2631,8 @@ Returns false for all other values.
 
 
 ```rebol
->> decimal? 1.2
-== #(true)
-
->> decimal? 1
-== #(false)
+decimal? 1.2 ;== #(true)
+decimal? 1   ;== #(false)
 ```
 
 ------------------------------------------------------------------
@@ -2759,10 +2676,8 @@ image: decode 'jpeg data
 This is a handy function that saves you the effort of writing
 your own URL parser.
 
-
-```rebol
+```code
 probe decode-url http://user:pass@www.rebol.com/file.txt
-[scheme: 'http pass: "pass" user: "user" host: "www.rebol.com" path: "/file.txt"]
 ```
 
 ------------------------------------------------------------------
@@ -2770,7 +2685,6 @@ probe decode-url http://user:pass@www.rebol.com/file.txt
 [[ compress enbase debase ]]
 
 Examples:
-
 
 ```rebol
 write %file.txt read http://www.rebol.net
@@ -2790,7 +2704,7 @@ If the data passed to the `decompress` function has been altered or corrupted, a
 
 A typical error is out of memory, if the decompressed file length appears to be wrong (perhaps several gigabytes instead of 5539 bytes) to `decompress`.
 
-Using the /limit refinement, puts a hard limit to the size of the decompressed file:
+Using the `/size` refinement, puts a hard limit to the size of the decompressed file:
 
 
 ```rebol
@@ -4288,45 +4202,29 @@ Editor note: Not sure about the description
 ## FIRST
 [[ pick second third fourth fifth ]]
 
-This is an ordinal. It returns the first value in any type of [series](https://www.rebol.com/r3/docs/concepts/series.html) at the current position. If no value is found, none is returned.
+This is an ordinal. It returns the first value in any type of `series!` at the current position. If no value is found, `none` is returned.
 
 
 ```rebol
-print first "Rebol"
-R
+first "Rebol"              ;== #"R"
+first [11 22 33 44 55 66]  ;== 11
+first 1:30                 ;== 1
+first 199.4.80.1           ;== 199
+first 12:34:56.78          ;== 12
 
-print first [11 22 33 44 55 66]
-11
-
-print first 1:30
-1
-
-print first 199.4.80.1
-199
-
-print first 12:34:56.78
-12
+first []                   ;== _
 ```
 
 ------------------------------------------------------------------
 ## FIRST+
 
 Example:
-
-
 ```rebol
 blk: [a b c]
-first+ blk
-a
-
-first+ blk
-b
-
-first+ blk
-c
-
-first+ blk
-none
+first+ blk    ;== a
+first+ blk    ;== b
+first+ blk    ;== c
+first+ blk    ;== _
 ```
 
 ------------------------------------------------------------------
@@ -4338,12 +4236,11 @@ none
 The first argument is used as a local variable to keep track of the current value. It is initially set to the START value and after each evaluation of the block the BUMP value is added to it until the END value is reached (inclusive).
 
 
-```rebol
+```code
 for num 0 30 10 [ print num ]
-30
-
+```
+```code
 for num 4 -37 -15 [ print num ]
--26
 ```
 
 ------------------------------------------------------------------
@@ -4355,56 +4252,39 @@ The `forall` function moves through a series one value at a time.
 The word argument is a variable that moves through the series. Prior to evaluation, the word argument must be set to the desired starting position within the series (normally the head, but any position is valid). After each evaluation of the block, the word will be advanced to the next position within the series.
 
 
-```rebol
+```code
 cities: ["Eureka" "Ukiah" "Santa Rosa" "Mendocino"]
 forall cities [print first cities]
-Eureka
-Ukiah
-Santa Rosa
-Mendocino
+```
 
+```code
 chars: "abcdef"
 forall chars [print first chars]
-a
-b
-c
-d
-e
-f
 ```
 
 When `forall` finishes the word is reset to the starting position of the series.
 
-
 ```rebol
-chars: next "abcdef"
-"bcdef"
-
+chars: next "abcdef" ;== "bcdef"
 forall chars []
-chars
-"bcdef"
+chars                ;== "bcdef"
 ```
 
 The result of `forall` is the result of the last expression of the block:
 
-
 ```rebol
 chars: "abcdef"
-forall chars [first chars]
-#"f"
+forall chars [first chars] ;== #"f"
 ```
 
 Or the result of a break/return from the block:
 
-
 ```rebol
 chars: "abcdef"
-forall chars [break/return 5]
-5
+forall chars [break/return 5] ;== 5
 ```
 
 The `forall` function can be thought of as a shortcut for:
-
 
 ```rebol
 [
@@ -4424,68 +4304,41 @@ The `forall` function can be thought of as a shortcut for:
 
 The `foreach` function repeats the evaluation of a block for each element of a series. It is used often in programs.
 
-Example:
+###### Examples:
 
-
-```rebol
+```code
 values: [11 22 33]
 foreach value values [print value]
-11
-22
-33
 ```
 
 Another example that prints each word in a block along with its value:
-
-
-```rebol
+```code
 colors: [red green blue]
 foreach color colors [print [color get color]]
-red 255.0.0
-green 0.255.0
-blue 0.0.255
 ```
 
 If the series is a string, each character will be fetched:
-
-
-```rebol
-string: "Rebol"
+```code
+string: "REBOL"
 foreach char string [print char]
-R
-E
-B
-O
-L
 ```
 
-This example will print each filename from a directory block:
-
-
-```rebol
+This example will print each filename which contains `.r` from a directory block:
+```code
 files: read %.
 foreach file files [
-    if find file ".t" [print file]
+    if find file ".r" [print file]
 ]
-file.txt
-file2.txt
-newfile.txt
-output.txt
 ```
 
-
-```html
-<fieldset class="fset"><legend>Local Variables</legend>
-<p>The variables used to hold the <a href="#foreach">foreach</a> values are local to the block. Their value are only set within the block that is being repeated. Once the loop has exited, the variables return to their previously set values.</p>
-</fieldset>
-```
+> **Local Variables:**
+> The variables used to hold the `foreach` values are local to the block. Their value are only set within the block that is being repeated. Once the loop has exited, the variables return to their previously set values.
 
 
 ###### Multiple Elements
 When a block contains groups of values that are related, `foreach` function can fetch all elements at the same time. For example, here is a block that contains a time, string, and price. By providing the `foreach` function with a block of words for the group, each of their values can be fetched and printed.
 
-
-```rebol
+```code
 movies: [
      8:30 "Contact"      $4.95
     10:15 "Ghostbusters" $3.25
@@ -4495,34 +4348,18 @@ movies: [
 foreach [time title price] movies [
     print ["watch" title "at" time "for" price]
 ]
-watch Contact at 8:30 for $4.95
-watch Ghostbusters at 10:15 for $3.25
-watch Matrix at 12:45 for $4.25
 ```
 
-In the above example, the `foreach` value block:
-
-
-```rebol
-[time title price]
-```
-
-specifies that three values are to be fetched from movies for each evaluation of the block.
+In the above example, the `foreach` value block: `[time title price]` specifies that three values are to be fetched from movies for each evaluation of the block.
 
 
 ###### Series Reference
 To reference the series itself during `foreach` you can use a `set-word!` within the variable block. This operation is similar to the `forall` and `forskip` functions.
 
 Example:
-
-
-```rebol
+```code
 foreach [v1: v2] [1 2 3] [?? [v1 v2]]
-v1: [1 2 3] v2: 1
-v1: [2 3] v2: 2
-v1: [3] v2: 3
 ```
-
 Notice that the v1 set-word does not affect the index position.
 
 If you are using this option to remove values, please see the `remove-each` function which is many times faster for large series.
@@ -4532,26 +4369,15 @@ If you are using this option to remove values, please see the `remove-each` func
 The `foreach` function can also be used with `object!` and `map!` datatypes.
 
 When using a single word argument, `foreach` will obtain the object field name or map key.
-
-
-```rebol
+```code
 fruits: make object! [apple: 10 orange: 12 banana: 30]
 foreach field fruits [print field]
-apple
-orange
-banana
 ```
-
 Note that each word is bound back to the object, and can be used to access the field value with `get` and `set`.
 
 If a second word argument is provided, it will obtain the value of each entry:
-
-
-```rebol
+```code
 foreach [field value] fruits [print [field value]]
-apple 10
-orange 12
-banana 30
 ```
 
 The same behavior applies to the `map!` datatype, except that empty keys (those set to none) will be skipped.
@@ -4712,11 +4538,11 @@ name: func [spec] [body]
 
 The spec block specifies the interface to the function. It can begin with an optional title string which used by the `help` function. That is followed by words that specify the arguments to the function. Each of argument can include an optional block of datatypes to specify the valid datatypes for the argument. Each may be followed by a comment string which describes the argument in more detail.
 
-The argument words may also specify a few variations on the way the argument will be evaluated. The most common is 'word which indicates that a word is expected that should not be evaluated (the function wants its name, not its value). A :word may also be given which will get the value of the argument, but not perform full evaluation.
+The argument words may also specify a few variations on the way the argument will be evaluated. The most common is `'word` which indicates that a word is expected that should not be evaluated (the function wants its name, not its value). A `:word` may also be given which will get the value of the argument, but not perform full evaluation.
 
 To add refinements to a function supply a slash (/) in front of an argument's word. Within the function the refinement can be tested to determine if the refinement was present. If a refinement is followed by more arguments, they will be associated with that refinement and are only evaluated when the refinement is present.
 
-Local variables are specified after a /local refinement.
+Local variables are specified after a `/local` refinement.
 
 A function returns the last expression it evaluated. You can also use `return` and `exit` to exit the function. A `return` is given a value to return. `exit` returns no value.
 
@@ -4732,6 +4558,7 @@ sum: func [nums [block!] /average /local total] [
     either average [total / (length? nums)][total]
 ]
 print sum [123 321 456 800]
+1700
 print sum/average [123 321 456 800]
 425
 
@@ -4800,17 +4627,9 @@ c
 ## FUNCTION
 [[ func does has make use function? return exit ]]
 
-```html
-<fieldset class="fset"><legend>Warning!</legend>
-<p>The descripton of <a href="#function">function</a> given below is up-to-date, however the spec shown above is not current. <a href="#function">function</a> was <a href="http://www.rebol.com/article/0543.html" class="lnk">recently adapted</a> from a 3-argument to a 2-argument variant.</p>
-</fieldset>
-```
-
-This is similar to `func`, except all set-words are assumed locals. This way, it's not necessary to specify the /local part of the spec, although you still can.
+This is similar to `func`, except all set-words are assumed locals. This way, it's not necessary to specify the `/local` part of the spec, although you still can.
 
 Example:
-
-
 ```rebol
 average: function [block] [
     total: 0
@@ -4825,8 +4644,6 @@ total
 ```
 
 If you still desire to create non-local values in the function, use `set` to set words:
-
-
 ```rebol
 f: function [a] [
     b: a
@@ -4840,8 +4657,6 @@ c
 ```
 
 If c still needs to be local, you can add the local refinement:
-
-
 ```rebol
 unset 'c ; make sure it's not set
 f: function [a /local c] [
@@ -6644,59 +6459,40 @@ write %example.r mold/only [1 2 3]
 See the `save` function.
 
 
-###### The /all Refinement
+###### The `/all` Refinement
 For some values `mold` produces an approximate string value, not a perfect representation. If you attempt to load such a string, its value may be different.
 
 For example:
-
-
 ```rebol
-mold 'true
-"true"
-
-mold true
-"true"
+mold 'true ;== "true"
+mold  true ;== "true"
 ```
 
 The first is the word true the second is the `logic!` value true -- they are different but represented by the same word. If you `load` the resulting string, you will only obtain the word true not the logic value:
 
-
 ```rebol
-type? load mold true
-word!
+type? load mold true ;== word!
 ```
 
-The /all option provides a more accurate transformation from values to strings and back (using `load`.)
-
+The `/all` option provides a more accurate transformation from values to strings and back (using `load`.)
 
 ```rebol
-mold/all 'true
-"true"
-
-mold/all true
-"#[true]"
+mold/all 'true  ;== "true"
+mold/all true   ;== "#(true)"
 ```
 
 Using `load`, you can see the difference:
 
-
 ```rebol
-type? load mold/all 'true
-word!
-
-type? load mold/all true
-logic!
+type? load mold/all 'true ;== word!
+type? load mold/all  true ;== logic!
 ```
 
 Another difference occurs with strings that are indexed from their `head` positions. Sometimes this is desired, sometimes not. It can be seen here:
 
-
 ```rebol
-mold next "ABC"
-"BC"
-
-mold/all next "ABC"
-{#[string! "ABC" 2]}
+mold next "ABC"       ;== "BC"
+mold/all next "ABC"   ;== {#[string! "ABC" 2]}
 ```
 
 
@@ -6704,73 +6500,94 @@ mold/all next "ABC"
 The following datatypes are affected: `unset!`, `none!`, `logic!`, `bitset!`, `image!`, `map!`, `datatype!`, `typeset!`, `native!`, `action!`, `op!`, `closure!`, `function!`, `object!`, `module!`, `error!`, `task!`, `port!`, `gob!`, `event!`, `handle!`.
 
 
-```html
-<fieldset class="fset"><legend>Note on Restoring Semantics</legend>
-<p>It should also be noted that some datatypes cannot be returned to a source form without losing semantic information. For example, functions cannot maintain the binding (scoping context) of their words. If such semantics reproduction is required it is recommended that your code output entire blocks that as a whole are evaluated to produce the correct semantic result. This is commonly done in Rebol code, including the common storage of mezzanine and module functions and other definitions.</p>
-</fieldset>
-```
+> **Note on Restoring Semantics:**
+> It should also be noted that some datatypes cannot be returned to a source form without losing semantic information. For example, functions cannot maintain the binding (scoping context) of their words. If such semantics reproduction is required it is recommended that your code output entire blocks that as a whole are evaluated to produce the correct semantic result. This is commonly done in Rebol code, including the common storage of mezzanine and module functions and other definitions.
+
 
 
 ###### Accuracy of Decimals
 The `decimal!` datatype is implemented as IEEE 754 binary floating point type. When molding `decimal!` values, mold/all will need to use the maximal precision 17 digits to allow for accurate transformation of Rebol decimals to string and back, as opposed to just `mold`, which uses a default precision 15 decimal digits.
 
 
-###### The /flat Refinement
-The /flat refinement is useful for minimizing the size of source strings. It properly removes leading indentation (from code lines, but not multi-line strings.) The /flat option is often used for data exchanged between systems or stored in files.
+###### The `/flat` Refinement
+The `/flat` refinement is useful for minimizing the size of source strings. It properly removes leading indentation (from code lines, but not multi-line strings.) The /flat option is often used for data exchanged between systems or stored in files.
 
 Here is code often used for saving a script in minimal format (in R3):
-
-
 ```rebol
 write %output.r mold/only/flat code
 ```
 
 For code larger than about 1K, you can also compress it:
-
-
 ```rebol
 write %output.rc compress mold/only/flat code
 ```
 
 Such a file can be reloaded with:
-
-
 ```rebol
 load/all decompress read %output.rc
 ```
-
-Note that if using R2, these lines must be modified to indicate binary format.
-
 
 ###### Code Complexity Comparisons
 It should be noted that `mold` function is used for computing the relative complexity of code using the [Load Mold Sizing method](http://www.rebol.net/wiki/Load_Mold_Sizes).
 
 ------------------------------------------------------------------
 ## MOLD64
+
+```rebol
+mold   to-binary "test" ;== "#{74657374}"
+mold64 to-binary "test" ;== "64#{dGVzdA==}"
+```
 ------------------------------------------------------------------
 ## MONEY?
-[[ type? ]]
+[[ type? decimal? integer? ]]
 
 Returns FALSE for all other values.
 
-
 ```rebol
-print money? $123
-true
-
-print money? 123.45
-false
+money? $123    ;== #(true)
+money? 123.45  ;== #(false)
 ```
 
 ------------------------------------------------------------------
 ## MORE
 
-Description is needed.
+```code
+more .gitignore
+```
 
 ------------------------------------------------------------------
 ## MOVE
 
-Description is needed.
+Moves one or more values within a series by shifting them to a new position, modifying the series in place.
+
+```rebol
+;; Move single value forward by 2
+s: [1 2 3 4 5]
+move s 2        ;== [4 5]
+s               ;== [2 3 1 4 5]
+
+;; Move to absolute index
+s: [1 2 3 4 5]
+move/to s 4     ;== [5]
+s               ;== [2 3 4 1 5]
+
+;; Move a span of 2 values forward by 2
+s: [1 2 3 4 5]
+move/part s 2 2 ;== [5]
+s               ;== [3 4 1 2 5]
+
+;; Move records of size 2, by 1 record
+s: [a 1 b 2 c 3]
+move/skip s 1 2 ;== [c 3]
+s               ;== [b 2 a 1 c 3]
+```
+
+> **Notes:**
+> - Source is modified in place
+> - Returns the series at the position immediately after the insertion point — i.e. the remaining elements after where the moved value(s) landed
+> - Combining `/part` and `/skip` counts both the span and offset in whole records
+> - `/to` with `/skip` moves to a record index, not an element index
+
 
 ------------------------------------------------------------------
 ## MULTIPLY
@@ -6780,16 +6597,10 @@ The datatype of the second value may be restricted to
 INTEGER or DECIMAL, depending on the datatype of the
 first value (e.g. the first value is a time).
 
-
 ```rebol
-print multiply 123 10
-1230
-
-print multiply 3:20 3
-10:00
-
-print multiply 0:01 60
-1:00
+multiply 123 10   ;== 1230
+multiply 3:20 3   ;== 10:00
+multiply 0:01 60  ;== 1:00
 ```
 
 ------------------------------------------------------------------
@@ -6797,22 +6608,16 @@ print multiply 0:01 60
 [[ type? ]]
 
 Returns FALSE for all other values. When passing a
-function to NATIVE? to be checked, it must be denoted
+function to `native?` to be checked, it must be denoted
 with ":". This is because the ":word" notation passes a
-word's reference, not the word's value. NATIVE? can only
+word's reference, not the word's value. `native?` can only
 determine whether or not a function is a native if it is
 passed the function's reference.
 
-
 ```rebol
-probe native? :native?   ; it's actually an ACTION!
-false
-
-probe native? "Vichy"
-false
-
-probe native? :if
-true
+native? :native?   ;== #(false) (it's actually an ACTION!)
+native? "Vichy"    ;== #(false)
+native? :if        ;== #(true)
 ```
 
 ------------------------------------------------------------------
@@ -6821,58 +6626,37 @@ true
 
 Returns the negative of the value provided.
 
-
 ```rebol
-print negate 123
--123
-
-print negate -123
-123
-
-print negate 123.45
--123.45
-
-print negate -123.45
-123.45
-
-print negate 10:30
--10:30
-
-print negate 100x20
--100x-20
-
-print negate 100x-20
--100x20
+negate  123    ;== -123
+negate -123    ;==  123
+negate  123.45 ;== -123.45
+negate -123.45 ;==  123.45
+negate 10:30   ;== -10:30
+negate 100x20  ;== -100x-20
+negate 100x-20 ;== -100x20
 ```
 
 ------------------------------------------------------------------
 ## NEGATIVE?
 [[ positive? ]]
 
-Returns FALSE for all other values.
-
-
 ```rebol
-print negative? -50
-true
-
-print negative? 50
-false
+negative? -50  ;== #(true)
+negative?  50  ;== #(false)
 ```
 
 ------------------------------------------------------------------
 ## NEW-LINE
 [[ new-line? ]]
 
-Where the NEW-LINE? function queries the status of the a 
-block for markers, the NEW-LINE function inserts or removes 
+Where the `new-line?` function queries the status of the a 
+block for markers, the `new-line` function inserts or removes 
 them. You can use it to generate formatted blocks.
 
-Given a block at a specified offset, new-line? will return 
-true if there is a marker at that position.
+Given a block at a specified offset, `new-line?` will return 
+`true` if there is a marker at that position.
 
-
-```rebol
+```code
 dent-block: func [
     "Indent the contents of a block"
     block
@@ -6882,68 +6666,41 @@ dent-block: func [
 
 b: [1 2 3 4 5 6]
 probe dent-block b
-[
-
-1 2 3 4 5 6
 ```
-
-]
 
 If you want to put each item in a block on a new line, you 
 can insert markers in bulk, using the /all refinement.
 
-
-```rebol
+```code
 b: [1 2 3 4 5 6]
 probe new-line/all b on
-[
-
-1
-2
-3
-4
-5
-6
 ```
-
-]
 
 If you don't know whether a block contains markers, you may 
 want to remove all markers before formatting the data.
 
-
-```rebol
+```code
 b: [
     1 2 
     3 4
 ]
 probe new-line/all b off
-[1 2 3 4]
 ```
 
 Another common need is formatting blocks into lines of fixed 
-size groups of items; that's what the /skip refinement is for.
+size groups of items; that's what the `/skip` refinement is for.
 
-
-```rebol
+```code
 b: [1 2 3 4 5 6]
 probe new-line/skip b on 2
-[
-
-1 2
-3 4
-5 6
 ```
-
-]
 
 ------------------------------------------------------------------
 ## NEW-LINE?
 [[ new-line ]]
 
-Given a block at a specified offset, new-line? will return 
-true if there is a line marker at that position.
-
+Given a block at a specified offset, `new-line?` will return 
+`true` if there is a line marker at that position.
 
 ```rebol
 b: [1 2 3 4 5 6]
@@ -6960,45 +6717,37 @@ forall b [if new-line? b [print index? b]]
 
 ------------------------------------------------------------------
 ## NEXT
-[[ back first head tail head? tail? ]]
+[[ back first first+ head tail head? tail? ]]
 
 If the series is at its tail, it will remain at its
-tail. NEXT will not go past the tail, nor will it wrap
+tail. `next` will not go past the tail, nor will it wrap
 to the head.
 
 
-```rebol
-print next "ABCDE"
-BCDE
-
-print next next "ABCDE"
-CDE
-
-print next [1 2 3 4]
-2 3 4
+```code
+next "ABCDE"      ;== "BCDE"
+next next "ABCDE" ;== "CDE"
+next [1 2 3 4]    ;== [2 3 4]
 
 str: "Rebol"
 loop length? str [
     print str
     str: next str
 ]
-L
-
+```
+```code
 blk: [red green blue]
 loop length? blk [
     probe blk
     blk: next blk
 ]
-[blue]
 ```
 
 ------------------------------------------------------------------
 ## NINTH
 [[ first second third pick ]]
 
-See the FIRST function for examples.
-
-An error will occur if no value is found. Use the PICK function to avoid this error.
+See the `first` function for examples.
 
 ------------------------------------------------------------------
 ## NONE?
@@ -7855,15 +7604,14 @@ For security reasons, once hidden, a variable cannot be unhidden.
 
 ###### Compatibility
 
-```html
-<fieldset class="fset"><legend>Non-compatibility with R2</legend>
-<p>When using a block with <a href="#protect">protect</a>, the meaning is not to protect the words of the block, but to protect the block series itself.</p>
-<p>If you need the behavior of R2, use the /words refinement.</p>
-<p>For example:</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">protect/words [test this]</code></pre></div>
-<p>Will protect the test and this variables.</p>
-</fieldset>
-```
+> **Non-compatibility with R2:**
+> When using a block with `protect`, the meaning is not to protect the words of the block, but to protect the block series itself.
+>
+> If you need the behavior of R2, use the `/words` refinement. For example:
+> ```rebol
+> protect/words [test this]
+> ```
+> Will protect the test and this variables.
 
 
 ###### Related articles
@@ -7871,7 +7619,6 @@ For security reasons, once hidden, a variable cannot be unhidden.
 - [Read-only strings, blocks, and objects](http://www.rebol.net/r3blogs/0186.html)
 - [Interesting insights from PROTECT](http://www.rebol.net/r3blogs/0187.html)
 
-(From the A43 release.)
 
 ------------------------------------------------------------------
 ## PROTECT-SYSTEM-OBJECT
@@ -9923,73 +9670,61 @@ print skip blk 3
 ## SORT
 [[ append change clear insert remove ]]
 
-Sorting will modify any type of [series](https://www.rebol.com/r3/docs/concepts/series.html) passed as the argument:
+Sorting will modify any type of `series!` passed as the argument:
 
-
-```rebol
-blk: [799 34 12 934 -24 0]
-sort blk
-print blk
--24 0 12 34 799 934
-
-print sort "dbeca"
-"abcde"
+```code
+sort [799 34 12 934 -24 0] ;== [-24 0 12 34 799 934]
+sort "dbeca"               ;== "abcde"
 ```
 
 Normally sorting is not sensitive to character cases:
-
-
-```rebol
-sort ["Fred" "fred" "FRED"]
-["fred" "FRED" "Fred"]
+```code
+probe sort ["Fred" "fred" "FRED"]
 ```
 
 But you can make it sensitive with the /CASE refinement:
-
-
-```rebol
-sort/case ["Fred" "fred" "FRED"]
-["FRED" "Fred" "fred"]
+```code
+probe sort/case ["Fred" "fred" "FRED"]
 ```
 
+When using the `/skip` refinement, you can treat the series as a set of records of a fixed size. Here we sort by a "name" column, while "age" is skipped:
 
-Editor note: Sort bug here causes camel-case strings to be sorted incorrectly.
-When using the /SKIP refinement, you can treat the series as a set of records of a fixed size. Here we sort by a "name" column, while "age" is skipped:
-
-
-```rebol
+```code
 name-ages: [
     "Larry" 45
     "Curly" 50
     "Mo" 42
 ]
-print sort/skip name-ages 2
-Curly 50 Larry 45 Mo 42
+probe sort/skip name-ages 2
+```
+To sort according second column, `/compare` with an index may be used:
+```code
+name-ages: [
+    "Larry" 45
+    "Curly" 50
+    "Mo" 42
+]
+probe sort/skip/compare name-ages 2 2
 ```
 
-A /COMPARE function can be specified to perform the comparison. This allows you to change the ordering of the SORT:
+A `/compare` function can be specified to perform the comparison. This allows you to change the ordering of the `sort`:
 
-
-```rebol
+```code
 names: [
     "Larry"
     "Curly"
     "Mo"
 ]
-print sort/compare names func [a b] [a < b]
-Curly Larry Mo
+probe sort/compare names func [a b] [a < b]
 ```
 
-The /ALL refinement will force the entire record to be passed as a series to the compare function. This is useful if you need to compare one or more fields of a record while also doing a skip operation.
+The `/all` refinement will force the entire record to be passed as a series to the compare function. This is useful if you need to compare one or more fields of a record while also doing a skip operation.
 
 
-Editor note: Need a good working example. This may not be possible until remaining SORT bugs are fixed.
 When sorting `pair!` data (points and area sizes), the y coordinate is dominant. This is preferred to support the y sorting used by various graphics algorithms.
 
-
-```rebol
+```code
 probe sort [1x2 2x1 0x0 1x0 0x1 1x1]
-[0x0 1x0 0x1 1x1 2x1 1x2]
 ```
 
 ------------------------------------------------------------------
@@ -12036,28 +11771,10 @@ The `stack` function can also be used to show stack related backtrace informatio
 
 The `transcode` function translates source code and data into the block value memory format that can be interpreted by Rebol.
 
-
-###### Input
-The source input to `transcode` must be Unicode UTF-8. This is a `binary!` encoded format, and should not be confused with a `string!`, which is a decoded in-memory indexable string.
-
-If you need to `transcode` a string, you must convert it to a UTF-8 binary first. This can be done with `to-binary`.
-
-
-```rebol
-data: transcode to-binary string
-```
-
-
-```html
-<fieldset class="fset"><legend>Reduced efficiency</legend>
-<p>In general, conversions to and from UTF-8 require extra time to for the Unicode conversion process. Therefore, is not a good idea to write Rebol code like TCL or PERL where computations are done on strings.</p>
-<p>Don't write code such as:</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">do append "1 +" n</code></pre></div>
-<p>Because you can just as easily write:</p>
-<div class="example-code"><pre class="code-block"><code class="rebol">do append [1 +] n</code></pre></div>
-<p>in Rebol.</p>
-</fieldset>
-```
+> **Reduced efficiency:**
+> In general, conversions to and from UTF-8 require extra time to for the Unicode conversion process. Therefore, is not a good idea to write Rebol code like TCL or PERL where computations are done on strings.
+>
+> Don't write code such as: `do append "1 +" n`, because you can just as easily write: `do append [1 +] n` in Rebol.
 
 
 ###### Refinements
@@ -12068,9 +11785,9 @@ Refinements are provided for partial translation:
 
 | Refinement | Description |
 |------------|-------------|
-| /next | Translate the next full value. If it is a block, translate the entire block. |
-| /only | Translate the next singular value. If it is a block, translate only the first element of the block, and return it within a block. |
-| /error | Convert syntax errors to error objects and output them rather than throwing them as an error. |
+| /next      | Translate the next full value. If it is a block, translate the entire block. |
+| /only      | Translate the next singular value. If it is a block, translate only the first element of the block, and return it within a block. |
+| /error     | Convert syntax errors to error objects and output them rather than throwing them as an error. |
 
 These refinements can be used in various ways to parse Rebol source a value at a time.
 
@@ -12082,14 +11799,9 @@ The output from `transcode` is a `block!` containing two values:
 - The `binary!` source at the point where the translation ended.
 
 For example:
-
-
 ```rebol
-a: to-binary "a b c"
-#{6120622063}
-
-transcode/only a
-[a #{20622063}]
+a: to-binary "a b c"  ;== #{6120622063}
+transcode/only a      ;== [a #{20622063}]
 ```
 
 ------------------------------------------------------------------
