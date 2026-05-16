@@ -3,7 +3,7 @@ REBOL [
 	Author: @Oldes
 ]
 
-foreach m [brotli zstd zlib-ng deflate][ attempt [import (m)] ]
+foreach m [brotli zstd zlib-ng deflate bzip2][ attempt [import (m)] ]
 
 system/options/quiet: false
 

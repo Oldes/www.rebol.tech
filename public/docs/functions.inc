@@ -3317,13 +3317,7 @@ compress/level "Hello World" 'zlib 9
 compress/part/level "Hello World" 'zlib 5 9</code></pre></div><p>
 As with all compressed files, keep an uncompressed copy of the original data file as a backup.
 </p>
-<div class="admonition note"><p class="admonition-title">Notes</p><p>
-Returns <code class="datatype">binary!</code><code class=inline> regardless of input type
-</code>To decompress use <a href="#decompress">decompress</a> with the same <code class=inline>method</code>
-<code class=inline>/level</code> support and meaning may vary by algorithm — e.g. <code class=inline>lz4</code> ignores level, while <code class=inline>lzma</code> and <code class=inline>zlib</code> make full use of the 0-9 range
-String input is UTF-8 encoded first, so <a href="#decompress">decompress</a> of a compressed string returns binary! — use <code class="datatype">to string!</code> to recover the original string
-</p>
-</div>
+<div class="admonition note"><p class="admonition-title">Notes</p><ul><li>Returns <code class="datatype">binary!</code> regardless of input type</li><li>To decompress use <a href="#decompress">decompress</a> with the same <code class=inline>method</code></li><li><code class=inline>/level</code> support and meaning may vary by algorithm — e.g. <code class=inline>lz4</code> ignores level, while <code class=inline>lzma</code> and <code class=inline>zlib</code> make full use of the 0-9 range</li><li>String input is UTF-8 encoded first, so <a href="#decompress">decompress</a> of a compressed string returns binary! — use <code class="datatype">to string!</code> to recover the original string</li></ul></div>
 <h5>Available methods</h5><p>
 The list of supported compression methods may differ between Rebol versions and builds. Always check at runtime.
 Additional methods can be registered via native extensions, for example:
@@ -3332,7 +3326,7 @@ Additional methods can be registered via native extensions, for example:
 foreach m [brotli zstd zlib-ng deflate][ attempt [import (m)] ]
 ;; List all available methods:
 probe system/catalog/compressions</code></pre></div>
-<div class="example-code"><pre class="text-block"><code>[deflate zlib gzip br crush lz4 lzav lzma lzw zstd deflate-ng zlib-ng gzip-ng]
+<div class="example-code"><pre class="text-block"><code>[deflate zlib gzip br crush lz4 lzav lzma lzw zstd deflate-ng zlib-ng gzip-ng bzip2]
 </code></pre></div><div class="admonition note"><p class="admonition-title">Testing all available methods</p><div class="example-code"><pre class="rebol-block"><code class="rebol">bin: to binary! mold system/catalog
 sum: checksum bin 'sha256 ;; Used to validate decompressed result
 len: length? bin          ;; Used as a hint for the decompression
@@ -3352,58 +3346,61 @@ foreach level [1 5 9][
     print  "------------------------"
 ]</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi92">
-Testing compression of 18879 bytes with level 1.
+Testing compression of 18913 bytes with level 1.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6376      2.961     0.000139    0.000049    true
-zlib        6382      2.958     0.00013     0.000042    true
-gzip        6394      2.953     0.000138    0.000043    true
-br          6960      2.713     0.000128    0.0001      true
-crush       6956      2.714     0.000848    0.000078    true
-lz4         9112      2.072     0.000125    0.000014    true
-lzav        9359      2.017     0.000078    0.000015    true
-lzma        6051      3.12      0.001029    0.000389    true
-lzw         9007      2.096     0.000579    0.000362    true
-zstd        6782      2.784     0.000101    0.000043    true
-deflate-ng  8521      2.216     0.000186    0.000062    true
-zlib-ng     8527      2.214     0.000145    0.000054    true
-gzip-ng     8539      2.211     0.000119    0.000059    true
+deflate     6388      2.961     0.000183    0.000081    true
+zlib        6394      2.958     0.000165    0.000045    true
+gzip        6406      2.952     0.000207    0.000065    true
+br          6976      2.711     0.000174    0.000111    true
+crush       6970      2.713     0.00124     0.000085    true
+lz4         9130      2.072     0.000166    0.000013    true
+lzav        9376      2.017     0.000173    0.000022    true
+lzma        6062      3.12      0.001021    0.000369    true
+lzw         9063      2.087     0.000505    0.000375    true
+zstd        6795      2.783     0.000138    0.000058    true
+deflate-ng  8535      2.216     0.000193    0.000072    true
+zlib-ng     8541      2.214     0.000172    0.00009     true
+gzip-ng     8553      2.211     0.000149    0.000064    true
+bzip2       5753      3.288     0.003013    0.000626    true
 ------------------------
 <span class="ansi92">
-Testing compression of 18879 bytes with level 5.
+Testing compression of 18913 bytes with level 5.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6082      3.104     0.000304    0.000058    true
-zlib        6088      3.101     0.000355    0.000088    true
-gzip        6100      3.095     0.000377    0.000056    true
-br          5863      3.22      0.001222    0.000124    true
-crush       6830      2.764     0.001577    0.000079    true
-lz4         8565      2.204     0.000315    0.000015    true
-lzav        9359      2.017     0.000115    0.000018    true
-lzma        5768      3.273     0.003976    0.000374    true
-lzw         7909      2.387     0.000456    0.000249    true
-zstd        6255      3.018     0.000306    0.000046    true
-deflate-ng  6162      3.064     0.000342    0.000055    true
-zlib-ng     6168      3.061     0.000355    0.000058    true
-gzip-ng     6180      3.055     0.000306    0.000061    true
+deflate     6090      3.106     0.000479    0.000075    true
+zlib        6096      3.103     0.000377    0.00006     true
+gzip        6108      3.096     0.000437    0.000079    true
+br          5875      3.219     0.001473    0.00027     true
+crush       6842      2.764     0.001918    0.000083    true
+lz4         8584      2.203     0.000366    0.000012    true
+lzav        9376      2.017     0.000154    0.000026    true
+lzma        5776      3.274     0.004647    0.000381    true
+lzw         7923      2.387     0.000425    0.000247    true
+zstd        6266      3.018     0.000347    0.000109    true
+deflate-ng  6174      3.063     0.000364    0.000065    true
+zlib-ng     6180      3.06      0.000335    0.000057    true
+gzip-ng     6192      3.054     0.000294    0.000057    true
+bzip2       5753      3.288     0.001718    0.000905    true
 ------------------------
 <span class="ansi92">
-Testing compression of 18879 bytes with level 9.
+Testing compression of 18913 bytes with level 9.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6037      3.127     0.00077     0.000068    true
-zlib        6043      3.124     0.000766    0.000062    true
-gzip        6055      3.118     0.000761    0.000049    true
-br          5830      3.238     0.008809    0.000125    true
-crush       6830      2.764     0.001558    0.000102    true
-lz4         8550      2.208     0.00037     0.000015    true
-lzav        9359      2.017     0.000136    0.000027    true
-lzma        5772      3.271     0.006732    0.000567    true
-lzw         7909      2.387     0.000662    0.000248    true
-zstd        6083      3.104     0.000492    0.000049    true
-deflate-ng  6142      3.074     0.0006      0.00011     true
-zlib-ng     6148      3.071     0.000619    0.000073    true
-gzip-ng     6160      3.065     0.000686    0.000075    true
+deflate     6050      3.126     0.000859    0.000078    true
+zlib        6056      3.123     0.000715    0.000064    true
+gzip        6068      3.117     0.000649    0.000054    true
+br          5842      3.237     0.011568    0.000128    true
+crush       6842      2.764     0.002706    0.000106    true
+lz4         8568      2.207     0.000407    0.000028    true
+lzav        9376      2.017     0.000106    0.000016    true
+lzma        5788      3.268     0.004258    0.000423    true
+lzw         7923      2.387     0.000558    0.000243    true
+zstd        6095      3.103     0.000451    0.000043    true
+deflate-ng  6155      3.073     0.000491    0.000056    true
+zlib-ng     6161      3.07      0.000486    0.000051    true
+gzip-ng     6173      3.064     0.000487    0.000066    true
+bzip2       5753      3.288     0.001897    0.00062     true
 ------------------------
 </code></pre></div></div>
 <div class="see-also">See also: <a href="#decompress">decompress</a></div>
@@ -3636,13 +3633,16 @@ For example:
 <p>
 The <a href="#copy">copy</a> function will copy any <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as <code class="datatype">string!</code> or <code class="datatype">block!</code>, and most other compound datatypes such as <code class="datatype">object!</code> or <code class="datatype">function!</code>. It is not used for immediate datatypes, such as <code class="datatype">integer!</code>, <code class="datatype">decimal!</code>, <code class="datatype">time!</code>, <code class="datatype">date!</code>, and others.
 </p>
-<blockquote>**How it Works:
+<div class="admonition note"><p class="admonition-title">How it Works</p><p>
 It is important to understand <a href="#copy">copy</a> to program in Rebol properly.
-
+</p>
+<p>
 To save memory, all strings, blocks, and other <code class="datatype">series!</code> are accessed by reference (e.g. as pointers.) If you need to modify a series, and you do not want it to change in other locations, you must use <a href="#copy">copy</a> first.
-
+</p>
+<p>
 Note that some functions, such as <a href="#join">join</a> and <a href="#rejoin">rejoin</a>, will copy automatically. That's because they are constructing new values.
-</blockquote><p>
+</p>
+</div><p>
 This example shows what happens if you don't copy:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">name: "Tesla"
@@ -7998,8 +7998,8 @@ It is of the general type <span class="ansi92">scalar</span>.
 Found these related words:
   <span class="ansi92">zero             </span> <span class="ansi93">integer!   <span class="ansi32">0</span></span>
 Found these related words in the user context:
-  <span class="ansi92">len              </span> <span class="ansi93">integer!   <span class="ansi32">18879</span></span>
-  <span class="ansi92">sz               </span> <span class="ansi93">integer!   <span class="ansi32">6160</span></span>
+  <span class="ansi92">len              </span> <span class="ansi93">integer!   <span class="ansi32">18913</span></span>
+  <span class="ansi92">sz               </span> <span class="ansi93">integer!   <span class="ansi32">5753</span></span>
 
 </code></pre></div><p>
 To list all words that are function! datatypes, type:
@@ -9294,20 +9294,20 @@ running version of Rebol.
 <p>
 Lists the files and directories of the specified path in a
 sorted multi-column output. If no path is specified, the
-directory specified in system/script/path is listed. Directory
-names are followed by a slash (/) in the output listing.
+directory specified in <code class=inline>system/script/path</code> is listed. Directory
+names are followed by a slash (<a href="#/">/</a>) in the output listing.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">list-dir</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi31">[</span><span class="ansi33 ansi1">DIR: <span class="ansi32 ansi1">C:\Dev\Builder\tree\www\rebol.tech\</span></span>
-<span class="ansi31 ansi1">├───[</span> <span class="ansi32">16-May-2026  20:58</span> <span class="ansi32 ansi1">         .git/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">16-May-2026  21:31</span> <span class="ansi32 ansi1">         .git/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">08-Mar-2025  01:18</span> <span class="ansi32 ansi1">         _logs/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         _utils/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         public/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     311</span> <span class="ansi93">.editorconfig
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     920</span> <span class="ansi93">.gitattributes
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">      40</span> <span class="ansi93">.gitignore
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">16-May-2026  21:10</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">16-May-2026  20:54</span> <span class="ansi33">   11648</span> <span class="ansi93">gen-functions.r3
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">17-May-2026  00:04</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">17-May-2026  00:04</span> <span class="ansi33">   11654</span> <span class="ansi93">gen-functions.r3
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">   32749</span> <span class="ansi93">httpd.reb
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi33">    1024</span> <span class="ansi93">parse-errors.r3
 <span class="ansi31 ansi1">└───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     691</span> <span class="ansi93">server.r3
@@ -9419,27 +9419,26 @@ structures, images, and sounds into memory storage objects that
 can be directly accessed and manipulated by programs.
 </p>
 <p>
-The argument to LOAD can be a file, URL, string, or binary
+The argument to <a href="#load">load</a> can be a <code class="datatype">file!</code>, <code class="datatype">url!</code>, <code class="datatype">string!</code>, or <code class="datatype">binary!</code>
 value. When a file name or URL is provided, the data is read
 from disk or network first, then it is loaded. In the case of a
 string or binary value, it is loaded directly from memory.
 </p>
 <p>
-Here are a few examples of using LOAD:
+Here are a few examples of using <a href="#load">load</a>:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">script: load %dict-notes.r
 image: load %image.png
 sound: load %whoosh.wav
 
-;data: load http://www.rebol.com/example.r
-;data: load ftp://ftp.rebol.com/example.r
+data: load https://google.com
 
 data: load "1 2 luke fred@example.com"
 code: load {loop 10 [print "hello"]}</code></pre></div><p>
-LOAD is often called for a text file that contains Rebol code or
+<a href="#load">load</a> is often called for a text file that contains Rebol code or
 data that needs to be brought into memory. The text is first
 searched for a Rebol header, and if a header is found, it is
-evaluated first. (However, unlike the DO function, LOAD does not
+evaluated first. (However, unlike the <a href="#do">do</a> function, <a href="#load">load</a> does not
 require that there be a header.)
 </p>
 <p>
@@ -9449,15 +9448,15 @@ of the block will be done; however, words in the block will be
 bound to the global context.
 </p>
 <p>
-If the header object is desired, use the /HEADER option to
+If the header object is desired, use the <code class=inline>/header</code> option to
 return it as the first element in the block.
 </p>
 <p>
-The /ALL refinement is used to load an entire script as a block.
+The <code class=inline>/all</code> refinement is used to load an entire script as a block.
 The header is not evaluated.
 </p>
 <p>
-The /NEXT refinement was removed - use TRANSCODE/NEXT instead
+The <code class=inline>/next</code> refinement was removed - use <code class=inline>transcode/next</code> instead
 </p>
 
 <div class="see-also">See also: <a href="#bind">bind</a>, <a href="#do">do</a>, <a href="#import">import</a>, <a href="#read">read</a>, <a href="#save">save</a>, <a href="#transcode">transcode</a></div>
@@ -9613,7 +9612,7 @@ Other possible traces are <a href="#log-info">log-info</a>, <a href="#log-trace"
 log-info  'TEST ["Current time is: " now]
 log-trace 'TEST "This is just a trace."
 log-warn  'TEST "This is warning message."</code></pre></div>
-<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  16-May-2026/21:10:51+2:00</span></span>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  17-May-2026/0:04:14+2:00</span></span>
  <span class="ansi33">[TEST] <span class="ansi32">This is just a trace.</span></span>
  <span class="ansi93">[TEST] <span class="ansi31">This is warning message.</span></span>
 </code></pre></div>
@@ -9799,7 +9798,7 @@ Here's an example that creates a block of 10 random integers:
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: make block! 10
 loop 10 [append block random 100]
 probe block</code></pre></div>
-<div class="example-code"><pre class="text-block"><code>[74 57 23 94 75 28 53 8 10 58]
+<div class="example-code"><pre class="text-block"><code>[33 96 99 23 42 45 28 67 86 60]
 </code></pre></div>
 <h6>Returned Value</h6><p>
 When finished the <a href="#loop">loop</a> function returns the final value the block:
@@ -9955,7 +9954,7 @@ Used on boot, but may be used to create custom banners like:
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Product    <span class="ansi31">Test Banner                                                </span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Just an example!                                           </span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">16-May-2026/21:10:51+2:00                                  </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">17-May-2026/0:04:14+2:00                                   </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
@@ -10298,7 +10297,7 @@ Note: Shell shortcut for <a href="#make-dir">make-dir</a>.
 
 <div class="extra-desc">The sign of the result follows the sign of the dividend.</div>
 <p>
-Similar to REMAINDER, but the result is always non-negative.
+Similar to <a href="#remainder">remainder</a>, but the result is always non-negative.
 </p>
 
 <div class="see-also">See also: <a href="#//">//</a>, <a href="#modulo">modulo</a>, <a href="#remainder">remainder</a>, <a href="#round">round</a></div>
@@ -10390,11 +10389,8 @@ Description is needed.
 <p>
 Returns FALSE for all other values.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; module? object [a: 1]
-== #(false)
-
-&gt;&gt; module? system/modules/help
-== #(true)</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">module? object [a: 1]       ;== #(false)
+module? system/modules/help ;== #(true)</code></pre></div>
 </section>
 
 <hr>
@@ -10418,7 +10414,7 @@ Returns FALSE for all other values.
 
 <div class="extra-desc">The result is always non-negative: 0 <= result < abs(divisor).</div>
 <p>
-See MOD for details.
+See <a href="#mod">mod</a> for details.
 </p>
 
 <div class="see-also">See also: <a href="#//">//</a>, <a href="#mod">mod</a>, <a href="#remainder">remainder</a>, <a href="#round">round</a></div>
@@ -10449,26 +10445,20 @@ See MOD for details.
 <p>
 The <a href="#mold">mold</a> function converts values to a source-code formatted string (Rebol-readable).
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print mold 10:30
-10:30
-
-print mold %image.jpg
-%image.jpg
-
-print mold [1 2 3]
-[1 2 3]</code></pre></div><p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">mold 10:30      ;== "10:30"
+mold %image.jpg ;== "%image.jpg"
+mold [1 2 3]    ;== "[1 2 3]"</code></pre></div><p>
 The primary importance of <a href="#mold">mold</a> is to produce strings that can be reloaded with <a href="#load">load</a>.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">str: mold [1 + 2]
-probe load str
-[1 + 2]</code></pre></div><p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">str: mold [1 + 2] ;== "[1 + 2"
+load str          ;==  [1 + 2]</code></pre></div><p>
 The <a href="#mold">mold</a> function is the cousin of <a href="#form">form</a> which produces a human-readable string (used by the <a href="#print">print</a> function.) For example a block will be shown with brackets </p>
 <p>
 Also, <a href="#remold">remold</a> first uses <a href="#reduce">reduce</a> then <a href="#mold">mold</a>.
 </p>
 
-<h6>The /only Refinement</h6><p>
-In some cases it is useful to not <a href="#mold">mold</a> the outermost brackets of blocks. This is done with the /only refinement:
+<h6>The `/only` Refinement</h6><p>
+In some cases it is useful to not <a href="#mold">mold</a> the outermost brackets of blocks. This is done with the <code class=inline>/only</code> refinement:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print mold/only [1 2 3]
 1 2 3</code></pre></div><p>
@@ -10500,7 +10490,7 @@ type? load mold/all  true ;== logic!</code></pre></div><p>
 Another difference occurs with strings that are indexed from their <a href="#head">head</a> positions. Sometimes this is desired, sometimes not. It can be seen here:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">mold next "ABC"       ;== "BC"
-mold/all next "ABC"   ;== {#[string! "ABC" 2]}</code></pre></div>
+mold/all next "ABC"   ;== {#(string! "ABC" 2)}</code></pre></div>
 <h6>Affected Datatypes</h6><p>
 The following datatypes are affected: <code class="datatype">unset!</code>, <code class="datatype">none!</code>, <code class="datatype">logic!</code>, <code class="datatype">bitset!</code>, <code class="datatype">image!</code>, <code class="datatype">map!</code>, <code class="datatype">datatype!</code>, <code class="datatype">typeset!</code>, <code class="datatype">native!</code>, <code class="datatype">action!</code>, <code class="datatype">op!</code>, <code class="datatype">closure!</code>, <code class="datatype">function!</code>, <code class="datatype">object!</code>, <code class="datatype">module!</code>, <code class="datatype">error!</code>, <code class="datatype">task!</code>, <code class="datatype">port!</code>, <code class="datatype">gob!</code>, <code class="datatype">event!</code>, <code class="datatype">handle!</code>.
 </p>
@@ -10958,16 +10948,12 @@ See the <a href="#first">first</a> function for examples.
 <h5>Description:</h5>
 
 <p>
-Returns FALSE for all other values.
+Returns <code class=inline>false</code> for all other values.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">print none? NONE
-true
-
-print none? pick "abc" 4
-true
-
-print none? find "abc" "d"
-true</code></pre></div>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">none? _              ;== #(true)
+none? NONE           ;== #(true)
+none? pick "abc" 4   ;== #(true)
+none? find "abc" "d" ;== #(true)</code></pre></div>
 </section>
 
 <hr>
@@ -10989,20 +10975,11 @@ true</code></pre></div>
 <p>
 The <a href="#not">not</a> function is a <code class="datatype">logic!</code> function that returns true if the value is false or none. It will return false for all other values.
 </p>
-<div class="example-code"><pre class="rebol-block"><code class="rebol">not true
-false
-
-not none
-true
-
-not (10 = 1)
-true
-
-not 0
-false  ; take note of this
-
-not 1
-false</code></pre></div><p>
+<div class="example-code"><pre class="rebol-block"><code class="rebol">not true     ;== #(false)
+not none     ;== #(true)
+not (10 = 1) ;== #(true)
+not 0        ;== #(false)  (take note of this)
+not 1        ;== #(false)</code></pre></div><p>
 To complement an <code class="datatype">integer!</code> use the <a href="#complement">complement</a> function or <a href="#negate">negate</a> function.
 </p>
 

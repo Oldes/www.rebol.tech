@@ -2376,7 +2376,7 @@ repeat n 5 [
 The `copy` function will copy any [series](https://www.rebol.com/r3/docs/concepts/series.html), such as `string!` or `block!`, and most other compound datatypes such as `object!` or `function!`. It is not used for immediate datatypes, such as `integer!`, `decimal!`, `time!`, `date!`, and others.
 
 
-> **How it Works:
+> **How it Works:**
 > It is important to understand `copy` to program in Rebol properly.
 >
 > To save memory, all strings, blocks, and other `series!` are accessed by reference (e.g. as pointers.) If you need to modify a series, and you do not want it to change in other locations, you must use `copy` first.
@@ -5856,8 +5856,8 @@ license
 
 Lists the files and directories of the specified path in a
 sorted multi-column output. If no path is specified, the
-directory specified in system/script/path is listed. Directory
-names are followed by a slash (/) in the output listing.
+directory specified in `system/script/path` is listed. Directory
+names are followed by a slash (`/`) in the output listing.
 
 ```code
 list-dir
@@ -5917,29 +5917,28 @@ Reads and converts external data, including programs, data
 structures, images, and sounds into memory storage objects that
 can be directly accessed and manipulated by programs.
 
-The argument to LOAD can be a file, URL, string, or binary
+The argument to `load` can be a `file!`, `url!`, `string!`, or `binary!`
 value. When a file name or URL is provided, the data is read
 from disk or network first, then it is loaded. In the case of a
 string or binary value, it is loaded directly from memory.
 
-Here are a few examples of using LOAD:
+Here are a few examples of using `load`:
 
 ```rebol
 script: load %dict-notes.r
 image: load %image.png
 sound: load %whoosh.wav
 
-;data: load http://www.rebol.com/example.r
-;data: load ftp://ftp.rebol.com/example.r
+data: load https://google.com
 
 data: load "1 2 luke fred@example.com"
 code: load {loop 10 [print "hello"]}
 ```
 
-LOAD is often called for a text file that contains Rebol code or
+`load` is often called for a text file that contains Rebol code or
 data that needs to be brought into memory. The text is first
 searched for a Rebol header, and if a header is found, it is
-evaluated first. (However, unlike the DO function, LOAD does not
+evaluated first. (However, unlike the `do` function, `load` does not
 require that there be a header.)
 
 If the load results in a single value, it will be returned. If
@@ -5947,13 +5946,13 @@ it results in a block, the block will be returned. No evaluation
 of the block will be done; however, words in the block will be
 bound to the global context.
 
-If the header object is desired, use the /HEADER option to
+If the header object is desired, use the `/header` option to
 return it as the first element in the block.
 
-The /ALL refinement is used to load an entire script as a block.
+The `/all` refinement is used to load an entire script as a block.
 The header is not evaluated.
 
-The /NEXT refinement was removed - use TRANSCODE/NEXT instead
+The `/next` refinement was removed - use `transcode/next` instead
 
 ------------------------------------------------------------------
 ## LOAD-EXTENSION
@@ -6366,14 +6365,13 @@ Note: Shell shortcut for `make-dir`.
 ## MOD
 [[ modulo // remainder round ]]
 
-Similar to REMAINDER, but the result is always non-negative.
+Similar to `remainder`, but the result is always non-negative.
 
 ------------------------------------------------------------------
 ## MODIFIED?
 [[ exists? ]]
 
 Returns NONE if the file does not exist.
-
 
 ```rebol
 print modified? %file.txt
@@ -6392,18 +6390,15 @@ Description is needed.
 
 Returns FALSE for all other values.
 ```rebol
->> module? object [a: 1]
-== #(false)
-
->> module? system/modules/help
-== #(true)
+module? object [a: 1]       ;== #(false)
+module? system/modules/help ;== #(true)
 ```
 
 ------------------------------------------------------------------
 ## MODULO
 [[ mod // remainder round ]]
 
-See MOD for details.
+See `mod` for details.
 
 ------------------------------------------------------------------
 ## MOLD
@@ -6413,33 +6408,25 @@ The `mold` function converts values to a source-code formatted string (Rebol-rea
 
 
 ```rebol
-print mold 10:30
-10:30
-
-print mold %image.jpg
-%image.jpg
-
-print mold [1 2 3]
-[1 2 3]
+mold 10:30      ;== "10:30"
+mold %image.jpg ;== "%image.jpg"
+mold [1 2 3]    ;== "[1 2 3]"
 ```
 
 The primary importance of `mold` is to produce strings that can be reloaded with `load`.
 
-
 ```rebol
-str: mold [1 + 2]
-probe load str
-[1 + 2]
+str: mold [1 + 2] ;== "[1 + 2"
+load str          ;==  [1 + 2]
 ```
 
-The `mold` function is the cousin of `form` which produces a human-readable string (used by the `print` function.) For example a block will be shown with brackets [ ] and strings will be " " quoted or use braces { } (if it is long or contains special characters).
+The `mold` function is the cousin of `form` which produces a human-readable string (used by the `print` function.) For example a block will be shown with brackets `[ ]` and strings will be `" "` quoted or use braces `{ }` (if it is long or contains special characters).
 
 Also, `remold` first uses `reduce` then `mold`.
 
 
-###### The /only Refinement
-In some cases it is useful to not `mold` the outermost brackets of blocks. This is done with the /only refinement:
-
+###### The `/only` Refinement
+In some cases it is useful to not `mold` the outermost brackets of blocks. This is done with the `/only` refinement:
 
 ```rebol
 print mold/only [1 2 3]
@@ -6447,7 +6434,6 @@ print mold/only [1 2 3]
 ```
 
 This is commonly true for blocks of values that are saved to files:
-
 
 ```rebol
 write %example.r mold/only [1 2 3]
@@ -6489,7 +6475,7 @@ Another difference occurs with strings that are indexed from their `head` positi
 
 ```rebol
 mold next "ABC"       ;== "BC"
-mold/all next "ABC"   ;== {#[string! "ABC" 2]}
+mold/all next "ABC"   ;== {#(string! "ABC" 2)}
 ```
 
 
@@ -6749,18 +6735,13 @@ See the `first` function for examples.
 ------------------------------------------------------------------
 ## NONE?
 
-Returns FALSE for all other values.
-
+Returns `false` for all other values.
 
 ```rebol
-print none? NONE
-true
-
-print none? pick "abc" 4
-true
-
-print none? find "abc" "d"
-true
+none? _              ;== #(true)
+none? NONE           ;== #(true)
+none? pick "abc" 4   ;== #(true)
+none? find "abc" "d" ;== #(true)
 ```
 
 ------------------------------------------------------------------
@@ -6771,20 +6752,11 @@ The `not` function is a `logic!` function that returns true if the value is fals
 
 
 ```rebol
-not true
-false
-
-not none
-true
-
-not (10 = 1)
-true
-
-not 0
-false  ; take note of this
-
-not 1
-false
+not true     ;== #(false)
+not none     ;== #(true)
+not (10 = 1) ;== #(true)
+not 0        ;== #(false)  (take note of this)
+not 1        ;== #(false)
 ```
 
 To complement an `integer!` use the `complement` function or `negate` function.
