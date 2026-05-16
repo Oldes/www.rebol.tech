@@ -2185,10 +2185,10 @@ compress/part/level "Hello World" 'zlib 5 9
 As with all compressed files, keep an uncompressed copy of the original data file as a backup.
 
 > **Notes:**
-> Returns `binary!`` regardless of input type
-> To decompress use `decompress` with the same `method`
-> `/level` support and meaning may vary by algorithm — e.g. `lz4` ignores level, while `lzma` and `zlib` make full use of the 0-9 range
-> String input is UTF-8 encoded first, so `decompress` of a compressed string returns binary! — use `to string!` to recover the original string
+> - Returns `binary!` regardless of input type
+> - To decompress use `decompress` with the same `method`
+> - `/level` support and meaning may vary by algorithm — e.g. `lz4` ignores level, while `lzma` and `zlib` make full use of the 0-9 range
+> - String input is UTF-8 encoded first, so `decompress` of a compressed string returns binary! — use `to string!` to recover the original string
 
 ##### Available methods
 
