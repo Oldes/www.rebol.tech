@@ -111,7 +111,8 @@
 </div>
 
 <script src="../js/highlight.min.js"></script>
-<script src="../js/furo.js?v=3"></script>
+<script src="../js/gumshoe-patched.js"></script>
+<script type="module" src="../js/furo.js?v=4"></script>
 <script>
 	const headers = document.querySelectorAll("#furo-main-content h2");
 	const toc = document.getElementById("toc");

@@ -709,8 +709,8 @@ probe and~ 255 300             ;== 44</code></pre></div>
 <div class="extra-desc">Returns the string unchanged if color output is disabled.
 
 Markup syntax:
-
-<code class="desc"> `text`   - monospace/code style (bright yellow); nestable with other markup
+<code class="desc">
+ `text`   - monospace/code style (bright yellow); nestable with other markup
  _text_   - underline style (bright cyan)
  ```      - code block (default gray)
  ^`       - literal backtick (escape sequence)
@@ -3559,58 +3559,58 @@ foreach level [1 5 9][
 Testing compression of 18913 bytes with level 1.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6388      2.961     0.000183    0.000081    true
-zlib        6394      2.958     0.000165    0.000045    true
-gzip        6406      2.952     0.000207    0.000065    true
-br          6976      2.711     0.000174    0.000111    true
-crush       6970      2.713     0.00124     0.000085    true
-lz4         9130      2.072     0.000166    0.000013    true
-lzav        9376      2.017     0.000173    0.000022    true
-lzma        6062      3.12      0.001021    0.000369    true
-lzw         9063      2.087     0.000505    0.000375    true
-zstd        6795      2.783     0.000138    0.000058    true
-deflate-ng  8535      2.216     0.000193    0.000072    true
-zlib-ng     8541      2.214     0.000172    0.00009     true
-gzip-ng     8553      2.211     0.000149    0.000064    true
-bzip2       5753      3.288     0.003013    0.000626    true
+deflate     6388      2.961     0.000203    0.000066    true
+zlib        6394      2.958     0.000187    0.000064    true
+gzip        6406      2.952     0.000201    0.000064    true
+br          6976      2.711     0.000229    0.000121    true
+crush       6970      2.713     0.001564    0.000121    true
+lz4         9130      2.072     0.000188    0.000019    true
+lzav        9376      2.017     0.000144    0.00003     true
+lzma        6062      3.12      0.001864    0.000582    true
+lzw         9063      2.087     0.000579    0.000402    true
+zstd        6795      2.783     0.000197    0.000093    true
+deflate-ng  8535      2.216     0.000332    0.000165    true
+zlib-ng     8541      2.214     0.00021     0.000066    true
+gzip-ng     8553      2.211     0.000175    0.000066    true
+bzip2       5753      3.288     0.002627    0.000697    true
 ------------------------
 <span class="ansi92">
 Testing compression of 18913 bytes with level 5.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6090      3.106     0.000479    0.000075    true
-zlib        6096      3.103     0.000377    0.00006     true
-gzip        6108      3.096     0.000437    0.000079    true
-br          5875      3.219     0.001473    0.00027     true
-crush       6842      2.764     0.001918    0.000083    true
-lz4         8584      2.203     0.000366    0.000012    true
-lzav        9376      2.017     0.000154    0.000026    true
-lzma        5776      3.274     0.004647    0.000381    true
-lzw         7923      2.387     0.000425    0.000247    true
-zstd        6266      3.018     0.000347    0.000109    true
-deflate-ng  6174      3.063     0.000364    0.000065    true
-zlib-ng     6180      3.06      0.000335    0.000057    true
-gzip-ng     6192      3.054     0.000294    0.000057    true
-bzip2       5753      3.288     0.001718    0.000905    true
+deflate     6090      3.106     0.000704    0.000078    true
+zlib        6096      3.103     0.000446    0.000085    true
+gzip        6108      3.096     0.000507    0.000091    true
+br          5875      3.219     0.002625    0.000222    true
+crush       6842      2.764     0.002148    0.00009     true
+lz4         8584      2.203     0.000381    0.000027    true
+lzav        9376      2.017     0.000158    0.000029    true
+lzma        5776      3.274     0.006659    0.000522    true
+lzw         7923      2.387     0.000523    0.00027     true
+zstd        6266      3.018     0.00036     0.000049    true
+deflate-ng  6174      3.063     0.000453    0.000074    true
+zlib-ng     6180      3.06      0.000321    0.000058    true
+gzip-ng     6192      3.054     0.000436    0.000067    true
+bzip2       5753      3.288     0.00214     0.00064     true
 ------------------------
 <span class="ansi92">
 Testing compression of 18913 bytes with level 9.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6050      3.126     0.000859    0.000078    true
-zlib        6056      3.123     0.000715    0.000064    true
-gzip        6068      3.117     0.000649    0.000054    true
-br          5842      3.237     0.011568    0.000128    true
-crush       6842      2.764     0.002706    0.000106    true
-lz4         8568      2.207     0.000407    0.000028    true
-lzav        9376      2.017     0.000106    0.000016    true
-lzma        5788      3.268     0.004258    0.000423    true
-lzw         7923      2.387     0.000558    0.000243    true
-zstd        6095      3.103     0.000451    0.000043    true
-deflate-ng  6155      3.073     0.000491    0.000056    true
-zlib-ng     6161      3.07      0.000486    0.000051    true
-gzip-ng     6173      3.064     0.000487    0.000066    true
-bzip2       5753      3.288     0.001897    0.00062     true
+deflate     6050      3.126     0.00092     0.000068    true
+zlib        6056      3.123     0.000822    0.000082    true
+gzip        6068      3.117     0.000818    0.000055    true
+br          5842      3.237     0.012056    0.000136    true
+crush       6842      2.764     0.001943    0.000081    true
+lz4         8568      2.207     0.000412    0.000011    true
+lzav        9376      2.017     0.000188    0.000023    true
+lzma        5788      3.268     0.004414    0.000384    true
+lzw         7923      2.387     0.00057     0.000221    true
+zstd        6095      3.103     0.000665    0.000068    true
+deflate-ng  6155      3.073     0.00065     0.000076    true
+zlib-ng     6161      3.07      0.000591    0.000056    true
+gzip-ng     6173      3.064     0.000502    0.000054    true
+bzip2       5753      3.288     0.001904    0.000572    true
 ------------------------
 </code></pre></div></div>
 <div class="see-also">See also: <a href="#decompress">decompress</a></div>
@@ -7077,8 +7077,8 @@ To produce Rebol-readable output, use the <a href="#mold">mold</a> function.
 <pre class="help">
 <span class="tit">ARGUMENTS:</span>
   rules       [<span class="types">any-type!</span>] A block of formatting rules applied left to right. Supported rule types:
-              
-              <code class="desc">integer!    - field width: positive = left-aligned, negative = right-aligned
+              <code class="desc">
+              integer!    - field width: positive = left-aligned, negative = right-aligned
                             value is truncated if longer than the field
               decimal!    - combined rounding and field width: the fractional part (e.g. .2 in 8.2)
                             sets rounding precision, the integer part sets field width (0 = no field)
@@ -7160,12 +7160,12 @@ It can also be used to pad zeroes to a single numeric value:
 <h5>Description:</h5>
 
 <div class="extra-desc">
-<code class="desc"> format-datetime now "yyyy-MM-dd hh:mm:ss.sss"  ;== 2026-05-06 19:03:45.123
+ format-datetime now "yyyy-MM-dd hh:mm:ss.sss"  ;== 2026-05-06 19:03:45.123
  format-datetime now/date "dddd, mmmm dd yyyy"  ;== Wednesday, May 06 2026
 </code>
 Supported tokens:
-
-<code class="desc"> yyyy/mm/dd  dddd/ddd  mmmm/mmm/mm/m  hh/h  ss/s  unixepoch  ±zz:zz/zzzz
+<code class="desc">
+ yyyy/mm/dd  dddd/ddd  mmmm/mmm/mm/m  hh/h  ss/s  unixepoch  ±zz:zz/zzzz
  .sss     ;; handles fractional seconds (pads/trims to match token length)
 </code></div>
 </section>
@@ -9509,15 +9509,15 @@ names are followed by a slash (<a href="#/">/</a>) in the output listing.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">list-dir</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi31">[</span><span class="ansi33 ansi1">DIR: <span class="ansi32 ansi1">C:\Dev\Builder\tree\www\rebol.tech\</span></span>
-<span class="ansi31 ansi1">├───[</span> <span class="ansi32">16-May-2026  21:31</span> <span class="ansi32 ansi1">         .git/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">18-May-2026  09:58</span> <span class="ansi32 ansi1">         .git/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">08-Mar-2025  01:18</span> <span class="ansi32 ansi1">         _logs/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         _utils/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         public/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     311</span> <span class="ansi93">.editorconfig
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     920</span> <span class="ansi93">.gitattributes
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">      40</span> <span class="ansi93">.gitignore
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">17-May-2026  00:04</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">17-May-2026  00:04</span> <span class="ansi33">   11654</span> <span class="ansi93">gen-functions.r3
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">18-May-2026  09:53</span> <span class="ansi33">     113</span> <span class="ansi93">.gitignore
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">18-May-2026  09:59</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">18-May-2026  09:54</span> <span class="ansi33">   11827</span> <span class="ansi93">gen-functions.r3
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">   32749</span> <span class="ansi93">httpd.reb
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi33">    1024</span> <span class="ansi93">parse-errors.r3
 <span class="ansi31 ansi1">└───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     691</span> <span class="ansi93">server.r3
@@ -9822,7 +9822,7 @@ Other possible traces are <a href="#log-info">log-info</a>, <a href="#log-trace"
 log-info  'TEST ["Current time is: " now]
 log-trace 'TEST "This is just a trace."
 log-warn  'TEST "This is warning message."</code></pre></div>
-<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  17-May-2026/0:04:14+2:00</span></span>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  18-May-2026/9:59:46+2:00</span></span>
  <span class="ansi33">[TEST] <span class="ansi32">This is just a trace.</span></span>
  <span class="ansi93">[TEST] <span class="ansi31">This is warning message.</span></span>
 </code></pre></div>
@@ -10008,7 +10008,7 @@ Here's an example that creates a block of 10 random integers:
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: make block! 10
 loop 10 [append block random 100]
 probe block</code></pre></div>
-<div class="example-code"><pre class="text-block"><code>[33 96 99 23 42 45 28 67 86 60]
+<div class="example-code"><pre class="text-block"><code>[6 44 1 39 92 30 70 52 89 56]
 </code></pre></div>
 <h6>Returned Value</h6><p>
 When finished the <a href="#loop">loop</a> function returns the final value the block:
@@ -10164,7 +10164,7 @@ Used on boot, but may be used to create custom banners like:
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Product    <span class="ansi31">Test Banner                                                </span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Just an example!                                           </span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">17-May-2026/0:04:14+2:00                                   </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">18-May-2026/9:59:46+2:00                                   </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
@@ -10795,9 +10795,11 @@ money? 123.45  ;== #(false)</code></pre></div>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">more .gitignore</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>_gitter/*
 _logs/*
-
 # Mac crap
 .DS_Store
+# Generated content:
+public/docs/functions.html
+public/docs/functions.inc
 
 </code></pre></div>
 </section>
@@ -21162,7 +21164,8 @@ Check the value of a word is zero.
 </div>
 
 <script src="../js/highlight.min.js"></script>
-<script src="../js/furo.js?v=3"></script>
+<script src="../js/gumshoe-patched.js"></script>
+<script type="module" src="../js/furo.js?v=4"></script>
 <script>
 	const headers = document.querySelectorAll("#furo-main-content h2");
 	const toc = document.getElementById("toc");

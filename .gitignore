@@ -1,5 +1,7 @@
 _gitter/*
 _logs/*
-
 # Mac crap
 .DS_Store
+# Generated content:
+public/docs/functions.html
+public/docs/functions.inc

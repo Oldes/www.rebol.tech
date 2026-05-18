@@ -69,8 +69,14 @@ colorize: function/with [
 	emit: func[str][
 		append out either block? str [ajoin str][str]
 	]
-	emit-code: func[text /local str][
-		emit [LF <code class="desc"> text LF </code>]
+	emit-code: func[text /local pos][
+		;; Move the code tag before initial indentation
+		either all [
+			pos: find/last/tail out LF
+			parse pos [any SP]
+		][	insert pos <code class="desc">][
+		][	append pos <code class="desc">]
+		emit [ LF text LF </code>]
 	]
 	not-comm: complement make bitset! ";"  
 	delimiter: make bitset! {^/_`^^"}
