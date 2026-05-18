@@ -1,7 +1,6 @@
 ;; The content of this file is parsed to extract datatype details and usage examples.
 ;; The original data in this file were collected from https://www.rebol.com/r3/docs/datatypes.html
 
-------------------------------------------------------------------
 ## action!
 
 ### Concept
@@ -32,63 +31,63 @@ A complete list of action functions can be found in `system/catalog/actions`.
 They are listed below.
 
 ###### Magnitude (scalar) oriented:
-`add`
-`subtract`
-`multiply`
-`divide`
-`remainder`
-`power`
-`and~`
-`or~`
-`xor~`
-`negate`
-`complement`
-`absolute`
-`random`
-`round`
-`odd?`
+`add`,
+`subtract`,
+`multiply`,
+`divide`,
+`remainder`,
+`power`,
+`and~`,
+`or~`,
+`xor~`,
+`negate`,
+`complement`,
+`absolute`,
+`random`,
+`round`,
+`odd?`,
 `even?`
 ###### Series oriented:
-`head`
-`tail`
-`head?`
-`tail?`
-`past?`
-`next`
-`back`
-`skip`
-`at`
-`index?`
-`length?`
-`pick`
-`find`
-`select`
-`reflect`
-`make`
-`to`
-`copy`
-`take`
-`insert`
-`append`
-`remove`
-`change`
-`poke`
-`clear`
-`trim`
-`swap`
-`reverse`
+`head`,
+`tail`,
+`head?`,
+`tail?`,
+`past?`,
+`next`,
+`back`,
+`skip`,
+`at`,
+`index?`,
+`length?`,
+`pick`,
+`find`,
+`select`,
+`reflect`,
+`make`,
+`to`,
+`copy`,
+`take`,
+`insert`,
+`append`,
+`remove`,
+`change`,
+`poke`,
+`clear`,
+`trim`,
+`swap`,
+`reverse`,
 `sort`
 ###### Port oriented:
-`create`
-`delete`
-`open`
-`close`
-`read`
-`write`
-`open?`
-`query`
-`modify`
-`update`
+`create`,
+`delete`,
+`open`,
+`close`,
+`read`,
+`write`,
+`open?`,
+`query`,
+`modify`,
+`update`,
 `rename`
 
 
