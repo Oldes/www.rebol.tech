@@ -3,7 +3,7 @@
 
 ## action!
 
-### Concept
+
 This is a variant of a `native!` function that is standardized across datatypes. (They implement a set of common polymorphic functions.)
 
 For example, the `insert` function is an `action!` function. It performs the same abstract operation over a variety of datatypes:
@@ -94,7 +94,7 @@ They are listed below.
 ------------------------------------------------------------------
 ## binary!
 
-### Concept
+
 The `binary!` datatype is a `series` of bytes (8-bits each, octets).
 
 Binary is the **raw storage format** for all files and networking. It holds encoded data such as images, sounds, strings (in formats like UTF-8 and others), movies, compressed data, encrypted data, and others.
@@ -102,7 +102,7 @@ Binary is the **raw storage format** for all files and networking. It holds enco
 The meaning of an specific binary value depends on what it holds. For example, if you read a JPEG image, it's just a sequence of bytes. Once you've decoded those bytes, it becomes an `image!` datatype.
 
 ### Format
-The source format for binary data can be base-2 (binary), base-16 (hex), and base-64. The default base for binary data in REBOL is base-16.
+The source format for binary data can be base-2 (binary), base-16 (hex), and base-64. The default base for binary data in Rebol is base-16.
 
 Binary strings are written as a number sign (#) followed by a string enclosed in braces. The characters within the string are encoded in one of several formats as specified by an optional number prior to the number sign. Base-16 is the default format.
 ```rebol
@@ -177,7 +177,7 @@ Closely related to working with `binary!` datatypes are the functions `enbase` a
 ------------------------------------------------------------------
 ## bitset!
 
-### Concept
+
 Bitsets are bit-based data sets, `logic!` bitmaps. They map collections of integer and character values to `true` and `false`.
 
 For example, bitsets define character classes used with the `parse` or `find` functions. They are also commonly used for allocation maps and search hash markers.
@@ -224,7 +224,7 @@ bits: make bitset! [...]  ; see below
 #### Unicode
 Bitsets are not limited to just ASCII characters. Unicode characters can also be specified.
 
-You can write them directly within the UTF-8 encoding of REBOL source, or you can write them as:
+You can write them directly within the UTF-8 encoding of Rebol source, or you can write them as:
 ```rebol
 other: make bitset! [#"^(02FF)" - #"^(0FFF)"]
 ```
@@ -662,7 +662,7 @@ If you want to preserve that information, you must use `mold`.
 ------------------------------------------------------------------
 ## block!
 
-### Concept
+
 
 Blocks are groups of values and words. Blocks are used everywhere, from a script itself to blocks of data and code provided in a script.
 
@@ -743,9 +743,9 @@ A block of integers:
 [24 37 108]
 ```
 
-A REBOL header:
+A Rebol header:
 ```rebol
-REBOL [
+Rebol [
     Title: "Test Script"
     Date: 31-Dec-1998
     Author: "Ima User"
@@ -803,7 +803,7 @@ probe form [123 10:30]
 ;== "123 10:30"
 ```
 
-Using `mold` on a block value creates a string from the block value and it's contents, thus allowing it to be reloaded as a REBOL block value:
+Using `mold` on a block value creates a string from the block value and it's contents, thus allowing it to be reloaded as a Rebol block value:
 ```rebol
 probe mold [123 10:30]
 ;== "[123 10:30]"
@@ -814,7 +814,7 @@ probe mold [123 10:30]
 ------------------------------------------------------------------
 ## char!
 
-### Concept
+
 
 Characters are not strings; they are the individual values from which strings are constructed. A character can be printable, unprintable, or a control symbol.
 
@@ -842,7 +842,7 @@ a special value. For example, null can be written as:
 
 The last line is written in hex format (base 16). Up to 4 hex digits can be provided, to cover all 16 bit Unicode characters (code-points).
 
-Following is a table of control characters that can be used in REBOL.
+Following is a table of control characters that can be used in Rebol.
 
 | Character | Definition
 |-----------|------------
@@ -946,7 +946,7 @@ mold #"A"
 ------------------------------------------------------------------
 ## closure!
 
-### Concept
+
 
 Normally, a function takes a set of arguments, computes with them,
 then returns a result. There are several types of functions, depending
@@ -1052,13 +1052,13 @@ help datatype!
 ------------------------------------------------------------------
 ## date!
 
-### Concept
+
 Around the world, dates are written in a variety of formats. However, most countries use the `day-month-year` format. One of the few exceptions is the United States, which commonly uses a `month-day-year` format. For example, a date written numerically as `2/1/1999` is ambiguous. The month could be interpreted as either February or January. Some countries use a dash (`-`), some use a forward slash (`/`), and others use a period (`.`) as a separator. Finally, computer people often prefer dates in the 
 `year-month-day` (ISO) format so they can be easily sorted.
 
 
 ### Format
-The REBOL language is flexible, allowing `date!` datatypes to be expressed in a variety of formats. For example, the first day of March can be expressed in any of the following formats:
+The Rebol language is flexible, allowing `date!` datatypes to be expressed in a variety of formats. For example, the first day of March can be expressed in any of the following formats:
 
 ```rebol
 probe 1/3/1999
@@ -1284,7 +1284,7 @@ date: date/utc
 ```
 
 Note that the timezone is gone.
-A REBOL 2 compatible way to do this is:
+A Rebol 2 compatible way to do this is:
 
 ```rebol
 date: now
@@ -1328,7 +1328,7 @@ probe now
 ------------------------------------------------------------------
 ## decimal!
 
-### Concept
+
 The `decimal!` datatype is based on 64-bit standard IEEE 754 binary floating point
 numbers. They are distinguished from integer numbers by a decimal point
 (a period or a comma is allowed for international usage, see the notes
@@ -1464,7 +1464,7 @@ print +1'100'200.222'112
 ------------------------------------------------------------------
 ## email!
 
-### Concept
+
 An email address is a datatype. The `email!` datatype allows for easy expression of email addresses:
 
 
@@ -1581,7 +1581,7 @@ It is a marker used for end-of-block.
 ------------------------------------------------------------------
 ## event!
 
-### Concept
+
 user interface event (efficiently sized)
 
 > **Note:**
@@ -1590,7 +1590,7 @@ user interface event (efficiently sized)
 ------------------------------------------------------------------
 ## file!
 
-### Concept
+
 The `file!` datatype can be a file name, directory name, or directory path.
 
 
@@ -1646,7 +1646,7 @@ print %"cool movie clip.mpg"
 cool movie clip.mpg
 ```
 
-The standard character for separating directories in a path is the forward slash (`/`), not the backslash (`\`). However, the REBOL language automatically converts backslashes found in file names to forward slashes:
+The standard character for separating directories in a path is the forward slash (`/`), not the backslash (`\`). However, the Rebol language automatically converts backslashes found in file names to forward slashes:
 
 ```rebol
 probe %\some\path\to\some\where\movieclip.mpg
@@ -1694,15 +1694,15 @@ true
 ------------------------------------------------------------------
 ## frame!
 
-### Concept
+
 internal context frame
 
 
 ------------------------------------------------------------------
 ## function!
 
-### Concept
-The REBOL language contains a few different types of functions, including
+
+The Rebol language contains a few different types of functions, including
 `native!`, `action!`, `function!`, and `closure!`. The main thing that
 makes them different is how they are evaluated.
 
@@ -1725,7 +1725,7 @@ make function! [[specs] [body]]
 
 
 > **Changed from R2:**
-> Note that this format changed from REBOL V2. This change was necessary because `make` accepts only two arguments. Therefore, the second argument contains the specs block and the body block.
+> Note that this format changed from Rebol V2. This change was necessary because `make` accepts only two arguments. Therefore, the second argument contains the specs block and the body block.
 
 The function specs block holds:
 
@@ -1762,22 +1762,109 @@ More about functions is found in [defining functions](https://www.rebol.com/r3/d
 ------------------------------------------------------------------
 ## get-path!
 
-### Concept
-the value of a path
+
+A `get-path!` retrieves the value a path points to without triggering any evaluation side effects — in particular, it will return a function value rather than calling it. It is the path equivalent of a `get-word!`.
+
+Prefixing a path with a colon (`:`) produces a `get-path!`:
+
+```rebol
+:root/word
+```
+
+Compare the three behaviours:
+
+```rebol
+; Plain path — evaluates; calls a function if found
+obj/hello
+; hello! hello!
+
+; get-path — returns the function value itself, does not call it
+:obj/hello
+;== func [] [print "hello! hello!"]
+```
+
+This is useful when you need to pass a function as a value rather than invoke it, or when you want to retrieve a path's value while suppressing any other evaluation effects:
+
+```rebol
+saved: :obj/hello
+saved
+; hello! hello!
+```
+
+For plain data (non-function values), a `get-path!` behaves the same as a plain `path!`:
+
+```rebol
+probe USA/CA/Willits/population
+;== 9935
+
+probe :USA/CA/Willits/population
+;== 9935
+```
+
+### Related
+Use `get-path?` to test whether a value is a `get-path!`. Use `to-get-path` to convert other values:
+
+```rebol
+to-get-path "root sub"   ;== :root/sub
+to-get-path [root sub]   ;== :root/sub
+```
+
+See `path!` for the full set of path types, series operations on paths, and how paths are evaluated.
 
 
 ------------------------------------------------------------------
 ## get-word!
 
-### Concept
-the value of a word (variable)
 
+A `get-word!` retrieves the value of a word without triggering any evaluation side effects — in particular, it will return a function value rather than calling it. It is written as a word prefixed with a colon:
+
+```rebol
+:word
+```
+
+Compare the two behaviours:
+
+```rebol
+; Plain word — evaluates; calls a function if found
+print
+;** Error: missing argument
+
+; get-word — returns the function value itself, does not call it
+:print
+;== func [value /only] [...]
+```
+
+This is useful when you need to pass a function as a value rather than invoke it:
+
+```rebol
+saved: :print
+saved "hello"
+; hello
+```
+
+For plain data (non-function values), a `get-word!` behaves the same as a plain `word!`:
+
+```rebol
+count: 42
+probe count    ;== 42
+probe :count   ;== 42
+```
+
+### Related
+Use `get-word?` to test whether a value is a `get-word!`. Use `to-get-word` to convert other values:
+
+```rebol
+to-get-word "test"   ;== :test
+to-get-word 'test    ;== :test
+```
+
+See `word!` for the full set of word types and how words are evaluated.
 
 
 ------------------------------------------------------------------
 ## gob!
 
-### Concept
+
 **A GOB is a low-level graphical object.**
 
 GOBs are used for for constructing windows, panels, images, text, and drawings. They support two dimensional compositing with transparency (alpha channel), scalar vector graphics, image effects, and rich-text.
@@ -1791,7 +1878,7 @@ Full details about GOBs can be found on the [R3 View - Graphical Objects](https:
 ------------------------------------------------------------------
 ## handle!
 
-### Concept
+
 arbitrary internal object or value
 
 
@@ -1799,15 +1886,15 @@ arbitrary internal object or value
 ------------------------------------------------------------------
 ## hash!
 
-### Concept
-This REBOL 2 datatype is now implemented in REBOL 3 only as a plain `block!` (placeholder - without hashing)!
+
+This Rebol 2 datatype is now implemented in Rebol 3 only as a plain `block!` (placeholder - without hashing)!
 
 
 
 ------------------------------------------------------------------
 ## image!
 
-### Concept
+
 
 The `image!` datatype is a series that holds RGBA images.
 
@@ -1898,7 +1985,7 @@ probe pick img 1500
 ------------------------------------------------------------------
 ## integer!
 
-### Concept
+
 In R3 the `integer!` datatype has been expanded to be a 64-bit value.
 
 It ranges from:
@@ -2009,7 +2096,7 @@ rgb/2
 > ```rebol
 > to-rgb-str: func [n] [mold to-hex/size n 6]
 > ```
-> This method is preferred because it does not depend on the zero padding at the head of the string, making it work for 32-bit versions of REBOL as well.
+> This method is preferred because it does not depend on the zero padding at the head of the string, making it work for 32-bit versions of Rebol as well.
 > Here's an example:
 > ```rebol
 > to-rgb-str to integer! #A8446C
@@ -2068,7 +2155,7 @@ print 123
 > This section is outdated... in current R3 version `issue!` is `word!` type, not `string!` like in R2!
 > Question is, if it should not be changed!
 
-### Concept
+
 An `issue!` is a series of characters used to sequence symbols or identifiers for things like telephone numbers, model numbers, serial numbers, and credit card numbers.
 
 Issue values are a subset of series, and thus can be manipulated as series:
@@ -2130,7 +2217,7 @@ probe form #1234-56-7890
 1234-56-7890
 ```
 
-The `mold` function returns an issue as a string that can be read by REBOL as an issue value:
+The `mold` function returns an issue as a string that can be read by Rebol as an issue value:
 
 
 ```rebol
@@ -2151,57 +2238,131 @@ print #1234-56-7890
 ------------------------------------------------------------------
 ## library!
 
-### Concept
-external library reference
-
-
-
-### Format
-
-
-### Creation
+This Rebol 2 datatype has not been implemented in Rebol 3.
 
 
 ------------------------------------------------------------------
 ## list!
 
-### Concept
-This REBOL 2 datatype has not been implemented in REBOL 3.
+This Rebol 2 datatype has not been implemented in Rebol 3.
 
 
 
 ------------------------------------------------------------------
 ## lit-path!
 
-### Concept
-literal path value
+A `lit-path!` is a path that is not evaluated when encountered — it yields the path value itself rather than following it. This is the path equivalent of a `lit-word!`.
 
+Prefixing a path with a quote (`'`) produces a `lit-path!`:
 
+```rebol
+'root/sub1/sub2
+```
 
-### Format
+This is most commonly used to assign a path to a variable or pass it as an argument without triggering evaluation:
 
+```rebol
+path: 'USA/CA/Willits/population
+probe path
+;== USA/CA/Willits/population
 
-### Creation
+; Now evaluate it explicitly
+probe get path
+;== 9935
+```
+
+Compare the two behaviours:
+
+```rebol
+; Evaluates immediately — returns the value at the path
+probe USA/CA/Willits/population
+;== 9935
+
+; Does not evaluate — returns the path itself
+probe 'USA/CA/Willits/population
+;== USA/CA/Willits/population
+```
+
+A `lit-path!` becomes a plain `path!` once it has been assigned to a variable. Use a get-word (`:var`) to work with the path value itself afterwards — see [path!](#path) for details on this distinction.
+
+```rebol
+probe lit-path? first ['root/sub]
+;== true
+
+probe path? path
+;== true
+```
+
+### Related
+Use `lit-path?` to test whether a value is a `lit-path!`. Use `to-lit-path` to convert other values:
+
+```rebol
+to-lit-path "root sub"   ;== 'root/sub
+to-lit-path [root sub]   ;== 'root/sub
+```
+
+See `path!` for the full set of path types, series operations on paths, and how paths are evaluated.
 
 
 ------------------------------------------------------------------
 ## lit-word!
 
-### Concept
-literal word value
+A `lit-word!` is a word that is not evaluated when encountered — it yields the word value itself rather than looking up what the word refers to. It is written as a word prefixed with a quote:
 
+```rebol
+'word
+```
 
+Compare the two behaviours:
 
-### Format
+```rebol
+; Plain word — evaluates; returns or calls whatever it refers to
+print
+;** Error: missing argument
 
+; lit-word — returns the word itself as a value
+'print
+;== print
+```
 
-### Creation
+This is most commonly used to pass a word as a symbol rather than as a reference:
+
+```rebol
+probe type? 'test
+;== word!
+```
+
+Note that the elements of a block are not evaluated, so bare words inside a block are already treated as symbols — a `lit-word!` is typically needed outside of blocks:
+
+```rebol
+words: [if while loop until]
+probe first words
+;== if
+```
+
+Once assigned to a variable, a `lit-word!` becomes a plain `word!`:
+
+```rebol
+w: 'print
+probe type? w
+;== word!
+```
+
+### Related
+Use `lit-word?` to test whether a value is a `lit-word!`. Use `to-lit-word` to convert other values:
+
+```rebol
+to-lit-word "test"   ;== 'test
+to-lit-word 'test    ;== 'test
+```
+
+See `word!` for the full set of word types and how words are evaluated.
 
 
 ------------------------------------------------------------------
 ## logic!
 
-### Concept
+
 The `logic!` datatype consists of two states representing `true` and `false`. They are often returned from comparisons such as:
 
 
@@ -2363,7 +2524,7 @@ true
 ------------------------------------------------------------------
 ## map!
 
-### Concept
+
 name-value pairs (hash associative)
 
 
@@ -2374,7 +2535,7 @@ name-value pairs (hash associative)
 ------------------------------------------------------------------
 ## module!
 
-### Concept
+
 loadable context of code and data
 
 
@@ -2382,8 +2543,8 @@ loadable context of code and data
 ------------------------------------------------------------------
 ## money!
 
-### Concept
-There is a wide variety of international symbols for monetary denominations. Some symbols are used before the amount and some after. As a standard for representing international monetary values, the REBOL language uses the United States monetary format, but allows the inclusion of specific denominations.
+
+There is a wide variety of international symbols for monetary denominations. Some symbols are used before the amount and some after. As a standard for representing international monetary values, the Rebol language uses the United States monetary format, but allows the inclusion of specific denominations.
 
 
 ### Format
@@ -2565,7 +2726,7 @@ USD$12.34
 ------------------------------------------------------------------
 ## native!
 
-### Concept
+
 direct CPU evaluated function
 
 
@@ -2573,14 +2734,14 @@ direct CPU evaluated function
 ------------------------------------------------------------------
 ## none!
 
-### Concept
+
 The `none!` datatype contains a single value that represents nothing or no value.
 
 The concept of none is not the same as an empty block, empty string, or null character. It is an actual value that represents non-existence.
 
 A `none!` value can be returned from various functions, primarily those involving series (for example, `pick` and `find`).
 
-The REBOL word `none!` is defined as a `none!` datatype and contains a `none!` value. The word `none!` is not equivalent to zero` or false`. However, `none!` is interpreted as false` by many functions.
+The Rebol word `none!` is defined as a `none!` datatype and contains a `none!` value. The word `none!` is not equivalent to zero` or false`. However, `none!` is interpreted as false` by many functions.
 
 A `none!` value has many uses such as a return value from series functions like `pick`, `find` and select:`
 
@@ -2650,7 +2811,7 @@ none
 ------------------------------------------------------------------
 ## object!
 
-### Concept
+
 context of names with values
 
 ### Creation
@@ -2757,7 +2918,7 @@ In summary:
 ------------------------------------------------------------------
 ## op!
 
-### Concept
+
 infix operator (special evaluation exception)
 
 
@@ -2765,8 +2926,8 @@ infix operator (special evaluation exception)
 ------------------------------------------------------------------
 ## pair!
 
-### Concept
-A pair! datatype is used to indicate spatial coordinates, such as positions on a display.  They are used for both positions and sizes.  Pairs are used primarily in REBOL/View.
+
+A pair! datatype is used to indicate spatial coordinates, such as positions on a display.  They are used for both positions and sizes.  Pairs are used primarily in Rebol/View.
 
 
 ### Format
@@ -2854,7 +3015,7 @@ probe pair
 ------------------------------------------------------------------
 ## paren!
 
-### Concept
+
 A `paren!` datatype is a block that is immediately evaluated.  It is identical to a block in every way, except that it is evaluated when it is encountered and its result is returned.
 
 When used within an evaluated expression, a `paren!` allows you to control the order of evaluation:
@@ -2956,12 +3117,10 @@ probe form pick blk 1
 ------------------------------------------------------------------
 ## path!
 
-### Concept
-Paths are a collection of words and values delineated with forward slashes (/). Paths are used to navigate to or find something.
 
-Paths can be used on series, maps, functions, and objects.  How a path operates depends on the datatype being used. Thus aths can be used to select values from blocks, pick characters from strings, access variables in objects, refine the operation of a function:
+Paths are a collection of words and values delineated with forward slashes (`/`). Paths are used to navigate to or find something.
 
-
+Paths can be used on series, maps, functions, and objects.  How a path operates depends on the datatype being used. Thus paths can be used to select values from blocks, pick characters from strings, access variables in objects, refine the operation of a function:
 ```rebol
 USA/CA/Ukiah/size (block selection)
 
@@ -2973,8 +3132,6 @@ match/any         (function option)
 ```
 
 The example below shows the simplicity of using a path to access a mini-database created from a few blocks:
-
-
 ```rebol
 towns: [
     Hopland [
@@ -2995,7 +3152,8 @@ http://www.ukiah.com
 
 Summary of path constructs:
 
-| Action | Type Word | Type Test | Conversion
+| Action       | Type Word | Type Test | Conversion
+|--------------|-----------|-----------|-------------
 | `root/word:` | set-path! | set-path? | to-set-path
 | `:root/word` | get-path! | get-path? | to-get-path
 | `root/word`  | path!     | path?     | to-path
@@ -3004,7 +3162,6 @@ Summary of path constructs:
 Examples of paths:
 
 Evaluate an object's function:
-
 ```rebol
 obj: make object! [
     hello: func [] [print "hello! hello!"]
@@ -3014,7 +3171,6 @@ hello! hello!
 ```
 
 Evaluate an object's word:
-
 ```rebol
 obj: make object! [
     text: "do you believe in magic?"
@@ -3024,7 +3180,6 @@ do you believe in magic?
 ```
 
 Function refinements:
-
 ```rebol
 hello: func [/again] [
     print either again ["hello again!"]["hello"]
@@ -3034,7 +3189,6 @@ hello again!
 ```
 
 Select from blocks, or multiple blocks:
-
 ```rebol
 USA: [
     CA [
@@ -3057,33 +3211,20 @@ print form USA/CA/Willits/elevation
 ```
 
 Pick elements from series and embedded series by their numeric position:
-
 ```rebol
 string-series: "abcdefg"
 block-series: ["John" 21 "Jake" 32 "Jackson" 43 "Joe" 52]
 block-with-sub-series: [ "abc" [4 5 6 [7 8 9]]]
 
-probe string-series/4
-#"d"
-
-probe block-series/3
-Jake
-
-probe block-series/6
-43
-
-probe block-with-sub-series/1/2
-#"b"
-
-probe block-with-sub-series/2/2
-5
-
-probe block-with-sub-series/2/4/2
-8
+string-series/4           ;== #"d"
+block-series/3            ;== "Jake"
+block-series/6            ;== 43
+block-with-sub-series/1/2 ;== #"b"
+block-with-sub-series/2/2 ;== 5
+block-with-sub-series/2/4/2 ;== 8
 ```
 
 The words supplied as path selectors are symbolic and therefore unevaluated. This is necessary to allow the most intuitive form for object referencing. To use a word's reference, an explicit word value reference is required:
-
 ```rebol
 city: 'Ukiah
 probe USA/CA/:city
@@ -3096,7 +3237,6 @@ probe USA/CA/:city
 Paths in blocks, maps and objects are evaluated by matching the word at the top level of the path, and verifying the word as a `series!`, `map!` or `object!` value. Then the next value in the path is sought and an implicit `select` is performed. The value following the matched value is returned. When the returned value is a block, map, or object, the path can be extended:
 
 Getting the value associated with `CA` in `USA`:
-
 ```rebol
 probe USA/CA
 [
@@ -3112,7 +3252,6 @@ probe USA/CA
 ```
 
 Getting the value associated with `Willits` in `USA/CA`:
-
 ```rebol
 probe USA/CA/Willits
 [
@@ -3122,14 +3261,12 @@ probe USA/CA/Willits
 ```
 
 Getting the value associated with `population` in `USA/CA/Willits`:
-
 ```rebol
 probe USA/CA/Willits/population
 9935
 ```
 
 When a value is used in a path that does not exist at the given point in the structure, an error is produced:
-
 ```rebol
 probe USA/CA/Mendocino
 ** Script Error: Invalid path value: Mendocino.
@@ -3137,7 +3274,6 @@ probe USA/CA/Mendocino
 ```
 
 Paths can be used to change values in series, maps and objects:
-
 ```rebol
 USA/CA/Willits/elevation: "1 foot, after the earthquake"
 probe USA/CA/Willits
@@ -3156,8 +3292,6 @@ make object! [
 Series, functions, and objects can be mixed in paths.
 
 Selecting from elements in a block inside an object:
-
-
 ```rebol
 obj: make object! [
     USA: [
@@ -3166,17 +3300,15 @@ obj: make object! [
         ]
     ]
 ]
-probe obj/USA/CA/population
-too many
+obj/USA/CA/population
+;== "too many"
 ```
 
 Using function refinements within an object:
-
-
 ```rebol
 obj: make object! [
     hello: func [/again] [
-        print either again [
+        either again [
             "hello again"
         ] [
             "oh, hello"
@@ -3184,12 +3316,10 @@ obj: make object! [
     ]
 ]
 obj/hello/again
-hello again
+;== "hello again"
 ```
 
 Paths are themselves type of series, thus anything that can be done with a series can be done with path values:
-
-
 ```rebol
 root: [sub1 [sub2 [
     word "a word at the end of the path"
@@ -3197,108 +3327,94 @@ root: [sub1 [sub2 [
 ]   ]   ]
 path: 'root/sub1/sub2/word
 probe :path
-root/sub1/sub2/word
+;== root/sub1/sub2/word
 ```
 
-In the previous example, the :path notation was used to get the path itself, not the path's value:
-
-
+In the previous example, the `:path` notation was used to get the path itself, not the path's value:
 ```rebol
 probe path
-a word at the end of the path
+;== "a word at the end of the path"
 ```
 
 Looking at how long a path is:
-
-
 ```rebol
-probe length? :path
-4
+length? :path
+;== 4
 ```
 
 Finding a word within a path:
-
-
 ```rebol
-probe find :path 'sub2
-sub2/word
+find :path 'sub2
+;== sub2/word
 ```
 
 Changing a word in a path:
-
-
 ```rebol
 change find :path 'word 'num
 probe :path
-root/sub1/sub2/num
+;== root/sub1/sub2/num
 
-probe path
-55
+path
+;== 55
 ```
 
 
-
 ### Format
-Paths are expressed relative to a root word by providing a number of selection expressions, each separated by a forward slash (`/`). These expressions can be words or values. Their specific interpretation vary depending on the datatype of the root value.
+Paths are expressed relative to a root word by providing a number of selection expressions, each separated by a forward slash (`/`). These expressions can be any value type. Their specific interpretation varies depending on the datatype of the root value.
 
 The words supplied as selection expressions in paths are symbolic and are not evaluated. This is necessary to allow the most intuitive form for object referencing. To use a word's reference, an explicit word value reference is required:
-
-
 ```rebol
 root/:word
 ```
 
-This example uses the value of the variable, rather than it name.
-
+This example uses the value of the variable, rather than its name.
 
 
 ### Creation
+
 You can `make` an empty path of a given size with:
-
-
 ```rebol
 path: make path! 10
 insert :path 'test
 insert tail :path 'this
-print :path
-test/this
+probe :path
+;== test/this
 ```
 
 The `to-path` function converts data to the `path!` datatype:
-
-
 ```rebol
-probe to-path [root sub]
-root/sub
-
-probe to-path "root sub"
-root/sub
+to-path [root sub]     ;== root/sub
+to-path "root sub"     ;== root/sub
 ```
 
-The `to-set-path` function converts other values to the `set-word!` datatype.
-
-
+The `to-set-path` function converts other values to the `set-path!` datatype.
 ```rebol
-probe to-set-path "root sub"
-root/sub:
+to-set-path "root sub" ;== root/sub:
 ```
 
-The `to-get-path` function converts other values to the `set-word!` datatype.
-
-
+The `to-get-path` function converts other values to the `get-path!` datatype.
 ```rebol
-probe to-get-path "root sub"
-:root/sub
+to-get-path "root sub" ;== :root/sub
 ```
 
-The `to-lit-path` function converts other values to the `lit-word!` datatype.
-
-
+The `to-lit-path` function converts other values to the `lit-path!` datatype.
 ```rebol
-probe to-lit-path "root sub"
-'root/sub
+to-lit-path "root sub" ;== 'root/sub
 ```
 
+> **Note:**
+> The `to-*` conversion functions are convenience wrappers around their `to <type>!` equivalents:
+> ```rebol
+> to-path  [root sub] ;== root/sub
+> to path! [root sub] ;== root/sub
+> ```
+> When performance is critical, prefer the `to <type>!` form as it avoids the overhead of the wrapper function.
+
+Use `as` to coerce a path to a related type without copying the underlying data. This is useful for treating a path as a block or vice versa:
+```rebol
+as block! 'root/sub   ;== [root sub]
+as path! [root sub]   ;== root/sub
+```
 
 
 ### Related
@@ -3334,7 +3450,7 @@ probe form pick [root/sub] 1
 root/sub
 ```
 
-Use `mold` on a path value creates a string of the path value itself, thus allowing it to be reloaded as a REBOL path value:
+Use `mold` on a path value creates a string of the path value itself, thus allowing it to be reloaded as a Rebol path value:
 
 
 ```rebol
@@ -3347,7 +3463,7 @@ root/sub
 ------------------------------------------------------------------
 ## percent!
 
-### Concept
+
 special form of decimals (used mainly for layout)
 
 
@@ -3355,7 +3471,7 @@ special form of decimals (used mainly for layout)
 ------------------------------------------------------------------
 ## port!
 
-### Concept
+
 external series, an I/O channel
 
 
@@ -3364,13 +3480,13 @@ external series, an I/O channel
 ## rebcode!
 
 > **Note:**
-> This datatype has not been implemented in REBOL 3.
+> This datatype has not been implemented in Rebol 3.
 
 
 ------------------------------------------------------------------
 ## refinement!
 
-### Concept
+
 Refinements are modifiers, similar to adjectives used in natural
 (human) languages. A refinement indicates a variation in the use
 of, or extension in the meaning of, a function, object,
@@ -3406,7 +3522,7 @@ print read site/index.html
 
 
 ### Format
-Refinements are composed with a slash followed by a valid REBOL
+Refinements are composed with a slash followed by a valid Rebol
 word (see the words section below for definition). Examples are:
 
 ```rebol
@@ -3462,29 +3578,103 @@ false
 ## routine!
 
 > **Note:**
-> This datatype has not been implemented in REBOL 3. See `library!`.
+> This datatype has not been implemented in Rebol 3. See `library!`.
 
 
 
 ------------------------------------------------------------------
 ## set-path!
 
-### Concept
-definition of a path's value
+A `set-path!` assigns a value to the location a path points to. It is the path equivalent of a `set-word!`.
 
+Appending a colon (`:`) to a path produces a `set-path!`:
+
+```rebol
+root/word:
+```
+
+When evaluated, the expression to the right of the `set-path!` is assigned to that location:
+
+```rebol
+USA/CA/Willits/population: 9999
+probe USA/CA/Willits/population
+;== 9999
+```
+
+This works on series, maps, and objects:
+
+```rebol
+; Series (block)
+USA/CA/Willits/elevation: "1 foot, after the earthquake"
+
+; Object field
+obj/text: "yes, I do believe in magic."
+```
+
+Compare with a plain `path!`, which reads a value rather than setting it:
+
+```rebol
+; Reads the value
+probe USA/CA/Willits/population
+;== 9999
+
+; Sets the value
+USA/CA/Willits/population: 12345
+```
+
+### Related
+Use `set-path?` to test whether a value is a `set-path!`. Use `to-set-path` to convert other values:
+
+```rebol
+to-set-path "root sub"   ;== root/sub:
+to-set-path [root sub]   ;== root/sub:
+```
+
+See `path!` for the full set of path types, series operations on paths, and how paths are evaluated.
 
 ------------------------------------------------------------------
 ## set-word!
 
-### Concept
-definition of a word's value
+A `set-word!` assigns a value to a word within the current context. It is written as a word followed by a colon:
 
+```rebol
+word:
+```
+
+When evaluated, the expression to the right is evaluated and the result is bound to the word:
+
+```rebol
+name: "John"
+count: 42
+items: [a b c]
+```
+
+A `set-word!` is the most common way to define variables in REBOL. Compare with a plain `word!`, which retrieves a value rather than setting it:
+
+```rebol
+; Sets the value
+count: 42
+
+; Gets the value
+print count
+;== 42
+```
+
+### Related
+Use `set-word?` to test whether a value is a `set-word!`. Use `to-set-word` to convert other values:
+
+```rebol
+to-set-word "test"   ;== test:
+to-set-word 'test    ;== test:
+```
+
+See `word!` for the full set of word types and how words are evaluated.
 
 
 ------------------------------------------------------------------
 ## string!
 
-### Concept
+
 Strings are a series of characters. All operations performable on series values can be performed on strings.
 
 
@@ -3580,7 +3770,7 @@ print series? "123"
 true
 ```
 
-The functions `form` and `mold` are closely related to strings, as they create strings from other datatypes. The `form` function makes a human readable version of a specified datatype, while `mold` makes a REBOL readable version.
+The functions `form` and `mold` are closely related to strings, as they create strings from other datatypes. The `form` function makes a human readable version of a specified datatype, while `mold` makes a Rebol readable version.
 
 ```rebol
 probe form "111 222 333"
@@ -3594,7 +3784,7 @@ probe mold "111 222 333"
 ------------------------------------------------------------------
 ## struct!
 
-### Concept
+
 native structure definition
 
 
@@ -3602,7 +3792,7 @@ native structure definition
 ------------------------------------------------------------------
 ## tag!
 
-### Concept
+
 Tags are used in HTML and other markup languages to indicate how text fields are to be treated. For example, the tag `&lt;HTML>` at the beginning of a file indicates that it should be parsed by the rules of the Hypertext Markup Language. A tag with a forward slash (`/`), such as `&lt;/HTML>`, indicates the closing of the tag.
 
 Tags are a subset of series, and thus can be manipulated as such:
@@ -3680,7 +3870,7 @@ print &lt;a href="http://www.rebol.com/">
 ------------------------------------------------------------------
 ## task!
 
-### Concept
+
 evaluation environment
 
 
@@ -3694,8 +3884,8 @@ evaluation environment
 ------------------------------------------------------------------
 ## time!
 
-### Concept
-The REBOL language supports the standard expression of time in hours, minutes, seconds, and subseconds. Both positive and negative times are permitted.
+
+The Rebol language supports the standard expression of time in hours, minutes, seconds, and subseconds. Both positive and negative times are permitted.
 
 The `time!` datatype uses relative rather than absolute time. For example, `10:30` is 10 hours and 30 minutes rather than the time of 10:30 A.M. or P.M.
 
@@ -3867,7 +4057,7 @@ probe now/time
 ------------------------------------------------------------------
 ## tuple!
 
-### Concept
+
 It is common to represent version numbers, Internet addresses, and RGB color values as a sequence of three or four integers. These types of numbers are called a `tuple!` (as in quintuple) and are represented as a set of integers separated by periods.
 
 
@@ -3935,7 +4125,7 @@ probe form 1.2.3.4
 1.2.3.4
 ```
 
-Use the `mold` function to convert a tuple into a string that can be read back into REBOL as a tuple:
+Use the `mold` function to convert a tuple into a string that can be read back into Rebol as a tuple:
 
 
 ```rebol
@@ -3975,14 +4165,14 @@ print gray + green
 ------------------------------------------------------------------
 ## typeset!
 
-### Concept
+
 set of datatypes
 
 
 ------------------------------------------------------------------
 ## unset!
 
-### Concept
+
 no value returned or set
 
 
@@ -3990,8 +4180,8 @@ no value returned or set
 ------------------------------------------------------------------
 ## url!
 
-### Concept
-URL is an acronym for Uniform Resource Locator, an Internet standard used to access resources such as web pages, images, files, and email across the network. The best known URL scheme is that used for web locations such as http://www.REBOL.com.
+
+URL is an acronym for Uniform Resource Locator, an Internet standard used to access resources such as web pages, images, files, and email across the network. The best known URL scheme is that used for web locations such as http://www.rebol.com.
 
 URL values are a subset of series, and thus can be manipulated as series:
 
@@ -4083,7 +4273,7 @@ true
 ------------------------------------------------------------------
 ## utype!
 
-### Concept
+
 user defined datatype
 
 
@@ -4091,7 +4281,7 @@ user defined datatype
 ------------------------------------------------------------------
 ## vector!
 
-### Concept
+
 high performance arrays (single datatype)
 
 
@@ -4100,24 +4290,22 @@ high performance arrays (single datatype)
 ------------------------------------------------------------------
 ## word!
 
-### Concept
-Words are the symbols used by REBOL.  A word may or may not be a variable, depending on how it is used.  Words are quite often used directly as symbols, rather than variables. It is important to understand the difference.
 
-REBOL does not use keywords -- those specific words that can only be used in one way.
+Words are the symbols used by Rebol. A word may or may not be a variable, depending on how it is used. Words are quite often used directly as symbols, rather than variables. It is important to understand the difference.
 
-For example, in C code, an if statement may be written:
+Rebol does not use keywords — those specific words that can only be used in one way.
 
+For example, in C code, an `if` statement may be written:
 
-```rebol
+```c
 if (n > 1) n = 0;
 ```
 
-The word if` is a keyword. You cannot use it in any other way or for any other purpose.
+The word `if` is a keyword. You cannot use it in any other way or for any other purpose.
 
-In REBOL, words are symbols defined within dynamically created contexts. There are no restrictions on what words are used or how they are used.
+In Rebol, words are symbols defined within dynamically created contexts. There are no restrictions on what words are used or how they are used.
 
-For example, the word if` is used several ways here:
-
+For example, the word `if` is used several ways here:
 
 ```rebol
 if n > 1 [n: 0]
@@ -4137,46 +4325,44 @@ So, the context defines the word's value and its usage.
 
 
 
-### Formats
+### Notation
 There are a few different formats for words, depending on their intended usage:
 
-
-| Notation | Meaning
-| `word`   | Get the **natural value** of the word. (If the value is a function, evaluate it, otherwise return it.)
-| `word:`  | Sets the word (like assignment) to a value.
-| `:word`  | Gets the word's value without evaluating it. (Useful for getting the value of a function.)
-| `'word`  | Treat word as a value (a word symbol). Does not evaluate it.
-| `/word`  | Treat the word as a refinement. Used mainly for optional arguments.
-
-
-### Related functions
-
-| Action | Type Word | Type Test | Conversion
-| `word:` | `set-word!` | `set-word?` | `to-set-word`
-| `:word` | `get-word!` | `get-word?` | `to-get-word`
-| `word`  | `word!`     | `word?`     | `to-word`
-| `'word` | `lit-word!` | `lit-word?` | `to-lit-word`
+| Notation | Meaning |
+|----------|---------|
+| `word`   | Get the **natural value** of the word. (If the value is a function, evaluate it, otherwise return it.) |
+| `word:`  | Sets the word (like assignment) to a value. |
+| `:word`  | Gets the word's value without evaluating it. (Useful for getting the value of a function.) |
+| `'word`  | Treat word as a value (a word symbol). Does not evaluate it. |
+| `/word`  | Treat the word as a refinement. Used mainly for optional arguments. |
 
 
-### Format
+### Word types
+
+| Action  | Type Word   | Type Test   | Conversion    |
+|---------|-------------|-------------|---------------|
+| `word:` | `set-word!` | `set-word?` | `to-set-word` |
+| `:word` | `get-word!` | `get-word?` | `to-get-word` |
+| `word`  | `word!`     | `word?`     | `to-word`     |
+| `'word` | `lit-word!` | `lit-word?` | `to-lit-word` |
+
+
+### Syntax
 Words are composed of alphabetic characters, numbers, and any of the following characters:
 
-
-```rebol
-? ! . ' + - * &amp; | = _ &amp;#126;
+```
+? ! . ' + - * & | = _ ~
 ```
 
-A word cannot begin with a number, and there are also some restrictions on words that could be interpreted as numbers. For instance, -1 and +1 are numbers, not words.
+A word cannot begin with a number, and there are also some restrictions on words that could be interpreted as numbers. For instance, `-1` and `+1` are numbers, not words.
 
 The end of a word is marked by a space, a newline, or one of the following characters:
 
-
-```rebol
+```
 [ ] ( ) { } " : ; /
 ```
 
 Thus, the square brackets of a block are not part of a word:
-
 
 ```rebol
 [test]
@@ -4184,20 +4370,17 @@ Thus, the square brackets of a block are not part of a word:
 
 The following characters are not allowed in words:
 
-
-```rebol
+```
 @ # $ % ^ ,
 ```
 
 Words can be of any length, but cannot extend past the end of a line.
-
 
 ```rebol
 this-is-a-very-long-word-used-as-an-example
 ```
 
 Sample words are:
-
 
 ```rebol
 Copy print test
@@ -4210,77 +4393,73 @@ image-files  l'image
 
 ***** *new-line*
 
-left&amp;right left|right
+left&right left|right
 ```
 
-The REBOL language is not case-sensitive.  The words following words:
-
+The Rebol language is not case-sensitive. The following words:
 
 ```rebol
 blue
-
 Blue
-
 BLUE
 ```
 
-all refer to the same word.  The case of the word is preserved when it is printed.
+all refer to the same word. The case of the word is preserved when it is printed.
 
-Words can be reused.  The meaning of a word is dependent on its context, so words can be reused in different contexts. You can reuse any word, even predefined REBOL words.  For instance, the REBOL word `if` can be used in your code differently than how it is used by the REBOL interpreter.
+Words can be reused. The meaning of a word is dependent on its context, so words can be reused in different contexts. You can reuse any word, even predefined Rebol words. For instance, the Rebol word `if` can be used in your code differently than how it is used by the Rebol interpreter.
 
 
 
 ### Creation
 The `to-word` function converts values to the `word!` datatype.
 
-
 ```rebol
-probe to-word "test"
-test
+to-word "test"     ;== test
 ```
 
 The `to-set-word` function converts values to the `set-word!` datatype.
 
-
 ```rebol
-probe make set-word! "test"
-test:
+to-set-word "test" ;== test:
 ```
 
 The `to-get-word` function converts values to the `get-word!` datatype.
 
-
 ```rebol
-probe to-get-word "test"
-:test
+to-get-word "test" ;== :test
 ```
 
 The `to-lit-word` function converts values to the `lit-word!` datatype.
 
-
 ```rebol
-probe to-lit-word "test"
-'test
+to-lit-word "test" ;== 'test
 ```
+
+> **Note:**
+> The `to-*` conversion functions are convenience wrappers around their `to <type>!` equivalents:
+> ```rebol
+> to-word "test"   ;== test
+> to word! "test"  ;== test
+> ```
+> When performance is critical, prefer the `to <type>!` form as it avoids the overhead of the wrapper function.
 
 
 
 ### Related
 Use `word?`, `set-word?`, `get-word?`, and `lit-word?` to test the datatype.
 
-
 ```rebol
-probe word? second [1 two "3"]
-true
+word? second [1 two "3"]
+;== #(true)
 
-if set-word? first [word: 10] [print "it is set"]
-it is set
+if set-word? first [word: 10] ["it is set"]
+;== "it is set"
 
-probe get-word? second [pr: :print]
-true
+get-word? second [pr: :print]
+;== #(true)
 
-probe lit-word? first ['foo bar]
-true
+lit-word? first ['foo bar]
+;== #(true)
 ```
 
 
