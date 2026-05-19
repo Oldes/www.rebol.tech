@@ -4820,8 +4820,135 @@ print gray + green
 ------------------------------------------------------------------
 ## typeset!
 
+### Concept
 
-set of datatypes
+A `typeset!` is an efficient set of datatypes. Typesets are used throughout Rebol to specify what types a function argument accepts, and to group related types for testing. Internally a typeset is represented as a bitset of datatype flags, making membership tests very fast.
+
+To list all built-in typesets and their members:
+
+```code
+help typeset!
+```
+
+### Construction
+
+```rebol
+make typeset! [block! map! object!]
+```
+
+Duplicate entries are allowed and silently ignored — a typeset is a set, so each type appears at most once:
+
+```rebol
+make typeset! [number! integer!]   ; integer! is already part of number!, no error
+```
+
+An empty typeset is valid:
+
+```rebol
+make typeset! []
+```
+
+Convert a typeset to a block of its member datatypes with `to-block`:
+
+```rebol
+to-block make typeset! [block! map!]
+;== [block! map!]
+```
+
+
+### Testing membership
+
+Use `find` to test whether a datatype is a member of a typeset:
+
+```rebol
+types: make typeset! [block! map! object!]
+
+find types block!    ;== true
+find types string!   ;== none
+```
+
+Use `empty?` to test whether a typeset has no members:
+
+```rebol
+empty? make typeset! []   ;== true
+empty? types              ;== false
+```
+
+
+### Set operations
+
+Typesets support the standard set operations, each returning a new `typeset!`:
+
+```rebol
+types: make typeset! [block! map! object!]
+
+;; union — all types from both typesets
+union types make typeset! [string!]
+;== make typeset! [block! map! object! string!]
+
+;; difference — types in one but not both (symmetric)
+difference types make typeset! [object!]
+;== make typeset! [block! map!]
+
+;; complement — all types NOT in the typeset
+not-types: complement types
+find not-types integer!
+;== true (integer! is not in types)
+```
+
+
+### Built-in typesets
+
+Rebol defines a number of built-in typesets. Some notable ones:
+
+`any-type!` covers all datatypes except `end!`, which is an internal sentinel:
+
+```code
+; end! is the only type not in any-type!
+probe difference system/catalog/datatypes to-block any-type!
+```
+
+`scalar!` covers the primitive numeric and value types:
+
+```code
+probe to-block scalar!
+```
+
+`immediate!` covers all types whose values are not reference types (no allocation):
+
+```code
+probe to-block immediate!
+```
+
+`series!` covers all series types.
+
+```code
+probe to-block series!
+```
+Note that `bitset!` is not a series despite superficial similarity:
+```rebol
+find series! bitset!   ;== none
+```
+
+
+### Use in function specs
+
+Typesets appear in function argument specs to restrict what types are accepted. Use `types-of` to retrieve the typeset for a specific argument:
+
+```rebol
+mold third types-of :insert
+;== "make typeset! [none! logic!]"
+```
+
+
+### Related
+
+Use `typeset?` to test whether a value is a `typeset!`:
+
+```rebol
+typeset? make typeset! [block!]   ;== true
+typeset? block!                   ;== false
+```
 
 
 ------------------------------------------------------------------
