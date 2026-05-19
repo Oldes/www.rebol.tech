@@ -3169,8 +3169,7 @@ There are a couple issues to be addressed with object creation:
 
 The best way to analyze this situation is to create a test case. The test below determines how the major aggregate types are handled:
 
-
-```rebol
+```code
 b1: reduce/no-set [
     str: "abc"
     bin: #{010203}
@@ -3202,32 +3201,8 @@ compare o1 o3
 compare o1 o4
 ```
 
-In A79, the results are:
 
-
-```rebol
-comparing o1 to o2
-   str field is shared
-   bin field is shared
-   blk field is shared
-   vec field is shared
-   img field is shared
-   obj field is shared
-
-comparing o1 to o3
-   vec field is shared
-   img field is shared
-
-comparing o1 to o4
-   str field is shared
-   bin field is shared
-   blk field is shared
-   vec field is shared
-   img field is shared
-   obj field is shared
-```
-
-So, the values of the object body block are not copied, but the values of parent fields are copied, with the exception of vectors and images.
+So, the values of the object body block are not copied, but the values of parent fields are copied, with the exception of vectors, images and objects.
 
 Comparing with R2 the difference (other than vector! missing in R2) is in the second case:
 
@@ -4947,9 +4922,94 @@ typeset? block!                   ;== false
 ------------------------------------------------------------------
 ## unset!
 
+`unset!` is the datatype of a word that has no value assigned to it. Accessing an unset word in a context where a value is expected produces an error. It is distinct from `none!` — `none` is an explicit value meaning "nothing", whereas `unset!` means the word has never been assigned at all.
 
-no value returned or set
+```rebol
+type? #(unset)
+;== #(unset!)
+```
 
+### Creating unset words
+
+Use `unset` to remove the value of a word:
+
+```rebol
+x: 42
+unset 'x
+value? 'x          ;== #(false)
+```
+
+Pass a block to unset multiple words at once:
+
+```rebol
+x: y: 1
+unset [x y]
+unset? x           ;== #(true)
+unset? y           ;== #(true)
+```
+
+To unset all values in an object:
+
+```rebol
+o: make object! [x: 1 y: 2]
+unset? o/x         ;== #(false)
+value? in o 'x     ;== #(true)
+unset in o words-of o
+unset? o/x         ;== #(true)
+value? in o 'x     ;== #(false)
+```
+
+Functions that produce no meaningful return value typically return `unset!`:
+
+```rebol
+type? print "hello"
+; hello
+;== #(unset!)
+```
+
+An empty paren expression also produces an unset value:
+
+```rebol
+type? ()
+;== #(unset!)
+```
+
+Use `set/any` to set a word to an unset value:
+
+```rebol
+set 'x ()          ;** Script error: x needs a value
+set/any 'x ()
+value? 'x          ;== #(false)
+```
+
+### Testing
+
+Use `unset?` to test whether a value is of type `unset!`:
+
+```rebol
+unset? ()          ;== true
+unset? #(unset)    ;== true
+unset? none        ;== false
+```
+
+Use `value?` to test whether a word has been assigned:
+
+```rebol
+x: 42
+unset 'x
+value? 'x          ;== #(false)
+
+x: 42
+value? 'x          ;== #(true)
+```
+
+Note that `get` on an unset word produces an error. Use `get/any` to retrieve the value safely:
+
+```rebol
+unset 'x
+get 'x             ;** Script error: x has no value
+get/any 'x         ;== #(unset)
+```
 
 
 ------------------------------------------------------------------
