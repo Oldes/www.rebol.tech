@@ -83,14 +83,15 @@
 	overflow-x: auto;
 	margin: 0;
 	color: var(--color-code-foreground);
-	line-height: 1.5em;
+	font-size: 0.9em;
+	line-height: 1.4em;
 }
 .code-block {
 	white-space: pre;
 	overflow-x: auto;
 	margin: 0;
 	color: var(--color-code-foreground);
-	line-height: 1.5em;
+	line-height: 1.2em;
 }
 .text-block {
 	white-space: pre;
@@ -98,7 +99,7 @@
 	margin: 0;
 	padding: 0;
 	color: var(--color-code-foreground);
-	line-height: normal;
+	line-height: 1em;
 }
 .code-block .rebol { padding: 0; }
 .rebol-block .rebol { padding: 0; }
