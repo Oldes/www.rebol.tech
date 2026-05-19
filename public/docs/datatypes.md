@@ -2525,8 +2525,355 @@ true
 ## map!
 
 
-name-value pairs (hash associative)
+A map is a key-value data structure that provides efficient lookup by key. Unlike a block, where finding a value requires a linear scan, a map uses hashing internally to locate values quickly regardless of size.
 
+Keys can be of almost any datatype — words, strings, integers, floats, pairs, dates, times, characters, binary values, tags, URLs, files, email addresses, and more. Values can be of any type, including `none`.
+
+Maps are case-insensitive by default for most key types. Use the `/case` refinement on functions such as `select`, `find`, `remove/key`, and set operations to perform case-sensitive lookups. Binary keys are always compared case-sensitively.
+
+Word-like keys (`word!`, `set-word!`, `get-word!`, `lit-word!`, `refinement!`) are all treated as equivalent keys — they are normalized internally:
+
+```rebol
+m: make map! [a 1 b: 2 :c 3 'd 4 /e 5]
+keys-of m
+;== [a b c d e]
+```
+
+
+### Construction
+
+There are several equivalent ways to create a map:
+
+```rebol
+; map function
+m: map [a: 1 b: 2]
+
+; make
+m: make map! [a: 1 b: 2]
+
+; literal syntax (preferred for static data)
+m: #[a: 1 b: 2]
+
+; alternate literal syntax with explicit type
+m: #(map! [a: 1 b: 2])
+
+; empty maps
+m: make map! []
+m: #[]
+```
+
+A map can also be created from a `paren!`:
+
+```rebol
+m: make map! to paren! [a: 1 b: 2]
+m/a
+;== 1
+```
+
+Or from another map:
+
+```rebol
+m2: make map! m
+```
+
+Note that words inside a map retain their binding. A word key bound to a variable in the outer context can be retrieved with `get`:
+
+```rebol
+a: 1
+m: make map! [k a]
+get m/k
+;== 1
+```
+
+
+### Accessing values
+
+Use path notation for the most concise access:
+
+```rebol
+m: #[a: 1 b: 2]
+m/a
+;== 1
+```
+
+To use a variable or expression as a key, wrap it in parentheses:
+
+```rebol
+key: 'a
+m/(:key)     ; using a get-word
+;== 1
+
+m/(key)      ; using a paren expression
+;== 1
+```
+
+Non-word keys must always use the parenthesized form:
+
+```rebol
+m: #["foo" 42 <tag> 99]
+m/("foo")
+;== 42
+m/(<tag>)
+;== 99
+```
+
+`select` and `pick` also retrieve values by key:
+
+```rebol
+select m 'a       ;== 1
+pick m 'b         ;== 2
+```
+
+When a key does not exist, `none` is returned:
+
+```rebol
+select m 'z
+;== none
+```
+
+
+### Setting values
+
+Assign through a path:
+
+```rebol
+m/a: 10
+m/("new-key"): "hello"
+```
+
+Or use `put` or `poke`:
+
+```rebol
+put m 'b "foo"     ; returns the value
+poke m 'c 3        ; returns the value
+```
+
+`append` and `insert` add key-value pairs from a block:
+
+```rebol
+m: make map! []
+append m [a 1]
+insert m [b 2]
+values-of m
+;== [1 2]
+```
+
+Use `append/part` to add only the first N elements of a block (must be an even number to form complete pairs):
+
+```rebol
+append/part m [c 3 d 4] 2
+```
+
+`append/dup` is not supported on maps and will produce an error.
+
+
+### Removing entries
+
+Remove a key and its value with `remove/key`:
+
+```rebol
+m: #[a: 1 b: 2]
+remove/key m 'b
+keys-of m
+;== [a]
+```
+
+`remove/key` is case-insensitive by default. There is no `/case` refinement for `remove/key`; use `find/case` first to verify the key if needed.
+
+Remove all entries with `clear`:
+
+```rebol
+clear m
+empty? m
+;== true
+```
+
+Use `remove-each` to remove entries conditionally:
+
+```rebol
+m: #[a 1 "b" 2 c _ d: 3]
+remove-each [k v] m [any [string? k none? v]]
+words-of m
+;== [a d]
+```
+
+Use `remove-each/count` to get the number of removed entries:
+
+```rebol
+m: #[a 1 "b" 2 c _ d: 3]
+remove-each/count [k v] m [any [string? k none? v]]
+;== 2
+```
+
+
+### Case sensitivity
+
+Most key types are case-insensitive by default:
+
+```rebol
+m: #[a: 1 A: 2]     ; only one entry — A and a are the same key
+length? m
+;== 1
+```
+
+Use `/case` to distinguish case:
+
+```rebol
+select m 'A           ;== 1   (case-insensitive, matches first)
+select/case m 'A      ;== 2   (case-sensitive, matches A specifically)
+```
+
+Binary keys are always compared case-sensitively, regardless of `/case`:
+
+```rebol
+m: #[#{61} 1 #{41} 2]
+select m #{41}        ;== 2
+```
+
+String and file keys follow the same case-insensitive default:
+
+```rebol
+m: make map! ["foo" 1 "FOO" 2]
+length? m
+;== 2   ; strings are case-sensitive by default — both are kept
+```
+
+Note: unlike words, strings and files are case-sensitive by default, so `"foo"` and `"FOO"` are distinct keys.
+
+
+### Iterating
+
+Use `foreach` to iterate over key-value pairs:
+
+```rebol
+m: #[a: 1 b: 2]
+foreach [k v] m [
+    print [k "=>" v]
+]
+; a => 1
+; b => 2
+```
+
+The iteration order is consistent with `keys-of`.
+
+
+### Reflection
+
+```rebol
+m: #[a: 1 b: 2]
+
+keys-of m        ;== [a b]
+values-of m      ;== [1 2]
+body-of m        ;== [a: 1 b: 2]
+length? m        ;== 2
+empty? m         ;== false
+```
+
+`words-of` is an alias for `keys-of` when all keys are words. For maps with mixed key types, use `keys-of`.
+
+Convert a map to a block:
+
+```rebol
+to block! m
+;== [a: 1 b: 2]
+```
+
+
+### Copying
+
+`copy` produces a shallow copy — nested series values are shared:
+
+```rebol
+m1: #[b: [1]]
+m2: copy m1
+same? m1/b m2/b     ;== true
+```
+
+`copy/deep` copies nested values as well:
+
+```rebol
+m3: copy/deep m1
+same? m1/b m3/b     ;== false
+```
+
+
+### Comparison
+
+Maps are compared order-independently — the order of keys does not affect equality:
+
+```rebol
+equal? #[a: 1 b: 2] #[b: 2 a: 1]
+;== true
+```
+
+`equal?` is case-insensitive for string values:
+
+```rebol
+equal? #[a: 1 c: "a"] #[a: 1 c: "A"]
+;== true
+```
+
+`strict-equal?` requires exact value matching including case:
+
+```rebol
+strict-equal? #[a: 1 c: "a"] #[a: 1 c: "A"]
+;== false
+```
+
+
+### Set operations
+
+Maps support `difference`, `exclude`, `intersect`, `union`, and `unique`. All are case-insensitive by default; use `/case` for case-sensitive behaviour.
+
+```rebol
+m1: #[a: 1 b: 2]
+m2: #[a: 10 c: 3]
+
+union m1 m2          ;== #[a: 1 b: 2 c: 3] (m1 values take precedence)
+intersect m1 m2      ;== #[a: 1]           (keys in both, m1 values)
+difference m1 m2     ;== #[b: 2 c: 3]      (keys in one but not both (symmetric))
+exclude m1 m2        ;== #[b: 2]           (keys in m1 but not m2)
+unique m1            ;== #[a: 1 b: 2]      (removes duplicate keys (none here))
+```
+
+### Protection
+
+Use `protect` and `unprotect` to make a map read-only:
+
+```rebol
+m: map [a: 42]
+protect m
+m/a: 0              ;** Error: protected
+m/a                 ;== 42
+unprotect m
+m/a: 0              ; ok now
+```
+
+
+### Display
+
+`form` produces a human-readable string:
+
+```rebol
+form #[a: 1 b: 2]
+;== "a: 1^/b: 2"
+```
+
+`mold` produces a string that can be reloaded as a map:
+
+```rebol
+mold #[a: 1 b: 2]
+;== "#[a: 1 b: 2]"
+```
+
+
+### Related
+Use `map?` to test whether a value is a `map!`:
+
+```rebol
+map? #[a: 1]     ;== true
+map? [a 1]       ;== false
+```
 
 > **Size Limit:**
 > Currently, maps are limited to 2^26 - 1 (67'108'863) entries.
