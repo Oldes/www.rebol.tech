@@ -303,10 +303,10 @@ load-datatypes-details: function/with [data][
 			]
 			emit code
 		)
-		| "######" some SP copy temp: to LF skip (emit ajoin [LF <h6> temp </h6>])
-		| "#####" some SP copy temp: to LF skip (emit ajoin [LF <h5> temp </h5>])
-		| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> temp </h4>])
-		| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> temp </h3>])
+		| "######" some SP copy temp: to LF skip (emit ajoin [LF <h6> md-text temp </h6>])
+		| "#####" some SP copy temp: to LF skip (emit ajoin [LF <h5> md-text temp </h5>])
+		| "####" some SP copy temp: to LF skip (emit ajoin [LF <h4> md-text temp </h4>])
+		| "###" some SP copy temp: to LF skip (emit ajoin [LF <h3> md-text temp </h3>])
 		;@@ note: H2 and H1 are ignored, as these are part of the upper context!
 		| ahead "- " (emit <ul>) some [
 			"- " copy temp: to LF skip (emit ajoin [<li> md-text temp </li>])
