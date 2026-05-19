@@ -3250,9 +3250,9 @@ Clearly, we need a few other options. How best to provide them?
 
 If we don't want to add refinements to `make`, then perhaps we can use `copy` to provide some of the functionality?
 
-If we `copy` of an object and do not specify /deep` then the object is copied but none of its values are copied. Everything is shared.
+If we `copy` of an object and do not specify `/deep` then the object is copied but none of its values are copied. Everything is shared.
 
-If we use /deep`, then all of the source object's values are deep copied. (But, it should be noted that nothing is rebound to the new object. You would need to do that step manually.)
+If we use `/deep`, then all of the source object's values are deep copied. (But, it should be noted that nothing is rebound to the new object. You would need to do that step manually.)
 
 In summary:
 
@@ -3563,11 +3563,11 @@ string-series: "abcdefg"
 block-series: ["John" 21 "Jake" 32 "Jackson" 43 "Joe" 52]
 block-with-sub-series: [ "abc" [4 5 6 [7 8 9]]]
 
-string-series/4           ;== #"d"
-block-series/3            ;== "Jake"
-block-series/6            ;== 43
-block-with-sub-series/1/2 ;== #"b"
-block-with-sub-series/2/2 ;== 5
+string-series/4             ;== #"d"
+block-series/3              ;== "Jake"
+block-series/6              ;== 43
+block-with-sub-series/1/2   ;== #"b"
+block-with-sub-series/2/2   ;== 5
 block-with-sub-series/2/4/2 ;== 8
 ```
 
@@ -4526,14 +4526,7 @@ print &lt;a href="http://www.rebol.com/">
 ## task!
 
 
-evaluation environment
-
-
-
-### Format
-
-
-### Creation
+evaluation environment (not yet implemented!)
 
 
 ------------------------------------------------------------------

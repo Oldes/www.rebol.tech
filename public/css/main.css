@@ -99,6 +99,7 @@
 	margin: 0;
 	padding: 0;
 	color: var(--color-code-foreground);
+	font-size: 0.9em;
 	line-height: 1em;
 }
 .code-block .rebol { padding: 0; }
