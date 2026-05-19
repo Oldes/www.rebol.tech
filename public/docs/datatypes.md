@@ -2929,8 +2929,8 @@ Do not use commas and periods to break up large amounts, as both these character
 
 The `money!` datatype is a hybrid datatype. Conceptually money is scalar -- an amount of money. However, because the currency designation is stored as a string, the `money!` datatype has two elements:
 
-- 'string! - The currency designator string, which can have 3 characters maximum.
-- 'decimal! - The money amount.
+- `string!`  - The currency designator string, which can have 3 characters maximum.
+- `decimal!` - The money amount.
 
 
 To demonstrate this, the following money is specified with the USD prefix:
@@ -4131,9 +4131,317 @@ probe mold "111 222 333"
 ------------------------------------------------------------------
 ## struct!
 
+A `struct!` is a fixed-layout binary data structure with named, typed fields — similar to a C struct. Fields occupy a contiguous block of memory in a defined order, and the total byte size of a struct is the sum of its field sizes. This makes structs suitable for interfacing with native code, binary protocols, and memory-mapped data.
 
-native structure definition
+Structs are available from Rebol version 3.19.1 onwards. The earlier struct implementation used a different syntax and is not covered here.
 
+
+### Field types
+
+Each field in a struct has an explicit type. The supported types are:
+
+| Type (Alias)           | Size    | Description |
+|------------------------|---------|-------------|
+| `int8!`   (`i8!`)      | 1 byte  | Signed 8-bit integer |
+| `int16!`  (`i16!`)     | 2 bytes | Signed 16-bit integer |
+| `int32!`  (`i32!`)     | 4 bytes | Signed 32-bit integer |
+| `int64!`  (`i64!`)     | 8 bytes | Signed 64-bit integer |
+| `uint8!`  (`u8!`)      | 1 byte  | Unsigned 8-bit integer |
+| `uint16!` (`u16!`)     | 2 bytes | Unsigned 16-bit integer |
+| `uint32!` (`u32!`)     | 4 bytes | Unsigned 32-bit integer |
+| `uint64!` (`u64!`)     | 8 bytes | Unsigned 64-bit integer |
+| `float!`  (`f32!`, `float32!`) | 4 bytes | 32-bit floating point |
+| `double!` (`f64!`, `float64!`) | 8 bytes | 64-bit floating point |
+| `word!`                | 4 bytes | Rebol word value |
+| `rebval!`              | platform | Any Rebol value |
+| `struct!`              | varies  | Nested struct (see below) |
+
+Uninitialized numeric fields default to `0`, word fields default to `none` (displayed as `_`).
+
+
+### Construction
+
+#### Basic construction
+
+```rebol
+make struct! [a [int8!]]            ;; single int8 field, default 0
+make struct! [a [int32!] b [int8!]] ;; two fields
+```
+
+#### Default values
+
+The literal `#(struct! ...)` syntax accepts an optional second block that sets the default values for the struct. These defaults are baked into the struct itself and inherited when it is used as a prototype. Named fields and positional values are both supported; unspecified fields default to zero:
+
+```rebol
+#(struct! [a [int32!] b [int8!]] [b: 23])  ;; named — b is 23, a defaults to 0
+#(struct! [a [int32!] b [int8!]] [23])     ;; positional — a is 23, b defaults to 0
+```
+
+Note: evaluation is not permitted inside literal struct syntax — only static values are allowed.
+
+#### Literal syntax
+
+```rebol
+s: #(struct! [a [uint8!] b [uint8!]] [a: 1 b: 2])
+```
+
+#### From a prototype
+
+Use an existing struct as a prototype. Only the fields you specify are overridden; others keep their prototype values:
+
+```rebol
+proto!: #(struct! [a [uint8!] b [uint8!]] [a: 1 b: 2])
+
+s1: make proto! [a: 10]       ;; s1/a = 10, s1/b = 2
+s2: make proto! [b: 20]       ;; s2/a = 1,  s2/b = 20
+s3: make proto! [b: 20 a: 10] ;; s3/a = 10, s3/b = 20
+s4: make proto! [10 20]       ;; s4/a = 10, s4/b = 20
+```
+
+The initializer block is evaluated (like `reduce/no-set`), so expressions are allowed:
+
+```rebol
+make proto! [3 * 10  4 * 10]       ;; positional
+make proto! [b: 3 * 10  a: 4 * 10] ;; named
+```
+
+#### Registering a named struct type
+
+Use `register` to associate a name with an existing struct. Before registration, a struct is identified internally by a numeric ID. After registration, that ID is replaced by the given name, which is then usable in the literal construction syntax:
+
+```rebol
+; Unregistered — shown with internal numeric ID
+proto!: #(struct! [x [f32!] y [f32!]])
+probe proto!
+;== #(struct! 3695712 [x: 0.0 y: 0.0])
+
+; Register the struct under the name f32-pair
+register f32-pair proto!
+probe proto!
+;== #(struct! f32-pair [x: 0.0 y: 0.0])
+
+; The name can now be used in literal construction syntax
+pos: #(struct! f32-pair [100 200])
+;== #(struct! f32-pair [x: 100.0 y: 200.0])
+```
+
+
+### Dimensional fields (arrays)
+
+A field can hold a fixed-size array of a type by specifying a dimension in a nested block:
+
+```rebol
+make struct! [a [int8! [2]]]   ; field a holds 2 int8 values
+```
+
+The total byte size is `element-size * count`:
+
+```rebol
+length? make struct! [a [int8!  [2]]]   ;== 2
+length? make struct! [a [int32! [2]]]   ;== 8
+```
+
+Reading a dimensional numeric field returns a vector:
+
+```rebol
+s: #(struct! [a [int32! [2]]])
+s/a
+;== #(int32! [0 0])
+```
+
+Setting a dimensional numeric field uses a vector:
+
+```rebol
+s/a: #(i32! [1 2])
+s/a
+;== #(int32! [1 2])
+```
+
+For `word!` dimensional fields, reading returns a block instead:
+
+```rebol
+s: make struct! [a [word! [2]]]
+s/a
+;== [_ _]
+```
+
+
+### Nested structs
+
+A field can itself be a struct, either inline or by referencing a registered type:
+
+```rebol
+;; Inline nested struct
+s: make struct! [
+    id  [uint16!]
+    pos [struct! [x [uint8!] y [uint8!]]]
+]
+
+;; Using a registered type
+register pair8!: make struct! [x [uint8!] y [uint8!]]
+s: make struct! [
+    id  [uint16!]
+    pos [struct! pair8!]
+]
+```
+
+Access nested fields through chained paths:
+
+```rebol
+s/pos/x: 22
+s/pos/y: 33
+s/pos/x   ;== 22
+```
+
+Set an inner struct field from a block, named block, or struct value.
+
+```rebol
+s/pos: [1 2]                ;; positional
+s/pos: [y: 1 x: 2]          ;; named
+s/pos: make pair8! [3 4]    ;; from struct
+```
+
+Nested structs can also be arrays:
+
+```rebol
+s: make struct! [id [uint16!] pos [struct! pair8! [2]]]
+s/pos/1/x: 10
+s/pos/2/x: 20
+```
+
+Nesting can go arbitrarily deep:
+
+```rebol
+s: make struct! [a [uint32!] b [struct! [x [uint32!] y [struct! [yy [uint32!]]]]]]
+s/b/x: 1
+s/b/y/yy: 2
+```
+
+
+### Binary access
+
+`length?` returns the byte size of the struct:
+
+```rebol
+length? make struct! [a [int32!]]           ;== 4
+length? make struct! [a [int32!] b [int8!]] ;== 5
+```
+
+Convert to binary with `to binary!`:
+
+```rebol
+s: #(struct! [a [uint16!] b [int32!]] [1 -1])
+to binary! s
+;== #{0100FFFFFFFF}
+```
+
+Modify the raw binary contents with `change`:
+
+```rebol
+s: make pair8! [1 2]
+
+change s [3 4]          ;; positional — #{0304}
+change s [y: 3 x: 4]    ;; named — #{0403}
+change s #{0101}        ;; raw binary
+```
+
+`change` with a binary longer than the struct is silently truncated to the struct size.
+
+Structs containing `rebval!` fields cannot be modified via raw binary — doing so produces a `protected` error. The inner struct data of such fields can still be changed if it contains no `rebval!` fields itself.
+
+
+
+### Rebol value fields (`rebval!`)
+
+A `rebval!` field holds any Rebol value:
+
+```rebol
+s: make struct! [a [rebval!] b [rebval!]]
+s/a: "Hello"
+s/b: now
+s/a   ;== "Hello"
+```
+
+`rebval!` fields hold a reference — modifying the referenced value affects the struct field:
+
+```rebol
+s/a: str: "Hello"
+clear s/a
+str   ;== ""   ;; the original string is modified
+```
+
+Clear a `rebval!` field by clearing the struct:
+
+```rebol
+clear s
+s/a   ;== none
+```
+
+
+
+### Reflection
+
+```rebol
+s: #(struct! [a [uint16!] b [int32!] c [word!] d [uint8! [2]]] [a: 1 b: -1 c: foo])
+
+spec-of s     ;== [a [uint16!] b [int32!] c [word!] d [uint8! [2]]]
+body-of s     ;== [a: 1 b: -1 c: foo d: [0 0]]
+words-of s    ;== [a b c d]
+keys-of s     ;== [a b c d]
+values-of s   ;== [1 -1 foo [0 0]]
+```
+
+
+
+### Copying
+
+`copy` produces an independent copy of the struct:
+
+```rebol
+s: make pair8! [1 2]
+s2: copy s
+s/x: 3
+s2/x   ;== 1   ; s2 is unaffected
+```
+
+`copy/part` and `copy/deep` are not supported on structs.
+
+
+
+### Comparison
+
+`=` compares field types only (field names are ignored):
+
+```rebol
+s1: #(struct! [a [uint8!] b [uint8!]])
+s2: #(struct! [x [uint8!] y [uint8!]])
+s1 = s2    ;== true   ; same field types
+```
+
+`==` (strict-equal?) also compares field names:
+
+```rebol
+s1 == s2   ;== false  ; different field names
+```
+
+
+
+### Related
+
+Use `struct?` to test whether a value is a `struct!`:
+
+```rebol
+struct? #(struct! [a [int8!]])   ;== true
+struct? #[a: 1]                  ;== false
+```
+
+Invalid construction raises a `malconstruct` or `invalid-arg` error. An empty struct is not allowed:
+
+```rebol
+make struct! []          ; ** Error: malconstruct
+make struct! [a]         ; ** Error: malconstruct  (no field spec)
+make struct! [a [23]]    ; ** Error: invalid-arg   (invalid type)
+```
 
 
 ------------------------------------------------------------------
