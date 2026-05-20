@@ -4750,110 +4750,397 @@ See `word!` for the full set of word types and how words are evaluated.
 ------------------------------------------------------------------
 ## string!
 
-
-Strings are a series of characters. All operations performable on series values can be performed on strings.
+A `string!` is a series of Unicode characters. All series operations work on strings — the unit of iteration is one character (`char!`). Strings are mutable and support in-place modification.
 
 
 ### Format
-String values are written as a sequence of characters surrounded by double quotes `" "` or braces `{ }`. Strings enclosed in double quotes are restricted to a single line and must not contain unprintable characters.
 
-
-```rebol
-"This is a short string of characters."
-```
-
-Strings enclosed in braces are used for larger sections of text that span multiple lines. All of the characters of the string, including spaces, tabs, quotes, and newlines are part of the string.
-
+Strings are written with double quotes for single-line values:
 
 ```rebol
-{This is a long string of text that will 
-not easily fit on a single line of source.
-These are often used for documentation
-purposes.}
+"This is a string."
+"Hello, world!"
 ```
 
-Braces are counted within the string, so a string can include other braces as long as the number of closing braces matches the number of opening braces.
-
+Braces `{ }` are used for multi-line strings or strings containing double quotes. All whitespace, newlines, and tabs inside braces are part of the string. Braces nest — a closing brace only ends the string when it balances the opening brace:
 
 ```rebol
-{
-This is another long string of text that would
-never fit on a single line. This string also
-includes braces { a few layers deep { and is 
-valid because there are as many closing braces }
-as there are open braces } in the string.
-}
+{This is a
+multi-line string.}
+
+{Nested braces { like this } are fine.}
 ```
 
-You can include special characters and operations in strings by prefixing them with a caret `^`.  Special characters include:
+#### Escape sequences
 
-| Character | Definition
-| `^"` | Inserts a double quote `"`.
-| `^}` | Inserts a closing brace `}`.
-| `^^` | Inserts a  caret `^`.
-| `^/` | Starts a new line.
-| `^(line)` | Starts a new line.
-| `^-`      | Inserts a tab.
-| `^(tab)`  | Inserts a tab.
-| `^(page)` | Starts a new page.
-| `^(back)` | Erases one character to the left of the insertion point.
-| `^(null)` | Inserts a null character.
-| `^(escape)` | Inserts an escape character.
-| `^(letter)` | Inserts control-letter (A-Z).
-| `^(xx)`     | Inserts an ASCII character by hexidecimal (xx) number. his format allows for expansion into unicode characters in the future.
+Special characters are written with a caret `^` prefix:
+
+| Sequence          | Description |
+|-------------------|-------------|
+| `^"`              | Double quote |
+| `^}`              | Closing brace |
+| `^^`              | Caret character |
+| `^/` or `^(line)` | Newline |
+| `^-` or `^(tab)`  | Tab |
+| `^(page)`         | Form feed |
+| `^(back)`         | Backspace |
+| `^(null)` or `^@` | Null character |
+| `^(esc)`          | Escape |
+| `^(del)`          | Delete |
+| `^A`–`^Z`         | Control characters (Ctrl+A–Ctrl+Z) |
+| `^(xx)`           | Unicode code point in hex (up to 6 digits) |
+
+```rebol
+"line one^/line two"
+"tab^-separated"
+"smiley: ^(1F642)"
+```
 
 
 ### Creation
-Use `make` to create a pre-allocated amount of space for an empty string:
+
+Pre-allocate an empty string with `make`:
 
 ```rebol
-make string! 40'000 ; space for 40k characters
+make string! 40'000
 ```
 
-The `to-string` function converts data of other datatypes to a `string!` datatype:
+Convert other types to string with `to-string` or `to string!`:
 
 ```rebol
-probe to-string 29-2-2000
-"29-Feb-2000"
-
-probe to-string 123456.789
-"123456.789"
-
-probe to-string #888-555-2341
-"888-555-2341"
+to-string 29-2-2000        ;== "29-Feb-2000"
+to-string 123456.789       ;== "123456.789"
+to-string #"A"             ;== "A"
+to-string #"^(00)"         ;== "^@"
+to-string to-char 0        ;== "^@"
 ```
 
-Converting a block of data to a string with `to-string` has the effect of doing a `rejoin`, but without evaluating the block's contents:
+Converting a block produces a concatenated string (equivalent to `rejoin` without evaluation):
 
 ```rebol
-probe to-string [123 456]
-"123456"
+to-string [123 456]                       ;== "123456"
+to-string [225.225.225.0 none true 'word] ;== "225.225.225.0nonetrueword"
+```
 
-probe to-string [225.225.225.0 none true 'word]
-"225.225.225.0nonetrueword"
+
+### Encoding and conversion
+
+Strings in Rebol are Unicode (UTF-8 internally). Convert between binary encodings with `iconv`:
+
+```rebol
+iconv #{50F869686CE1736974} "ISO-8859-2"  ;== "Přihlásit"
+iconv #{C5A1} 'utf-8                      ;== "š"
+iconv/to "šik" 'utf-8 'utf-16le           ;== #{1B016101}
+```
+
+Convert to binary (UTF-8 encoded):
+
+```rebol
+to-binary "^(1234)"    ;== #{E188B4}
+to-binary "šik"        ;== #{C5A16B}
+```
+
+Convert binary to string — expects valid UTF-8. BOM is handled automatically for UTF-16 and UTF-32:
+
+```rebol
+to-string #{EFBBBF616F75}   ;== "aou"   (UTF-8 with BOM)
+```
+
+Check for invalid UTF-8:
+
+```rebol
+invalid-utf? #{C2E0}        ;== #{C2E0}   (invalid sequence found)
+invalid-utf? #{20C3A030}    ;== none      (valid UTF-8)
+```
+
+Encode and decode percent-encoding (URL encoding):
+
+```rebol
+enhex "šik"              ;== "%C5%A1ik"
+dehex "%C5%A1ik"         ;== "šik"
+enhex/uri "a b+"         ;== "a+b%2B"    ; space → +, + → %2B
+dehex/uri "a+b%2B"       ;== "a b+"
+```
+
+
+### Joining strings
+
+`join` concatenates a value with one or more others. The type of the result matches the first argument:
+
+```rebol
+join "a" "b"         ;== "ab"
+join "a" ["b" 3]     ;== "ab3"
+join %a  ["b" 3]     ;== %ab3
+join <a> "b"         ;== <ab>
+```
+
+`ajoin` concatenates all values in a block into a string (or the type of the first element if it is a string-like type). `none` and `unset` values are skipped by default:
+
+```rebol
+ajoin ["a" "b" 3]           ;== "ab3"
+ajoin ["a" none 3]          ;== "a3"    ; none skipped
+ajoin/all ["a" none 3]      ;== "anone3" ; none included
+ajoin/with ["a" "b" 3] #"/" ;== "a/b/3"
+```
+
+`form` converts a block to a space-separated string:
+
+```rebol
+form ["a" "b" 3]     ;== "a b 3"
+form ["a" none 3]    ;== "a none 3"
+```
+
+
+### Finding and selecting
+
+`find` returns the string at the matching position, or `none`:
+
+```rebol
+find "abcde" "bc"          ;== "bcde"
+find "abcde" #"c"          ;== "cde"
+find "123" 2               ;== "23"    ; integer matches digit
+find "id: F00D" #{F00D}    ;== "F00D"  ; binary match
+```
+
+Search is case-insensitive by default:
+
+```rebol
+find "abcde" #"B"          ;== "bcde"
+find/case "abcde" #"B"     ;== none
+```
+
+Key refinements:
+
+```rebol
+find/last "aabcabc" "ab"      ; last occurrence
+find/reverse tail "abc" "ab"  ; search backwards from tail
+find/tail "abcde" "bc"        ;== "de"     (position after match)
+find/match "abcde" "ab"       ;== "cde"    (match only at current position)
+find/any "abcd" "*c?"         ;== "abcd"   (wildcard: * = any chars, ? = one char)
+find/same "aAbcdAe" "A"       ;== "AbcdAe" (exact identity match)
+```
+
+`select` returns the value following the match:
+
+```rebol
+select "abcde" "bcd"       ;== #"e"
+select/any "abcde" "b?d"   ;== #"e"
+select/last "ab1ab2" "ab"  ;== #"2"
+```
+
+
+### Modifying strings
+
+`append` and `insert` add characters or strings:
+
+```rebol
+append "ab" "cd"           ;== "abcd"
+append "ab" #"c"           ;== "abc"
+append "" #"^(2190)"       ;== "←"   (Unicode char)
+insert s: "bc" "a"
+head s                     ;== "abc"
+```
+
+`change` replaces content at the current position:
+
+```rebol
+head change "abc" "X"      ;== "Xbc"
+head change/part "abcd" "123" 2   ;== "123cd"
+```
+
+`remove` deletes from the current position:
+
+```rebol
+remove s: "abc"   ;== "bc"   ; s is now "bc"
+remove/part "abcde" 3        ;== "de"
+```
+
+`take` removes and returns content:
+
+```rebol
+take "abc"                   ;== #"a"
+take/part "123456" 2         ;== "12"
+take/last "abc"              ;== #"c"
+```
+
+`replace` substitutes occurrences:
+
+```rebol
+replace "123456" "123" "ABCDE"    ;== "ABCDE456"
+replace/all "1 2 3" #" " "!!"     ;== "1!!2!!3"
+replace/all "<á>>" ">" #")"       ;== "<á))"
+```
+
+`swap` exchanges the characters at two positions:
+
+```rebol
+swap s1: "ab" s2: "AB"    ; s1 = "Ab", s2 = "aB"
+swap s1: "ab" next s1     ; s1 = "ba"
+```
+
+
+### Sorting and reversing
+
+`sort` modifies in place, case-insensitive by default:
+
+```rebol
+sort "ABCabcdefDEF"      ;== "AaBbCcdDeEfF"
+sort/case "ABCabc"       ;== "ABCabc"
+sort/reverse "abcd"      ;== "dcba"
+sort/compare "abczyx" func [a b] [a > b]  ;== "zyxcba"
+
+;; sort by all chars of each 3-char group
+sort/all/skip "ba ab aa " 3               ;== "aa ab ba "
+
+;; sort by 1st char of each 3-char group
+sort/compare/skip "ba ab aa " 1 3         ;== "ab aa ba "
+
+```
+
+`reverse` modifies in place:
+
+```rebol
+reverse "abcd"           ;== "dcba"
+reverse/part "abcd" 2    ;== "bacd"
+```
+
+
+### Trimming
+
+`trim` removes whitespace from head and tail by default:
+
+```rebol
+trim " a b c "           ;== "a b c"
+trim/head " a b c "      ;== "a b c "
+trim/tail " a b c "      ;== " a b c"
+trim/all "  a b  c  "   ;== "abc"
+trim/with "hello" #"l"   ;== "heo"
+trim/auto "^-one^/^-two" ;; removes common leading whitespace
+```
+
+
+### Case conversion
+
+```rebol
+uppercase "hello"        ;== "HELLO"
+lowercase "HELLO"        ;== "hello"
+uppercase/part "hello" 1 ;== "Hello"
+uppercase/part tail "abcdefg" -4  ;== "abcDEFG"
+```
+
+
+### Tab and newline handling
+
+`detab` expands tabs to spaces (default 4 spaces):
+
+```rebol
+detab "^-A"              ;== "    A"
+detab/size "^-A" 2       ;== "  A"
+```
+
+`entab` converts leading spaces to tabs:
+
+```rebol
+entab "    A"            ;== "^-A"
+entab/size "    A" 2     ;== "^-^-A"
+```
+
+`deline` normalizes line endings to `^/` (LF), optionally splitting into lines:
+
+```rebol
+deline "a^M^/b"             ;== "a^/b"
+deline/lines "a^M^/b^M^/c"  ;== ["a" "b" "c"]
+```
+
+`enline` converts `^/` to the platform line ending:
+
+```rebol
+enline "a^/b"      ;; "a^/b" on Unix, "a^M^/b" on Windows
+```
+
+
+### Splitting
+
+`split` divides a string by a delimiter:
+
+```rebol
+split "a.b.c" "."               ;== ["a" "b" "c"]
+split "a.b.c." "."              ;== ["a" "b" "c" ""]
+split "abcdef" 3                ;== ["abc" "def"]
+split "abc|de/fgh" charset "|/" ;== ["abc" "de" "fgh"]
+split "abc  de" [some #" "]     ;== ["abc" "de"]
+split/parts "abcdefgh" 3        ;== ["abc" "def" "gh"]
+split/at "a:b:c" #":"           ;== ["a" "b:c"]
+```
+
+`split-lines` splits on line endings:
+
+```rebol
+split-lines "a^/b^M^/c"         ;== ["a" "b" "c"]
+```
+
+
+### Padding
+
+```rebol
+pad "ab" 4          ;== "ab  "
+pad "ab" -4         ;== "  ab"
+pad/with 12 4 #"0"  ;== "1200"
+pad/with 12 -4 #"0" ;== "0012"
+```
+
+
+### Template substitution
+
+`reword` replaces `$key` patterns from a spec:
+
+```rebol
+reword "$a and $b" [a "foo" b "bar"]   ;== "foo and bar"
+reword/escape "<name>" [name "world"] ["<" ">"]  ;== "world"
+reword/case "$a$A" [a 1 A 2]          ;== "12"
+```
+
+
+### Copying
+
+```rebol
+copy "abc"                 ; independent copy
+copy/part "abcde" 3        ;== "abc"
+copy/part tail "abcde" -2  ;== "de"
+```
+
+
+### Display
+
+`form` returns the string as-is (no quotes):
+
+```rebol
+form "hello"       ;== "hello"
+```
+
+`mold` returns the string with surrounding quotes and escape sequences:
+
+```rebol
+mold "hello"       ;== {"hello"}
+mold "say ^"hi^""  ;== {{say "hi"}}
 ```
 
 
 ### Related
-Use `string?` or `series?` to determine whether a value is an `string!`  datatype:
 
+Use `string?` and `series?` to test the type:
 
 ```rebol
-print string? "123"
-true
-
-print series? "123"
-true
+string? "abc"      ;== true
+series? "abc"      ;== true
 ```
 
-The functions `form` and `mold` are closely related to strings, as they create strings from other datatypes. The `form` function makes a human readable version of a specified datatype, while `mold` makes a Rebol readable version.
+`string!` is a member of the `any-string!` and `series!` typesets. Other string-like types (`file!`, `url!`, `email!`, `tag!`, `ref!`) share the same underlying representation and can be coerced with `as`:
 
 ```rebol
-probe form "111 222 333"
-"111 222 333"
-
-probe mold "111 222 333"
-{"111 222 333"}
+as file! "hello"   ;== %hello
+as tag!  "hello"   ;== <hello>
+as url!  "hello"   ;== #(url! "hello")
 ```
 
 
