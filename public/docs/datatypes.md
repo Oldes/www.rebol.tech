@@ -2062,91 +2062,321 @@ This Rebol 2 datatype is now implemented in Rebol 3 only as a plain `block!` (pl
 ------------------------------------------------------------------
 ## image!
 
+The `image!` datatype is a series that holds RGBA image data. Each pixel is stored as a 4-component tuple (red, green, blue, alpha). Images can be loaded from files, constructed programmatically, and manipulated as a series.
+
+Supported file formats depend on the available codecs. Common ones include PNG, BMP, JPEG, and GIF. Check `system/catalog/codecs` to see what is available in your build.
 
 
-The `image!` datatype is a series that holds RGBA images.
+### Construction
 
-The external image formats supported are GIF, JPEG, PNG and BMP. The loaded image can be manipulated as a series.
-
-
-### Format
-Images are normally loaded from a file.  However, they can be expressed in source code as well by making an image.  The block provided includes the image size and its RGBA data.
+Create an empty image by providing a size as a `pair!`. The default pixel color is white with full opacity (`255.255.255.255`):
 
 ```rebol
-image: make image! [192x144 #{
-    B34533B44634B44634B54735B7473
-    84836B84836B84836BA4837BA4837
-    BC4837BC4837BC4837BC4837BC483 ...
-}
+make image! 2x2
+make image! 300x300
+```
+
+Create an image with a uniform color by providing a size and an RGB or RGBA tuple:
+
+```rebol
+make image! [2x2 255.0.0]        ;; red, fully opaque (alpha defaults to 255)
+make image! [2x2 255.0.0.128]    ;; red, semi-transparent
+```
+
+Create an image from raw binary data (RGBA, 4 bytes per pixel):
+
+```rebol
+make image! [2x1 #{010203FF040506FF}]
+```
+
+Using the literal syntax:
+
+```rebol
+#(image! 1x1)                    ;; 1x1 white image
+#(image! 1x1 #{FFFFFF})          ;; RGB data only
+#(image! 1x1 #{FFFFFF} #{FF})    ;; RGB + alpha channel separately
+#(image! 1x1 20.20.20.60)        ;; from RGBA tuple
+```
+
+An optional trailing integer in the literal sets the initial index:
+
+```rebol
+img: #(image! 1x1 #{FFFFFF} 2)
+index? img   ;== 2
+```
+
+Load an image from a file:
+
+```rebol
+img: load %photo.png
+img: load %photo.jpg
+```
+
+Save an image to a file:
+
+```rebol
+save %output.png img
+save %output.bmp img
+```
+
+The maximum image dimension is 65535 in each axis. Attempting to exceed this produces a `size-limit` error.
+
+
+### Accessing pixels
+
+Pixels are indexed from 1. Access by integer index (linear) or pair index (x/y coordinates, both 1-based):
+
+```rebol
+img: make image! 2x2
+
+img/1        ;== 255.255.255.255   (first pixel)
+img/(1x1)    ;== 255.255.255.255   (same pixel by coordinate)
+img/(2x1)    ;== 255.255.255.255   (second pixel, first row)
+img/0        ;== none              (out of range)
+img/5        ;== none              (out of range for 2x2)
+```
+
+Use `pick` and `poke` as alternatives:
+
+```rebol
+pick img 1           ;== 255.255.255.255
+poke img 1 1.2.3     ;; set pixel 1 to RGB 1.2.3 (alpha unchanged)
+```
+
+Set pixels using a set-path. Accepts 3- or 4-component tuples (5+ components are silently truncated to 4):
+
+```rebol
+img/1: 255.0.0       ;; red, alpha unchanged
+img/1: 255.0.0.128   ;; red, semi-transparent
+img/(2x1): 0.0.255   ;; blue at position 2x1
+```
+
+Setting alpha only using an integer or char:
+
+```rebol
+img/1: 0             ;; fully transparent
+img/1: 127           ;; half transparent
+img/1: #"^@"         ;; same as 0
+```
+
+Values outside 0–255 produce an error.
+
+Access and set individual RGBA components via chained paths (1=R, 2=G, 3=B, 4=A):
+
+```rebol
+img/1/1: 10          ;; set red channel of pixel 1
+img/1/4: 200         ;; set alpha channel of pixel 1
+img/1/1              ;== 10
+```
+
+### Size and dimensions
+
+```rebol
+img/size             ;== 2x2 (width x height as pair!)
+img/width            ;== 2
+img/height           ;== 2
 ```
 
 
-### Creation
-Empty images can be created using `make` or to-image:`
+### Raw data access
+
+Raw pixel data can be read and written as binary or `uint8!` vectors using named accessors:
+
+| Accessor     | Description |
+|--------------|-------------|
+| `rgb`        | RGB data only (3 bytes per pixel) |
+| `alpha`      | Alpha channel only (1 byte per pixel) |
+| `rgba`       | RGBA interleaved (4 bytes per pixel) |
+| `rgbo`       | RGB + opacity (inverse alpha) |
+| `argb`       | Alpha-first RGBA |
+| `bgra`       | Blue-green-red-alpha |
+| `red`        | Red channel only |
+| `green`      | Green channel only |
+| `blue`       | Blue channel only |
+| `opacity`    | Opacity (inverse of alpha) |
+| `gray`       | Grayscale luminosity data |
+| `color`      | Average color of the image |
+| `luminosity` | Grayscale binary (BT.709) |
 
 ```rebol
-empty-img: make image! 300x300 
+img/rgb                  ;== #{RRGGBBRRGGGBB...}
+img/alpha                ;== #{AA...}
+img/rgba                 ;== #{RRGGBBAARR...}
 
-empty-img: to-image 150x300
+img/rgb: #{010203040506} ;; set RGB from binary
+img/alpha: #{6400}       ;; set alpha channel
 ```
 
-The size of the image is provided.
-
-Use `load` to load an image file. If the image's format is not supported, it will fail to load.
-
-Loading an image:
+These accessors also accept `uint8!` vectors:
 
 ```rebol
-img: load %bay.jpg
+img/rgba: make vector! [uint8! #{01020364}]
+```
+
+The `color` accessor returns the average pixel color of the image, and when set fills all pixels with the given color (alpha channel is preserved):
+
+```rebol
+img/color            ;== 127.127.127.255   ; average color
+img/color: 255.0.0   ;; fill with red, alpha unchanged
+```
+
+
+### Color operations
+
+Convert an image (or tuple) to grayscale using `luminosity` (BT.709), `luminosity/luma` (BT.601), or `grayscale` (simple average). These modify the image in place:
+
+```rebol
+luminosity img       ;; BT.709 perceptual weighting
+luminosity/luma img  ;; BT.601 weighting
+grayscale img        ;; simple average of R, G, B
+```
+
+For single color tuples:
+
+```rebol
+luminosity 255.0.0   ;== 54
+grayscale 255.0.0    ;== 85
+```
+
+Blend a color into an image or tuple using `tint`. Does not modify the original tuple, but does modify an image in place:
+
+```rebol
+tint 100.200.255 128.128.128 50% ;== 114.164.192
+tint img 128.128.128 50%         ;; modifies img
+```
+
+Convert between RGB and HSV color spaces:
+
+```rebol
+rgb-to-hsv 134.116.10            ;== 36.235.134
+hsv-to-rgb 36.235.134            ;== 134.116.10
+```
+
+Compute the perceptual distance between two colors:
+
+```rebol
+color-distance 0.0.0 255.255.255   ;== 764.83...
+```
+
+
+### Premultiplication
+
+Apply alpha premultiplication in place. Has no effect on fully opaque images:
+
+```rebol
+premultiply img
+```
+
+Operates from the current position — use `head` to ensure the full image is processed.
+
+
+### Image difference
+
+Compare two images and return the percentage of differing pixels:
+
+```rebol
+image-diff img1 img2                   ;; 0% to 100%
+image-diff/part img1 img2 offset size  ;; compare a region
+```
+
+Images of different sizes are supported — the comparison area is clipped to the smaller image.
+
+
+### Series operations
+
+Images are series and support the standard series operations. The unit of iteration is one pixel (an RGBA tuple):
+
+```rebol
+img: make image! 2x2
+
+length? img                     ;== 4
+index? img                      ;== 1
+index? next img                 ;== 2
+index? tail img                 ;== 5
+```
+
+Use `index?/xy` and `indexz?/xy` for coordinate-based indexing (1-based and 0-based respectively):
+
+```rebol
+index?/xy img                   ;== 1x1
+index?/xy next img              ;== 2x1
+index?/xy tail img              ;== 1x3 (one past the last row)
+
+indexz?/xy img                  ;== 0x0
+indexz?/xy next img             ;== 1x0
+```
+
+Use `at` and `atz` to position by coordinate:
+
+```rebol
+at img 2x2                      ;; position at pixel 2x2 (1-based)
+atz img 1x1                     ;; position at pixel 1x1 (0-based)
+```
+
+Iterate over pixels with `foreach`:
+
+```rebol
+foreach p img [
+    print p                     ;; each p is an RGBA tuple
+]
+```
+
+Use `repeat` to iterate with a mutable reference:
+
+```rebol
+repeat n img [
+    n/1: 255.0.0                ;; set each pixel to red
+]
+```
+
+Find a pixel by color:
+
+```rebol
+find img 66.66.66               ;; returns image at matching position (RGB match, any alpha)
+find img 66.66.66.22            ;; exact RGBA match
+find/only img 66.66.66          ;; matches ignoring alpha
+find img 66                     ;; find by alpha value
+```
+
+Append and insert pixels:
+
+```rebol
+append img 170.170.170          ;; append one pixel
+append img [1.1.1 2.2.2]        ;; append multiple pixels
+insert img 170.170.170          ;; insert at current position
+```
+
+Note: images have a fixed width. Pixels accumulate in a row buffer and the height only increases once a full row is completed.
+
+Change pixels in place:
+
+```rebol
+change img 0.0.0                ;; change pixel at current position
+change img another-image        ;; paste image data
+change at img 2x2 another-image ;; paste at a specific coordinate
+change/dup img 200.200.200 4    ;; fill 4 pixels
+```
+
+Blur an image (if the `blur` function is available):
+
+```rebol
+blur img 5    ; blur radius 5
 ```
 
 
 ### Related
-Use `image?` to determine whether a value is the `image!` datatype:
+
+Use `image?` to test whether a value is an `image!`:
 
 ```rebol
-probe image? img
+image? img    ;== true
+image? 42     ;== false
 ```
 
-Images are included in the `series!` typeset:
+Images are part of the `series!` typeset:
 
 ```rebol
-probe series? img
-```
-
-Use the `/size` refinement to return the pixel size of an image as a pair value:
-
-
-```rebol
-probe img/size
-```
-
-Use the `/rgb` and `/alpha` refinements to get the RGB and A component separately as binary values.
-
-
-```rebol
-probe img/rgb
-probe img/alpha
-```
-
-The pixel values of an image are obtained using `pick` and changed using `poke`. The value returned by `pick` is an RGBA tuple value. The value replaced with `poke` also should be a tuple value of length 4.
-
-Picking specific pixels:
-
-```rebol
-probe pick img 1 
-
-probe pick img 1500
-```
-
-Poking specific pixels:
-
-```rebol
-poke img 1 255.255.255.0 
-probe pick img 1 
-
-poke img 1500 0.0.0.0 
-probe pick img 1500
+series? img   ;== true
 ```
 
 
