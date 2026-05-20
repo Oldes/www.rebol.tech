@@ -1575,8 +1575,176 @@ It is a marker used for end-of-block.
 ------------------------------------------------------------------
 ## error!
 
-> **Note:**
-> Needs documentation!
+An `error!` value represents a recoverable error condition. Errors carry structured information: a type, an id, a numeric code, and optional arguments (`arg1`, `arg2`, `arg3`). They are objects internally and can be inspected, converted, and constructed like other values.
+
+Errors are defined in `system/catalog/errors`, which is protected and cannot be modified at runtime.
+
+### Catching errors
+
+Use `try` to evaluate a block and return either its result or an `error!` value if something goes wrong:
+
+```rebol
+try [1 + 1]          ;== 2
+try [1 / 0]          ;== error!
+error? try [1 / 0]   ;== true
+```
+
+Use `try/with` to handle an error inline — the handler block is evaluated on failure, and its result becomes the return value:
+
+```rebol
+try/with [1 / 0] [
+    print "Zero division in the code!"
+    print system/state/last-error
+    0   ; return 0 as fallback
+]
+```
+
+Use `attempt` when you only care whether the block succeeded — it returns `none` on failure instead of an error:
+
+```rebol
+attempt [1 + 1]   ;== 2
+attempt [1 / 0]   ;== none
+```
+
+Both `try` and `attempt` also accept a `paren!` as their argument:
+
+```rebol
+try first [(1 / 0)]     ;== error!
+attempt first [(1 / 0)] ;== none
+```
+
+### Inspecting errors
+
+An error has the following fields accessible via path:
+
+```rebol
+e: try [1 / 0]
+
+e/type    ;; error category (e.g. 'Math)
+e/id      ;; error identifier (e.g. 'zero-divide)
+e/code    ;; numeric error code
+e/arg1    ;; first argument (if any)
+e/arg2    ;; second argument (if any)
+e/arg3    ;; third argument (if any)
+```
+
+The last error that occurred is always accessible via `system/state/last-error`:
+
+```rebol
+try [1 / 0]
+system/state/last-error/id   ;== 'zero-divide
+```
+
+Use `select` and `find` to access fields by name:
+
+```rebol
+e: try [read %nonsense]
+
+select e 'arg1          ;== %nonsense
+select e 'arg1111       ;== none
+find e 'arg1            ;== true
+find e 'arg1111         ;== none
+```
+
+### Making errors
+
+Use `make error!` with a block specifying `type` and `id`. Both are required — the `code` field is derived from the catalog and cannot be overridden:
+
+```rebol
+e: make error! [type: 'math id: 'zero-divide]
+e/type   ;== 'Math
+e/id     ;== 'zero-divide
+```
+
+Clone and retype an existing error with a message:
+
+```rebol
+e2: make e "message"
+e2/type   ;== 'User
+e2/arg1   ;== "message"
+```
+
+Invalid construction raises an `Internal/invalid-error`:
+
+```rebol
+make error! []                        ;** Internal/invalid-error — missing type and id
+make error! [code: 400]               ;** Internal/invalid-error — missing type and id
+make error! [code: 500 type: 'math]   ;** Internal/invalid-error — missing id
+```
+
+Invalid type or id raises a `Script/invalid-arg`:
+
+```rebol
+make error! [type: 'math id: 'foo]     ;** Script/invalid-arg — unknown id
+make error! [type: 'foo id: 'overflow] ;** Script/invalid-arg — unknown type
+```
+
+Note: `Throw` type errors cannot be constructed with `make`.
+
+### Converting errors
+
+Convert an error to an object for manipulation:
+
+```rebol
+o: to-object try [1 / 0]
+o/code: 1
+```
+
+Convert an object back to an error:
+
+```rebol
+e: to-error o
+e/code   ;== 400
+```
+
+### Binding error messages
+
+Error message templates are stored in `system/catalog/errors`. Use `bind` to resolve a message template against an error value:
+
+```rebol
+e: try [read %nonsense]
+reduce bind system/catalog/errors/(e/type)/(e/id) e
+;== ["cannot open:" %nonsense "reason:" 3]
+```
+
+### Asserting
+
+Use `assert` to raise an error if a condition fails:
+
+```rebol
+assert [not none? 1]     ;; passes
+
+assert [not none? none]
+;** assert-failed error — arg1 contains the failing block
+```
+
+Use `assert/type` to check the type of a word:
+
+```rebol
+x: 1
+assert/type [x integer!]           ;; passes
+assert/type [x [integer! string!]] ;; passes — accepts a typeset block
+assert/type [x any-string!]        ;; passes — accepts a typeset word
+
+x: ""
+assert/type [x integer!]           ;** wrong-type error
+```
+
+Note: `assert/type` requires a word as its first element — passing a literal value is an error:
+
+```rebol
+assert/type [1 integer!]   ;** invalid-arg error
+```
+
+### Related
+
+Use `error?` to test whether a value is an `error!`:
+
+```rebol
+error? try [1 / 0]   ;== true
+error? 42            ;== false
+```
+
 
 ------------------------------------------------------------------
 ## event!
