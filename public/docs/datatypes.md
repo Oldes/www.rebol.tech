@@ -3785,9 +3785,90 @@ root/sub
 ------------------------------------------------------------------
 ## percent!
 
+### Concept
 
-special form of decimals (used mainly for layout)
+A `percent!` value represents a ratio expressed as a percentage. Internally it is stored as a decimal — `100%` is `1.0`, `1%` is `0.01`. It is a member of the `number!` and `scalar!` typesets.
 
+```rebol
+number? 1%   ;== true
+```
+
+### Format
+
+Percent values are written as a number followed immediately by `%`:
+
+```rebol
+0%  1%  10%  0.1%  100%  -1%
+```
+
+Scientific notation is also accepted:
+
+```rebol
+1E+2%       ;== 100%
+3e34%
+```
+
+### Construction
+
+`make percent!` accepts an integer or decimal, interpreting it as a ratio (not a percentage display value) — so `1` becomes `100%` and `0.5` becomes `50%`:
+
+```rebol
+make percent! 1      ;== 100%
+make percent! 0.5    ;== 50%
+```
+
+A block of `[mantissa exponent]` constructs a scientific notation value:
+
+```rebol
+make percent! [1 18]   ;== 1e18%
+```
+
+### Conversion
+
+```rebol
+to percent! 1      ;== 100%
+to percent! 1.0    ;== 100%
+
+to decimal! 100%   ;== 1.0
+to decimal! 1%     ;== 0.01
+
+to integer! 100%   ;== 1
+to integer! 1%     ;== 0    ; truncates toward zero
+```
+
+### Display
+
+`form` and `mold` produce identical output — the value followed by `%`:
+
+```rebol
+form  0%     ;== "0%"
+form  0.1%   ;== "0.1%"
+form  100%   ;== "100%"
+form -1%     ;== "-1%"
+```
+
+Large values use scientific notation:
+
+```rebol
+mold 3e34%        ;== "3e34%"
+mold/all 3e34%    ;== "3.0000000000000003e34%"
+```
+
+`mold/all` preserves full precision and round-trips correctly through `load`:
+
+```rebol
+x: 9.9999999999999926e154%
+same? x load mold/all x   ;== true
+```
+
+### Related
+
+Use `percent?` to test whether a value is a `percent!`:
+
+```rebol
+percent? 10%    ;== true
+percent? 0.1    ;== false
+```
 
 
 ------------------------------------------------------------------
