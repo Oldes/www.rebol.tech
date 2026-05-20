@@ -814,132 +814,173 @@ probe mold [123 10:30]
 ------------------------------------------------------------------
 ## char!
 
-
-
-Characters are not strings; they are the individual values from which strings are constructed. A character can be printable, unprintable, or a control symbol.
+A `char!` value represents a single Unicode code point. Characters are not strings — they are the individual values from which strings are built. A character can be printable, unprintable, or a control symbol. The full Unicode range (U+000000 to U+10FFFF) is supported.
 
 
 ### Format
 
-A `char!` value is written as a number sign (#) followed by a string enclosed in double quotes. The number sign is necessary to distinguish a character from a string:
+A `char!` value is written as `#"` followed by the character and a closing `"`:
+
 ```rebol
-#"R"    ; the single character: R
-"R"     ; a string with the character: R
+#"R"     ; the letter R
+#" "     ; a space
 ```
 
-Characters can include escape sequences that begin with a caret `^` and are followed by one or more characters of encoding. This encoding can include the characters `#"^A"` to `#"^Z"` for `CTRL+A` to `CTRL+Z` (upper and lower case are the same):
+This distinguishes a character from a single-character string:
+
 ```rebol
-#"^A" #"^Z"
+#"R"     ; char! -- a single character value
+"R"      ; string! -- a string containing one character
 ```
 
-In addition, if parens are used within the character, they specify
-a special value. For example, null can be written as:
+#### Escape sequences
+
+Characters that cannot be typed directly use a caret `^` escape sequence inside the quotes:
+
 ```rebol
-"^@"
-"^(null)"
-"^(00)"
+#"^/"    ; newline
+#"^-"    ; horizontal tab
+#"^^"    ; caret character itself
+#"^""    ; double quote
 ```
 
-The last line is written in hex format (base 16). Up to 4 hex digits can be provided, to cover all 16 bit Unicode characters (code-points).
+Control characters `^A` through `^Z` correspond to Ctrl+A through Ctrl+Z (case-insensitive):
 
-Following is a table of control characters that can be used in Rebol.
+```rebol
+#"^A"    ; Ctrl+A (same as #"^a")
+#"^Z"    ; Ctrl+Z
+```
 
-| Character | Definition
-|-----------|------------
-| `#"^(null)"` or `#"^@"` | null (zero)
-| `#"^(line)"` or `#"^/"` | new line
-| `#"^(tab)"`  or `#"^-"` | horizontal tab
-| `#"^(page)"` | new page (and page eject)
-| `#"^(esc)"`  | escape
-| `#"^(back)"` | backspace
-| `#"^(del)"`  | delete
-| `#"^^"`      | caret character
-| `#"^""`      | quotation mark
-| `#"(0)"` to `#"(FFFF)"` | hex forms of characters
+#### Hex and named escape sequences
+
+Parentheses inside the escape sequence specify a code point by hex value or by name. Up to 6 hex digits are supported, covering the full Unicode range:
+
+```rebol
+#"^(41)"       ;== #"A"     (U+0041)
+#"^(263A)"     ;== #"☺"     (U+263A, smiley face)
+#"^(1F600)"    ;== #"😀"    (U+1F600, emoji)
+```
+
+Named escapes for common control characters:
+
+| Character               | Equivalent  | Description     |
+|-------------------------|-------------|-----------------|
+| `#"^(null)"` or `#"^@"` | U+0000      | Null            |
+| `#"^(line)"` or `#"^/"` | U+000A      | Newline         |
+| `#"^(tab)"`  or `#"^-"` | U+0009      | Horizontal tab  |
+| `#"^(page)"`            | U+000C      | Form feed       |
+| `#"^(esc)"`             | U+001B      | Escape          |
+| `#"^(back)"`            | U+0008      | Backspace       |
+| `#"^(del)"`             | U+007F      | Delete          |
+| `#"^^"`                 |             | Caret           |
+| `#"^""`                 |             | Double quote    |
 
 
 ### Creation
 
-Characters can be converted to and from other datatypes with the `to-char` function:
-```rebol
-probe to-char "a"
-;== #"a"
+Use `to char!` or `to-char` to convert from other types:
 
-probe to-char "z"
-;== #"z"
+```rebol
+to char! "a"      ;== #"a"  (first character of string)
+to char! 65       ;== #"A"  (from integer code point)
 ```
 
-Characters follow the ASCII standard and can be constructed by specifying a character's numeric equivalent:
+The full Unicode range is available:
+
 ```rebol
-probe to-char 65
-;== #"A"
-
-probe to-char 52
-;== #"4"
-
-probe to-char 52.3
-;== #"4"
+to char! 9786     ;== #"☺"   U+263A
+to char! 128512   ;== #"😀"  U+1F600
+to char! 0#1F601  ;== #"😁"  U+1F601
 ```
 
-Another method of obtaining a character is to get the `first` character from a string:
+Get the first character of a string with `first`:
+
 ```rebol
-probe first "ABC"
-;== #"A"
+first "ABC"       ;== #"A"
 ```
 
-While characters in strings are not case sensitive, comparison between
-individual characters is case sensitive:
-```rebol
-probe "a" = "A"
-;== #(true)
+Some Unicode characters (such as emoji or CJK ideographs) occupy two columns when displayed in a fixed-width terminal. Use the `width` property to check the display width of a character:
 
-probe #"a" = #"A"
-;== #(false)
+```rebol
+s: "a^(26A1)b"    ;; "a⚡b"
+s/1/width         ;;== 1   (regular ASCII character)
+s/2/width         ;;== 2   (the lightning bolt is a wide character)
 ```
 
-However, when used in many types of functions, the comparison is
-not case sensitive unless you specify that option. Examples are:
+`++` and `--` increment or decrement a character to the next or previous code point, returning the value before the change:
+
 ```rebol
-select [#"A" 1] #"a"
-;== 1
+a: #"a"
+++ a   ;== #"a"
+a      ;== #"b"
+-- a   ;== #"b"
+a      ;== #"a"
+```
 
-select/case [#"A" 1] #"a"
-;== _
+Get the integer code point of a character with `to integer!`:
 
-find "abcde" #"B"
-;== "bcde"
+```rebol
+to integer! #"A"    ;== 65
+to integer! #"☺"    ;== 9786
+```
 
-find/case "abcde" #"B"
-;== _
+Convert a character to its hex code point as an `issue!` with `to-hex`:
 
-switch #"A" [#"a" [true]]
-;== #(true)
+```rebol
+to-hex #"^(1F642)"  ;== #01F642
+to-hex #"A"         ;== #000041
+```
+
+
+### Comparison
+
+Character comparison with `=` is case-insensitive by default, consistent with string comparison. Use `==` (strict-equal?) for case-sensitive comparison:
+
+```rebol
+#"a" = #"A"    ;== true    (case-insensitive)
+#"a" == #"A"   ;== false   (case-sensitive)
+#"a" < #"b"    ;== true
+```
+
+Functions that accept characters also default to case-insensitive matching and require `/case` for exact matching:
+
+```rebol
+find "abcde" #"B"           ;== "bcde" (case-insensitive)
+find/case "abcde" #"B"      ;== none
+
+select [#"A" 1] #"a"        ;== 1      (case-insensitive)
+select/case [#"A" 1] #"a"   ;== none
+
+switch #"A" [#"a" [true]]   ;== true   (case-insensitive)
+```
+
+
+### Display
+
+`form` produces the character without the `#"..."` wrapper:
+
+```rebol
+form #"A"    ;== "A"
+```
+
+`mold` produces the full literal representation, using escape sequences where needed:
+
+```rebol
+mold #"A"    ;== {#"A"}
+mold #"^/"   ;== {#"^/"}
 ```
 
 
 ### Related
 
-Use `char?` to determine whether a value is a `char!` datatype.
+Use `char?` to test whether a value is a `char!`:
 
 ```rebol
-char? "a"
-;== #(false)
-
-char? #"a"
-;== #(true)
+char? #"a"   ;== true
+char? "a"    ;== false
 ```
 
-Use the `form` function to print a character without the number sign:
-```rebol
-form #"A"
-;== "A"
-```
-
-Use `mold` on to print a character with the number sign and double quotes (and escape sequences for those characters that require it.):
-```rebol
-mold #"A"
-;== {#"A"}
-```
+`char!` is a member of the `scalar!` and `immediate!` typesets.
 
 
 
