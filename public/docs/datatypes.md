@@ -1115,276 +1115,352 @@ help datatype!
 ------------------------------------------------------------------
 ## date!
 
-
-Around the world, dates are written in a variety of formats. However, most countries use the `day-month-year` format. One of the few exceptions is the United States, which commonly uses a `month-day-year` format. For example, a date written numerically as `2/1/1999` is ambiguous. The month could be interpreted as either February or January. Some countries use a dash `-`, some use a forward slash `/`, and others use a period `.` as a separator. Finally, computer people often prefer dates in the 
-`year-month-day` (ISO) format so they can be easily sorted.
+A `date!` value represents a calendar date, optionally combined with a time of day and a timezone offset. Dates are normalized automatically — setting an out-of-range time or day causes the date to roll over correctly.
 
 
 ### Format
-The Rebol language is flexible, allowing `date!` datatypes to be expressed in a variety of formats. For example, the first day of March can be expressed in any of the following formats:
+
+Dates can be written in several equivalent formats using `-` or `/` as separators. The canonical output format is `day-Mon-year`:
 
 ```rebol
-probe 1/3/1999
-1-Mar-1999
-
-probe 1-3-1999
-1-Mar-1999
-
-probe 1999-3-1  ;ISO format
-1-Mar-1999
+1/3/1999      ;== 1-Mar-1999
+1-3-1999      ;== 1-Mar-1999
+1999-3-1      ;== 1-Mar-1999   (ISO format: year-month-day)
+1999/3/1      ;== 1-Mar-1999
 ```
 
-The year can span up to 9999 and down to 1. Leap days (February 29) can only be written for leap years:
+Month names and abbreviations are also accepted:
 
 ```rebol
-probe 29-2-2000
-29-Feb-2000
+5/Oct/1999        ;== 5-Oct-1999
+5-October-1999    ;== 5-Oct-1999
+1999/oct/5        ;== 5-Oct-1999
 ```
 
-The fields of dates can be separated with forward slashes `/` or dashes `-`. Dates can be written in either a year-month-day format or a day-month-year format:
+Two-digit years are interpreted relative to the current year, valid within a ±50 year window. Four-digit years are always preferred:
 
 ```rebol
-probe 1999-10-5
-5-Oct-1999
-
-probe 1999/10/5
-5-Oct-1999
-
-probe 5-10-1999
-5-Oct-1999
-
-probe 5/10/1999
-5-Oct-1999
+28-2-90     ;== 28-Feb-1990
+12-Mar-20   ;== 12-Mar-2020
+11-Mar-45   ;== 11-Mar-2045
 ```
 
-Because the international date formats that are not widely used in the USA, a month name or month abbreviation can also be used:
+Valid years range from 0 to 16383. Year zero is valid:
 
 ```rebol
-probe 5/Oct/1999
-5-Oct-1999
-
-probe 5-October-1999
-5-Oct-1999
-
-probe 1999/oct/5
-5-Oct-1999
+1-Jan-0000
+make date! [1 1 0]   ;== 1-Jan-0000
 ```
 
-When the year is the last field, it can be written as either a four digit or two digit number:
+Negative years are not supported. Years in the first century should use leading zeros: `9-4-0029`.
+
+There can be no spaces within a date literal — `10 - 5 - 99` is a subtraction expression, not a date.
+
+#### Date with time
+
+A time is appended after a `/`:
 
 ```rebol
-probe 5/oct/99
-5-Oct-1999
-
-probe 5/oct/1999
-5-Oct-1999
+4-Apr-2000/6:00
+1999-10-2/2:00:30.5
 ```
 
-However, it is preferred to write the year in full. Otherwise, problems occur with date comparison and sorting operations. While two digits can be used to express a year, the interpretation of a two-digit year is relative to the current year and is only valid for 50 years in the future or in the past:
+#### Date with timezone
 
-
-```rebol
-probe 28-2-66   ;; refers to 1966
-28-Feb-1966
-
-probe 12-Mar-20 ;; refers to 2020
-12-Mar-2020
-
-probe 11-Mar-45 ;; refers to 2045, not 1945
-11-Mar-2045
-```
-
-It is recommended to use a four-digit year to avoid potential problems.
-
-To represent dates in the first century (which is rarely done because the Gregorian calendar did not exist), use leading zeros to represent the century (as in `9-4-0029`).
-
-Dates can also include an optional time field and an optional time zone. The time is separated from the date with a forward slash (/). The time zone is appended using a plus (+) or minus (-), and no spaces are allowed. Time zones are written as a time shift (plus or minus) from GMT. The resolution of the time zone is to the half hour. If the time shift is an integer, it is assumed to be hours:
+A timezone offset is appended after the time using `+` or `-`. The offset can be written as hours (integer), `H:MM`, or `HHMM`:
 
 ```rebol
-probe 4/Apr/2000/6:00+8:00
 4-Apr-2000/6:00+8:00
-
-probe 1999-10-2/2:00-4:00
-2-Oct-1999/2:00-4:00
-
-probe 1/1/1990/12:20:25-6
-1-Jan-1990/12:20:25
+1999-10-2/2:00-4:00
+1-Jan-1990/12:20:25-6       ;== 1-Jan-1990/12:20:25   (integer offset)
+8-Nov-2013/17:01+1:00       ;== from "2013-11-08T17:01+0100"
 ```
 
-There can be no spaces within the date. For example:
+Valid timezone offsets range from -13:00 to +14:00 in 15-minute increments. No seconds are allowed in the offset.
+
+#### ISO 8601
+
+ISO 8601 format is accepted for loading. Both `T` separator and `Z` (UTC) suffix are supported:
 
 ```rebol
-10 - 5 - 99
+load "2013-11-08T17:01"        ;== 8-Nov-2013/17:01
+load "2013-11-08T17:01Z"       ;== 8-Nov-2013/17:01
+load "2013-11-08T17:01+01:00"  ;== 8-Nov-2013/17:01+1:00
 ```
 
-would be interpreted as a subtraction expression, not a date.
-
-
-### Access
-Refinements can be used with a date value to get any of its defined fields:
-
-| Refinement | Description
-| `/day`     | Gets the day.
-| `/month`   | Gets the month.
-| `/year`    | Gets the year.
-| `/yearday` | Gets the day of the year.
-| `/weekday` | Gets the weekday (1 for Mon, 7 for Sun).
-| `/time`    | Gets the time (if present).
-| `/hour`    | Gets the time's hour (if present)
-| `/minute`  | Gets the time's minute (if present).
-| `/second`  | Gets the time's second (if present).
-| `/zone`    | Gets the time zone (if present).
-| `/utc`     | Returns the UTC (universal) time.
-
-Here's how these refinements work:
+`mold/all` produces valid ISO 8601 / RFC 3339 output:
 
 ```rebol
-some-date: 29-Feb-2000
-probe some-date/day
-29
-
-probe some-date/month
-2
-
-probe some-date/year
-2000
-
-days: ["Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun"]
-probe pick days some-date/weekday
-Tue
+mold/all 1-1-2000/1:2:3            ;== "2000-01-01T01:02:03"
+mold/all 1-1-200/1:2:3+2:0         ;== "0200-01-01T01:02:03+02:00"
 ```
 
-When a time is present, the time related refinements can be used. The `/hour`, `/minute` and `/second` refinements are used with the `/time` refinement that isolates the time segment of the date value for them to work on, but they can also be used alone:
+ISO 8601 dates can also be used directly as path selectors:
 
 ```rebol
-lost-time: 29-Feb-2000/11:33:22.14-8:00
-probe lost-time/time
-11:33:22.14
-
-probe lost-time/time/hour
-11
-
-probe lost-time/hour
-11
-
-probe lost-time/minute
-33
-
-probe lost-time/second
-22.14
-
-probe lost-time/zone
--8:00
-```
-
-Note that dates are normalized when any field of their time values is set. The date will be adjusted accordingly to make the time a valid 24 hour value.
-
-```rebol
-print d: now
-23-Oct-2009/3:34:45-4:00
-
-d/time: 50:00
-print d
-25-Oct-2009/2:00-4:00
-```
-
-### Creation
-
-Use the `to-date` function to convert values to a `date!`:
-
-```rebol
-probe to-date "5-10-1999"
-5-Oct-1999
-
-probe to-date "5 10 1999 10:30"
-5-Oct-1999/10:30
-
-probe to-date [1999 10 5]
-5-Oct-1999
-
-probe to-date [5 10 1999 10:30 -8:00]
-5-Oct-1999/10:30-8:00
-```
-
-> **Note:**
-> When converting to a `date!`, the year must be specified as four digits.
-
-Conversions can be applied to various math operations on dates:
-
-```rebol
-probe 5-Oct-1999 + 1
-6-Oct-1999
-
-probe 5-10-1999 - 10
-25-Sep-1999
-
-probe 5-Oct-1999/23:00 + 5:00
-6-Oct-1999/4:00
+b: [8-Nov-2013/17:01 "foo"]
+b/2013-11-08T17:01              ;== "foo"
 ```
 
 
-### Disabling timezone or using UTC
-To disable the timezone, just set it to `none!`:
+### Construction
 
 ```rebol
-date/zone: none
+make date! [day month year]
+make date! [day month year time]
+make date! [day month year time zone]
+
+make date! [1 2 3]             ;== 1-Feb-0003
+make date! [1 2 3 4:0]         ;== 1-Feb-0003/4:00
+make date! [1 2 3 4:0 5:0]     ;== 1-Feb-0003/4:00+5:00
 ```
 
-However, since this normally indicates a UTC datestamp, it is better to use the /utc` refinement. You can write:
+An existing date can also be used as the first element:
 
 ```rebol
-date: date/utc
+make date! [1-1-2000]          ;== 1-Jan-2000
+make date! [1-1-2000 10:0]     ;== 1-Jan-2000/10:00
+make date! [1-1-2000 10:0 2:0] ;== 1-Jan-2000/10:00+2:00
 ```
 
-For example:
+Time overflow carries over into the date:
 
 ```rebol
-date: now
-19-Sep-2009/20:04:26-7:00
-
-date: date/utc
-20-Sep-2009/3:04:26
+make date! [1-1-2000 100:0]    ;== 5-Jan-2000/4:00
 ```
 
-Note that the timezone is gone.
-A Rebol 2 compatible way to do this is:
+Literal syntax:
 
 ```rebol
-date: now
-19-Sep-2009/20:04:26-7:00
+#(date! 1 2 3)                 ;== 1-Feb-0003
+#(date! 1 2 3 4:0)             ;== 1-Feb-0003/4:00
+#(date! 1 2 3 4:0 5:0)         ;== 1-Feb-0003/4:00+5:00
+#(date! 1-1-2000 10:0 2:0)     ;== 1-Jan-2000/10:00+2:00
+```
 
-date: date - date/zone
-20-Sep-2009/3:04:26-7:00
+Invalid dates (e.g. 31st February) produce an error.
 
-date/zone: none
-none
 
-date
-20-Sep-2009/3:04:26
+### Field accessors
+
+All fields are accessible via path. Fields return `none` when the date has no time component:
+
+| Accessor    | Description |
+|-------------|-------------|
+| `/year`     | Year as integer |
+| `/month`    | Month as integer (1–12) |
+| `/day`      | Day as integer |
+| `/date`     | Date part only (no time or zone) |
+| `/time`     | Time of day (`time!` or `none`) |
+| `/hour`     | Hour (or `none`) |
+| `/minute`   | Minute (or `none`) |
+| `/second`   | Second, may be decimal (or `none`) |
+| `/zone`     | Timezone offset as `time!` (or `none`) |
+| `/timezone` | Timezone in hours — adjusts time when changed |
+| `/weekday`  | Day of week: 1=Monday, 7=Sunday |
+| `/yearday`  | Day of year (1–366); settable |
+| `/utc`      | Date/time converted to UTC (zone removed) |
+| `/julian`   | Julian Day Number as `decimal!`; settable |
+
+```rebol
+d: 28-Oct-2009/10:09:38-7:00
+
+d/year      ;== 2009
+d/month     ;== 10
+d/day       ;== 28
+d/time      ;== 10:09:38
+d/hour      ;== 10
+d/minute    ;== 9
+d/second    ;== 38
+d/zone      ;== -7:00
+d/weekday   ;== 3   ; Wednesday
+d/utc       ;== 28-Oct-2009/17:09:38
+```
+
+Dates without time return `none` for time-related fields:
+
+```rebol
+d: 8-Apr-2020
+d/time      ;== none
+d/hour      ;== none
+d/zone      ;== none
+```
+
+Fields can be set via path. The date is renormalized automatically:
+
+```rebol
+d: 1-Jan-2000
+d/time: 50:00         ; overflow — date rolls forward
+d                     ;== 3-Jan-2000/2:00
+
+d/hour: 2             ; sets time if not present
+d: 1-Jan-2000
+d/minute: 10
+d/time                ;== 0:10
+
+d/yearday: 60         ; set by day of year
+d                     ;== 29-Feb-2000   (leap year)
+
+d/yearday: 0          ; last day of previous year
+d                     ;== 31-Dec-1999
+```
+
+Setting timezone with `/zone` changes the offset only. Setting `/timezone` also adjusts the time to keep the UTC moment the same:
+
+```rebol
+d: 1-Jan-2000
+d/zone: 2             ;== 1-Jan-2000/0:00+2:00
+
+d/timezone: 4         ; adjusts time: +2 hours
+d                     ;== 1-Jan-2000/2:00+4:00
+
+d/timezone: -7        ; adjusts time again
+d                     ;== 31-Dec-1999/15:00-7:00
+```
+
+Setting `/utc` adjusts the date to the given UTC moment:
+
+```rebol
+n: 27-Nov-2020/18:15:57+1:00
+d/utc: n
+d                     ;== 27-Nov-2020/17:15:57
+```
+
+Julian Day Number can be read and set:
+
+```rebol
+d: 10-Jun-2023/20:47:53+2:00
+d/julian              ;== 2460106.28325231
+
+d/julian: 2415020.5
+d                     ;== 1-Jan-1900/0:00
+```
+
+Out-of-range numeric selectors return `none`:
+
+```rebol
+d/0    ;== none
+d/-1   ;== none
+d/100  ;== none
+```
+
+Numeric selectors (1–12) can also be used to access fields positionally:
+
+```rebol
+d: now
+repeat i 12 [try [d/:i: i]]
+mold d   ;== "11-Jan-0001/13:08:09+12:00"
+```
+
+
+### UTC and timezone
+
+Remove the timezone by setting it to `none`, or use `/utc` to get the equivalent UTC time with the zone stripped:
+
+```rebol
+d: now                           ;== 19-Sep-2009/20:04:26-7:00
+d/utc                            ;== 20-Sep-2009/3:04:26
+d/zone: none                     ; strip timezone in place
+```
+
+
+### Date math
+
+Adding or subtracting an integer shifts the date by that many days:
+
+```rebol
+5-Oct-1999 + 1          ;== 6-Oct-1999
+5-Oct-1999 - 10         ;== 25-Sep-1999
+now/date + 1            ; tomorrow
+```
+
+Adding a time shifts the date-time:
+
+```rebol
+5-Oct-1999/23:00 + 5:00  ;== 6-Oct-1999/4:00
+```
+
+
+### Internet dates
+
+Convert to and from RFC 2822 Internet date format:
+
+```rebol
+to-idate 28-Mar-2019/20:00:59+1:00
+;== "Thu, 28 Mar 2019 20:00:59 +0100"
+
+to-idate/gmt 28-Mar-2019/20:00:59+1:00
+;== "Thu, 28 Mar 2019 19:00:59 GMT"
+
+to-idate 28-Mar-2019
+;== "Thu, 28 Mar 2019 00:00:00 GMT"
+
+to-date "Thu, 28 Mar 2019 20:00:59 +0100"
+;== 28-Mar-2019/20:00:59+1:00
+
+to-date/utc "Thu, 28 Mar 2019 20:00:59 +0100"
+;== 28-Mar-2019/19:00:59
+```
+
+`to-itime` formats a time value for use in Internet dates:
+
+```rebol
+to-itime 9:4:5      ;== "09:04:05"
+to-itime 13:24:5.21 ;== "13:24:05"
+```
+
+
+### Query
+
+Use `query` to retrieve multiple fields at once:
+
+```rebol
+date: 8-Apr-2020/12:04:32+2:00
+
+query date 'time                    ;== 12:04:32
+query date [:year :month]           ;== [2020 4]
+query date [month year]             ;== [month: 4 year: 2020]
+query date object!                  ; returns an object with all fields
+```
+
+All available field names:
+
+```rebol
+query date none
+;== [year month day time date zone hour minute second weekday yearday timezone utc julian]
+```
+
+
+### Current date and time
+
+`now` returns the current date and time with timezone:
+
+```rebol
+now                  ; full date/time/zone
+now/date             ; date only
+now/time             ; time only
+now/utc              ; current UTC time
+now/year             ; current year
+now/weekday          ; day of week
+now/precise          ; high-precision timestamp
+now/time/precise     ; high-precision time
+```
+
+Combining more than one time-related refinement (other than `/precise`) produces an error:
+
+```rebol
+now/time/day    ;** error
+now/utc/month   ;** error
 ```
 
 
 ### Related
 
-Use `date?` to determine whether a value is a `date!` datatype.
+Use `date?` to test whether a value is a `date!`:
 
 ```rebol
-probe date? 5/1/1999
-true
-```
-
-The related function `to-idate` returns a standard Internet date string. The Internet date format is day, date, month, year, time (24-hour clock), and time zone offset from GMT.
-
-```rebol
-probe to-idate now
-Mon, 18 May 2026 12:08:27 +0200
-```
-
-The `now` function returns the current date and time in full format including the time zone offset:
-
-```rebol
-probe now
-18-May-2026/12:08:53+2:00
+date? 5/1/1999    ;== true
+date? "1-1-2000"  ;== false
 ```
 
 
