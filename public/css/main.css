@@ -3,6 +3,7 @@
 		--color-code-background: #202020;
 		--color-code-foreground: #c5c8c6;
 		--color-highlight-on-target: inherit;
+		--color-link--visited: #828eea;
 	}
 
 	body[data-theme="dark"] {

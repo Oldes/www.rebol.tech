@@ -212,6 +212,7 @@ current-html: "datatypes.html"
 load-datatypes-details: function/with [data][
 	if file? data [data: read/string data]
 	out: make map! 500
+	replace/all data #"<" "&lt;"
 	parse data [
 		any [
 			  opt CR LF

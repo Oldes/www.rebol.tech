@@ -4423,30 +4423,30 @@ make struct! [a [23]]    ; ** Error: invalid-arg   (invalid type)
 ## tag!
 
 
-Tags are used in HTML and other markup languages to indicate how text fields are to be treated. For example, the tag `&lt;HTML>` at the beginning of a file indicates that it should be parsed by the rules of the Hypertext Markup Language. A tag with a forward slash (`/`), such as `&lt;/HTML>`, indicates the closing of the tag.
+Tags are used in HTML and other markup languages to indicate how text fields are to be treated. For example, the tag `<HTML>` at the beginning of a file indicates that it should be parsed by the rules of the Hypertext Markup Language. A tag with a forward slash (`/`), such as `</HTML>`, indicates the closing of the tag.
 
 Tags are a subset of series, and thus can be manipulated as such:
 
 ```rebol
-a-tag: &lt;img src="mypic.jpg">
+a-tag: <img src="mypic.jpg">
 probe a-tag
-&lt;img src="mypic.jpg">
+<img src="mypic.jpg">
 
 append a-tag { alt="My Picture!"}
 probe a-tag
-&lt;img src="mypic.jpg" alt="My Picture!">
+<img src="mypic.jpg" alt="My Picture!">
 ```
 
 
 
 ### Format
-Valid tags begin with an open angle bracket (&lt;) and end with
+Valid tags begin with an open angle bracket (<) and end with
 a closing bracket (>). For example:
 
 
 ```rebol
-&lt;a href="index.html">
-&lt;img src="mypic.jpg" width="150" height="200">
+<a href="index.html">
+<img src="mypic.jpg" width="150" height="200">
 ```
 
 
@@ -4456,43 +4456,43 @@ The `to-tag` function converts data to the `tag!` datatype:
 
 ```rebol
 probe to-tag "title"
-&lt;title>
+<title>
 ```
 
 ### Related
 Use `tag?` to determine whether a value is an `tag!` datatype.
 
 ```rebol
-probe tag? &lt;a href="http://www.rebol.com/">
+probe tag? <a href="http://www.rebol.com/">
 true
 ```
 
 As tags are a subset of the series pseudotype, use `series?` to check this:
 
 ```rebol
-probe series? &lt;a href="http://www.rebol.com/">
+probe series? <a href="http://www.rebol.com/">
 true
 ```
 
 The `form` function returns a tag as a string:
 
 ```rebol
-probe form &lt;a href="http://www.rebol.com/">
-{&lt;a href="http://www.rebol.com/">}
+probe form <a href="http://www.rebol.com/">
+{<a href="http://www.rebol.com/">}
 ```
 
 The `mold` function returns a tag as a string:
 
 ```rebol
-probe mold &lt;a href="http://www.rebol.com/">
-{&lt;a href="http://www.rebol.com/">}
+probe mold <a href="http://www.rebol.com/">
+{<a href="http://www.rebol.com/">}
 ```
 
 The `print` function prints a tag to standard output after doing a `reform` on it:
 
 ```rebol
-print &lt;a href="http://www.rebol.com/">
-&lt;a href="http://www.rebol.com/">
+print <a href="http://www.rebol.com/">
+<a href="http://www.rebol.com/">
 ```
 
 
@@ -4566,9 +4566,9 @@ probe 0:87363.21
 Time values have three refinements that can be used to return specific information about the value:
 
 | Refinement | Description
-| `'/hour`   | Gets the value's hour.
-| `'/minute` | Gets the value's minute.
-| `'/second` | Gets the value's second.
+| `/hour`   | Gets the value's hour.
+| `/minute` | Gets the value's minute.
+| `/second` | Gets the value's second.
 
 Here's how to use a time value's refinements:
 
@@ -4653,7 +4653,7 @@ probe time? 10.30
 false
 ```
 
-Use the `now` function with the /time` refinement to return the current local date and time:
+Use the `now` function with the `/time` refinement to return the current local date and time:
 
 
 ```rebol
@@ -5068,7 +5068,7 @@ http://www.somesite.dom/odd(dir)/odd{file}.txt
 
 
 ### Creation
-The `to-url` function converts blocks to the `url!` datatype, the first element in the block is the scheme, the second element is the domain (with or without user:pass` and port) the remaining elements are the path and file:
+The `to-url` function converts blocks to the `url!` datatype, the first element in the block is the scheme, the second element is the domain (with or without `user:pass` and port) the remaining elements are the path and file:
 
 
 ```rebol
@@ -5117,7 +5117,451 @@ user defined datatype
 ## vector!
 
 
-high performance arrays (single datatype)
+A `vector!` is a fixed-type series of numeric or word values stored in a compact binary form. Unlike a block, all elements must be of the same type, and that type is declared at construction time. This makes vectors memory-efficient and suitable for numeric computation, binary data manipulation, and interfacing with native code.
+
+Vectors are series and support the full range of series operations: `next`, `skip`, `head`, `tail`, `copy`, `append`, `insert`, `change`, `clear`, `reverse`, `sort`, and so on. Math operations apply element-wise to the entire vector.
+
+
+### Element types
+
+Each vector has a declared element type. Short aliases are accepted in construction and canonical long names are used in output:
+
+| Short  | Canonical  | Size    | Description             |
+|--------|------------|---------|-------------------------|
+| `i8!`  | `int8!`    | 1 byte  | Signed 8-bit integer    |
+| `i16!` | `int16!`   | 2 bytes | Signed 16-bit integer   |
+| `i32!` | `int32!`   | 4 bytes | Signed 32-bit integer   |
+| `i64!` | `int64!`   | 8 bytes | Signed 64-bit integer   |
+| `u8!`  | `uint8!`   | 1 byte  | Unsigned 8-bit integer  |
+| `u16!` | `uint16!`  | 2 bytes | Unsigned 16-bit integer |
+| `u32!` | `uint32!`  | 4 bytes | Unsigned 32-bit integer |
+| `u64!` | `uint64!`  | 8 bytes | Unsigned 64-bit integer |
+| `f32!` | `float32!` | 4 bytes | 32-bit floating point   |
+| `f64!` | `float64!` | 8 bytes | 64-bit floating point   |
+
+Additional aliases accepted in construction: `byte!` (= `uint8!`), `float!` (= `float32!`), `double!` (= `float64!`).
+
+Signed vs. unsigned can also be specified explicitly with `signed` / `unsigned` words in the full construction form.
+
+
+### Construction
+
+#### Literal syntax
+
+The most concise form uses the `#(type! [...])` literal syntax:
+
+```rebol
+#(i8!  [1 2 3])      ;== #(int8!  [1 2 3])
+#(u16! [1 2 3])      ;== #(uint16! [1 2 3])
+#(f32! [1 2 3])      ;== #(float32! [1.0 2.0 3.0])
+#(u8!  [])           ;; empty vector
+```
+
+An optional trailing integer sets the initial index:
+
+```rebol
+v: #(i16! [1 2 3] 2)
+index? v             ;== 2
+mold v               ;== "#(int16! [2 3])"
+```
+
+#### Semi-compact construction with `make`
+
+```rebol
+make vector! [i8!]           ;; empty int8 vector
+make vector! [i8!  3]        ;; 3 zero-initialized elements
+make vector! [i8!  [1 2 3]]  ;; from block
+make vector! [f32! [1 2 3]]  ;== #(float32! [1.0 2.0 3.0])
+```
+
+With an index:
+
+```rebol
+v: make vector! [i16! [1 2 3] 2]
+index? v   ;== 2
+```
+
+#### Full construction form
+
+```rebol
+make vector! [integer! 32 [1 2 3 4]]    ;; signed 32-bit
+make vector! [signed   integer! 32 [1 2 3 4]]
+make vector! [unsigned integer! 32 [1 2 3 4]]
+
+;; with size limit — crops or extends with zeros:
+make vector! [integer! 16 2 [1 2 3 4]]  ;; length 2: [1 2]
+make vector! [integer! 16 4 [1 2]]      ;; length 4: [1 2 0 0]
+```
+
+#### From binary data
+
+```rebol
+to vector! #{01FF}                            ;== #(uint8! [1 255])
+make vector! [integer! 16 #{010002000300}]    ;== #(int16! [1 2 3])
+
+b: to binary! #(f32! [1.0 -1.0])
+make vector! compose [decimal! 32 (b)]        ;; round-trips through binary
+```
+
+#### Using get-words in the spec
+
+Variables can be referenced in the construction block using get-words:
+
+```rebol
+data:  [1 2 3 4]
+size:  2
+index: 3
+
+make vector! [uint8! :data]           ;== #(uint8! [1 2 3 4])
+make vector! [uint8! :size :data]     ;== #(uint8! [1 2])
+make vector! [uint8! :data :index]    ;== #(uint8! [3 4])
+```
+
+#### Type inference
+
+When no type is specified, the type is inferred from the values:
+
+```rebol
+make vector! [1 2 3 4]       ;== #(int64! [1 2 3 4])
+make vector! [1.0 2]         ;== #(float64! [1.0 2.0])
+```
+
+An empty block or zero size defaults to `int32!`:
+
+```rebol
+make vector! []    ;== #(int32! [])
+make vector! 0     ;== #(int32! [])
+```
+
+Note: `to vector! []` is an error.
+
+
+### Accessing elements
+
+Vectors use 1-based indexing, consistent with other Rebol series:
+
+```rebol
+v: #(u32! [1 2 3])
+
+v/1          ;== 1
+first v      ;== 1
+last v       ;== 3
+pick v 2     ;== 2
+pick v 0     ;== none
+pick v 10    ;== none
+```
+
+Use `poke` to set a value by index:
+
+```rebol
+poke v 1 10
+v/1          ;== 10
+```
+
+Poking out of range produces an error:
+
+```rebol
+poke v 10 1  ;** out-of-range error
+```
+
+
+### Series operations
+
+Vectors support the standard series navigation and modification operations:
+
+```rebol
+v: #(u8! [1 2 3])
+
+next v            ;== #(uint8! [2 3])
+head v            ;== #(uint8! [1 2 3])
+tail v            ;== #(uint8! [])
+tail? tail v      ;== true
+head? head v      ;== true
+length? v         ;== 3
+index? next v     ;== 2
+```
+
+`append`, `insert`, and `change` accept numbers, blocks, vectors, or binary data. Values are converted to the vector's element type:
+
+```rebol
+append #(i8! [1 2]) 3            ;== #(int8! [1 2 3])
+append #(i8! [1 2]) [3 4]        ;== #(int8! [1 2 3 4])
+append #(i8! [1 2]) #(i8! [3 4]) ;== #(int8! [1 2 3 4])
+append #(i8! [1 2]) #{0304}      ;== #(int8! [1 2 3 4])
+
+insert v: #(i8! [1 2]) 3
+v   ;== #(int8! [3 1 2])
+
+change v: #(i8! [1 2]) 9
+v   ;== #(int8! [9 2])
+```
+
+When appending binary to an integer vector, the binary size must be a multiple of the element byte size:
+
+```rebol
+append #(i16! [1 2]) #{03}     ;** invalid-data error — odd byte count for 16-bit vector
+```
+
+`clear` empties the vector in place:
+
+```rebol
+v: #(i8! [1 2])
+clear v
+v   ;== #(int8! [])
+```
+
+
+### Copying
+
+Assignment does not copy — both variables refer to the same vector:
+
+```rebol
+v1: #(u16! [1 2])
+v2: v1
+v2/1: 3
+v1/1   ;== 3   ; v1 is also modified
+```
+
+Use `copy` to make an independent copy:
+
+```rebol
+v3: copy v1
+v1/1: 9
+v3/1   ;== 3   ; v3 is unaffected
+```
+
+`copy/part` copies a subset:
+
+```rebol
+v: #(u16! [1 2 3 4])
+copy/part v 2               ;== #(uint16! [1 2])
+copy/part skip v 2 2        ;== #(uint16! [3 4])
+```
+
+
+### Conversion
+
+```rebol
+to binary! #(u16! [1 2])           ;== #{01000200}
+to binary! #(i32! [1 2])           ;== #{0100000002000000}
+to binary! #(f32! [1.0 2.0])       ;== #{0000803F00000040}
+
+;; binary reflects current position, not head:
+to binary! next #(u16! [1 2])      ;== #{0200}
+
+to-block #(u16! [1 2])             ;== [1 2]
+to-block make vector! 0            ;== []
+```
+
+`mold` and `load` round-trip correctly:
+
+```rebol
+v: #(i32! [1 2 3])
+v = load mold v    ;== true
+```
+
+
+### Sorting
+
+`sort` modifies the vector in place and operates from the current position:
+
+```rebol
+sort #(i32! [2 4 1 3])                ;== #(int32! [1 2 3 4])
+sort/reverse #(i32! [2 4 1 3])        ;== #(int32! [4 3 2 1])
+sort/part #(i32! [2 4 1 3]) 3         ;== #(int32! [1 2 4 3])
+
+;; sort from next position — head element is unaffected:
+head sort next #(i32! [2 4 1 3])      ;== #(int32! [2 1 3 4])
+```
+
+`sort/skip` and `sort/compare` are not supported on vectors.
+
+
+### Reversing
+
+`reverse` modifies the vector in place:
+
+```rebol
+reverse #(u8! [1 2 3])               ;== #(uint8! [3 2 1])
+reverse/part #(u8! [1 2 3]) 2        ;== #(uint8! [2 1 3])
+head reverse next #(u8! [1 2 3])     ;== #(uint8! [1 3 2])
+```
+
+
+### Random shuffle
+
+`random` shuffles the vector in place and returns the same vector:
+
+```rebol
+v: #(i32! [1 2 3 4 5])
+same? v random v    ;== true
+```
+
+
+### Math operations
+
+Arithmetic operations apply element-wise and return a new vector of the same type. The scalar can appear on either side:
+
+```rebol
+#(u8! [1 2 3 4]) + 200     ;== #(uint8! [201 202 203 204])
+1 + #(u8! [1 2 3 4])       ;== #(uint8! [2 3 4 5])
+#(u8! [4 8 12]) / 4        ;== #(uint8! [1 2 3])
+#(f64! [1 2 3]) * 0.5      ;== #(float64! [0.5 1.0 1.5])
+```
+
+Integer overflow wraps (truncates to the element's bit width):
+
+```rebol
+#(u8! [200]) + 200         ;== #(uint8! [144])   ((200+200) mod 256)
+```
+
+Float scalars are converted to integer when operating on integer vectors:
+
+```rebol
+#(i8! [1 2 3]) * 2.4       ;== #(int8! [2 4 6])  (2.4 truncated to 2)
+```
+
+Operations between two vectors use matching elements up to the length of the shorter one:
+
+```rebol
+#(i8! [1 2]) + #(i8! [3 4])     ;== #(int8! [4 6])
+#(i16! [1 2]) + #(i16! [3 4 5]) ;== #(int16! [4 6])  (only 2 elements)
+```
+
+Division by zero produces an error. Reverse division (`scalar / vector`) is not supported:
+
+```rebol
+#(u16! [1 2]) / 0    ;** zero-divide error
+10 / #(u16! [1 2])   ;** error
+```
+
+#### Bitwise operations
+
+`or`, `and`, `xor` are supported on integer vectors only. Applying them to float vectors produces a `not-related` error:
+
+```rebol
+#(i32! [1 2 3 4]) or  2   ;== #(int32! [3 2 3 6])
+#(i32! [1 2 3 4]) and 10  ;== #(int32! [0 2 2 0])
+#(i32! [1 2 3 4]) xor 2   ;== #(int32! [3 0 1 6])
+
+;; vector or vector:
+#(i32! [1 2 3 4]) or #(i32! [5 6 7 8])   ;== #(int32! [5 6 7 12])
+```
+
+#### Remainder
+
+`%` is supported on all vector types including floats:
+
+```rebol
+#(i32! [1 2 3 4]) % 2        ;== #(int32! [1 0 1 0])
+#(f64! [1 2 3 4]) % 2        ;== #(float64! [1.0 0.0 1.0 0.0])
+#(i32! [1 2]) % 0            ;** zero-divide error
+```
+
+#### Operating on a sub-range
+
+Math operations respect the current position — use `skip` to operate on a sub-range:
+
+```rebol
+2 + skip #(i8! [1 2 3 4]) 2   ;== #(int8! [5 6])
+```
+
+The original vector is not modified.
+
+
+### Finding minimum and maximum
+
+Access `min`/`max` (or `minimum`/`maximum`) via path:
+
+```rebol
+v: #(i8! [1 -2 0])
+v/min    ;== -2
+v/max    ;== 1
+```
+
+Returns `none` for an empty vector.
+
+Use `find-min` and `find-max` to get a position (like `find`):
+
+```rebol
+v: #(i32! [1 2 3 -1])
+first find-max v   ;== 3
+first find-min v   ;== -1
+```
+
+
+### Statistics
+
+The following statistical fields are available: `minimum`, `maximum`, `range`, `sum`, `mean`, `median`, `variance`, `population-deviation`, `sample-deviation`. Each can be accessed as a path accessor or queried with `query`:
+
+```rebol
+v: make vector! [1 20 2 10]
+
+v/variance              ;== 232.75
+v/mean                  ;== 8.25
+v/sum                   ;== 33
+```
+
+`query` retrieves multiple fields at once:
+
+```rebol
+v: #(int8! [-2 -1 1 2 4])
+
+query v [minimum maximum range sum mean median variance population-deviation sample-deviation]
+;== [minimum: -2 maximum: 4 range: 6 sum: 4 mean: 0.8 median: 1.0 variance: 22.8 ...]
+
+;; get-word form returns values without labels:
+query v [:minimum :maximum :sum]
+;== [-2 4 4]
+
+;; single field:
+query v 'sum   ;== 4
+```
+
+
+### Reflection
+
+```rebol
+v: make vector! [unsigned integer! 16 2]
+
+spec-of v          ;== [unsigned integer! 16 2]
+reflect v 'type    ;== integer!
+reflect v 'size    ;== 16
+reflect v 'length  ;== 2
+reflect v 'signed  ;== false
+
+;; same via accessors:
+v/type     ;== integer!
+v/size     ;== 16
+v/length   ;== 2
+v/signed   ;== false
+
+;; also available via query:
+query v 'size    ;== 16
+size? v          ;== 16
+```
+
+
+### Comparison
+
+Vectors are compared element by element. Length matters — a shorter vector is less than a longer one with the same prefix:
+
+```rebol
+#(u16! [1 2]) =  #(u16! [1 2])     ;== true
+#(u16! [1 2]) <  #(u16! [1 2 0])   ;== true
+#(u16! [1 2]) <  #(u16! [2 2])     ;== true
+#(u16! [2 2]) >  #(u16! [1 2])     ;== true
+```
+
+
+### Related
+
+Use `vector?` to test whether a value is a `vector!`:
+
+```rebol
+vector? #(u8! [1 2])   ;== true
+vector? [1 2]          ;== false
+```
 
 
 
@@ -5298,3 +5742,4 @@ lit-word? first ['foo bar]
 ```
 
 
+------------------------------------------------------------------
