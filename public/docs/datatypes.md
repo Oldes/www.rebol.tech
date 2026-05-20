@@ -2386,167 +2386,234 @@ series? img   ;== true
 ------------------------------------------------------------------
 ## integer!
 
-
-In R3 the `integer!` datatype has been expanded to be a 64-bit value.
-
-It ranges from:
-```rebol
-Minimum: -9223372036854775808
-Maximum:  9223372036854775807
-```
+Integers are 64-bit signed values ranging from `-9223372036854775808` to `9223372036854775807`.
 
 
 ### Format
-Integer values consist of a sequence of numeric digits. A plus (+) or minus (-) immediately before the first digit indicates sign. (There cannot be a space between the sign and the first digit.) Leading zeros are ignored.
 
+An integer is a sequence of digits with an optional leading `+` or `-` sign. No space is allowed between the sign and the digits. Leading zeros are ignored:
 
 ```rebol
-0 1234 +1234 -1234 00012 -0123
+0   1234   +1234   -1234   00012   -0123
 ```
 
-Do not  use commas or periods in integers. If a comma or period is found within an integer it is interpreted as a decimal value. However, you can use a single quote `'`  to separate the digits in long integers. Single quotes can appear anywhere after the first digit in the number, but not before the first digit.
-
+Do not use commas or periods within integers — a period makes it a `decimal!`, and a comma is a delimiter. Use a single quote `'` as a thousands separator for readability. It can appear anywhere after the first digit:
 
 ```rebol
 2'147'483'647
+9'223'372'036'854'775'807
 ```
+
+### Special notations
+
+Integers can be written in bases 2, 8, 10, and 16 using `base#digits` notation. The `0#` prefix is a shorthand for base 16. Negative notation (e.g. `-16#FF`) is not supported. Values wrap at 64 bits — all bits set gives `-1`:
+
+```rebol
+2#1111   ;==  15   (binary)
+8#17     ;==  15   (octal)
+10#15    ;==  15   (explicit decimal)
+16#F     ;==  15   (hexadecimal)
+0#F      ;==  15   (hexadecimal shorthand)
+
+2#1111111111111111111111111111111111111111111111111111111111111111   ;== -1
+0#FFFFFFFFFFFFFFFF                                                   ;== -1
+```
+
+Digits outside the valid range for the base, values exceeding 64 bits, or a negative prefix produce an error.
 
 
 ### Conversion
-Use the `to` function can convert a `string!`, `logic!`, `decimal!`, or `integer!` datatype to an integer:
 
+Use `to integer!` to convert from other types. Decimal values are truncated toward zero:
 
 ```rebol
-to integer! "123"
-123
-
-to integer! false
-0
-
-to integer! true
-1
+to integer! "123"     ;== 123
+to integer! true      ;== 1
+to integer! false     ;== 0
+to integer! 123.8     ;== 123
+to integer! -123.8    ;== -123
 ```
 
-Conversion from `decimal!` will be truncated towards zero:
+Use `round` if you need rounding instead of truncation.
+
+Convert from `binary!` — bytes are interpreted as big-endian (network byte order) and are not sign-extended:
 
 ```rebol
-to integer! 123.8
-123
-
-to integer! -123.8
--123
+to integer! #{1000}   ;== 4096
+to integer! #{8000}   ;== 32768   ; not -32768 — no sign extension
 ```
 
-Use the `round` function if you desire some other behavior.
-
-To convert a `binary!` to an `integer!` value:
-
+Convert to `binary!` — always produces 8 bytes in big-endian order:
 
 ```rebol
-to integer! #{1000}
-4096
+to binary! 32768   ;== #{0000000000008000}
+to binary! -1      ;== #{FFFFFFFFFFFFFFFF}
 ```
 
-Note that the conversion treats the string in network-byte-order (big-endian) and it is not sign extended:
-
+Convert from `issue!` — useful for HTML hex color values:
 
 ```rebol
-to integer! #{8000}
-32768
+to integer! #8855DD   ;== 8934877
 ```
 
-To convert from an `integer!` to a `binary!` (in network-byte-order):
-
+Note that this conversion is not directly reversible as an RGB string, because the integer does not carry information about its intended use. To convert back to a hex color string:
 
 ```rebol
-to binary! 32768
-#{0000000000008000}
+to-rgb-str: func [n] [mold to-hex/size n 6]
+to-rgb-str to integer! #A8446C   ;== "#A8446C"
 ```
 
-Note that the full hex bit pattern (8 bytes) is output.
-
-As expected, negative values will set the first bit:
-
+For working with individual RGB components, use `tuple!` instead:
 
 ```rebol
-to binary! -1
-#{FFFFFFFFFFFFFFFF}
+rgb: to tuple! #8855DD   ;== 136.85.221
+rgb/2                    ;== 85
 ```
 
-As a convenience for HTML color values, conversions from `issue!` values are also allowed:
+
+### Arithmetic and type coercion
+
+Standard arithmetic operators work on integers. When an integer and a decimal are combined, the integer is automatically coerced to a decimal and the result is a decimal:
 
 ```rebol
-to integer! #8855DD
-8934877
+1.2 + 2    ;== 3.2
+2 + 1.2    ;== 3.2
+1.01 > 1   ;== true
+0 < 0.001  ;== true
 ```
 
-Note that to obtain the individual RGB color values, you might want to use a `tuple!` value instead:
+Integers cannot be combined directly with strings or other non-numeric types — doing so produces an error:
 
 ```rebol
-rgb: to tuple! #8855DD
-136.85.221
-
-rgb/2
-85
+1 + "2"   ;** expect-arg error
 ```
 
-> **Special Note:**
-> Note that for RGB values the above hex conversion is not reversible. That's because the intended use of the integer is not known (to be an RGB value.)
->
-> However, you can define your own function for this conversion:
-> ```rebol
-> to-rgb-str: func [n] [mold to-hex/size n 6]
-> ```
-> This method is preferred because it does not depend on the zero padding at the head of the string, making it work for 32-bit versions of Rebol as well.
-> Here's an example:
-> ```rebol
-> to-rgb-str to integer! #A8446C
-> ;== "#A8446C"
-> ```
+`97` and `#"a"` (the char with code point 97) have the same numeric value but are not `same?`. Similarly, `1` and `$1` (money) are not `strict-equal?`.
 
+#### Increment and decrement
 
-
-### Type Coercion
-If a decimal and integer are combined in an expression, the integer is converted to a decimal:
+`++` and `--` increment or decrement a variable in place and return the value _before_ the change:
 
 ```rebol
-1.2 + 2
-3.2
+a: 1
+++ a   ;== 1
+a      ;== 2
+-- a   ;== 2
+a      ;== 1
+```
 
-2 + 1.2
-3.2
+#### Integer division and remainder
 
-1.01 > 1
-true
+`integer-divide` (also `//`) performs integer division, truncating toward zero. Accepts decimals which are truncated before dividing. Division by zero produces an error:
 
-0 < .001
-true
+```rebol
+integer-divide 23 10    ;== 2
+23 // 10                ;== 2
+23.5 // 10              ;== 2
+23 // 10.5              ;== 2
+2 // 0                  ;** zero-divide error
+```
+
+#### Min and max
+
+`min` and `max` work across numeric types:
+
+```rebol
+max  3 1      ;== 3
+max  3 1.0    ;== 3
+min -3 2      ;== -3
+min -3 $1     ;== -3
+```
+
+
+### Bit operations
+
+#### Shift
+
+`shift` performs an arithmetic (signed) left or right bit shift. Left shift by a positive amount, right shift by a negative amount. Left shifting into the sign bit is an overflow error:
+
+```rebol
+shift 1  1    ;==  2
+shift 1 -1    ;==  0
+shift 1 63    ;** overflow error
+```
+
+`shift/logical` performs an unsigned (logical) shift — right shift fills with zeros rather than sign bits:
+
+```rebol
+m: to-integer #{8000000000000000}   ;; minimum integer (most negative)
+shift/logical m -63   ;==  1        ;; unsigned right shift
+shift         m -63   ;== -1        ;; arithmetic right shift (sign extended)
+```
+
+The `<<` and `>>` operators are infix shorthands. Unlike `shift`, `<<` wraps around rather than erroring on overflow:
+
+```rebol
+2 << 3        ;==  16
+1024 >> 1     ;== 512
+1 << 63       ;== -9223372036854775808  ;; wraps — no error
+1 << 64       ;==  1                    ;; full wrap-around
+```
+
+
+### Math functions
+
+#### GCD and LCM
+
+`gcd` returns the greatest common divisor — the largest integer that divides both arguments exactly. `lcm` returns the least common multiple — the smallest positive integer divisible by both arguments:
+
+```rebol
+gcd 54 24     ;==  6
+gcd 24 54     ;==  6
+gcd 3  0      ;==  3
+gcd 21 -48    ;==  3
+
+lcm 12 18     ;== 36
+lcm 0  1      ;==  0
+```
+
+#### Primality test
+
+```rebol
+prime? 42                   ;== false
+prime? 43                   ;== true
+prime? 99'504'028'301'131   ;== true
+```
+
+#### Random
+
+`random` returns a random integer in the range 1 to n:
+
+```rebol
+random 10   ;; a random integer between 1 and 10
+```
+
+Use `random/seed` to set the seed for reproducible sequences:
+
+```rebol
+random/seed 0
+random 100
 ```
 
 
 ### Related
-Use `integer?` to determine whether a value is an `integer!` datatype.
 
-
-```rebol
-integer? -1234
-true
-```
-
-Use the `form`, `print`, and `mold` functions with an integer argument to print a integer value as a string:
-
+Use `integer?` to test whether a value is an `integer!`:
 
 ```rebol
-mold 123
-123
-
-form 123
-123
-
-print 123
-123
+integer? -1234   ;== true
+integer? 1.0     ;== false
 ```
 
+`form`, `mold`, and `print` all produce the decimal string representation of an integer:
+
+```rebol
+mold  123        ;== "123"
+form  123        ;== "123"
+print 123        ; prints: 123
+```
+
+Integers are members of the `number!`, `scalar!`, and `immediate!` typesets.
 
 
 ------------------------------------------------------------------
