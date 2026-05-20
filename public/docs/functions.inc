@@ -115,7 +115,7 @@ absolute -1x4    ;== 1x4</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-<a href="#acos">acos</a> computes the inverse cosine of a <code class="datatype">decimal!</code> value and returns the result in radians.
+<a href="#acos">acos</a> computes the inverse cosine of a <a href="datatypes.html#decimal!" class=datatype>decimal!</a> value and returns the result in radians.
 The input must be in the range </p>
 <p>
 To work in degrees instead, use <a href="#arccosine">arccosine</a>.
@@ -145,7 +145,7 @@ acos  10.0  ;== 1.#NaN</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Actions are special functions that operate with datatypes. See <code class="datatype">action!</code> for more.
+Actions are special functions that operate with datatypes. See <a href="datatypes.html#action!" class=datatype>action!</a> for more.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">action? :add    ;== #(true)
 action? :append ;== #(true)
@@ -210,7 +210,7 @@ When adding values of different datatypes, the values must be compatible. Auto c
 <h5>Description:</h5>
 
 <p>
-The <a href="#join">join</a> and <a href="#rejoin">rejoin</a> functions return the same datatype as their first element, be it a <code class="datatype">string!</code>, <code class="datatype">file!</code>, <code class="datatype">binary!</code>, <code class="datatype">tag!</code>, <code class="datatype">email!</code> or whatever. However, there are times when you just want to construct a <code class="datatype">string!</code>, and that's the purpose of <a href="#ajoin">ajoin</a>.
+The <a href="#join">join</a> and <a href="#rejoin">rejoin</a> functions return the same datatype as their first element, be it a <a href="datatypes.html#string!" class=datatype>string!</a>, <a href="datatypes.html#file!" class=datatype>file!</a>, <a href="datatypes.html#binary!" class=datatype>binary!</a>, <a href="datatypes.html#tag!" class=datatype>tag!</a>, <a href="datatypes.html#email!" class=datatype>email!</a> or whatever. However, there are times when you just want to construct a <a href="datatypes.html#string!" class=datatype>string!</a>, and that's the purpose of <a href="#ajoin">ajoin</a>.
 </p>
 <p>
 For example:
@@ -237,7 +237,7 @@ rejoin [&lt;test&gt; 123]  ;== &lt;test123&gt;
 
 ;; and:
 join &lt;test&gt; 123      ;== &lt;test123&gt;</code></pre></div><p>
-Notice that the last two examples return a <code class="datatype">tag!</code>, not a <code class="datatype">string!</code>.
+Notice that the last two examples return a <a href="datatypes.html#tag!" class=datatype>tag!</a>, not a <a href="datatypes.html#string!" class=datatype>string!</a>.
 </p>
 
 <div class="see-also">See also: <a href="#append">append</a>, <a href="#combine">combine</a>, <a href="#form">form</a>, <a href="#join">join</a>, <a href="#reform">reform</a>, <a href="#rejoin">rejoin</a></div>
@@ -263,7 +263,7 @@ Notice that the last two examples return a <code class="datatype">tag!</code>, n
 The <a href="#all">all</a> function is the most common way to test multiple conditions, such as in the line:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">if all [num &gt; 1  num &lt; 1000] [do something]</code></pre></div><p>
-It works by evaluating each expression in a block until one of the expressions returns <code class="datatype">none!</code> or false, in which case a <code class="datatype">none!</code> is returned. Otherwise, the value of the last expression will be returned.
+It works by evaluating each expression in a block until one of the expressions returns <a href="datatypes.html#none!" class=datatype>none!</a> or false, in which case a <a href="datatypes.html#none!" class=datatype>none!</a> is returned. Otherwise, the value of the last expression will be returned.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">probe all [1 _]          ;== _
 probe all [_ 1]          ;== _
@@ -428,16 +428,16 @@ Also, <a href="#alter">alter</a> returns true if the value was added to the seri
 <h5>Description:</h5>
 
 <p>
-For <code class="datatype">logic!</code> values, both values must be true to return true, otherwise a false is returned. <a href="#and">and</a> is an infix operator.
+For <a href="datatypes.html#logic!" class=datatype>logic!</a> values, both values must be true to return true, otherwise a false is returned. <a href="#and">and</a> is an infix operator.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">probe true and true            ;== #(true)
 probe true and false           ;== #(false)
 probe (10 &lt; 20) and (20 &gt; 15)  ;== #(true)</code></pre></div><p>
-**Programming style:**
+<b>Programming style:</b>
 It's usually better to use <a href="#all">all</a> for anding conditional logic, such as the example above.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">if all [10 &lt; 20  20 &gt; 15][...]</code></pre></div><p>
-For <code class="datatype">integer!</code>, <code class="datatype">tuple!</code>, <code class="datatype">binary!</code>, and other datatypes, each bit is separately anded.
+For <a href="datatypes.html#integer!" class=datatype>integer!</a>, <a href="datatypes.html#tuple!" class=datatype>tuple!</a>, <a href="datatypes.html#binary!" class=datatype>binary!</a>, and other datatypes, each bit is separately anded.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">123 and 1                ;== 1
 1.2.3.4 and 255.0.255.0  ;== 1.0.3.0</code></pre></div>
@@ -536,7 +536,7 @@ The <a href="#any">any</a> function is the most common way to test for one of mu
 Here, if any one of the conditions produces a true result, the <a href="#if">if</a> will evaluate the block.
 </p>
 <p>
-This function works by evaluating each expression in a block until one of the expressions returns a value other than <code class="datatype">none!</code> or false, in which case the value is returned. Otherwise, <code class="datatype">none!</code> will be returned.
+This function works by evaluating each expression in a block until one of the expressions returns a value other than <a href="datatypes.html#none!" class=datatype>none!</a> or false, in which case the value is returned. Otherwise, <a href="datatypes.html#none!" class=datatype>none!</a> will be returned.
 </p>
 <p>
 Examples to help show how it works:
@@ -565,7 +565,7 @@ probe time ;== 9:45</code></pre></div><p>
 The <a href="#any">any</a> function is also useful for setting default values. For example:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">size: any [size 100]</code></pre></div><p>
-If size was <code class="datatype">none!</code>, then it gets set to 100. This works even better if there are alternative defaults:
+If size was <a href="datatypes.html#none!" class=datatype>none!</a>, then it gets set to 100. This works even better if there are alternative defaults:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">size: any [size prefs/size 100]</code></pre></div><p>
 Another use for <a href="#any">any</a> is to emulate a sequence of if...elseif...elseif...else. Instead of writing:
@@ -618,7 +618,7 @@ The <a href="#all">all</a> function is a companion of <a href="#any">any</a> to 
 <h5>Description:</h5>
 
 <p>
-Returns true only if the value is a <code class="datatype">block!</code> (any kind of block) and false for all other values.
+Returns true only if the value is a <a href="datatypes.html#block!" class=datatype>block!</a> (any kind of block) and false for all other values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">any-object? "foo"          ;== #(false)
 any-block? [1 2]           ;== #(true)
@@ -731,7 +731,7 @@ any-of [x y] [1 4 10 8 5 -3] [(x - 2) = y] ;== [10 8]</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Returns true if the value is any type of <code class="datatype">path!</code> and returns false for all other values.
+Returns true if the value is any type of <a href="datatypes.html#path!" class=datatype>path!</a> and returns false for all other values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">any-path? 'test/this                       ;== #(true)
 any-path? first [example/item: 10]         ;== #(true)
@@ -892,7 +892,7 @@ or, using a variable to hold the block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">args: [data 123]
 apply :append args</code></pre></div><p>
-If any arguments are missing from the block, a <code class="datatype">none!</code> is passed instead:
+If any arguments are missing from the block, a <a href="datatypes.html#none!" class=datatype>none!</a> is passed instead:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">data: [456]
 apply :append [data]
@@ -1157,10 +1157,10 @@ bytes, or strings) in advance. They are dynamic.
 Reinterprets <code class=inline>spec</code> as the given datatype without allocating a new series. Because no copy is made, mutations to the result are reflected in the original and vice versa.
 </p>
 <p>
-When <code class=inline>type</code> is a <code class="datatype">datatype!</code> value (e.g. <code class="datatype">string!</code>), the target type is used directly. When <code class=inline>type</code> is an actual value (e.g. a block or string), the type is inferred from it — only the type matters, the value's content is ignored.
+When <code class=inline>type</code> is a <a href="datatypes.html#datatype!" class=datatype>datatype!</a> value (e.g. <a href="datatypes.html#string!" class=datatype>string!</a>), the target type is used directly. When <code class=inline>type</code> is an actual value (e.g. a block or string), the type is inferred from it — only the type matters, the value's content is ignored.
 </p>
 <p>
-Coercion is only allowed between compatible types — within the <code class="datatype">any-block!</code> family or within the <code class="datatype">any-string!</code> family. Attempting to coerce across families throws an error.
+Coercion is only allowed between compatible types — within the <code class=inline>any-block!</code> family or within the <code class=inline>any-string!</code> family. Attempting to coerce across families throws an error.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">;; Coerce within the any-string! family
 as string! %hello              ;== "hello"
@@ -1295,7 +1295,7 @@ probe as-green "Raw green string."</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Creates a <code class="datatype">pair!</code> value from two separate numbers. Useful when X and Y are held in separate variables, as an alternative to the literal <code class=inline>XxY</code> syntax.
+Creates a <a href="datatypes.html#pair!" class=datatype>pair!</a> value from two separate numbers. Useful when X and Y are held in separate variables, as an alternative to the literal <code class=inline>XxY</code> syntax.
 </p>
 <p>
 Both integer and decimal values are preserved in the result.
@@ -1418,7 +1418,7 @@ probe as-yellow "Raw yellow string."</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Returns <code class=inline>true</code> if every character in <code class=inline>value</code> has a codepoint below 128. For <code class="datatype">any-string!</code>, a single non-ASCII character anywhere in the string is enough to return <code class=inline>false</code>. For <code class="datatype">char!</code> and <code class="datatype">integer!</code>, the check is applied to that single value.
+Returns <code class=inline>true</code> if every character in <code class=inline>value</code> has a codepoint below 128. For <code class=inline>any-string!</code>, a single non-ASCII character anywhere in the string is enough to return <code class=inline>false</code>. For <a href="datatypes.html#char!" class=datatype>char!</a> and <a href="datatypes.html#integer!" class=datatype>integer!</a>, the check is applied to that single value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">ascii? "hello"       ;== #(true)
 ascii? "česko"       ;== #(false)   (č has codepoint 269)
@@ -2385,7 +2385,7 @@ Editor note: Example of using catch in a function spec.
 
 <p>
 Editor note: Description is a stub.
-<a href="#cause-error">cause-error</a> constructs and immediately throws an <code class="datatype">error!</code>.
+<a href="#cause-error">cause-error</a> constructs and immediately throws an <a href="datatypes.html#error!" class=datatype>error!</a>.
 </p>
 <p>
 Editor note: Link to concept of error types?
@@ -2474,10 +2474,10 @@ cd somewhere</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-The <a href="#change">change</a> function modifies any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as a <code class="datatype">string!</code> or <code class="datatype">block!</code>, at its current index position.
+The <a href="#change">change</a> function modifies any type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as a <a href="datatypes.html#string!" class=datatype>string!</a> or <a href="datatypes.html#block!" class=datatype>block!</a>, at its current index position.
 </p>
 <p>
-It has many variations, but let's take a simple example that modifies a <code class="datatype">string!</code> series:
+It has many variations, but let's take a simple example that modifies a <a href="datatypes.html#string!" class=datatype>string!</a> series:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">name: "bog"
 change name "d"
@@ -2491,7 +2491,7 @@ probe name
 change tail name "it"
 probe name
 "digit"</code></pre></div><p>
-Here is an example that changes a <code class="datatype">block!</code> series:
+Here is an example that changes a <a href="datatypes.html#block!" class=datatype>block!</a> series:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">colors: [red green blue]
 change colors 'gold
@@ -2510,7 +2510,7 @@ series.
 </p>
 
 <h6>Result</h6><p>
-**Be sure to note that <a href="#change">change</a> returns the series position just past the modification.**
+<b>Be sure to note that <a href="#change">change</a> returns the series position just past the modification.</b>
 </p>
 <p>
 This allows you to cascade multiple changes.
@@ -2941,7 +2941,7 @@ More about the benefits and costs of closures <a href="http://www.rebol.net/wiki
 <h5>Description:</h5>
 
 <p>
-Returns true if the input is a <code class="datatype">closure!</code>
+Returns true if the input is a <a href="datatypes.html#closure!" class=datatype>closure!</a>
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; closure? make closure! [[][]]
 == #(true)</code></pre></div><p>
@@ -3156,7 +3156,7 @@ Note also that if the expression can't be loaded using <a href="#load">load</a>,
 <h5>Description:</h5>
 
 <p>
-The <a href="#complement">complement</a> function is used for bit-masking <code class="datatype">integer!</code> and <code class="datatype">tuple!</code> values or inverting <code class="datatype">bitset!</code> values (charsets).
+The <a href="#complement">complement</a> function is used for bit-masking <a href="datatypes.html#integer!" class=datatype>integer!</a> and <a href="datatypes.html#tuple!" class=datatype>tuple!</a> values or inverting <a href="datatypes.html#bitset!" class=datatype>bitset!</a> values (charsets).
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">complement 0
 -1
@@ -3210,11 +3210,11 @@ it goes</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-The <a href="#compose">compose</a> function builds a block of values, evaluating <code class="datatype">paren!</code> expressions and inserting their results. It is a very useful method of building new blocks.
+The <a href="#compose">compose</a> function builds a block of values, evaluating <a href="datatypes.html#paren!" class=datatype>paren!</a> expressions and inserting their results. It is a very useful method of building new blocks.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">compose [result of 1 + 2 = (1 + 2)]
 [result of 1 + 2 = 3]</code></pre></div><p>
-Notice that only the <code class="datatype">paren!</code> expression is evaluated. All other values are left unchanged.
+Notice that only the <a href="datatypes.html#paren!" class=datatype>paren!</a> expression is evaluated. All other values are left unchanged.
 </p>
 <p>
 Here's another example, as might be used to create a header block (that has field names):
@@ -3292,7 +3292,7 @@ It requires no intermediate storage.
 <h5>Description:</h5>
 
 <p>
-Compresses binary or string data using a specified compression algorithm. Returns compressed <code class="datatype">binary!</code>.
+Compresses binary or string data using a specified compression algorithm. Returns compressed <a href="datatypes.html#binary!" class=datatype>binary!</a>.
 </p>
 
 <h6>Examples:</h6><div class="example-code"><pre class="rebol-block"><code class="rebol">;; Check available compression methods
@@ -3317,7 +3317,7 @@ compress/level "Hello World" 'zlib 9
 compress/part/level "Hello World" 'zlib 5 9</code></pre></div><p>
 As with all compressed files, keep an uncompressed copy of the original data file as a backup.
 </p>
-<div class="admonition note"><p class="admonition-title">Notes</p><ul><li>Returns <code class="datatype">binary!</code> regardless of input type</li><li>To decompress use <a href="#decompress">decompress</a> with the same <code class=inline>method</code></li><li><code class=inline>/level</code> support and meaning may vary by algorithm — e.g. <code class=inline>lz4</code> ignores level, while <code class=inline>lzma</code> and <code class=inline>zlib</code> make full use of the 0-9 range</li><li>String input is UTF-8 encoded first, so <a href="#decompress">decompress</a> of a compressed string returns binary! — use <code class="datatype">to string!</code> to recover the original string</li></ul></div>
+<div class="admonition note"><p class="admonition-title">Notes</p><ul><li>Returns <a href="datatypes.html#binary!" class=datatype>binary!</a> regardless of input type</li><li>To decompress use <a href="#decompress">decompress</a> with the same <code class=inline>method</code></li><li><code class=inline>/level</code> support and meaning may vary by algorithm — e.g. <code class=inline>lz4</code> ignores level, while <code class=inline>lzma</code> and <code class=inline>zlib</code> make full use of the 0-9 range</li><li>String input is UTF-8 encoded first, so <a href="#decompress">decompress</a> of a compressed string returns binary! — use <code class=inline>to string!</code> to recover the original string</li></ul></div>
 <h5>Available methods</h5><p>
 The list of supported compression methods may differ between Rebol versions and builds. Always check at runtime.
 Additional methods can be registered via native extensions, for example:
@@ -3349,58 +3349,58 @@ foreach level [1 5 9][
 Testing compression of 18913 bytes with level 1.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6388      2.961     0.000203    0.000066    true
-zlib        6394      2.958     0.000187    0.000064    true
-gzip        6406      2.952     0.000201    0.000064    true
-br          6976      2.711     0.000229    0.000121    true
-crush       6970      2.713     0.001564    0.000121    true
-lz4         9130      2.072     0.000188    0.000019    true
-lzav        9376      2.017     0.000144    0.00003     true
-lzma        6062      3.12      0.001864    0.000582    true
-lzw         9063      2.087     0.000579    0.000402    true
-zstd        6795      2.783     0.000197    0.000093    true
-deflate-ng  8535      2.216     0.000332    0.000165    true
-zlib-ng     8541      2.214     0.00021     0.000066    true
-gzip-ng     8553      2.211     0.000175    0.000066    true
-bzip2       5753      3.288     0.002627    0.000697    true
+deflate     6388      2.961     0.000144    0.00005     true
+zlib        6394      2.958     0.000126    0.00004     true
+gzip        6406      2.952     0.000117    0.000038    true
+br          6976      2.711     0.000313    0.000121    true
+crush       6970      2.713     0.001152    0.000083    true
+lz4         9130      2.072     0.00014     0.000011    true
+lzav        9376      2.017     0.000092    0.000016    true
+lzma        6062      3.12      0.000991    0.000363    true
+lzw         9063      2.087     0.000555    0.000359    true
+zstd        6795      2.783     0.000133    0.000055    true
+deflate-ng  8535      2.216     0.000154    0.000057    true
+zlib-ng     8541      2.214     0.000165    0.000058    true
+gzip-ng     8553      2.211     0.000129    0.000068    true
+bzip2       5753      3.288     0.002826    0.001016    true
 ------------------------
 <span class="ansi92">
 Testing compression of 18913 bytes with level 5.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6090      3.106     0.000704    0.000078    true
-zlib        6096      3.103     0.000446    0.000085    true
-gzip        6108      3.096     0.000507    0.000091    true
-br          5875      3.219     0.002625    0.000222    true
-crush       6842      2.764     0.002148    0.00009     true
-lz4         8584      2.203     0.000381    0.000027    true
-lzav        9376      2.017     0.000158    0.000029    true
-lzma        5776      3.274     0.006659    0.000522    true
-lzw         7923      2.387     0.000523    0.00027     true
-zstd        6266      3.018     0.00036     0.000049    true
-deflate-ng  6174      3.063     0.000453    0.000074    true
-zlib-ng     6180      3.06      0.000321    0.000058    true
-gzip-ng     6192      3.054     0.000436    0.000067    true
-bzip2       5753      3.288     0.00214     0.00064     true
+deflate     6090      3.106     0.000492    0.000056    true
+zlib        6096      3.103     0.000359    0.000047    true
+gzip        6108      3.096     0.000332    0.000052    true
+br          5875      3.219     0.001395    0.000125    true
+crush       6842      2.764     0.002131    0.000087    true
+lz4         8584      2.203     0.000364    0.000013    true
+lzav        9376      2.017     0.000117    0.000015    true
+lzma        5776      3.274     0.005164    0.000391    true
+lzw         7923      2.387     0.000484    0.00025     true
+zstd        6266      3.018     0.000484    0.000085    true
+deflate-ng  6174      3.063     0.000382    0.000057    true
+zlib-ng     6180      3.06      0.000342    0.000055    true
+gzip-ng     6192      3.054     0.000357    0.000071    true
+bzip2       5753      3.288     0.001816    0.000669    true
 ------------------------
 <span class="ansi92">
 Testing compression of 18913 bytes with level 9.
 </span>
 <span class="ansi93">Method      c.size    factor    com.time    dec.time    valid</span>
-deflate     6050      3.126     0.00092     0.000068    true
-zlib        6056      3.123     0.000822    0.000082    true
-gzip        6068      3.117     0.000818    0.000055    true
-br          5842      3.237     0.012056    0.000136    true
-crush       6842      2.764     0.001943    0.000081    true
-lz4         8568      2.207     0.000412    0.000011    true
-lzav        9376      2.017     0.000188    0.000023    true
-lzma        5788      3.268     0.004414    0.000384    true
-lzw         7923      2.387     0.00057     0.000221    true
-zstd        6095      3.103     0.000665    0.000068    true
-deflate-ng  6155      3.073     0.00065     0.000076    true
-zlib-ng     6161      3.07      0.000591    0.000056    true
-gzip-ng     6173      3.064     0.000502    0.000054    true
-bzip2       5753      3.288     0.001904    0.000572    true
+deflate     6050      3.126     0.000653    0.00005     true
+zlib        6056      3.123     0.000633    0.000048    true
+gzip        6068      3.117     0.00094     0.000079    true
+br          5842      3.237     0.010133    0.000133    true
+crush       6842      2.764     0.002028    0.000087    true
+lz4         8568      2.207     0.000579    0.000023    true
+lzav        9376      2.017     0.000184    0.000039    true
+lzma        5788      3.268     0.0069      0.000464    true
+lzw         7923      2.387     0.000621    0.000233    true
+zstd        6095      3.103     0.000645    0.000109    true
+deflate-ng  6155      3.073     0.000575    0.000072    true
+zlib-ng     6161      3.07      0.000514    0.000052    true
+gzip-ng     6173      3.064     0.00048     0.000053    true
+bzip2       5753      3.288     0.002302    0.000628    true
 ------------------------
 </code></pre></div></div>
 <div class="see-also">See also: <a href="#decompress">decompress</a></div>
@@ -3537,7 +3537,7 @@ To provide a template object that contains default variable values (similar to <
 <h5>Description:</h5>
 
 <p>
-This function creates a unique new object. It is just a shortcut for <a href="#make">make</a> <code class="datatype">object!</code>.
+This function creates a unique new object. It is just a shortcut for <a href="#make">make</a> <a href="datatypes.html#object!" class=datatype>object!</a>.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">person: context [
     name: "Fred"
@@ -3631,13 +3631,13 @@ For example:
 <h5>Description:</h5>
 
 <p>
-The <a href="#copy">copy</a> function will copy any <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as <code class="datatype">string!</code> or <code class="datatype">block!</code>, and most other compound datatypes such as <code class="datatype">object!</code> or <code class="datatype">function!</code>. It is not used for immediate datatypes, such as <code class="datatype">integer!</code>, <code class="datatype">decimal!</code>, <code class="datatype">time!</code>, <code class="datatype">date!</code>, and others.
+The <a href="#copy">copy</a> function will copy any <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, such as <a href="datatypes.html#string!" class=datatype>string!</a> or <a href="datatypes.html#block!" class=datatype>block!</a>, and most other compound datatypes such as <a href="datatypes.html#object!" class=datatype>object!</a> or <a href="datatypes.html#function!" class=datatype>function!</a>. It is not used for immediate datatypes, such as <a href="datatypes.html#integer!" class=datatype>integer!</a>, <a href="datatypes.html#decimal!" class=datatype>decimal!</a>, <a href="datatypes.html#time!" class=datatype>time!</a>, <a href="datatypes.html#date!" class=datatype>date!</a>, and others.
 </p>
 <div class="admonition note"><p class="admonition-title">How it Works</p><p>
 It is important to understand <a href="#copy">copy</a> to program in Rebol properly.
 </p>
 <p>
-To save memory, all strings, blocks, and other <code class="datatype">series!</code> are accessed by reference (e.g. as pointers.) If you need to modify a series, and you do not want it to change in other locations, you must use <a href="#copy">copy</a> first.
+To save memory, all strings, blocks, and other <code class=inline>series!</code> are accessed by reference (e.g. as pointers.) If you need to modify a series, and you do not want it to change in other locations, you must use <a href="#copy">copy</a> first.
 </p>
 <p>
 Note that some functions, such as <a href="#join">join</a> and <a href="#rejoin">rejoin</a>, will copy automatically. That's because they are constructing new values.
@@ -4171,7 +4171,7 @@ your own URL parser.
 <p>
 See <a href="#compress">compress</a> for examples, available methods, and notes on compression levels and extensions.
 </p>
-<div class="admonition note"><p class="admonition-title">Notes</p><ul><li>Always returns <code class="datatype">binary!</code> — use <code class="datatype">to string!</code> to recover an originally string value</li><li><code class=inline>method</code> must exactly match the one used in <a href="#compress">compress</a> — mismatched methods will error</li><li><code class=inline>/size</code> hint the expected number of uncompressed bytes. Can improve performance by pre-allocating the output buffer.</li></ul></div>
+<div class="admonition note"><p class="admonition-title">Notes</p><ul><li>Always returns <a href="datatypes.html#binary!" class=datatype>binary!</a> — use <code class=inline>to string!</code> to recover an originally string value</li><li><code class=inline>method</code> must exactly match the one used in <a href="#compress">compress</a> — mismatched methods will error</li><li><code class=inline>/size</code> hint the expected number of uncompressed bytes. Can improve performance by pre-allocating the output buffer.</li></ul></div>
 <div class="see-also">See also: <a href="#compress">compress</a></div>
 </section>
 
@@ -4620,7 +4620,7 @@ This is different from when using <a href="#subtract">subtract</a>, which return
 
 probe subtract 1-Jan-2003/10:30 now
 -2477</code></pre></div><p>
-There is a limit to the time period that can be differenced between dates (determined by the internal size of the <code class="datatype">time!</code> datatype).
+There is a limit to the time period that can be differenced between dates (determined by the internal size of the <a href="datatypes.html#time!" class=datatype>time!</a> datatype).
 </p>
 <p>
 Note that performing this function over very large data sets can be CPU intensive.
@@ -4810,7 +4810,7 @@ It performs the fundamental interpretive action of the Rebol language and is use
 </p>
 
 <h6>Most Common Use</h6><p>
-Most of the time <a href="#do">do</a> is used to evaluate a script from a <code class="datatype">file!</code> or <code class="datatype">url!</code> as shown in these examples:
+Most of the time <a href="#do">do</a> is used to evaluate a script from a <a href="datatypes.html#file!" class=datatype>file!</a> or <a href="datatypes.html#url!" class=datatype>url!</a> as shown in these examples:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do %setup.r
 Settings done.
@@ -4820,14 +4820,14 @@ Console:   0:00:01.609 - 314 KC/S
 Processor: 0:00:00.406 - 2128 RHz (Rebol-Hertz)
 Memory:    0:00:00.657 - 72 MB/S
 Disk/File: 0:00:00.234 - 130 MB/S</code></pre></div><p>
-Note that <a href="#do">do</a> of a <code class="datatype">file!</code> or <code class="datatype">url!</code> requires that the script contain a valid Rebol header; otherwise, you'll get an "Script is missing a Rebol header" error.
+Note that <a href="#do">do</a> of a <a href="datatypes.html#file!" class=datatype>file!</a> or <a href="datatypes.html#url!" class=datatype>url!</a> requires that the script contain a valid Rebol header; otherwise, you'll get an "Script is missing a Rebol header" error.
 </p>
 <div class="admonition note"><p class="admonition-title">Warning</p><p>
-Only <a href="#do">do</a> a <code class="datatype">url!</code> script that you have reason to trust. It is advised that you <a href="#read">read</a> a script first and examine it closely to make sure it is safe to evaluate.
+Only <a href="#do">do</a> a <a href="datatypes.html#url!" class=datatype>url!</a> script that you have reason to trust. It is advised that you <a href="#read">read</a> a script first and examine it closely to make sure it is safe to evaluate.
 </p>
 </div>
 <h6>Other Uses</h6><p>
-The <a href="#do">do</a> function can also be called to evaluate other types of arguments such as a <code class="datatype">block!</code>, <code class="datatype">path!</code>, <code class="datatype">string!</code>, or <code class="datatype">function!</code>.
+The <a href="#do">do</a> function can also be called to evaluate other types of arguments such as a <a href="datatypes.html#block!" class=datatype>block!</a>, <a href="datatypes.html#path!" class=datatype>path!</a>, <a href="datatypes.html#string!" class=datatype>string!</a>, or <a href="datatypes.html#function!" class=datatype>function!</a>.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do [1 + 2]  ;== 3
 do "1 + 2"  ;== 3 (see special note below)
@@ -4941,7 +4941,7 @@ See the system/catalog/codecs for a list of loaded codecs. Codecs can be native 
 <h5>Description:</h5>
 
 <p>
-High speed <code class="datatype">command!</code> block evaluation for <a href="https://www.rebol.com/r3/docs/concepts/extensions.html">extensions</a>.
+High speed <a href="datatypes.html#command!" class=datatype>command!</a> block evaluation for <a href="https://www.rebol.com/r3/docs/concepts/extensions.html">extensions</a>.
 </p>
 <p>
 Originally created to evaluate <a href="https://www.rebol.com/r3/docs/view/draw.html">graphics rendering commands</a>, it can be used for any external sequence of commands that require maximum speed (e.g. high speed math processing such as FFTs, image processing, audio processing.)
@@ -5474,7 +5474,7 @@ The <a href="#debase">debase</a> function is used to convert the binary back aga
 <a href="#encloak">encloak</a> is a low strength encryption method that can be useful for hiding passwords and other such values. It is not a replacement for AES or Blowfish, but works for noncritical data.
 </p>
 <p>
-**Do not use it for top secret information!**
+<b>Do not use it for top secret information!</b>
 </p>
 <p>
 To cloak a binary string, provide the binary string and a cloaking key to the <a href="#encloak">encloak</a> function:
@@ -6094,7 +6094,7 @@ On overflow, an error is returned (which can be trapped with the <a href="#try">
 <h5>Description:</h5>
 
 <p>
-This function is useful to extend <code class="datatype">object!</code>, <code class="datatype">map!</code> or <code class="datatype">block!</code> values using a word/value pair. It returns the input value. It performs no copy.
+This function is useful to extend <a href="datatypes.html#object!" class=datatype>object!</a>, <a href="datatypes.html#map!" class=datatype>map!</a> or <a href="datatypes.html#block!" class=datatype>block!</a> values using a word/value pair. It returns the input value. It performs no copy.
 </p>
 <p>
 Examples:
@@ -6337,7 +6337,7 @@ Note also this is not a direct opposite to the <a href="#dir?">dir?</a> function
 <h5>Description:</h5>
 
 <p>
-Returns <code class="datatype">none!</code> if the value was not found. Otherwise, returns a position in the series where the value was found. Many refinements to this function are available.
+Returns <a href="datatypes.html#none!" class=datatype>none!</a> if the value was not found. Otherwise, returns a position in the series where the value was found. Many refinements to this function are available.
 </p>
 
 <h6>Refinements</h6><p>
@@ -6488,7 +6488,7 @@ Editor note: Not sure about the description
 <h5>Description:</h5>
 
 <p>
-This is an ordinal. It returns the first value in any type of <code class="datatype">series!</code> at the current position. If no value is found, <code class=inline>none</code> is returned.
+This is an ordinal. It returns the first value in any type of <code class=inline>series!</code> at the current position. If no value is found, <code class=inline>none</code> is returned.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">first "Rebol"              ;== #"R"
 first [11 22 33 44 55 66]  ;== 11
@@ -6694,7 +6694,9 @@ This example will print each filename which contains <code class=inline>.r</code
 foreach file files [
     if find file ".r" [print file]
 ]</code></pre></div>
-<div class="example-code"><pre class="text-block"><code>gen-functions.r3
+<div class="example-code"><pre class="text-block"><code>common.reb
+gen-datatypes.r3
+gen-functions.r3
 httpd.reb
 parse-errors.r3
 server.r3
@@ -6721,7 +6723,7 @@ watch Matrix at 12:45 for $4.25
 In the above example, the <a href="#foreach">foreach</a> value block: </p>
 
 <h6>Series Reference</h6><p>
-To reference the series itself during <a href="#foreach">foreach</a> you can use a <code class="datatype">set-word!</code> within the variable block. This operation is similar to the <a href="#forall">forall</a> and <a href="#forskip">forskip</a> functions.
+To reference the series itself during <a href="#foreach">foreach</a> you can use a <a href="datatypes.html#set-word!" class=datatype>set-word!</a> within the variable block. This operation is similar to the <a href="#forall">forall</a> and <a href="#forskip">forskip</a> functions.
 </p>
 <p>
 Example:
@@ -6741,7 +6743,7 @@ If you are using this option to remove values, please see the <a href="#remove-e
 </p>
 
 <h6>Foreach of Objects and Maps</h6><p>
-The <a href="#foreach">foreach</a> function can also be used with <code class="datatype">object!</code> and <code class="datatype">map!</code> datatypes.
+The <a href="#foreach">foreach</a> function can also be used with <a href="datatypes.html#object!" class=datatype>object!</a> and <a href="datatypes.html#map!" class=datatype>map!</a> datatypes.
 </p>
 <p>
 When using a single word argument, <a href="#foreach">foreach</a> will obtain the object field name or map key.
@@ -6762,10 +6764,10 @@ If a second word argument is provided, it will obtain the value of each entry:
 orange 12
 banana 30
 </code></pre></div><p>
-The same behavior applies to the <code class="datatype">map!</code> datatype, except that empty keys (those set to none) will be skipped.
+The same behavior applies to the <a href="datatypes.html#map!" class=datatype>map!</a> datatype, except that empty keys (those set to none) will be skipped.
 </p>
 <p>
-When a <code class="datatype">set-word!</code> is used in the variables block, it will obtain the object value itself.
+When a <a href="datatypes.html#set-word!" class=datatype>set-word!</a> is used in the variables block, it will obtain the object value itself.
 </p>
 
 <div class="see-also">See also: <a href="#for">for</a>, <a href="#forall">forall</a>, <a href="#forskip">forskip</a>, <a href="#map-each">map-each</a>, <a href="#remove-each">remove-each</a>, <a href="#repeat">repeat</a></div>
@@ -8023,7 +8025,7 @@ and the result would be:
     ask             function! Ask the user for input.
     ...</code></pre></div>
 <h6>Help Search</h6><p>
-The <a href="#help">help</a> function also finds words that contain a specified string. For example, to find all of the words that include the string <code class="datatype">path!</code>, type:
+The <a href="#help">help</a> function also finds words that contain a specified string. For example, to find all of the words that include the string <a href="datatypes.html#path!" class=datatype>path!</a>, type:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; ? "path"</code></pre></div><p>
 and the result will be:
@@ -8293,7 +8295,7 @@ The /Else refinement is obsolete and will be removed in future versions. Avoid i
 <h5>Description:</h5>
 
 <p>
-Returns true if the value is an <code class="datatype">image!</code> datatype.
+Returns true if the value is an <a href="datatypes.html#image!" class=datatype>image!</a> datatype.
 </p>
 <p>
 This function is often used after the <a href="#load">load</a> function to verify that the data is in fact an image. For example:
@@ -8343,7 +8345,7 @@ You can also use a filename or URL for the module identifier:
 
 import http://www.rebol.com/mods/mysql.r</code></pre></div>
 <h6>Return value</h6><p>
-When successful, the <a href="#import">import</a> function returns a <code class="datatype">module!</code> datatype as its result.
+When successful, the <a href="#import">import</a> function returns a <a href="datatypes.html#module!" class=datatype>module!</a> datatype as its result.
 </p>
 <p>
 This allows you to write:
@@ -8465,7 +8467,7 @@ In R3, <a href="#in">in</a> can also be used for binding a block to an object to
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do in example [age + 1]
 25</code></pre></div><p>
-Identically, a <code class="datatype">paren!</code> can be used as the rebound block:
+Identically, a <a href="datatypes.html#paren!" class=datatype>paren!</a> can be used as the rebound block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">do in example second [(age + 1) (age + 20)]
 44</code></pre></div>
@@ -8588,8 +8590,7 @@ interactive shell). The string does not include
 the new-line character used to terminate it.
 </p>
 <p>
-The /HIDE refinement hides input with "*" characters.
-</p>
+The /HIDE refinement hides input with "</p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">prin "Enter a name: "
 name: input
 print [name "is" length? name "characters long"]
@@ -8874,15 +8875,15 @@ join %file ".txt"
 This differs from <a href="#append">append</a> and <a href="#repend">repend</a> because a new value is created, and the first argument is not modified in any way.
 </p>
 <p>
-The **first argument determines the datatype of the returned value**.
+The <b>first argument determines the datatype of the returned value</b>.
 When the first argument is a type of <a href="https://www.rebol.com/r3/docs/concepts/series.html">series</a>, the return value will 
-be that type of series (d:string, <code class="datatype">file!</code>, <code class="datatype">url!</code>, <code class="datatype">block!</code>, etc.)
+be that type of series (d:string, <a href="datatypes.html#file!" class=datatype>file!</a>, <a href="datatypes.html#url!" class=datatype>url!</a>, <a href="datatypes.html#block!" class=datatype>block!</a>, etc.)
 </p>
 <p>
-When the first argument is a scalar value (such as <code class="datatype">integer!</code>, <code class="datatype">date!</code>, <code class="datatype">time!</code>, and others), the return  will always be a <code class="datatype">string!</code>.
+When the first argument is a scalar value (such as <a href="datatypes.html#integer!" class=datatype>integer!</a>, <a href="datatypes.html#date!" class=datatype>date!</a>, <a href="datatypes.html#time!" class=datatype>time!</a>, and others), the return  will always be a <a href="datatypes.html#string!" class=datatype>string!</a>.
 </p>
 <p>
-When the second argument is a <code class="datatype">block!</code>, it will be evaluated and all of its values joined 
+When the second argument is a <a href="datatypes.html#block!" class=datatype>block!</a>, it will be evaluated and all of its values joined 
 to the return value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">join http:// ["www.rebol.com/" %index.html]
@@ -8893,7 +8894,7 @@ join "t" ["e" "s" "t"]
 
 join 11:11 "PM"
 "11:11PM"</code></pre></div><p>
-Note that it also works for <code class="datatype">block!</code> series, but returns a block, not a string:
+Note that it also works for <a href="datatypes.html#block!" class=datatype>block!</a> series, but returns a block, not a string:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">join [1] ["two" 3 "four"]
 [1 "two" 3 "four"]</code></pre></div><p>
@@ -8904,7 +8905,7 @@ And, this case is important to note:
 (See <a href="#rejoin">rejoin</a> for more detail on this case.)
 </p>
 <p>
-If you want the result here to be a <code class="datatype">string!</code>, use the <a href="#ajoin">ajoin</a> function instead.
+If you want the result here to be a <a href="datatypes.html#string!" class=datatype>string!</a>, use the <a href="#ajoin">ajoin</a> function instead.
 </p>
 
 <div class="see-also">See also: <a href="#ajoin">ajoin</a>, <a href="#append">append</a>, <a href="#form">form</a>, <a href="#mold">mold</a>, <a href="#reform">reform</a>, <a href="#rejoin">rejoin</a>, <a href="#remold">remold</a>, <a href="#repend">repend</a></div>
@@ -9131,7 +9132,7 @@ print length? obj
 The <code class=inline>factor</code> argument is clamped to the range <code class=inline>0.0–1.0</code>, so values below <code class=inline>0.0</code> behave as <code class=inline>0.0</code> and values above <code class=inline>1.0</code> behave as <code class=inline>1.0</code>. This means <a href="#lerp">lerp</a> will never extrapolate beyond the <code class=inline>start</code>–<code class=inline>end</code> range.
 </p>
 <p>
-The function works component-wise for <code class="datatype">tuple!</code> and <code class="datatype">pair!</code> types, interpolating each component independently.
+The function works component-wise for <a href="datatypes.html#tuple!" class=datatype>tuple!</a> and <a href="datatypes.html#pair!" class=datatype>pair!</a> types, interpolating each component independently.
 </p>
 
 <h6>Examples:</h6><div class="example-code"><pre class="rebol-block"><code class="rebol">; Interpolating between two numbers
@@ -9151,7 +9152,7 @@ lerp 255.0.0 0.0.255   0.5   ;== 127.0.127    (purple)
 ; Interpolating between positions (pair!)
 lerp 0x0 100x200 0.5         ;== 50x100
 lerp 10x20 90x80 0.25        ;== 30x35</code></pre></div>
-<h6>Notes:</h6><ul><li><code class=inline>start</code> and <code class=inline>end</code> must be the same type; mixing types (e.g. a <code class="datatype">number!</code> with a <code class="datatype">tuple!</code>) will raise an error.</li><li>For <code class="datatype">tuple!</code> values, interpolation is applied to each channel (R, G, B and optionally A) independently, making <a href="#lerp">lerp</a> well-suited for color blending.</li><li>For <code class="datatype">pair!</code> values, both the <code class=inline>x</code> and <code class=inline>y</code> components are interpolated independently, making it useful for 2D position or size transitions.</li><li>Unlike an unclamped lerp, this implementation does **not** support extrapolation. If you need values outside the <code class=inline>start</code>–<code class=inline>end</code> range, scale your <code class=inline>factor</code> before passing it in.</li></ul>
+<h6>Notes:</h6><ul><li><code class=inline>start</code> and <code class=inline>end</code> must be the same type; mixing types (e.g. a <code class=inline>number!</code> with a <a href="datatypes.html#tuple!" class=datatype>tuple!</a>) will raise an error.</li><li>For <a href="datatypes.html#tuple!" class=datatype>tuple!</a> values, interpolation is applied to each channel (R, G, B and optionally A) independently, making <a href="#lerp">lerp</a> well-suited for color blending.</li><li>For <a href="datatypes.html#pair!" class=datatype>pair!</a> values, both the <code class=inline>x</code> and <code class=inline>y</code> components are interpolated independently, making it useful for 2D position or size transitions.</li><li>Unlike an unclamped lerp, this implementation does <b>not</b> support extrapolation. If you need values outside the <code class=inline>start</code>–<code class=inline>end</code> range, scale your <code class=inline>factor</code> before passing it in.</li></ul>
 </section>
 
 <hr>
@@ -9299,15 +9300,17 @@ names are followed by a slash (<a href="#/">/</a>) in the output listing.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">list-dir</code></pre></div>
 <div class="example-code"><pre class="text-block"><code><span class="ansi31">[</span><span class="ansi33 ansi1">DIR: <span class="ansi32 ansi1">C:\Dev\Builder\tree\www\rebol.tech\</span></span>
-<span class="ansi31 ansi1">├───[</span> <span class="ansi32">18-May-2026  09:58</span> <span class="ansi32 ansi1">         .git/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">20-May-2026  10:28</span> <span class="ansi32 ansi1">         .git/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">08-Mar-2025  01:18</span> <span class="ansi32 ansi1">         _logs/</span>
-<span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         _utils/</span>
+<span class="ansi31 ansi1">├───[</span> <span class="ansi32">18-May-2026  15:46</span> <span class="ansi32 ansi1">         _utils/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi32 ansi1">         public/</span>
 <span class="ansi31 ansi1">├───[</span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     311</span> <span class="ansi93">.editorconfig
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     920</span> <span class="ansi93">.gitattributes
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">18-May-2026  09:53</span> <span class="ansi33">     113</span> <span class="ansi93">.gitignore
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">18-May-2026  09:59</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
-<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">18-May-2026  09:54</span> <span class="ansi33">   11827</span> <span class="ansi93">gen-functions.r3
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">20-May-2026  10:35</span> <span class="ansi33">     638</span> <span class="ansi93">.temp
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">20-May-2026  10:35</span> <span class="ansi33">    7998</span> <span class="ansi93">common.reb
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">20-May-2026  10:16</span> <span class="ansi33">    1771</span> <span class="ansi93">gen-datatypes.r3
+<span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">20-May-2026  10:28</span> <span class="ansi33">    5191</span> <span class="ansi93">gen-functions.r3
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">   32749</span> <span class="ansi93">httpd.reb
 <span class="ansi31 ansi1">├───[</span></span> <span class="ansi32">15-May-2026  18:55</span> <span class="ansi33">    1024</span> <span class="ansi93">parse-errors.r3
 <span class="ansi31 ansi1">└───[</span></span> <span class="ansi32">09-Mar-2025  15:09</span> <span class="ansi33">     691</span> <span class="ansi93">server.r3
@@ -9333,7 +9336,7 @@ length? files        ;== 11</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-This function will return a <code class="datatype">map!</code> of OS environment variables and their values.
+This function will return a <a href="datatypes.html#map!" class=datatype>map!</a> of OS environment variables and their values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; list-env
 == #[
@@ -9419,7 +9422,7 @@ structures, images, and sounds into memory storage objects that
 can be directly accessed and manipulated by programs.
 </p>
 <p>
-The argument to <a href="#load">load</a> can be a <code class="datatype">file!</code>, <code class="datatype">url!</code>, <code class="datatype">string!</code>, or <code class="datatype">binary!</code>
+The argument to <a href="#load">load</a> can be a <a href="datatypes.html#file!" class=datatype>file!</a>, <a href="datatypes.html#url!" class=datatype>url!</a>, <a href="datatypes.html#string!" class=datatype>string!</a>, or <a href="datatypes.html#binary!" class=datatype>binary!</a>
 value. When a file name or URL is provided, the data is read
 from disk or network first, then it is loaded. In the case of a
 string or binary value, it is loaded directly from memory.
@@ -9612,7 +9615,7 @@ Other possible traces are <a href="#log-info">log-info</a>, <a href="#log-trace"
 log-info  'TEST ["Current time is: " now]
 log-trace 'TEST "This is just a trace."
 log-warn  'TEST "This is warning message."</code></pre></div>
-<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  18-May-2026/9:59:46+2:00</span></span>
+<div class="example-code"><pre class="text-block"><code> <span class="ansi93">[TEST] <span class="ansi96">Current time is:  20-May-2026/10:35:57+2:00</span></span>
  <span class="ansi33">[TEST] <span class="ansi32">This is just a trace.</span></span>
  <span class="ansi93">[TEST] <span class="ansi31">This is warning message.</span></span>
 </code></pre></div>
@@ -9798,7 +9801,7 @@ Here's an example that creates a block of 10 random integers:
 <div class="example-code"><pre class="rebol-block"><code class="rebol">block: make block! 10
 loop 10 [append block random 100]
 probe block</code></pre></div>
-<div class="example-code"><pre class="text-block"><code>[6 44 1 39 92 30 70 52 89 56]
+<div class="example-code"><pre class="text-block"><code>[50 16 83 15 90 28 64 8 14 100]
 </code></pre></div>
 <h6>Returned Value</h6><p>
 When finished the <a href="#loop">loop</a> function returns the final value the block:
@@ -9807,7 +9810,7 @@ When finished the <a href="#loop">loop</a> function returns the final value the 
 print loop 10 [num: num + 1] ;== 10</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>10
 </code></pre></div>
-<h6>Other Notes</h6><ul><li>Negative or zero loop counts do not evaluate the block.</li><li>If a <code class="datatype">decimal!</code> count is used, it will be truncated to a lower integer value.</li><li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li><li>The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.</li></ul>
+<h6>Other Notes</h6><ul><li>Negative or zero loop counts do not evaluate the block.</li><li>If a <a href="datatypes.html#decimal!" class=datatype>decimal!</a> count is used, it will be truncated to a lower integer value.</li><li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li><li>The <a href="#repeat">repeat</a> function is similar to <a href="#loop">loop</a>, except that it allows a variable to keep track of the current loop counter.</li></ul>
 <div class="see-also">See also: <a href="#break">break</a>, <a href="#continue">continue</a>, <a href="#do">do</a>, <a href="#for">for</a>, <a href="#repeat">repeat</a>, <a href="#until">until</a>, <a href="#while">while</a></div>
 </section>
 
@@ -9874,7 +9877,7 @@ Without refinement, the BT.709 formula is used:
 With the <code class=inline>/luma</code> refinement, the BT.601 formula is used instead:
 </p>
 <div class="example-code"><pre class="-block"><code class="">Y = 0.299×R + 0.587×G + 0.114×B</code></pre></div><p>
-For a <code class="datatype">tuple!</code> input, the luminance scalar is returned as an <code class="datatype">integer!</code> — the original color is not modified. For an <code class="datatype">image!</code>, the gray value is written back to all three channels (<code class=inline>R = G = B = Y</code>) of every pixel directly in the image buffer, and the modified image is returned.
+For a <a href="datatypes.html#tuple!" class=datatype>tuple!</a> input, the luminance scalar is returned as an <a href="datatypes.html#integer!" class=datatype>integer!</a> — the original color is not modified. For an <a href="datatypes.html#image!" class=datatype>image!</a>, the gray value is written back to all three channels (<code class=inline>R = G = B = Y</code>) of every pixel directly in the image buffer, and the modified image is returned.
 </p>
 
 <h6>Examples:</h6><div class="example-code"><pre class="rebol-block"><code class="rebol">;; Tuple input - returns integer luminance, color unchanged
@@ -9954,7 +9957,7 @@ Used on boot, but may be used to create custom banners like:
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">Product    <span class="ansi31">Test Banner                                                </span></span></span>║
 ║<span class="ansi30 ansi107">    <span class="ansi32">           <span class="ansi31">Just an example!                                           </span></span></span>║
-║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">18-May-2026/9:59:46+2:00                                   </span></span></span>║
+║<span class="ansi30 ansi107">    <span class="ansi32">Date       <span class="ansi31">20-May-2026/10:35:57+2:00                                  </span></span></span>║
 ║<span class="ansi30 ansi107">                                                                          </span>║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
@@ -10457,7 +10460,7 @@ The <a href="#mold">mold</a> function is the cousin of <a href="#form">form</a> 
 Also, <a href="#remold">remold</a> first uses <a href="#reduce">reduce</a> then <a href="#mold">mold</a>.
 </p>
 
-<h6>The `/only` Refinement</h6><p>
+<h6>The <code class=inline>/only</code> Refinement</h6><p>
 In some cases it is useful to not <a href="#mold">mold</a> the outermost brackets of blocks. This is done with the <code class=inline>/only</code> refinement:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">print mold/only [1 2 3]
@@ -10468,7 +10471,7 @@ This is commonly true for blocks of values that are saved to files:
 See the <a href="#save">save</a> function.
 </p>
 
-<h6>The `/all` Refinement</h6><p>
+<h6>The <code class=inline>/all</code> Refinement</h6><p>
 For some values <a href="#mold">mold</a> produces an approximate string value, not a perfect representation. If you attempt to load such a string, its value may be different.
 </p>
 <p>
@@ -10476,7 +10479,7 @@ For example:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">mold 'true ;== "true"
 mold  true ;== "true"</code></pre></div><p>
-The first is the word true the second is the <code class="datatype">logic!</code> value true -- they are different but represented by the same word. If you <a href="#load">load</a> the resulting string, you will only obtain the word true not the logic value:
+The first is the word true the second is the <a href="datatypes.html#logic!" class=datatype>logic!</a> value true -- they are different but represented by the same word. If you <a href="#load">load</a> the resulting string, you will only obtain the word true not the logic value:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">type? load mold true ;== word!</code></pre></div><p>
 The <code class=inline>/all</code> option provides a more accurate transformation from values to strings and back (using <a href="#load">load</a>.)
@@ -10492,17 +10495,17 @@ Another difference occurs with strings that are indexed from their <a href="#hea
 <div class="example-code"><pre class="rebol-block"><code class="rebol">mold next "ABC"       ;== "BC"
 mold/all next "ABC"   ;== {#(string! "ABC" 2)}</code></pre></div>
 <h6>Affected Datatypes</h6><p>
-The following datatypes are affected: <code class="datatype">unset!</code>, <code class="datatype">none!</code>, <code class="datatype">logic!</code>, <code class="datatype">bitset!</code>, <code class="datatype">image!</code>, <code class="datatype">map!</code>, <code class="datatype">datatype!</code>, <code class="datatype">typeset!</code>, <code class="datatype">native!</code>, <code class="datatype">action!</code>, <code class="datatype">op!</code>, <code class="datatype">closure!</code>, <code class="datatype">function!</code>, <code class="datatype">object!</code>, <code class="datatype">module!</code>, <code class="datatype">error!</code>, <code class="datatype">task!</code>, <code class="datatype">port!</code>, <code class="datatype">gob!</code>, <code class="datatype">event!</code>, <code class="datatype">handle!</code>.
+The following datatypes are affected: <a href="datatypes.html#unset!" class=datatype>unset!</a>, <a href="datatypes.html#none!" class=datatype>none!</a>, <a href="datatypes.html#logic!" class=datatype>logic!</a>, <a href="datatypes.html#bitset!" class=datatype>bitset!</a>, <a href="datatypes.html#image!" class=datatype>image!</a>, <a href="datatypes.html#map!" class=datatype>map!</a>, <a href="datatypes.html#datatype!" class=datatype>datatype!</a>, <a href="datatypes.html#typeset!" class=datatype>typeset!</a>, <a href="datatypes.html#native!" class=datatype>native!</a>, <a href="datatypes.html#action!" class=datatype>action!</a>, <a href="datatypes.html#op!" class=datatype>op!</a>, <a href="datatypes.html#closure!" class=datatype>closure!</a>, <a href="datatypes.html#function!" class=datatype>function!</a>, <a href="datatypes.html#object!" class=datatype>object!</a>, <a href="datatypes.html#module!" class=datatype>module!</a>, <a href="datatypes.html#error!" class=datatype>error!</a>, <a href="datatypes.html#task!" class=datatype>task!</a>, <a href="datatypes.html#port!" class=datatype>port!</a>, <a href="datatypes.html#gob!" class=datatype>gob!</a>, <a href="datatypes.html#event!" class=datatype>event!</a>, <a href="datatypes.html#handle!" class=datatype>handle!</a>.
 </p>
 <div class="admonition note"><p class="admonition-title">Note on Restoring Semantics</p><p>
 It should also be noted that some datatypes cannot be returned to a source form without losing semantic information. For example, functions cannot maintain the binding (scoping context) of their words. If such semantics reproduction is required it is recommended that your code output entire blocks that as a whole are evaluated to produce the correct semantic result. This is commonly done in Rebol code, including the common storage of mezzanine and module functions and other definitions.
 </p>
 </div>
 <h6>Accuracy of Decimals</h6><p>
-The <code class="datatype">decimal!</code> datatype is implemented as IEEE 754 binary floating point type. When molding <code class="datatype">decimal!</code> values, mold/all will need to use the maximal precision 17 digits to allow for accurate transformation of Rebol decimals to string and back, as opposed to just <a href="#mold">mold</a>, which uses a default precision 15 decimal digits.
+The <a href="datatypes.html#decimal!" class=datatype>decimal!</a> datatype is implemented as IEEE 754 binary floating point type. When molding <a href="datatypes.html#decimal!" class=datatype>decimal!</a> values, mold/all will need to use the maximal precision 17 digits to allow for accurate transformation of Rebol decimals to string and back, as opposed to just <a href="#mold">mold</a>, which uses a default precision 15 decimal digits.
 </p>
 
-<h6>The `/flat` Refinement</h6><p>
+<h6>The <code class=inline>/flat</code> Refinement</h6><p>
 The <code class=inline>/flat</code> refinement is useful for minimizing the size of source strings. It properly removes leading indentation (from code lines, but not multi-line strings.) The /flat option is often used for data exchanged between systems or stored in files.
 </p>
 <p>
@@ -10975,14 +10978,14 @@ none? find "abc" "d" ;== #(true)</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-The <a href="#not">not</a> function is a <code class="datatype">logic!</code> function that returns true if the value is false or none. It will return false for all other values.
+The <a href="#not">not</a> function is a <a href="datatypes.html#logic!" class=datatype>logic!</a> function that returns true if the value is false or none. It will return false for all other values.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">not true     ;== #(false)
 not none     ;== #(true)
 not (10 = 1) ;== #(true)
 not 0        ;== #(false)  (take note of this)
 not 1        ;== #(false)</code></pre></div><p>
-To complement an <code class="datatype">integer!</code> use the <a href="#complement">complement</a> function or <a href="#negate">negate</a> function.
+To complement an <a href="datatypes.html#integer!" class=datatype>integer!</a> use the <a href="#complement">complement</a> function or <a href="#negate">negate</a> function.
 </p>
 
 <div class="see-also">See also: <a href="#and">and</a>, <a href="#complement">complement</a>, <a href="#negate">negate</a>, <a href="#or">or</a>, <a href="#unless">unless</a>, <a href="#xor">xor</a></div>
@@ -11480,7 +11483,7 @@ false</code></pre></div>
 The <a href="#parse">parse</a> function is used to match patterns of values and perform specific actions upon  such matches. A full summary can be found in <a href="https://www.rebol.com/r3/docs/concepts/parsing-summary.html">parsing: summary of parse operations</a> .
 </p>
 <p>
-Both <code class="datatype">string!</code> and <code class="datatype">block!</code> datatypes can be parsed. Parsing of strings matches specific characters or substrings. Parsing of blocks matches specific values, or specific datatypes, or sub-blocks.
+Both <a href="datatypes.html#string!" class=datatype>string!</a> and <a href="datatypes.html#block!" class=datatype>block!</a> datatypes can be parsed. Parsing of strings matches specific characters or substrings. Parsing of blocks matches specific values, or specific datatypes, or sub-blocks.
 </p>
 <p>
 Whereas most languages provide a method of parsing strings, the parsing of blocks is an important feature of the Rebol language.
@@ -11513,13 +11516,13 @@ Within the parse dialect, these words are treated as keywords and cannot be used
 <tr><td> and rule </td><td> match the rule, but do not advance the input (allows matching multiple rules to the same input) </td></tr>
 <tr><td> any rule </td><td> match the rule zero or more times; stop on failure or if input does not change. </td></tr>
 <tr><td> break </td><td> break out of a match loop (such as any, some, while), always indicating success. </td></tr>
-<tr><td> change rule *only* value </td><td> match the rule, and if true, change the input to the new value (can be different lengths) </td></tr>
+<tr><td> change rule </td><td> match the rule, and if true, change the input to the new value (can be different lengths) </td></tr>
 <tr><td> copy word </td><td> set the word to a copy of the input for matched rules </td></tr>
 <tr><td> do rule </td><td> evaluate the input as code, then attempt to match to the rule </td></tr>
 <tr><td> end </td><td> match end of input </td></tr>
 <tr><td> fail </td><td> force current rule to fail, backtrack </td></tr>
 <tr><td> if (expr) </td><td> evaluate the expression (in a paren) and if false or none, fail and backtrack </td></tr>
-<tr><td> insert *only* value </td><td> insert a value at the current input position (with optional ONLY for blocks by reference); input position is adjusted just past the insert </td></tr>
+<tr><td> insert </td><td> insert a value at the current input position (with optional ONLY for blocks by reference); input position is adjusted just past the insert </td></tr>
 <tr><td> into rule </td><td> match a series, then parse it with given rule; new series can be the same or different datatype. </td></tr>
 <tr><td> opt rule </td><td> match to the rule once or not at all (zero or one times) </td></tr>
 <tr><td> not rule </td><td> invert the result of the next rule </td></tr>
@@ -12126,22 +12129,22 @@ See the <a href="#print">print</a> function for information about related functi
 <p>
 The <a href="#protect">protect</a> function provides the following features:
 </p>
-<ul><li>protects <code class="datatype">string!</code>, <code class="datatype">block!</code>, and other series from modification (making them read-only.)</li><li>protects variables (words) from being <a href="#set">set</a> to new values.</li><li>protects <code class="datatype">object!</code>, <code class="datatype">module!</code>, and <code class="datatype">map!</code> from modification (by protecting all its words.)</li><li>hide words within objects or modules - making them private - a method of read and write protection.</li></ul>
+<ul><li>protects <a href="datatypes.html#string!" class=datatype>string!</a>, <a href="datatypes.html#block!" class=datatype>block!</a>, and other series from modification (making them read-only.)</li><li>protects variables (words) from being <a href="#set">set</a> to new values.</li><li>protects <a href="datatypes.html#object!" class=datatype>object!</a>, <a href="datatypes.html#module!" class=datatype>module!</a>, and <a href="datatypes.html#map!" class=datatype>map!</a> from modification (by protecting all its words.)</li><li>hide words within objects or modules - making them private - a method of read and write protection.</li></ul>
 <h6>Synopsis</h6><p>
 The <a href="#protect">protect</a> argument and refinements provide these various protections:
 </p>
 
 <table class=doctable>
 <tr><th> Argument </th><th> Refinement </th><th> Protection provided </th></tr>
-<tr><td> <code class="datatype">word!</code> or <code class="datatype">path!</code> </td><td> </td><td> cannot set the word (variable) </td></tr>
-<tr><td> <code class="datatype">word!</code> or <code class="datatype">path!</code> </td><td> /hide </td><td> cannot bind to the word (variable) </td></tr>
-<tr><td> <code class="datatype">string!</code> </td><td> </td><td> cannot modify the string </td></tr>
-<tr><td> <code class="datatype">block!</code> </td><td> </td><td> cannot modify the block </td></tr>
-<tr><td> <code class="datatype">block!</code> </td><td> /deep </td><td> cannot modify block or any series within it </td></tr>
-<tr><td> <code class="datatype">block!</code> </td><td> /words </td><td> cannot set listed words or paths (variables) </td></tr>
-<tr><td> <code class="datatype">block!</code> </td><td> /hide </td><td> cannot bind to listed words or paths </td></tr>
-<tr><td> <code class="datatype">object!</code> </td><td> </td><td> cannot modify object or set its words (variables) </td></tr>
-<tr><td> <code class="datatype">object!</code> </td><td> /deep </td><td> cannot modify object, set its words, or modify any of its series values </td></tr>
+<tr><td> <a href="datatypes.html#word!" class=datatype>word!</a> or <a href="datatypes.html#path!" class=datatype>path!</a> </td><td> </td><td> cannot set the word (variable) </td></tr>
+<tr><td> <a href="datatypes.html#word!" class=datatype>word!</a> or <a href="datatypes.html#path!" class=datatype>path!</a> </td><td> /hide </td><td> cannot bind to the word (variable) </td></tr>
+<tr><td> <a href="datatypes.html#string!" class=datatype>string!</a> </td><td> </td><td> cannot modify the string </td></tr>
+<tr><td> <a href="datatypes.html#block!" class=datatype>block!</a> </td><td> </td><td> cannot modify the block </td></tr>
+<tr><td> <a href="datatypes.html#block!" class=datatype>block!</a> </td><td> /deep </td><td> cannot modify block or any series within it </td></tr>
+<tr><td> <a href="datatypes.html#block!" class=datatype>block!</a> </td><td> /words </td><td> cannot set listed words or paths (variables) </td></tr>
+<tr><td> <a href="datatypes.html#block!" class=datatype>block!</a> </td><td> /hide </td><td> cannot bind to listed words or paths </td></tr>
+<tr><td> <a href="datatypes.html#object!" class=datatype>object!</a> </td><td> </td><td> cannot modify object or set its words (variables) </td></tr>
+<tr><td> <a href="datatypes.html#object!" class=datatype>object!</a> </td><td> /deep </td><td> cannot modify object, set its words, or modify any of its series values </td></tr>
 </table>
 
 <h6>Protecting series (strings and blocks)</h6><p>
@@ -12387,7 +12390,7 @@ Without refinements, <a href="#quit">quit</a> is a non-forceful exception (it wi
 To force an immediate quit (no exception), use the /now refinement:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">if bad-data [quit/now]</code></pre></div><p>
-You can also return an <code class="datatype">integer!</code> quit code to the operating system (shell) by using the <a href="#return">return</a> refinement:
+You can also return an <a href="datatypes.html#integer!" class=datatype>integer!</a> quit code to the operating system (shell) by using the <a href="#return">return</a> refinement:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">quit/return 40</code></pre></div><p>
 Note that not all operating systems environments may support this quit code.
@@ -12655,21 +12658,21 @@ write/append %matrix.avi to-binary "abcdefg"</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Blocks until a key is pressed, then returns it without displaying it in the console. Regular printable keys return a <code class="datatype">char!</code> value. Special keys (arrows, function keys, modifiers, etc.) return a <code class="datatype">word!</code> from <code class=inline>system/catalog/event-keys</code>.
+Blocks until a key is pressed, then returns it without displaying it in the console. Regular printable keys return a <a href="datatypes.html#char!" class=datatype>char!</a> value. Special keys (arrows, function keys, modifiers, etc.) return a <a href="datatypes.html#word!" class=datatype>word!</a> from <code class=inline>system/catalog/event-keys</code>.
 </p>
 <p>
-For <code class="datatype">char!</code> results, any modifier is encoded directly in the character value (e.g. Ctrl+C returns <code class=inline>#"^C"</code>). For <code class="datatype">word!</code> results, the modifier flags <code class=inline>system/state/shift?</code>, <code class=inline>system/state/control?</code> and <code class=inline>system/state/alt?</code> are updated to reflect which modifiers were held at the time of the keypress.
+For <a href="datatypes.html#char!" class=datatype>char!</a> results, any modifier is encoded directly in the character value (e.g. Ctrl+C returns <code class=inline>#"^C"</code>). For <a href="datatypes.html#word!" class=datatype>word!</a> results, the modifier flags <code class=inline>system/state/shift?</code>, <code class=inline>system/state/control?</code> and <code class=inline>system/state/alt?</code> are updated to reflect which modifiers were held at the time of the keypress.
 </p>
 
 <h6>Return value:</h6>
 <table class=doctable>
 <tr><th> Input         </th><th> Returns  </th><th> Example                    </th></tr>
-<tr><td> Printable key </td><td> <code class="datatype">char!</code>  </td><td> <code class=inline>#"a"</code>, <code class=inline>#"A"</code>, <code class=inline>#" "</code>     </td></tr>
-<tr><td> Special key   </td><td> <code class="datatype">word!</code>  </td><td> <code class=inline>up</code>, <code class=inline>f1</code>, <code class=inline>escape</code>       </td></tr>
+<tr><td> Printable key </td><td> <a href="datatypes.html#char!" class=datatype>char!</a>  </td><td> <code class=inline>#"a"</code>, <code class=inline>#"A"</code>, <code class=inline>#" "</code>     </td></tr>
+<tr><td> Special key   </td><td> <a href="datatypes.html#word!" class=datatype>word!</a>  </td><td> <code class=inline>up</code>, <code class=inline>f1</code>, <code class=inline>escape</code>       </td></tr>
 </table>
 
 <h6>Special key values:</h6><p>
-All possible <code class="datatype">word!</code> values are listed in <code class=inline>system/catalog/event-keys</code>:
+All possible <a href="datatypes.html#word!" class=datatype>word!</a> values are listed in <code class=inline>system/catalog/event-keys</code>:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">probe system/catalog/event-keys</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>[
@@ -13120,7 +13123,7 @@ But you can see it creates a problem in this case:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">rejoin [&lt;a href=test.html&gt; "test" &lt;/a&gt;]
 &lt;a href=test.htmltest&lt;/a&gt;&gt;</code></pre></div><p>
-If you want the result to be a <code class="datatype">string!</code>, use the <a href="#ajoin">ajoin</a> function instead.
+If you want the result to be a <a href="datatypes.html#string!" class=datatype>string!</a>, use the <a href="#ajoin">ajoin</a> function instead.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">ajoin [&lt;a href=test.html&gt; "test" &lt;/a&gt;]
 "&lt;a href=test.html&gt;test&lt;/a&gt;"</code></pre></div>
@@ -13386,7 +13389,7 @@ The <a href="#repeat">repeat</a> function is an easy way to repeat the evaluatio
 Here the num counter begins at one and continues up to and including the integer value given.
 </p>
 
-<h6>Other Notes</h6><ul><li>Negative or zero loop counts do not evaluate the block.</li><li>If a <code class="datatype">decimal!</code> count is used, it will be truncated to a lower integer value.</li><li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li><li>The <a href="#loop">loop</a> function is similar to <a href="#repeat">repeat</a>, except that it has no loop counter. If you don't need the counter, <a href="#loop">loop</a> is more efficient.</li><li>The evaluated block is deep copied and rebound (see <a href="#bind">bind</a> ) to a new context that holds the loop variable. For large nested repeat loops, you will want to consider this overhead. An alternative is to use <a href="#while">while</a>, <a href="#until">until</a>, or <a href="#loop">loop</a> which do not require the copy and bind.</li></ul>
+<h6>Other Notes</h6><ul><li>Negative or zero loop counts do not evaluate the block.</li><li>If a <a href="datatypes.html#decimal!" class=datatype>decimal!</a> count is used, it will be truncated to a lower integer value.</li><li>The <a href="#break">break</a> function can be used to stop the loop at any time.</li><li>The <a href="#loop">loop</a> function is similar to <a href="#repeat">repeat</a>, except that it has no loop counter. If you don't need the counter, <a href="#loop">loop</a> is more efficient.</li><li>The evaluated block is deep copied and rebound (see <a href="#bind">bind</a> ) to a new context that holds the loop variable. For large nested repeat loops, you will want to consider this overhead. An alternative is to use <a href="#while">while</a>, <a href="#until">until</a>, or <a href="#loop">loop</a> which do not require the copy and bind.</li></ul>
 <h6>In question...</h6><p>
 If the value is a series, then the loop will repeat for each element of the series.
 </p>
@@ -14691,7 +14694,7 @@ print d
 
 print e
 2</code></pre></div><p>
-You can also use <code class="datatype">set-word!</code> within the <a href="#set">set</a> function:
+You can also use <a href="datatypes.html#set-word!" class=datatype>set-word!</a> within the <a href="#set">set</a> function:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">set [a: b:] [1 2]</code></pre></div><p>
 This is useful if you use the <a href="#funct">funct</a> function, which auto-detects local variables that use the set-word notation.
@@ -15201,7 +15204,7 @@ print skip blk 3
 <h5>Description:</h5>
 
 <p>
-Sorting will modify any type of <code class="datatype">series!</code> passed as the argument:
+Sorting will modify any type of <code class=inline>series!</code> passed as the argument:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">sort [799 34 12 934 -24 0] ;== [-24 0 12 34 799 934]
 sort "dbeca"               ;== "abcde"</code></pre></div><p>
@@ -15260,7 +15263,7 @@ probe sort/compare names func [a b] [a &lt; b]</code></pre></div>
 The <code class=inline>/all</code> refinement will force the entire record to be passed as a series to the compare function. This is useful if you need to compare one or more fields of a record while also doing a skip operation.
 </p>
 <p>
-When sorting <code class="datatype">pair!</code> data (points and area sizes), the y coordinate is dominant. This is preferred to support the y sorting used by various graphics algorithms.
+When sorting <a href="datatypes.html#pair!" class=datatype>pair!</a> data (points and area sizes), the y coordinate is dominant. This is preferred to support the y sorting used by various graphics algorithms.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">probe sort [1x2 2x1 0x0 1x0 0x1 1x1]</code></pre></div>
 <div class="example-code"><pre class="text-block"><code>[0x0 0x1 1x0 1x1 1x2 2x1]
@@ -16033,7 +16036,7 @@ switch type?/word [
     date! [print "it's a date"]
 ]
 it's integer</code></pre></div><p>
-Here the <a href="#type?">type?</a> function returns the word (name) of the <code class="datatype">datatype!</code>, not the datatype's type value.
+Here the <a href="#type?">type?</a> function returns the word (name) of the <a href="datatypes.html#datatype!" class=datatype>datatype!</a>, not the datatype's type value.
 </p>
 <p>
 Another possible approach is to evaluate the block of cases. For the example above:
@@ -16757,7 +16760,7 @@ No description provided.
 <h5>Description:</h5>
 
 <p>
-Can be used to convert a <code class="datatype">word!</code> containing a valid datatype name into a <code class="datatype">datatype!</code>.
+Can be used to convert a <a href="datatypes.html#word!" class=datatype>word!</a> containing a valid datatype name into a <a href="datatypes.html#datatype!" class=datatype>datatype!</a>.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-datatype 'integer!
 == #(integer!)
@@ -16801,7 +16804,7 @@ Also accepts a string in the Internet Message Date format (RFC2822).
 
 &gt;&gt; to-date "Thu, 28 Mar 2019 20:00:59 +0100"
 == 28-Mar-2019/20:00:59+1:00</code></pre></div><p>
-When the input is of type <code class="datatype">integer!</code> or <code class="datatype">decimal!</code>, it is treated as a Unix timestamp.
+When the input is of type <a href="datatypes.html#integer!" class=datatype>integer!</a> or <a href="datatypes.html#decimal!" class=datatype>decimal!</a>, it is treated as a Unix timestamp.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-date 123456789
 == 29-Nov-1973/21:33:09
@@ -17011,7 +17014,7 @@ Returns a file! value made from the given value.
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">get-path!</code> value made from the given value.
+Returns a <a href="datatypes.html#get-path!" class=datatype>get-path!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-get-path [path to word]
 == :path/to/word</code></pre></div>
@@ -17034,7 +17037,7 @@ Returns a <code class="datatype">get-path!</code> value made from the given valu
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">get-word!</code> value made from the given value.
+Returns a <a href="datatypes.html#get-word!" class=datatype>get-word!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">probe to-get-word "test"
 :test</code></pre></div>
@@ -17521,7 +17524,7 @@ NOTE: Currency types are not supported yet!
 <h5>Description:</h5>
 
 <p>
-This function currently works only for conversions from an <code class="datatype">error!</code> value.
+This function currently works only for conversions from an <a href="datatypes.html#error!" class=datatype>error!</a> value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-object try [1 / 0]
 == make object! [
@@ -17791,7 +17794,7 @@ system. Be careful how you use this function across systems.
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">ref!</code> value made from the given value.
+Returns a <a href="datatypes.html#ref!" class=datatype>ref!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-ref "Oldes"
 == @Oldes</code></pre></div>
@@ -17815,7 +17818,7 @@ Returns a <code class="datatype">ref!</code> value made from the given value.
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">refinement!</code> value made from the given value.
+Returns a <a href="datatypes.html#refinement!" class=datatype>refinement!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-refinement 'Rebol
 == /Rebol</code></pre></div>
@@ -17867,7 +17870,7 @@ Returns a <code class="datatype">refinement!</code> value made from the given va
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">set-path!</code> value made from the given value.
+Returns a <a href="datatypes.html#set-path!" class=datatype>set-path!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-set-path [some path]
 == some/path:</code></pre></div>
@@ -17891,7 +17894,7 @@ Returns a <code class="datatype">set-path!</code> value made from the given valu
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">set-word!</code> value made from the given value.
+Returns a <a href="datatypes.html#set-word!" class=datatype>set-word!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-set-word "test"
 == test:</code></pre></div>
@@ -17915,7 +17918,7 @@ Returns a <code class="datatype">set-word!</code> value made from the given valu
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">string!</code> value made from the given value.
+Returns a <a href="datatypes.html#string!" class=datatype>string!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-string [123 456]
 == "123456"</code></pre></div>
@@ -17939,7 +17942,7 @@ Returns a <code class="datatype">string!</code> value made from the given value.
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">tag!</code> value made from the given value.
+Returns a <a href="datatypes.html#tag!" class=datatype>tag!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-tag ";comment:"
 == &lt;;comment:&gt;</code></pre></div>
@@ -17963,7 +17966,7 @@ Returns a <code class="datatype">tag!</code> value made from the given value.
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">time!</code> value made from the given value.
+Returns a <a href="datatypes.html#time!" class=datatype>time!</a> value made from the given value.
 </p>
 <p>
 Integer and decimal values are interpreted as a number of seconds.
@@ -18000,7 +18003,7 @@ to the number of seconds.
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">tuple!</code> value made from the given value.
+Returns a <a href="datatypes.html#tuple!" class=datatype>tuple!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-tuple [12 34 56]
 == 12.34.56</code></pre></div><p>
@@ -18031,7 +18034,7 @@ Tuples can have up to 12 segments.
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">typeset!</code> value made from the given value.
+Returns a <a href="datatypes.html#typeset!" class=datatype>typeset!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; types: to-typeset [string! file! url!]
 == make typeset! [string! file! url!]
@@ -18057,7 +18060,7 @@ Returns a <code class="datatype">typeset!</code> value made from the given value
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">url!</code> value made from the given value.
+Returns a <a href="datatypes.html#url!" class=datatype>url!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-url "http://www.rebol.com"
 == http://www.rebol.com</code></pre></div>
@@ -18123,10 +18126,6 @@ Vectors can be created using construction syntax.
 &gt;&gt; #(int16! [1 2 3])
 == make vector! [integer! 16 3 [1 2 3]]</code></pre></div><p>
 Currently there are these vector types:
-* Signed integers: <code class="datatype">int8!</code>, <code class="datatype">int16!</code>, <code class="datatype">int32!</code>, <code class="datatype">int64!</code>
-* Unsigned integers: <code class="datatype">uint8!</code>, <code class="datatype">uint16!</code>, <code class="datatype">uint32!</code>, <code class="datatype">uint64!</code>
-* 32bit decimal: <code class="datatype">float!</code>
-* 64bit decimal: <code class="datatype">double!</code>
 </p>
 
 </section>
@@ -18148,7 +18147,7 @@ Currently there are these vector types:
 <h5>Description:</h5>
 
 <p>
-Returns a <code class="datatype">word!</code> value made from the given value.
+Returns a <a href="datatypes.html#word!" class=datatype>word!</a> value made from the given value.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; to-word "test"
 == test</code></pre></div>
@@ -18479,9 +18478,9 @@ These refinements can be used in various ways to parse Rebol source a value at a
 </p>
 
 <h6>Output</h6><p>
-The output from <a href="#transcode">transcode</a> is a <code class="datatype">block!</code> containing two values:
+The output from <a href="#transcode">transcode</a> is a <a href="datatypes.html#block!" class=datatype>block!</a> containing two values:
 </p>
-<ul><li>The translated value, block of values, or <code class="datatype">error!</code> object.</li><li>The <code class="datatype">binary!</code> source at the point where the translation ended.</li></ul><p>
+<ul><li>The translated value, block of values, or <a href="datatypes.html#error!" class=datatype>error!</a> object.</li><li>The <a href="datatypes.html#binary!" class=datatype>binary!</a> source at the point where the translation ended.</li></ul><p>
 For example:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">a: to-binary "a b c"  ;== #{6120622063}
@@ -18514,7 +18513,7 @@ transcode/only a      ;== [a #{20622063}]</code></pre></div>
 <h5>Description:</h5>
 
 <p>
-Trim removes unwanted values, normally it trims whitespace from a <code class="datatype">string!</code> or <code class="datatype">none!</code> values from a <code class="datatype">block!</code> or <code class="datatype">object!</code>.
+Trim removes unwanted values, normally it trims whitespace from a <a href="datatypes.html#string!" class=datatype>string!</a> or <a href="datatypes.html#none!" class=datatype>none!</a> values from a <a href="datatypes.html#block!" class=datatype>block!</a> or <a href="datatypes.html#object!" class=datatype>object!</a>.
 </p>
 <p>
 Here is an example of a string:
@@ -18525,17 +18524,17 @@ probe trim str
 Note that the str is modified. To avoid that, use copy:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">new-str: trim copy str</code></pre></div><p>
-For a <code class="datatype">block!</code> :
+For a <a href="datatypes.html#block!" class=datatype>block!</a> :
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">trim reduce [none 'a none 'b none]
 [a b]</code></pre></div><p>
-It removes the <code class="datatype">none!</code> values from the block. (And it will also remove <code class="datatype">unset!</code> values as well.)
+It removes the <a href="datatypes.html#none!" class=datatype>none!</a> values from the block. (And it will also remove <a href="datatypes.html#unset!" class=datatype>unset!</a> values as well.)
 </p>
 <p>
 Note that the block is modified. But, in this example, <a href="#reduce">reduce</a> creates a unique copy, so the original is not effected.
 </p>
 <p>
-And for an <code class="datatype">object!</code> :
+And for an <a href="datatypes.html#object!" class=datatype>object!</a> :
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">trim system/options
 make object! [
@@ -18692,7 +18691,7 @@ str: {This- is- a- line.}
 probe trim/with str "- ."
 "Thisisaline"</code></pre></div>
 <h6>TRIM on blocks</h6><p>
-When <a href="#trim">trim</a> is used on a <code class="datatype">block!</code>, it strips all <code class="datatype">none!</code> values from the block:
+When <a href="#trim">trim</a> is used on a <a href="datatypes.html#block!" class=datatype>block!</a>, it strips all <a href="datatypes.html#none!" class=datatype>none!</a> values from the block:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">trim reduce [1 2 none]
 [1 2]</code></pre></div><p>
@@ -18700,7 +18699,7 @@ Note that <a href="#trim">trim</a> modifies the argument block.
 </p>
 
 <h6>TRIM on objects</h6><p>
-When <a href="#trim">trim</a> is used on an <code class="datatype">object!</code>, it will return a new object that has all <code class="datatype">none!</code> values removed:
+When <a href="#trim">trim</a> is used on an <a href="datatypes.html#object!" class=datatype>object!</a>, it will return a new object that has all <a href="datatypes.html#none!" class=datatype>none!</a> values removed:
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">obj: make object [arg1: 10 arg2: none]
 trim obj
@@ -18737,7 +18736,7 @@ make object! [
 
 &gt;&gt; true? off
 == #(false)</code></pre></div><p>
-Note that <code class="datatype">unset!</code> value is truthy!
+Note that <a href="datatypes.html#unset!" class=datatype>unset!</a> value is truthy!
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; true? #(unset)
 == #(true)</code></pre></div>
@@ -19751,7 +19750,7 @@ No description provided.
 <h5>Description:</h5>
 
 <p>
-The <a href="#value?">value?</a> function returns true if the specified <code class="datatype">word!</code> has a value. It returns false if not.
+The <a href="#value?">value?</a> function returns true if the specified <a href="datatypes.html#word!" class=datatype>word!</a> has a value. It returns false if not.
 </p>
 <div class="example-code"><pre class="rebol-block"><code class="rebol">&gt;&gt; value? 'system
 == #(true)
@@ -19887,10 +19886,10 @@ NOTE: GUI system is only partially supported in this Rebol version!
 <h5>Description:</h5>
 
 <p>
-If the value is a <code class="datatype">time!</code>, delay for that period. If the
-value is an <code class="datatype">integer!</code> or <code class="datatype">decimal!</code>, wait that number of
-seconds. If the value is a <code class="datatype">port!</code>, wait for an event from
-that port. If a <code class="datatype">block!</code> is specified, wait for any of the
+If the value is a <a href="datatypes.html#time!" class=datatype>time!</a>, delay for that period. If the
+value is an <a href="datatypes.html#integer!" class=datatype>integer!</a> or <a href="datatypes.html#decimal!" class=datatype>decimal!</a>, wait that number of
+seconds. If the value is a <a href="datatypes.html#port!" class=datatype>port!</a>, wait for an event from
+that port. If a <a href="datatypes.html#block!" class=datatype>block!</a> is specified, wait for any of the
 times or ports to occur. Return the port that caused
 the wait to complete or return none if the timeout
 occurred.
@@ -19925,10 +19924,10 @@ print now/time
 <h5>Description:</h5>
 
 <p>
-A convenience wrapper around <a href="#read-key">read-key</a>. Blocks until a key is pressed and returns a <code class="datatype">char!</code> for printable keys or a <code class="datatype">word!</code> for special keys (see <code class=inline>system/catalog/event-keys</code>). Returns <code class=inline>none</code> if the user interrupts with Ctrl+C.
+A convenience wrapper around <a href="#read-key">read-key</a>. Blocks until a key is pressed and returns a <a href="datatypes.html#char!" class=datatype>char!</a> for printable keys or a <a href="datatypes.html#word!" class=datatype>word!</a> for special keys (see <code class=inline>system/catalog/event-keys</code>). Returns <code class=inline>none</code> if the user interrupts with Ctrl+C.
 </p>
 <p>
-With <code class=inline>/only</code>, keypresses not matching <code class=inline>limit</code> are ignored and the function keeps blocking until an accepted key is pressed. Matching uses either direct equality (for a single <code class="datatype">char!</code> or <code class="datatype">word!</code>) or <a href="#find">find</a> (for <code class="datatype">string!</code>, <code class="datatype">block!</code>, or <code class="datatype">bitset!</code>).
+With <code class=inline>/only</code>, keypresses not matching <code class=inline>limit</code> are ignored and the function keeps blocking until an accepted key is pressed. Matching uses either direct equality (for a single <a href="datatypes.html#char!" class=datatype>char!</a> or <a href="datatypes.html#word!" class=datatype>word!</a>) or <a href="#find">find</a> (for <a href="datatypes.html#string!" class=datatype>string!</a>, <a href="datatypes.html#block!" class=datatype>block!</a>, or <a href="datatypes.html#bitset!" class=datatype>bitset!</a>).
 </p>
 <div class="admonition note"><p class="admonition-title">Note</p><p>
 <a href="#wait-key">wait-key</a> is a blocking mezzanine — it does not yield to the event loop. For async scenarios where other events must continue to be processed while waiting for input, a non-blocking alternative should be used instead.
@@ -20093,7 +20092,7 @@ To see a list of functions for a specific module, provide the module name:
 <h5>Description:</h5>
 
 <p>
-The <a href="#while">while</a> function repeats the evaluation of its two block arguments while the first block returns true. The first block is the condition block, the second block is the evaluation block. When the condition block returns false or <code class="datatype">none!</code>, the expression block will no longer be evaluated and the loop terminates.
+The <a href="#while">while</a> function repeats the evaluation of its two block arguments while the first block returns true. The first block is the condition block, the second block is the evaluation block. When the condition block returns false or <a href="datatypes.html#none!" class=datatype>none!</a>, the expression block will no longer be evaluated and the loop terminates.
 </p>
 <p>
 The general form is:

@@ -5,3 +5,5 @@ _logs/*
 # Generated content:
 public/docs/functions.html
 public/docs/functions.inc
+public/docs/datatypes.html
+public/docs/datatypes.inc
