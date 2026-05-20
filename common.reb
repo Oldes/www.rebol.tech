@@ -106,7 +106,7 @@ markdown-ctx: context [
 				ajoin [<b> md-text copy/part s e </b>]
 			)
 			| #"_" s: some [#"\" skip | any u-chars] e: #"_" keep (
-				ajoin [<u> md-text copy/part s e </u>]
+				ajoin [<em> md-text copy/part s e </em>]
 			)
 			| #"\" keep skip ;; escape char
 			| #"[" copy txt: some url-text "](" copy href: some url-href #")" keep (
