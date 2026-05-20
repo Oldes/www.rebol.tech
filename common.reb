@@ -89,11 +89,14 @@ markdown-ctx: context [
 	url-href: complement charset ")^/^M"
 	b-chars:  complement charset "*\^/"
 	u-chars:  complement charset "_\^/"
+	c-chars:  complement charset "`\^/"
 	md-text: func[val /local out txt href wrd s e][
 		;; this is very simplified Markdown conversion of links and inline code
 		out: copy ""
 		parse val [collect into out any [
-			#"`" copy txt: some not-spec opt #"`" keep (
+			 #"`" s: some [#"\" skip | any c-chars] e: #"`" keep (
+				txt: copy/part s e
+				replace/all txt #"\" "" 
 				form-inline-code txt case [
 					all [find known-datatypes txt]                  ['datatype]
 					any-function? select lib attempt [to word! txt] ['function]
