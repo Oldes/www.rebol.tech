@@ -3408,9 +3408,75 @@ In summary:
 ------------------------------------------------------------------
 ## op!
 
+### Concept
 
-infix operator (special evaluation exception)
+An `op!` is an infix operator — a function that takes exactly two arguments, one on its left and one on its right. Unlike regular functions which are called with arguments following the function word, an `op!` is placed between its arguments:
 
+```rebol
+1 + 2     ; + is an op!
+2 * 3     ; * is an op!
+```
+
+All built-in arithmetic and comparison operators (`+`, `-`, `*`, `/`, `=`, etc.) are `op!` values. To list all defined operators:
+```code
+help op!
+```
+
+### Construction
+
+An `op!` can be created from a two-argument spec block, an existing `function!`, or an existing `action!`. The function or spec must take exactly two arguments — one or three or more arguments produce a `bad-make-arg` error.
+
+#### From a spec block
+
+```rebol
++*: make op! [[a b] [a + (a * b)]]
+1 +* 2   ;== 3   ; 1 + (1 * 2)
+2 +* 2   ;== 6   ; 2 + (2 * 2)
+```
+
+The spec block follows the same conventions as `func` — it can include argument descriptions and `/local` variables:
+
+```rebol
+.: make op! [[a "val1" b "val2" /local c] [c: none join a b]]
+"a" . "b"        ;== "ab"
+"a" . ["b" "c"]  ;== "abc"
+```
+
+#### From an existing function
+
+```rebol
+fce: func [a b] [a * b]
+op2: make op! :fce
+2 op2 3   ;== 6
+```
+
+#### From an existing action
+
+```rebol
+op1: make op! :remainder
+6 op1 3   ;== 0
+```
+
+### Reflection
+
+Use `spec-of` and `body-of` to inspect an `op!`:
+
+```rebol
+spec-of :+*   ;== [a b]
+body-of :+*   ;== [a + (a * b)]
+
+spec-of :.    ;== [a "val1" b "val2" /local c]
+body-of :.    ;== [c: none join a b]
+```
+
+### Related
+
+Use `op?` to test whether a value is an `op!`:
+
+```rebol
+op? :+    ;== true
+op? :add  ;== false
+```
 
 
 ------------------------------------------------------------------
