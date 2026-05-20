@@ -1075,8 +1075,30 @@ Here is another usage example:
 ------------------------------------------------------------------
 ## command!
 
-> **Note:**
-> Needs documentation!
+A `command!` is a special function type used to call into native C extensions. Rather than executing Rebol code, a `command!` value dispatches to an extension's C-level handler when called. From the caller's perspective it behaves like any other function — it has a spec, accepts arguments, and returns a value.
+
+Commands are created by native extensions, not by Rebol code directly. When an extension is loaded, it registers its commands and makes them available as `command!` values in the current context.
+
+### Reflection
+
+Like other function types, `command!` values can be inspected:
+
+```rebol
+spec-of :some-command    ;: returns the argument spec block
+body-of :some-command    ;: implementation-defined
+```
+
+### Related
+
+Use `command?` to test whether a value is a `command!`:
+
+```rebol
+command? :some-command   ;== true
+```
+
+Use `help command!` to list all available commands in the current session.
+
+`command!` is a member of the `any-function!` typeset.
 
 
 ------------------------------------------------------------------
