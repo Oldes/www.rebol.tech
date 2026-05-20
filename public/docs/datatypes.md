@@ -666,7 +666,7 @@ If you want to preserve that information, you must use `mold`.
 
 Blocks are groups of values and words. Blocks are used everywhere, from a script itself to blocks of data and code provided in a script.
 
-Block values are indicated by opening and closing square brackets (`[ ]`) with any amount of data contained between them.
+Block values are indicated by opening and closing square brackets `[ ]` with any amount of data contained between them.
 
 ```rebol
 [123 data "hi"]  ; block with data
@@ -827,7 +827,7 @@ A `char!` value is written as a number sign (#) followed by a string enclosed in
 "R"     ; a string with the character: R
 ```
 
-Characters can include escape sequences that begin with a caret (`^`) and are followed by one or more characters of encoding. This encoding can include the characters `#"^A"` to `#"^Z"` for `CTRL+A` to `CTRL+Z` (upper and lower case are the same):
+Characters can include escape sequences that begin with a caret `^` and are followed by one or more characters of encoding. This encoding can include the characters `#"^A"` to `#"^Z"` for `CTRL+A` to `CTRL+Z` (upper and lower case are the same):
 ```rebol
 #"^A" #"^Z"
 ```
@@ -1053,7 +1053,7 @@ help datatype!
 ## date!
 
 
-Around the world, dates are written in a variety of formats. However, most countries use the `day-month-year` format. One of the few exceptions is the United States, which commonly uses a `month-day-year` format. For example, a date written numerically as `2/1/1999` is ambiguous. The month could be interpreted as either February or January. Some countries use a dash (`-`), some use a forward slash (`/`), and others use a period (`.`) as a separator. Finally, computer people often prefer dates in the 
+Around the world, dates are written in a variety of formats. However, most countries use the `day-month-year` format. One of the few exceptions is the United States, which commonly uses a `month-day-year` format. For example, a date written numerically as `2/1/1999` is ambiguous. The month could be interpreted as either February or January. Some countries use a dash `-`, some use a forward slash `/`, and others use a period `.` as a separator. Finally, computer people often prefer dates in the 
 `year-month-day` (ISO) format so they can be easily sorted.
 
 
@@ -1078,7 +1078,7 @@ probe 29-2-2000
 29-Feb-2000
 ```
 
-The fields of dates can be separated with forward slashes (`/`) or dashes (`-`). Dates can be written in either a year-month-day format or a day-month-year format:
+The fields of dates can be separated with forward slashes `/` or dashes `-`. Dates can be written in either a year-month-day format or a day-month-year format:
 
 ```rebol
 probe 1999-10-5
@@ -1355,7 +1355,7 @@ A comma can be used in place of a period to represent the decimal point (which i
 1234,5678
 ```
 
-Use a single quote (`'`) to separate the digits in long decimals. Single quotes can appear anywhere after the first digit in the number, but not before the first digit.
+Use a single quote `'` to separate the digits in long decimals. Single quotes can appear anywhere after the first digit in the number, but not before the first digit.
 
 
 ```rebol
@@ -1451,7 +1451,7 @@ print 1.00001E+5
 100001
 ```
 
-Single quotes (`'`) and a leading plus sign (`+`) do not appear in decimal output:
+Single quotes `'` and a leading plus sign `+` do not appear in decimal output:
 
 
 ```rebol
@@ -1492,7 +1492,7 @@ john@doe.dom
 
 
 ### Format
-The standard format of an email address is a name, followed by an at sign (@), followed by a domain. An email address can be of any length, but must not include any of restricted characters, such as square brackets, quotes, braces, spaces, newlines, etc..
+The standard format of an email address is a name, followed by an at sign `@`, followed by a domain. An email address can be of any length, but must not include any of restricted characters, such as square brackets, quotes, braces, spaces, newlines, etc..
 
 The following `email!` datatype formats are valid:
 
@@ -1615,7 +1615,7 @@ probe head remove/part (find f "path/") (length? "path/")
 
 
 ### Format
-Files are designated with a percent sign (`%`) followed by a sequence of characters:
+Files are designated with a percent sign `%` followed by a sequence of characters:
 
 
 ```rebol
@@ -1646,7 +1646,7 @@ print %"cool movie clip.mpg"
 cool movie clip.mpg
 ```
 
-The standard character for separating directories in a path is the forward slash (`/`), not the backslash (`\`). However, the Rebol language automatically converts backslashes found in file names to forward slashes:
+The standard character for separating directories in a path is the forward slash `/`, not the backslash `\`. However, the Rebol language automatically converts backslashes found in file names to forward slashes:
 
 ```rebol
 probe %\some\path\to\some\where\movieclip.mpg
@@ -1765,7 +1765,7 @@ More about functions is found in [defining functions](https://www.rebol.com/r3/d
 
 A `get-path!` retrieves the value a path points to without triggering any evaluation side effects — in particular, it will return a function value rather than calling it. It is the path equivalent of a `get-word!`.
 
-Prefixing a path with a colon (`:`) produces a `get-path!`:
+Prefixing a path with a colon `:` produces a `get-path!`:
 
 ```rebol
 :root/word
@@ -1946,14 +1946,14 @@ Images are included in the `series!` typeset:
 probe series? img
 ```
 
-Use the /size` refinement to return the pixel size of an image as a pair value:
+Use the `/size` refinement to return the pixel size of an image as a pair value:
 
 
 ```rebol
 probe img/size
 ```
 
-Use the `/rgb` and `/alpha` refinements to get the RGB and A component separately as  binary values.
+Use the `/rgb` and `/alpha` refinements to get the RGB and A component separately as binary values.
 
 
 ```rebol
@@ -2003,7 +2003,7 @@ Integer values consist of a sequence of numeric digits. A plus (+) or minus (-) 
 0 1234 +1234 -1234 00012 -0123
 ```
 
-Do not  use commas or periods in integers. If a comma or period is found within an integer it is interpreted as a decimal value. However, you can use a single quote (`)  to separate the digits in long integers. Single quotes can appear anywhere after the first digit in the number, but not before the first digit.
+Do not  use commas or periods in integers. If a comma or period is found within an integer it is interpreted as a decimal value. However, you can use a single quote `'`  to separate the digits in long integers. Single quotes can appear anywhere after the first digit in the number, but not before the first digit.
 
 
 ```rebol
@@ -2253,7 +2253,7 @@ This Rebol 2 datatype has not been implemented in Rebol 3.
 
 A `lit-path!` is a path that is not evaluated when encountered — it yields the path value itself rather than following it. This is the path equivalent of a `lit-word!`.
 
-Prefixing a path with a quote (`'`) produces a `lit-path!`:
+Prefixing a path with a quote `'` produces a `lit-path!`:
 
 ```rebol
 'root/sub1/sub2
@@ -2283,7 +2283,7 @@ probe 'USA/CA/Willits/population
 ;== USA/CA/Willits/population
 ```
 
-A `lit-path!` becomes a plain `path!` once it has been assigned to a variable. Use a get-word (`:var`) to work with the path value itself afterwards — see [path!](#path) for details on this distinction.
+A `lit-path!` becomes a plain `path!` once it has been assigned to a variable. Use a get-word (`:var`) to work with the path value itself afterwards — see `path!` for details on this distinction.
 
 ```rebol
 probe lit-path? first ['root/sub]
@@ -2914,7 +2914,7 @@ $12,34
 DEM$12,34
 ```
 
-To break long numbers into readable segments, a single quote (`) can be placed anywhere between two digits within the amount, but not before the amount.
+To break long numbers into readable segments, a single quote `'` can be placed anywhere between two digits within the amount, but not before the amount.
 
 
 ```rebol
@@ -3440,7 +3440,7 @@ probe form pick blk 1
 ## path!
 
 
-Paths are a collection of words and values delineated with forward slashes (`/`). Paths are used to navigate to or find something.
+Paths are a collection of words and values delineated with forward slashes `/`. Paths are used to navigate to or find something.
 
 Paths can be used on series, maps, functions, and objects.  How a path operates depends on the datatype being used. Thus paths can be used to select values from blocks, pick characters from strings, access variables in objects, refine the operation of a function:
 ```rebol
@@ -3682,7 +3682,7 @@ path
 
 
 ### Format
-Paths are expressed relative to a root word by providing a number of selection expressions, each separated by a forward slash (`/`). These expressions can be any value type. Their specific interpretation varies depending on the datatype of the root value.
+Paths are expressed relative to a root word by providing a number of selection expressions, each separated by a forward slash `/`. These expressions can be any value type. Their specific interpretation varies depending on the datatype of the root value.
 
 The words supplied as selection expressions in paths are symbolic and are not evaluated. This is necessary to allow the most intuitive form for object referencing. To use a word's reference, an explicit word value reference is required:
 ```rebol
@@ -3909,7 +3909,7 @@ false
 
 A `set-path!` assigns a value to the location a path points to. It is the path equivalent of a `set-word!`.
 
-Appending a colon (`:`) to a path produces a `set-path!`:
+Appending a colon `:` to a path produces a `set-path!`:
 
 ```rebol
 root/word:
@@ -4031,12 +4031,12 @@ as there are open braces } in the string.
 }
 ```
 
-You can include special characters and operations in strings by prefixing them with a caret (`^`).  Special characters include:
+You can include special characters and operations in strings by prefixing them with a caret `^`.  Special characters include:
 
 | Character | Definition
-| `^"` | Inserts a double quote (`"`).
-| `^}` | Inserts a closing brace (`}`).
-| `^^` | Inserts a  caret (`^`).
+| `^"` | Inserts a double quote `"`.
+| `^}` | Inserts a closing brace `}`.
+| `^^` | Inserts a  caret `^`.
 | `^/` | Starts a new line.
 | `^(line)` | Starts a new line.
 | `^-`      | Inserts a tab.
@@ -4423,7 +4423,7 @@ make struct! [a [23]]    ; ** Error: invalid-arg   (invalid type)
 ## tag!
 
 
-Tags are used in HTML and other markup languages to indicate how text fields are to be treated. For example, the tag `<HTML>` at the beginning of a file indicates that it should be parsed by the rules of the Hypertext Markup Language. A tag with a forward slash (`/`), such as `</HTML>`, indicates the closing of the tag.
+Tags are used in HTML and other markup languages to indicate how text fields are to be treated. For example, the tag `<HTML>` at the beginning of a file indicates that it should be parsed by the rules of the Hypertext Markup Language. A tag with a forward slash `/`, such as `</HTML>`, indicates the closing of the tag.
 
 Tags are a subset of series, and thus can be manipulated as such:
 
@@ -4515,7 +4515,7 @@ The `time!` datatype uses relative rather than absolute time. For example, `10:3
 
 
 ### Format
-Times are expressed as a set of integers separated by colons (`:`). Hours and minutes are required, but seconds are optional. Within each field, leading zeros are ignored:
+Times are expressed as a set of integers separated by colons `:`. Hours and minutes are required, but seconds are optional. Within each field, leading zeros are ignored:
 
 
 ```rebol
