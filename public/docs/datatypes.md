@@ -2143,12 +2143,14 @@ pick img 1           ;== 255.255.255.255
 poke img 1 1.2.3     ;; set pixel 1 to RGB 1.2.3 (alpha unchanged)
 ```
 
-Set pixels using a set-path. Accepts 3- or 4-component tuples (5+ components are silently truncated to 4):
+Set pixels using a set-path. Accepts 3- or 4-component tuples (5+ components are silently truncated to 4). Hexadecimal integer notation (`0#RRGGBB` or `0#RRGGBBAA`) may also be used:
 
 ```rebol
 img/1: 255.0.0       ;; red, alpha unchanged
 img/1: 255.0.0.128   ;; red, semi-transparent
 img/(2x1): 0.0.255   ;; blue at position 2x1
+img/1: 0#8855DD      ;; hex integer notation — same as 136.85.221
+img/1: 0#8855DDAA    ;; with alpha
 ```
 
 Setting alpha only using an integer or char:
@@ -2156,6 +2158,7 @@ Setting alpha only using an integer or char:
 ```rebol
 img/1: 0             ;; fully transparent
 img/1: 127           ;; half transparent
+img/1: 0#7F          ;; same as 127
 img/1: #"^@"         ;; same as 0
 ```
 
@@ -2235,7 +2238,7 @@ For single color tuples:
 
 ```rebol
 luminosity 255.0.0   ;== 54
-grayscale 255.0.0    ;== 85
+grayscale  255.0.0   ;== 85
 ```
 
 Blend a color into an image or tuple using `tint`. Does not modify the original tuple, but does modify an image in place:
@@ -2487,7 +2490,7 @@ rgb/2
 85
 ```
 
-> **Special Note:
+> **Special Note:**
 > Note that for RGB values the above hex conversion is not reversible. That's because the intended use of the integer is not known (to be an RGB value.)
 >
 > However, you can define your own function for this conversion:
