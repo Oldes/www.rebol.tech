@@ -1603,65 +1603,142 @@ print +1'100'200.222'112
 ------------------------------------------------------------------
 ## email!
 
-
-An email address is a datatype. The `email!` datatype allows for easy expression of email addresses:
-
-
-```rebol
-send luke@rebol.com {some message}
-
-emails: [
-    john@keats.dom
-    lord@byron.dom
-    edger@guest.dom
-    alfred@tennyson.dom
-]
-mesg: {poetry reading at 8:00pm!}
-foreach email emails [send email mesg]
-```
-
-Email is also one of the `series` datatypes, so the same rules that apply to series apply to emails:
-
-
-```rebol
-probe head change/part jane@doe.dom "john" 4
-john@doe.dom
-```
-
+An `email!` value represents an email address. It is a member of the `any-string!` and `series!` typesets, so all series operations apply.
 
 
 ### Format
-The standard format of an email address is a name, followed by an at sign `@`, followed by a domain. An email address can be of any length, but must not include any of restricted characters, such as square brackets, quotes, braces, spaces, newlines, etc..
 
-The following `email!` datatype formats are valid:
-
+An email address consists of a user part, an `@` sign, and a host part:
 
 ```rebol
 info@rebol.com
 123@number-mail.org
 my-name.here@an.example-domain.com
+šiška@rebol.tech
 ```
 
-Upper and lower cases are preserved in email addresses.
+Case is preserved. There is no strict validation of the address format — any string-like value can be coerced to `email!` using `as`:
 
-> **Not implemented or outdated documentation:**
-> ### Access
-> Refinements can be used with an email value to get the user name or domain. The refinements are:
-> 
-> - `/user` - Get the user name.
-> - `/host` - Get the domain.
-> 
-> Here's how these refinements work:
-> 
-> 
-> ```rebol
-> email: luke@rebol.com
-> probe email/user
-> luke
-> 
-> probe email/host
-> rebol.com
-> ```
+```rebol
+as email! "foo"          ;== #(email! "foo")
+as email! "aaa@bbb@ccc"  ;== #(email! "aaa@bbb@ccc")
+```
+
+
+### Construction
+
+Email literals are written directly. Use `to-email`, `to email!` or `as email!` to convert from other types:
+
+```rebol
+to-email  "user@example.com"  ;== user@example.com
+as email! "user@example.com"  ;== user@example.com - zero-copy coercion
+```
+
+Use `make email!` with a block to construct an address from parts. The first element is the user, subsequent elements form the host joined by dots:
+```rebol
+make email! [aaa]            ;== #(email! "aaa") - user only, no host
+make email! [aaa bbb]        ;== aaa@bbb
+make email! [aaa bbb cc]     ;== aaa@bbb.cc
+make email! [aaa bbb cc dd]  ;== aaa@bbb.cc.dd
+```
+An empty block produces an error. The block must have at least one element.
+
+
+### Accessing user and host
+
+Use `/user` and `/host` to read the parts of an email address. These always operate on the full email value regardless of the current series position:
+
+```rebol
+e: someone@rebol.tech
+e/user    ;== "someone"
+e/host    ;== "rebol.tech"
+
+;; position does not affect the result:
+e: find e ".tech"
+e/user    ;== "someone"
+e/host    ;== "rebol.tech"
+```
+
+When there is no `@`, `/host` returns `none`:
+
+```rebol
+e: as email! "foo"
+e/user    ;== "foo"
+e/host    ;== none
+```
+
+When there are multiple `@` signs, `/user` is everything before the first one and `/host` is everything after it:
+
+```rebol
+e: as email! "aaa@bbb@ccc"
+e/user    ;== "aaa"
+e/host    ;== "bbb@ccc"
+```
+
+
+### Setting user and host
+
+`/user` and `/host` are also settable:
+
+```rebol
+e: someone@rebol.tech
+e/host: "gmail.com"
+e    ;== someone@gmail.com
+
+e/user: "foo"
+e    ;== foo@gmail.com
+```
+
+Setting `/host` on an email with no `@` prepends `@host`:
+
+```rebol
+e: as email! ""
+e/host: %rebol.tech
+e    ;== #(email! "@rebol.tech")
+```
+
+Setting `/user` on an email with no `@` sets just the user, with no `@`:
+
+```rebol
+e: as email! ""
+e/user: "bob"
+e    ;== #(email! "bob")
+```
+
+Unicode is valid in both parts:
+
+```rebol
+e/user: "šiška"
+e    ;== šiška@rebol.tech
+```
+
+
+### Series operations
+
+Since `email!` is a series, standard operations apply:
+
+```rebol
+head change/part jane@doe.dom "john" 4   ;== john@doe.dom
+find someone@rebol.tech ".tech"          ;== ".tech"
+length? info@rebol.com                   ;== 13
+```
+
+
+### Related
+
+Use `email?` to test whether a value is an `email!`:
+
+```rebol
+email?  info@rebol.com   ;== true
+email? "info@rebol.com"  ;== false
+```
+
+Use `as` to coerce between `any-string!` types without copying:
+
+```rebol
+as email! "user@host.com"   ;== user@host.com
+as string! user@host.com    ;== "user@host.com"
+```
 
 
 ### Creation
