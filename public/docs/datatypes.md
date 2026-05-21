@@ -5782,107 +5782,193 @@ probe now/time
 ------------------------------------------------------------------
 ## tuple!
 
-
-It is common to represent version numbers, Internet addresses, and RGB color values as a sequence of three or four integers. These types of numbers are called a `tuple!` (as in quintuple) and are represented as a set of integers separated by periods.
-
+A `tuple!` is a sequence of integers separated by periods. Tuples are commonly used to represent version numbers, network addresses, and RGB color values.
 
 ```rebol
-1.3.0 2.1.120 1.0.2.32     ; version
-199.4.80.250 255.255.255.0 ; net addresses/masks
-0.80.255 200.200.60        ; RGB colors
+1.3.0              ; version
+199.4.80.250       ; IPv4 address
+255.255.255.0      ; network mask
+0.80.255           ; RGB color
+1.2.3.4.5.6.7.8.9.10.11.12  ; up to 12 elements
 ```
 
+`tuple!` is a member of the `scalar!` and `immediate!` typesets.
 
 
 ### Format
-Each integer field of a `tuple!` datatype can range between 0 and 255. Negative integers produce an error.
 
-Three to ten integers can be specified in a tuple. In the case where only two integers are given, there must be at least two periods, otherwise the value is treated as a decimal.
-
+A tuple requires at least two periods (minimum three elements). Two numbers separated by a single period are a `decimal!`, not a `tuple!`:
 
 ```rebol
-probe 1.2     ; is decimal
-1.2
+1.2      ;== decimal!
+1.2.3    ;== tuple!
+1.2.     ;== 1.2.0  (tuple — trailing period adds a zero)
+```
 
-probe type? 1.2
-decimal!
+Each element can range from 0 to 255. Values outside this range are clipped to 0 or 255 during assignment:
 
-probe 1.2.3   ; is tuple
-1.2.3
+```rebol
+t: 1.2.3
+t/1: 300     ; clipped to 255
+t/2: -10     ; clipped to 0
+t            ;== 255.0.3
+```
 
-probe 1.2.    ; is tuple
-1.2.0
+A tuple can have between 3 and 12 elements:
 
-probe type? 1.2.
-tuple!
+```rebol
+load "1.2.3.4.5.6.7.8.9.10.11.12"    ; valid — 12 elements
+load "1.2.3.4.5.6.7.8.9.10.11.12.13" ; error — too long
 ```
 
 
+### Construction
 
-### Creation
-Use the `to-tuple` function to convert data to the `tuple!` datatype:
-
+Write tuples as literals, or convert from other types with `to-tuple` / `to tuple!`:
 
 ```rebol
-probe to-tuple "12.34.56"
-12.34.56
+to-tuple "1.2.3"           ;== 1.2.3
+to-tuple [1 2 3]           ;== 1.2.3
+to-tuple "1"               ;== 1.0.0   ; extended to minimum 3 elements
+to-tuple "1.2"             ;== 1.2.0
 
-probe to-tuple [12 34 56]
-12.34.56
+to-tuple #{010203}         ;== 1.2.3
+to-tuple #010203           ;== 1.2.3   ; from issue!
+
+;; decimal values in blocks are truncated to integer:
+to-tuple [0.5 25.4 200.01] ;== 1.25.200
 ```
 
+Converting back to the same type is a no-op:
+
+```rebol
+to-tuple 1.1.1             ;== 1.1.1
+```
+
+
+### Accessing and setting elements
+
+Elements are accessed by 1-based integer index:
+
+```rebol
+t: 1.2.3.4
+t/1    ;== 1
+t/2    ;== 2
+t/4    ;== 4
+t/5    ;== none   ; out of range returns none
+```
+
+Set elements via path. Setting a position beyond the current length extends the tuple with zeros:
+
+```rebol
+t: 1.2.3
+t/5: 5
+t         ;== 1.2.3.0.5
+
+t/12: 12  ;; extends up to the maximum
+```
+
+Set an element to `none` to shorten the tuple:
+
+```rebol
+t: 1.2.3.4
+t/4: none
+t       ;== 1.2.3
+```
+
+Note: `poke` is not supported on tuples — use path assignment instead.
+
+
+### Math operations
+
+Arithmetic operates element-wise. Values are clipped to 0–255:
+
+```rebol
+0.0.128 * 2           ;== 0.0.255     ; clipped at 255
+128.128.128 + 0.255.0 ;== 128.255.128
+
+1.1.1 / 0.1           ;== 10.10.10
+1.1.1 * 2147483648.0  ;== 255.255.255 ; large values clip at 255
+```
+
+#### Bitwise operations
+
+`or`, `and`, and `xor` operate on tuples with integers. Float arguments are not supported:
+
+```rebol
+1.2.3.4 or  1    ;== 1.3.3.5
+1.2.3.4 and 1    ;== 1.0.1.0
+1.2.3.4 xor 1    ;== 0.3.2.5
+```
+
+#### Complement
+
+`complement` inverts each byte (equivalent to XOR with 255):
+
+```rebol
+complement 1.0.0 ;== 254.255.255
+```
+
+#### Power
+
+`**` (power) is not supported on tuples and produces an error.
+
+
+### Equality
+
+`=` and `equiv?` treat a tuple and the same tuple with trailing zeros as equal. `==` (strict-equal?) and `same?` do not:
+
+```rebol
+equal?        1.2.3 1.2.3.0   ;== true
+equiv?        1.2.3 1.2.3.0   ;== true
+strict-equal? 1.2.3 1.2.3.0   ;== false
+same?         1.2.3 1.2.3.0   ;== false
+```
+
+
+### Reversing
+
+`reverse` reverses the elements of the tuple in place:
+
+```rebol
+reverse 1.2.3       ;== 3.2.1
+reverse 1.2.3.4.5   ;== 5.4.3.2.1
+```
+
+`reverse/part` reverses only the first N elements:
+
+```rebol
+reverse/part 1.2.3.4.5 3   ;== 3.2.1.4.5
+```
+
+
+### Interpolation
+
+`lerp` linearly interpolates between two tuples. Accepts a decimal or percent in the range 0.0–1.0 (100%). Values outside the range are clamped:
+
+```rebol
+lerp 10.100.255 255.128.64 0.0    ;== 10.100.255
+lerp 10.100.255 255.128.64 0.3    ;== 83.108.197
+lerp 10.100.255 255.128.64 1.0    ;== 255.128.64
+lerp 10.100.255 255.128.64 30%    ;== 83.108.197
+lerp 10.100.255 255.128.64 200%   ;== 255.128.64  ; clamped
+```
 
 
 ### Related
-Use `tuple?` to determine whether a value is a `tuple!` datatype.
 
+Use `tuple?` to test whether a value is a `tuple!`:
 
 ```rebol
-probe tuple? 1.2.3.4
-true
+tuple? 1.2.3.4  ;== true
+tuple? "1.2.3"  ;== false
 ```
 
-Use the `form` function to print a tuple as a string:
-
-
-```rebol
-probe form 1.2.3.4
-1.2.3.4
-```
-
-Use the `mold` function to convert a tuple into a string that can be read back into Rebol as a tuple:
-
+`form` and `mold` both produce the dot-separated string representation:
 
 ```rebol
-probe mold 1.2.3.4
-1.2.3.4
-```
-
-Use the `print` function to print a tuple to standard output after using the  `reform` function:
-
-
-```rebol
-print 1.2.3.4
-1.2.3.4
-```
-
-
-#### Auto Clipping
-During math operations, elements of a tuple will clip at 0 and 255. This is done to make math easier for common tuple operations such generating as color values.
-
-
-```rebol
-print navy
-0.0.128
-
-print navy * 2
-0.0.255
-
-print gray
-128.128.128
-
-print gray + green
-128.255.128
+form 1.2.3.4    ;== "1.2.3.4"
+mold 1.2.3.4    ;== "1.2.3.4"
 ```
 
 
