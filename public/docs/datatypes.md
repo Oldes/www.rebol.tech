@@ -1741,43 +1741,6 @@ as string! user@host.com    ;== "user@host.com"
 ```
 
 
-### Creation
-The `to-email` function converts data to the `email!` datatype:
-
-```rebol
-probe to-email "info@rebol.com"
-info@rebol.com
-
-probe to-email [info rebol.com]
-info@rebol.com
-
-probe to-email [info rebol com]
-info@rebol.com
-
-probe to-email [user some long domain name out there dom]
-user@some.long.domain.name.out.there.dom
-```
-
-
-### Related
-Use `email?` to determine whether a value is an `email!`  datatype.
-
-```rebol
-probe email? luke@rebol.com
-true
-```
-
-As emails are part of the `series!` typeset, use `series?` to determine whether the value is a series:
-
-```rebol
-probe series? luke@rebol.com
-true
-
-probe pick luke@rebol.com 5
-#"@"
-```
-
-
 
 ------------------------------------------------------------------
 ## end!
@@ -3757,8 +3720,38 @@ USD$12.34
 ------------------------------------------------------------------
 ## native!
 
+A `native!` is a function implemented directly in the interpreter's host language (C) rather than in Rebol code. Natives have the same calling interface as regular functions — they accept arguments, support refinements, and return values — but their bodies are not accessible as Rebol code.
 
-direct CPU evaluated function
+Most of Rebol's built-in functions are natives: `if`, `loop`, `do`, `reduce`, and so on.
+
+To list all natives:
+
+```rebol
+help native!
+```
+
+### Reflection
+
+`spec-of` returns the argument spec, just as with other function types:
+
+```rebol
+spec-of :if
+spec-of :reduce
+```
+
+`body-of` on a native returns `none` — there is no Rebol-level body to inspect.
+
+### Related
+
+Use `native?` to test whether a value is a `native!`:
+
+```rebol
+native? :if       ;== true
+native? :append   ;== false   ; append is an action!
+native? :+        ;== false   ; + is an op!
+```
+
+`native!` is a member of the `any-function!` typeset.
 
 
 
