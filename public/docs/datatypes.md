@@ -4632,90 +4632,81 @@ external series, an I/O channel
 ------------------------------------------------------------------
 ## refinement!
 
+A `refinement!` is a word prefixed with a forward slash `/`. Refinements serve two distinct purposes: as optional modifiers to function calls, and as path steps when navigating into series, objects, and URLs.
 
-Refinements are modifiers, similar to adjectives used in natural
-(human) languages. A refinement indicates a variation in the use
-of, or extension in the meaning of, a function, object,
-filename, URL, or path. Refinements are always symbolic in their
-value.
-
-Refinements are used for functions:
-
-```rebol
-block: [1 2]
-append/only block [3 4]
-```
-
-objects:
-
-```rebol
-print system/version
-```
-
-files:
-
-```rebol
-dir: %docs/core
-print read dir/file.txt
-```
-
-urls:
-
-```rebol
-site: http://www.rebol.com
-print read site/index.html
-```
+`refinement!` is a member of the `any-word!` and `immediate!` typesets.
 
 
 ### Format
-Refinements are composed with a slash followed by a valid Rebol
-word (see the words section below for definition). Examples are:
+
+A refinement is written as `/` followed by a valid Rebol word:
 
 ```rebol
 /only
-/test1
+/part
+/case
 /save-it
+/test1
 ```
 
-Refinements are usually joined to other words, such as in the case
-of:
+
+### As function modifiers
+
+When used in a function call, a refinement enables an optional behaviour of that function:
 
 ```rebol
-port: open/binary file
+append/only [1 2] [3 4]   ;; appends [3 4] as a single element
+copy/part "abcde" 3       ;; copies only 3 characters
+find/case "abcABC" "A"    ;; case-sensitive search
 ```
 
-But refinements can also be written alone, as is done when specifying
-refinements to a function:
+Refinements are declared in function specs and can be combined:
 
 ```rebol
-save-data: function [file data /limit /reload] ...
+save-data: func [file data /limit n /reload] [...]
+
+save-data/limit %out.txt data 100
+save-data/limit/reload %out.txt data 100
 ```
+
+
+### As path steps
+
+Refinements also appear as steps in paths — when navigating objects, files, or URLs:
+
+```rebol
+system/version
+system/catalog/datatypes
+
+dir: %docs/core
+read dir/file.txt
+
+site: http://www.rebol.com
+read site/index.html
+```
+
+In this context a refinement is functionally the same as a word step in a path.
 
 
 ### Creation
-Refinements can be created literally in source code:
+
+Refinements can be written as literals or converted from other types:
 
 ```rebol
 /test
-```
 
-or can be composed from the `to-refinement` word:
-
-```rebol
-probe to-refinement "test"
-/test
+to-refinement "test"    ;== /test
+to-refinement 'test     ;== /test
 ```
 
 
 ### Related
-To test for a refinement, use the `refinement?` function:
+
+Use `refinement?` to test whether a value is a `refinement!`:
 
 ```rebol
-probe refinement? /test
-true
-
-probe refinement? 'word
-false
+refinement? /only    ;== true
+refinement? 'only    ;== false
 ```
 
 
