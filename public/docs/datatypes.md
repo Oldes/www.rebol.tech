@@ -3702,78 +3702,95 @@ native? :+        ;== false   ; + is an op!
 ------------------------------------------------------------------
 ## none!
 
+The `none!` datatype has a single value representing the absence of a value. It is distinct from `0`, `#(false)`, empty strings, and empty blocks — it is an explicit value meaning "nothing here".
 
-The `none!` datatype contains a single value that represents nothing or no value.
-
-The concept of none is not the same as an empty block, empty string, or null character. It is an actual value that represents non-existence.
-
-A `none!` value can be returned from various functions, primarily those involving series (for example, `pick` and `find`).
-
-The Rebol word `none!` is defined as a `none!` datatype and contains a `none!` value. The word `none!` is not equivalent to zero` or false`. However, `none!` is interpreted as false` by many functions.
-
-A `none!` value has many uses such as a return value from series functions like `pick`, `find` and select:`
+The literal forms are `#(none)` and `_` (they are equivalent):
 
 ```rebol
-if (pick series 30) = none [...]
+#(none)    ;== _
+_          ;== _
 ```
 
-In databases, a `none!` can be a placeholder for missing values:
+The word `none` is predefined to hold `_` — it is not a keyword, just a convenience:
+
+```rebol
+none       ;== _
+```
+
+`none!` is a member of the `immediate!` typeset.
+
+
+### Common uses
+
+Many series functions return `_` when nothing is found:
+
+```rebol
+find "abcd" "e"      ;== _
+pick [1 2 3] 10      ;== _
+select [a 1 b 2] 'c  ;== _
+```
+
+It is useful as a placeholder for missing values in data structures:
 
 ```rebol
 email-database: [
-    "Bobby" bob@rebol.com 40
-    "Linda" none 23
+    "Bobby" bob@rebol.com  40
+    "Linda" _              23
     "Sara"  sara@rebol.net 33
 ]
 ```
 
-It also can be used as a logic value:
+It can be used to disable or clear settings:
 
 ```rebol
-secure none
+secure _
+date/zone: _    ; remove timezone from a date
 ```
 
 
-### Format
-The word `none!` is predefined to hold a `none!` value.
+### Conditional behaviour
 
-Although `none!` is not equivalent to `zero` or `false`, it is valid within conditional expressions and has the same effect as `false`:
+In conditional expressions, `_` is falsy — the same effect as `#(false)`:
 
 ```rebol
-probe find "abcd" "e"
-none
+if find "abcd" "e" [print "found"]   ; does not print — find returned _
 
-if find "abcd" "e" [print "found"]
+if _ [print "yes"]                   ; does not print
+if 0 [print "yes"]                   ; prints — 0 is truthy!
 ```
+
 
 ### Creation
-The `to-none` function always returns `none!`.
+
+Any value can be converted to `_` using `to none!` — it always returns `_` regardless of input:
+
+```rebol
+to none! 42           ;== _
+to none! "hello"      ;== _
+to none! #(true)      ;== _
+```
+
+
+### Display
+
+`mold` produces the literal form; `form` produces the word `none`:
+
+```rebol
+mold  _               ;== "_"
+form  _               ;== "none"
+print _               ; none
+```
+
 
 ### Related
-Use `none?` to determine whether a value is a `none!` datatype.
+
+Use `none?` to test whether a value is a `none!`:
 
 ```rebol
-print none? 1
-false
-
-print none? find [1 2 3] 4
-true
+none? _               ;== #(true)
+none? find [1 2 3] 4  ;== #(true)
+none? 1               ;== #(false)
 ```
-
-The `form`, `print`, and `mold` functions print the value `none!` when passed a `none!` argument.
-
-
-```rebol
-probe form none
-none
-
-probe mold none
-none
-
-print none
-none
-```
-
 
 
 ------------------------------------------------------------------
