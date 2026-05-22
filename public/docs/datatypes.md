@@ -6203,27 +6203,23 @@ get/any 'x         ;== #(unset)
 ------------------------------------------------------------------
 ## url!
 
-
-URL is an acronym for Uniform Resource Locator, an Internet standard used to access resources such as web pages, images, files, and email across the network. The best known URL scheme is that used for web locations such as http://www.rebol.com.
-
-URL values are a subset of series, and thus can be manipulated as series:
-
+A `url!` value represents a Uniform Resource Locator — an address used to identify a resource on a network or filesystem. URLs are a member of the `any-string!` and `series!` typesets, so all series operations apply.
 
 ```rebol
-url: http://www.rebol.com/reboldoc.html
-probe to-file find/reverse (tail url) "rebol"
-%reboldoc.html
+http://www.rebol.com/index.html
+ftp://files.example.com/pub/data.zip
+mailto:user@example.com
 ```
 
 
-
 ### Format
-The first part of a URL indicates its communications protocol, called a 
-scheme. The language supports several schemes, including: web pages (`HTTP:`), file transfer (`FTP:`), newsgroups (`NNTP:`), email (`MAILTO:`), files (`FILE:`), finger (`FINGER:`), whois (`WHOIS:`), small network time (`DAYTIME:`), post office (`POP:`), transmission control (`TCP:`) and domain name service (`DNS:`). These scheme names are followed by characters that are dependent on which scheme being used.
+
+A URL begins with a scheme name followed by a colon, then scheme-specific content. Common schemes:
 
 ```rebol
 http://host.dom/path/file
 ftp://host.dom/path/file
+ftp://user:password@host.dom/path/file
 nntp://news.some-isp.net/some.news.group
 mailto:name@domain
 file://host/path/file
@@ -6235,63 +6231,80 @@ tcp://host.dom:21
 dns://host.dom
 ```
 
-Some fields are optional. For instance, the host can be followed by a port number if it differs from the default. An FTP URL supplies a default password if one is not specified:
-
-
-```rebol
-ftp://user:password@host.dom/path/file
-```
-
-Characters in a URL must conform to Internet standards. Restricted characters must be encoded in hexadecimal by preceding them with the escape character %:
-
+Restricted characters in URLs must be percent-encoded. `print` decodes them for display while `probe` shows the raw encoded form:
 
 ```rebol
 probe http://www.somesite.dom/odd%28dir%29/odd%7Bfile%7D.txt
-http://www.somesite.dom/odd%28dir%29/odd%7Bfile%7D.txt
+; http://www.somesite.dom/odd%28dir%29/odd%7Bfile%7D.txt
 
 print http://www.somesite.dom/odd%28dir%29/odd%7Bfile%7D.txt
-http://www.somesite.dom/odd(dir)/odd{file}.txt
+; http://www.somesite.dom/odd(dir)/odd{file}.txt
 ```
 
-
-
-### Creation
-The `to-url` function converts blocks to the `url!` datatype, the first element in the block is the scheme, the second element is the domain (with or without `user:pass` and port) the remaining elements are the path and file:
-
+Use `enhex` and `dehex` to encode and decode percent-encoding:
 
 ```rebol
-probe to-url [http www.rebol.com reboldoc.html]
-http://www.rebol.com/reboldoc.html
-
-probe to-url [http www.rebol.com %examples "websend.r"]
-http://www.rebol.com/examples/websend.r
-
-probe to-url [http usr:pass@host.com:80 "(path)" %index.html]
-http://usr:pass@host.com:80/%28path%29/index.html
+enhex as url! "http://example.com/path?q=hello world"
+dehex http://example.com/path?q=hello%20world
 ```
 
+
+### Construction
+
+Write URL literals directly, or use `to-url` with a block. The first element is the scheme, the second is the host (optionally with `user:pass@` and port), and the remaining elements form the path:
+
+```rebol
+to-url [http www.rebol.com reboldoc.html]
+;== http://www.rebol.com/reboldoc.html
+
+to-url [http www.rebol.com %examples "websend.r"]
+;== http://www.rebol.com/examples/websend.r
+```
+
+Use `as url!` or `as` to coerce a string to a URL without copying:
+
+```rebol
+as url! "http://example.com"   ;== http://example.com
+```
+
+
+### Series operations
+
+Since `url!` is a series, standard operations apply:
+
+```rebol
+url: http://www.rebol.com/reboldoc.html
+
+find url "rebol"               ;== "rebol.com/reboldoc.html"
+find/reverse tail url "rebol"  ;== "reboldoc.html"
+to-file find/reverse tail url "rebol"  ;== %reboldoc.html
+
+length? http://www.rebol.com   ;== 19
+```
 
 
 ### Related
-The datatype word is `url!`.
 
-Use `url?` to test the datatype.
-
+Use `url?` to test whether a value is a `url!`:
 
 ```rebol
-probe url? ftp://ftp.rebol.com/
-true
+url? http://www.rebol.com    ;== true
+url? "http://www.rebol.com"  ;== false
 ```
 
-As urls are a subset of the series pseudotype, use `series?` to check this:
-
+`url!` is a member of the `any-string!` and `series!` typesets:
 
 ```rebol
-probe series? http://www.rebol.com/
-true
+series? http://www.rebol.com      ;== true
+any-string? http://www.rebol.com  ;== true
 ```
 
+Use `as` to coerce between `any-string!` types without copying:
 
+```rebol
+as string! http://www.rebol.com   ;== "http://www.rebol.com"
+as file!   http://www.rebol.com   ;== %http://www.rebol.com
+```
 
 ------------------------------------------------------------------
 ## utype!
