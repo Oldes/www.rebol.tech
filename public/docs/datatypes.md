@@ -3009,163 +3009,107 @@ See `word!` for the full set of word types and how words are evaluated.
 ------------------------------------------------------------------
 ## logic!
 
+The `logic!` datatype has two values: `#(true)` and `#(false)`. These are the actual literal forms of logic values. The words `true`, `false`, `on`, `off`, `yes`, and `no` are predefined variables that hold these values — they are not keywords, just convenient names.
 
-The `logic!` datatype consists of two states representing `true` and `false`. They are often returned from comparisons such as:
+`logic!` is a member of the `immediate!` typeset.
 
+
+### Literal syntax
+
+The canonical literal forms are:
 
 ```rebol
-age: 100
-probe age = 100
-true
-
-time: 10:31:00
-probe time < 10:30
-false
-
-str: "this is a string"
-probe (length? str) > 10
-true
+#(true)
+#(false)
 ```
 
-The `logic!` datatype is most commonly used as parameters to conditional functions such as `if`, `while`, and `until`:
+The predefined words evaluate to these values:
 
+```rebol
+true    ;== #(true)
+false   ;== #(false)
+on      ;== #(true)
+off     ;== #(false)
+yes     ;== #(true)
+no      ;== #(false)
+```
+
+Since these are ordinary words, they can be reassigned — though doing so is strongly discouraged.
+
+
+### Logic values in conditional expressions
+
+Comparison expressions return logic values:
+
+```rebol
+100 = 100              ;== #(true)
+10:31:00 < 10:30       ;== #(false)
+3 < length? "hello"    ;== #(true)
+```
+
+Logic values are used as conditions in `if`, `either`, `while`, `until`, and similar functions:
 
 ```rebol
 if age = 100 [print "Centennial human"]
-Centennial human
 
-while [time > 6:30] [
-    send person "Wake up!"
-    wait [0:10]
-]
+print either flag ["on"] ["off"]
 ```
 
-The complement of a logic value is obtained from the `not` function:
-
+In a conditional context, `#(false)` and `none` are the only falsy values — everything else, including `0`, empty strings, and empty blocks, is truthy:
 
 ```rebol
-there: place = "Ukiah" 
-if not there [...]
+if 0    [print "truthy"]   ; prints — 0 is not false!
+if ""   [print "truthy"]   ; prints
+if []   [print "truthy"]   ; prints
+if none [print "truthy"]   ; does NOT print
 ```
 
-
-
-### Format
-Normally, logic values are retrieved from the evaluation of comparison expressions. However, words can be set to a logic value and used to turn the word `on` or `off`:
+`not` returns the complement:
 
 ```rebol
-print-me: false
-print either print-me ["turned on"]["turned off"]
-turned off
-
-print-me: true
-print either print-me ["turned on"]["turned off"]
-turned on
-```
-
-The `false` value is not equivalent to integer zero or `none!`. However, in conditional expressions `false` and `none!` have the same effect:
-
-```rebol
-print-me: none
-print either print-me ["turned on"]["turned off"]
-turned off
-```
-
-Just about any value assigned to a word has the same effect as `true`:
-
-```rebol
-print-me: "just a string"
-print either print-me ["turned on"]["turned off"]
-turned on
-
-print-me: 11-11-1999
-print either print-me ["turned on"]["turned off"]
-turned on
-```
-
-The following words are predefined to hold logic values:
-
-```rebol
-true
-on     ;same as true
-yes    ;same as true
-false
-off    ;same as false
-no     ;same as false
-```
-
-So, instead of `true` and `false`, when it makes sense, the words `on` and `off`, or `yes` and `no` can be used instead:
-
-```rebol
-print-me: yes
-print either print-me ["turned on"]["turned off"]
-turned on
-
-print-me: no
-print either print-me ["turned on"]["turned off"]
-turned off
-
-print-me: on
-print either print-me ["turned on"]["turned off"]
-turned on
-
-print-me: off
-print either print-me ["turned on"]["turned off"]
-turned off
+not #(true)      ;== #(false)
+not #(false)     ;== #(true)
+not none         ;== #(true)
+not 0            ;== #(false)   ; 0 is truthy, so not 0 is false
 ```
 
 
 ### Creation
-The `to-logic` function converts `integer!` or `none!` values to the `logic!` datatype:
+
+Use `to-logic` or `to logic!` to convert other values:
 
 ```rebol
-probe to-logic 0
-false
+to-logic 0       ;== #(false)
+to-logic 200     ;== #(true)
+to-logic none    ;== #(false)
+to-logic []      ;== #(true)
+to-logic "a"     ;== #(true)
+```
 
-probe to-logic 200
-true
+The rule is: `none` and `0` convert to `#(false)`, everything else to `#(true)`.
 
-probe to-logic none
-false
 
-probe to-logic []
-true
+### Display
 
-probe to-logic "a"
-true
+`form`, `mold`, and `print` all produce `true` or `false` as plain text:
 
-probe to-logic none
-false
+```rebol
+form  #(true)    ;== "true"
+mold  #(false)   ;== "#(false)"
+print #(true)    ; true
 ```
 
 
 ### Related
-Use `logic?` to determine whether a value is a `logic!` datatype.
+
+Use `logic?` to test whether a value is a `logic!`:
 
 ```rebol
-probe logic? 1
-false
-
-probe logic? on
-true
-
-probe logic? false
-true
+logic? #(true)   ;== true
+logic? on        ;== true
+logic? 1         ;== false
+logic? none      ;== false
 ```
-
-Use the functions `form`, `print`, and `mold` to print a logic value:
-
-```rebol
-probe form true
-true
-
-probe mold false
-false
-
-print true
-true
-```
-
 
 
 ------------------------------------------------------------------
