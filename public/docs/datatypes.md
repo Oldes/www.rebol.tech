@@ -111,10 +111,10 @@ Binary strings are written as a number sign (#) followed by a string enclosed in
 64#{LmNvbSA8yw9CB0aGvXmgUkVCu2Uz934b} ;; base-64
 ```
 
-Spaces, tabs and newlines are permitted within the string. Binary data can span multiple lines.
+Whitespace and comments are ignored inside the braces, so long values can be spread across multiple lines:
 ```rebol
 probe #{
-    3A
+    3A ;; comment is ignored
     18
     92
     56
@@ -122,31 +122,27 @@ probe #{
 #{3A189256}
 ```
 
-Strings should contain the correct number of characters to create a binary result which is an integral number of bytes (integral multiple of 8 bits).
+The encoded characters must represent a whole number of bytes (a multiple of 8 bits). Strings with the wrong number of characters are invalid.
 
 ### Creation
 The `to-binary` function converts data to the `binary!` datatype at the default base set in `system/options/binary-base`:
 ```rebol
-probe to-binary "123"
-#{313233}
+to-binary "123"
+;== #{313233}
 
-probe to-binary "today is the day..."
-#{746F64617920697320746865206461792E2E2E}
+to-binary "today is the day..."
+;== #{746F64617920697320746865206461792E2E2E}
 ```
 
 To convert an integer into its binary value, pass it in a block:
 ```rebol
-probe to-binary [1]
-#{01}
-
-probe to-binary [11]
-#{0B}
+probe to-binary [1] ;== #{01}
+to-binary [11]      ;== #{0B}
 ```
 
 Converting a series of integers into a binary, returns the bit conversion for each integer concatenated into a single binary value:
 ```rebol
-probe to-binary [1 1 1 1]
-#{01010101}
+to binary! [1 1 1 1] ;== #{01010101}
 ```
 
 
@@ -155,22 +151,18 @@ Use `binary?` determine whether a value is an `binary!`  datatype.
 
 
 ```rebol
-probe binary? #{616263}
-true
+binary? #{616263} ;== #(true)
 ```
 
 Binary values are a type of series:
 
 
 ```rebol
-probe series? #{616263}
-true
-
-probe length? #{616263} ; three hex values in this binary
-3
+series? #{616263} ;== #(true)
+length? #{616263} ;== 3 (three hex values in this binary)
 ```
 
-Closely related to working with `binary!` datatypes are the functions `enbase` and `debase`. The `enbase` function converts strings to their base-2, base-16 or base-64 representations as strings. The `debase` function converts enbased strings to a binary value of the base specified in system/options/binary-base`.
+Closely related to working with `binary!` datatypes are the functions `enbase` and `debase`. The `enbase` function converts strings to their base-2, base-16 or base-64 representations as strings. The `debase` function converts enbased strings to a binary value of the base specified in `system/options/binary-base`.
 
 
 
