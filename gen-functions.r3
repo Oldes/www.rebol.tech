@@ -8,6 +8,9 @@ foreach m [brotli zstd zlib-ng deflate bzip2][ attempt [import (m)] ]
 system/options/quiet: false
 
 current-html: %functions.html
+with ctx/config/app [
+	page-title: "Rebol3 Functions Dictionary"
+]
 
 load-func-details: function/with [data][
 	if file? data [data: read/string data]
@@ -186,7 +189,7 @@ emit-funcs-html: function/with [] [
 		emit {</section>}
 		;break
 	]
-	write %public/docs/functions.inc out
+	write %source/generated/functions.inc out
 	out
 ][
 	out: clear ""
@@ -217,6 +220,16 @@ emit-funcs-html: function/with [] [
 
 
 emit-funcs-html
+
+with ctx/config/app [
+	print as-yellow page-title: "Rebol3 Functions Dictionary"
+	page-content: %functions-content.rsp
+	toc?: on
+	rsp-process ctx %source/page.rsp
+]
+print-hline
+probe write %public/docs/functions.html ctx/out/content
+
 used-ansi-classes: sort unique used-ansi-classes
 ?? used-ansi-classes
 

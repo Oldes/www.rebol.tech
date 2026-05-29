@@ -373,7 +373,6 @@ When you use a bitset, you normally want to:
 - check that all specified bits are set
 - find a character in a string specified by a bitset
 - parse a string for characters specified in a bitset
-</ul>
 
 #### Checking bits
 To check for one or more bits in a bitset most of the time you will use the `find` function.

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><%= page-title %></title>
+	<link rel="stylesheet" href="/css/furo.css">
+	<link rel="stylesheet" href="/css/hybrid.min.css">
+	<link rel="stylesheet" href="/css/main.css?v=8">
+	<link rel="stylesheet" href="/css/examples.css">
+</head>
+<body data-theme="auto">
+<%@ %svg-symbols.htm %>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<label class="overlay sidebar-overlay" for="__navigation">
+	<div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<%? toc? [%>
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay toc-overlay" for="__toc">
+	<div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+<%]%>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+<div class="page">
+<% include %page-header.htm %>
+<%@ %page-sidebar.htm %> 
+	<div class="main">
+		<div class="content">
+			<div class="article-container">
+<%@ %page-toolbar.htm %>
+				<article role="main" id="furo-main-content">
+<% include page-content %>
+				</article>
+			</div>
+<%@ %footer.htm %>
+		</div>
+<!--content end-->
+<% if toc? [ include %page-toc.htm ] %>
+	</div>
+</div>
+<% if toc?       [ include %toc-script.htm ] %>
+<% if highlight? [ include %highlight.htm  ] %>
+<script src="/js/furo.js?v=4"></script>
+</body>
+</html>
+<% if page-footer [ include page-footer ] %>

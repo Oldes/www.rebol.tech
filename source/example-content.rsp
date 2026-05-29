@@ -1,0 +1,21 @@
+<h1>Rebol3 Code Examplex</h1>
+<hr>
+<section>
+ <h2><%= example-title %></h2>
+<%? string? perex: example-perex/:example-title [%>
+  <p><%= perex %></p>
+<%]%>
+<div class="example-code"><pre class="rebol-block"><code class="rebol"><%= first example-code %></code></pre></div>
+<%
+	foreach ex next example-code [
+		print "<p>Alternative version:</p>"
+		print rejoin [{<div class="example-code"><pre class="rebol-block"><code class="rebol">} ex {</code></pre></div>}]
+	]
+%>
+</section>
+<hr>
+<nav class="pager">
+<%? link-prev [%><a class="prev" href="<%= link-prev/2 %>"><%= link-prev/1 %></a><%]%>
+<a class="index" href="index.html">INDEX</a>
+<%? link-next [%><a class="next" href="<%= link-next/2 %>"><%= link-next/1 %></a><%]%>
+</nav>

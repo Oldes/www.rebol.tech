@@ -1,0 +1,41 @@
+<h1><%= page-title %></h1>
+<p class="subtitle">A collection of programming tasks implemented in Rebol</p>
+
+<div class="controls">
+	<input type="text" id="search_example" placeholder="Search tasks…" oninput="render()">
+	<select id="filter-cat" onchange="render()">
+		<option value="">All categories</option>
+		<option value="math">Math</option>
+		<option value="string">String</option>
+		<option value="io">I/O</option>
+		<option value="data">Data structures</option>
+		<option value="control">Control flow</option>
+		<option value="graphics">Graphics</option>
+		<option value="game">Games</option>
+		<option value="crypto">Crypto / encoding</option>
+		<option value="misc">Misc</option>
+	</select>
+</div>
+<div class="count" id="count"></div>
+<div class="example-grid" id="list">
+<%
+	titles: sort keys-of examples
+	num: 0
+	foreach title titles [
+		++ num
+		cat: example-tags/:title
+		ttl: replace/all copy title {"} {\"}
+		file: replace copy first examples/:title %.r3 %.html
+
+		print rejoin [
+			{<a href="} file {" class="example-row" data-title="} ttl {" data-cat="} cat {">}
+				<span class="row-num"> num </span>
+				<span class="row-title"> title </span>
+				{<span class="row-cat cat-} cat {">} categories/:cat </span>
+			</a>
+		]
+	]
+
+	page-footer: %examples-footer.htm
+%>
+</div>

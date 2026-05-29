@@ -8,16 +8,16 @@
 
 	body[data-theme="dark"] {
 		--color-fieldset-border: #555;
-		--color-background-tr-odd: #231d1d;
-		--color-background-tr-even: #1d1717;
+		--color-background-tr-odd: #222630;
+		--color-background-tr-even: #1a1e27;
 		--color-code-datatype: #AFF5A5;
 		--color-code-inline: #FFA5A5;
 		--color-code-desc: #A5A5A5;
 	}
 
 	body[data-theme="light"] {
-		--color-background-tr-odd: #fcfcfc;
-		--color-background-tr-even: #f4f4f4;
+		--color-background-tr-odd: #f2f5f9;
+		--color-background-tr-even: #e6ebf2;
 		--color-code-datatype: #30b91d;
 		--color-code-inline: #f15252;
 		--color-code-desc: #846767;
@@ -26,12 +26,21 @@
 	@media (prefers-color-scheme: dark) {
 		body:not([data-theme="light"]) {
 			--color-fieldset-border: #555;
-			--color-background-tr-odd: #231d1d;
-			--color-background-tr-even: #1d1717;
+			--color-background-tr-odd: #222630;
+			--color-background-tr-even: #1a1e27;
 			--color-code-datatype: #AFF5A5;
 			--color-code-inline: #FFA5A5;
 			--color-code-desc: #A5A5A5;
 		}
+	}
+	@media (prefers-color-scheme: light) {
+	    body:not([data-theme="dark"]) {
+	        --color-background-tr-odd:  #f2f5f9;
+	        --color-background-tr-even: #e6ebf2;
+	        --color-code-datatype: #30b91d;
+	        --color-code-inline:   #f15252;
+	        --color-code-desc:     #846767;
+	    }
 	}
 
 	html { scroll-behavior: auto; }
@@ -43,11 +52,17 @@
 	border-spacing: 1px;
 	border-color: var(--color-background-border);
 	width: 100%;
+	margin-bottom: 2em;
+	font-size: 0.9em;
 }
 .doctable th { background-color: var(--color-background-item); text-align: left; padding: 0.5em 1em; }
 .doctable td { padding: 0.5em 1em; }
 .doctable tr { background-color: var(--color-background-tr-even); border-bottom: 3px solid transparent; }
 .doctable tr:nth-child(odd) { background-color: var(--color-background-tr-odd); }
+.doctable td:first-child,
+.doctable th:first-child {
+    width: 5em;
+}
 
 .rebarg { color: #0fc70f; }
 
@@ -243,4 +258,46 @@ div.extra-desc {
 	.skip-to-content, .see-also { display: none; }
 	html { font-size: 0.75rem !important; }
 	pre.help { font-size: 0.85rem !important; overflow-x: inherit; }
+}
+
+.pager {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  font-size: 0.8em;
+  gap: 0.75rem;
+}
+
+.pager .prev {
+  justify-self: start;
+  text-align: left;
+  min-width: 0;
+}
+
+.pager .index {
+  justify-self: center;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.pager .next {
+  justify-self: end;
+  text-align: right;
+  min-width: 0;
+}
+
+.pager a {
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+}
+.pager .prev::before {
+  content: "←";
+  margin-right: 0.4em;
+}
+
+.pager .next::after {
+  content: "→";
+  margin-left: 0.4em;
 }

@@ -1,0 +1,10 @@
+<script src="/js/highlight.min.js"></script>
+<script type="module">
+import rebol from '/js/rebol.js';
+hljs.registerLanguage('rebol', rebol);
+hljs.configure({
+  languages: ['rebol'], //specify the languages you want to highlight.
+  cssSelector: 'pre code.rebol'
+});
+hljs.highlightAll();
+</script>

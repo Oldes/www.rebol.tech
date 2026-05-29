@@ -1,5 +1,22 @@
 Rebol [title: "Common utils"]
 
+import %httpd.reb
+rsp-process: :system/modules/httpd/rsp-context/process
+
+;; Minimal context used to process RSP content
+;; without running a HTTPd server
+ctx: context [
+	source-path: to-real-file %source/
+	out: context [
+		content: ""
+	]
+	config: #[
+		app: none
+	]
+]
+ctx/config/app: context load %config.reb
+
+
 known-datatypes: [
 	"action!"
 	"binary!"
@@ -325,15 +342,14 @@ ansi-to-html: function/with [text][
 ]
 
 gen-code-output: function [source][
-	code: transcode source
-	bind code lib
 	echo %.temp
 	try/with [do source] :print
 	echo none
 	out: read/string %.temp
 	result: ajoin [
 		{<div class="example-code"><pre class="rebol-block"><code class="rebol">}
-		esc-html source {</code></pre></div>}
+		esc-html source
+		{</code></pre></div>}
 	]
 	unless empty? out [
 		append result ajoin [

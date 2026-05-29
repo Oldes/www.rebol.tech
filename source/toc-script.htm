@@ -1,0 +1,19 @@
+<script src="/js/gumshoe-patched.js"></script>
+<script>
+  const headers = document.querySelectorAll("#furo-main-content h2");
+  const toc = document.getElementById("toc");
+  if (toc && headers) {
+    // Generate ToC
+    headers.forEach(header => {
+      const name = header.textContent.slice(0, -1);
+      const id = header.id || name.trim().replace(/\s+/g, "-").toLowerCase();
+      const listItem = document.createElement("li");
+      const anchor = document.createElement("a");
+      anchor.classList.add("reference", "internal");
+      anchor.href = `#${id}`;
+      anchor.textContent = name;
+      listItem.appendChild(anchor);
+      toc.appendChild(listItem);
+    });
+  }
+</script>  

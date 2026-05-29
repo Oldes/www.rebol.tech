@@ -4374,6 +4374,7 @@ Note that each word is bound back to the object, and can be used to access the f
 
 If a second word argument is provided, it will obtain the value of each entry:
 ```code
+fruits: make object! [apple: 10 orange: 12 banana: 30]
 foreach [field value] fruits [print [field value]]
 ```
 

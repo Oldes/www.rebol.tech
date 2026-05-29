@@ -69,7 +69,7 @@ emit-datatypes-html: function/with [] [
  		emit description
 		emit {</section>}
 	]
-	write %public/docs/datatypes.inc out
+	write %source/generated/datatypes.inc out
 	out
 ][
 	out: clear ""
@@ -81,3 +81,13 @@ emit-datatypes-html: function/with [] [
 ]
 
 emit-datatypes-html
+
+with ctx/config/app [
+	print as-yellow page-title: "Rebol3 Datatypes Dictionary"
+	page-content: %datatypes-content.rsp
+	toc?: on
+	rsp-process ctx %source/page.rsp
+]
+print-hline
+probe write %public/docs/datatypes.html ctx/out/content
+

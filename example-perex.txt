@@ -1,0 +1,249 @@
+100 doors: Simulate toggling doors in sequence to reveal which remain open after repeated passes.
+100 prisoners: Model the probabilistic strategy puzzle where prisoners must find their numbers under strict constraints.
+21 game: Implement the classic counting game where players avoid saying the number 21.
+24 game: Generate or evaluate expressions using four numbers to reach the value 24.
+9 billion names of God the integer: Enumerate integer partitions in a way inspired by a famous sci-fi thought experiment.
+Abbreviations, automatic: Automatically generate abbreviations for phrases based on rules or patterns.
+Abbreviations, easy: Match user input against a list of valid abbreviations with simple rules.
+Abbreviations, simple: Expand or recognize abbreviations using straightforward prefix matching.
+ABC correlation: Compute correlations between sequences labeled A, B, and C.
+ABC problem: Determine if words can be formed from a constrained set of letter blocks.
+ABC words: Check if words can be constructed using unique two-letter blocks without reuse.
+Abelian sandpile model-Identitys: Simulate sandpile stabilization and compute identity configurations.
+Abundant odd numbers: Find odd numbers whose proper divisors sum to more than the number itself.
+Additive primes: Identify primes whose digit sums are also prime.
+Almost prime: Detect numbers with a specific count of prime factors.
+Amb: Implement nondeterministic choice (the “amb” operator) for exploring multiple possibilities.
+Anagram generator: Produce all valid anagrams of a given word.
+Anagrams-Deranged anagrams: Find anagrams where no letter remains in its original position.
+Anagrams: Group or detect words that are anagrams of each other.
+Anti-primes: Find numbers with more divisors than any smaller number.
+Append numbers at same position in strings: Combine digits from multiple strings position-wise.
+Archimedean spiral: Render or compute points along an Archimedean spiral.
+Arithmetic evaluation: Parse and evaluate mathematical expressions from strings.
+Attractive numbers: Identify numbers with a prime count of prime factors.
+Audio frequency generator: Generate tones at specified frequencies.
+Audio overlap loop: Play overlapping audio segments in a continuous loop.
+AudioAlarm: Trigger an audio signal at a specified time or condition.
+Autogram checker: Verify sentences that describe their own letter counts.
+Babylonian spiral: Plot a square-root spiral using geometric construction.
+Balanced brackets: Check whether brackets in a string are properly matched.
+Barnsley fern: Generate the fractal fern using an iterated function system.
+Bifid cipher: Encode and decode messages using the classical Bifid cipher.
+Bilinear interpolation: Interpolate values across a 2D grid.
+Biorhythms: Calculate and display personal biorhythm cycles.
+Bitcoin address validation: Verify the correctness of Bitcoin addresses using checksum rules.
+Bitmap-Flood fill: Implement a flood fill algorithm on a bitmap image.
+Bitmap-Histogram: Compute and display color or intensity histograms of an image.
+Bitmap-Midpoint circle algorithm: Draw circles using the midpoint algorithm.
+Bitmap-Read a PPM file: Parse and load image data from a PPM file.
+Bitmap-Write a PPM file: Generate and save image data in PPM format.
+Bitwise IO: Perform input/output operations at the bit level.
+Bitwise operations: Demonstrate fundamental bitwise operators and their effects.
+Boids: Simulate flocking behavior using simple local interaction rules.
+Box the compass: Generate compass point names from degree values.
+Bulls and cows-player: Implement an automated player for the Bulls and Cows guessing game.
+Bulls and cows: Build the game logic for Bulls and Cows.
+Burrows–Wheeler transform: Implement the transform used in data compression algorithms.
+Caesar cipher: Encode or decode text by shifting letters a fixed number of positions in the alphabet.
+Calendar for REAL programmers: Generate a calendar using the rules and date conventions that make it formally correct.
+Card shuffles: Simulate or analyze shuffling methods for a deck of cards.
+Catalan numbers-Pascal's triangle: Compute Catalan numbers using their relationship to Pascal’s triangle.
+Catalan numbers: Generate the Catalan sequence and use it for combinatorial counting.
+Chinese zodiac: Determine the zodiac animal and related cycle from a given year.
+Color quantization-median cut: Reduce image colors by splitting color space with the median-cut algorithm.
+Color quantization-octree: Reduce image colors using an octree-based palette compression method.
+Conway's Game of Life: Simulate the cellular automaton where simple rules create complex patterns.
+Count the coins 0-1: Count ways to make change using each coin at most once.
+Create a two-dimensional array at runtime: Build a 2D array whose size is known only when the program runs.
+Create an HTML table: Generate a valid HTML table from structured data.
+CSV data manipulation: Read, transform, and write CSV records.
+CSV to HTML translation: Convert CSV rows into an HTML table or page fragment.
+Currency: Format, convert, or manipulate monetary values.
+Deal cards for FreeCell: Distribute cards into the standard FreeCell layout.
+Digital root: Repeatedly sum digits until a single-digit result remains.
+Display a linear combination: Show how a value can be expressed as a weighted sum of terms.
+Dragon curve: Draw the recursive dragon-curve fractal.
+Draw a clock: Render an analog clock face with hands and markers.
+Draw a pixel: Set or plot a single pixel in an image buffer.
+Ethiopian multiplication: Multiply numbers using doubling, halving, and addition.
+Euler's constant: Approximate the mathematical constant (e).
+Euler method: Solve differential equations with the basic Euler numerical scheme.
+Evolutionary algorithm: Search for solutions using mutation, selection, and iteration.
+Exactly three adjacent 3 in lists: Find lists containing a run of exactly three 3s.
+Execute Brainfuck: Interpret and run programs written in Brainfuck.
+FASTA format: Parse or emit biological sequence data in FASTA form.
+Fibonacci sequence: Generate the Fibonacci series.
+Find prime n such that reversed n is also prime: Search for primes whose digit reversal is also prime.
+First-class functions-Use numbers analogously: Treat functions as values and apply numeric-style operations to them.
+Five weekends: Count months that contain five weekends.
+Fractal tree: Draw a branching tree fractal by repeated recursive rules.
+Fraction reduction: Simplify fractions to lowest terms.
+Fractran: Execute Conway’s FRACTRAN list-processing arithmetic language.
+Gapful numbers: Identify numbers divisible by the concatenation of their first and last digits.
+Get system command output: Run a system command and capture its output.
+Go fish: Implement the card game rules for Go Fish.
+Gosper's hack: Generate the next combination with the same number of set bits.
+Greed: Score the dice game Greed using its hand-ranking rules.
+GSTrans string conversion: Convert text using a substitution or transliteration scheme.
+Hash join: Join two datasets using matching hash keys.
+Huffman coding: Compress data with Huffman prefix codes.
+I before E except after C: Test words against the spelling rule for “i” and “e”.
+Image noise: Add random variation to image data.
+Increment loop index within loop body: Modify a loop counter from inside the loop.
+Integer overflow: Demonstrate or detect arithmetic overflow in integer types.
+ISBN13 check digit: Compute or validate an ISBN-13 check digit.
+Jacobsthal numbers: Generate the Jacobsthal sequence.
+Knapsack problem-0-1: Choose items for maximum value without reusing them.
+Knapsack problem-Bounded: Solve knapsack with limited copies of each item.
+Knapsack problem-Continuous: Solve the fractional knapsack problem.
+Knapsack problem-Unbounded: Solve knapsack when items may be reused freely.
+Knight's tour: Find a path that visits every square of a chessboard once.
+Knuth shuffle: Randomly permute a sequence using the Fisher-Yates method.
+Largest number divisible by its digits: Find the biggest number that is divisible by each of its digits.
+Leap year: Determine whether a year is a leap year.
+Letter frequency: Count how often each letter appears in text.
+Levenshtein distance: Measure the edit distance between two strings.
+Longest common suffix: Find the shared ending of two or more strings.
+Look-and-say sequence: Build terms by describing runs of digits in the previous term.
+Loop-With multiple ranges: Iterate over several ranges in one loop structure.
+Loops-Wrong ranges: Handle or expose incorrect loop-range behavior.
+Ludic numbers: Generate numbers defined by a special sieving process.
+Luhn test of credit card numbers: Validate numbers with the Luhn checksum.
+Lychrel numbers: Explore numbers that may not become palindromes under reverse-and-add iteration.
+LZW compression: Compress and decompress data with the Lempel-Ziv-Welch algorithm.
+Mandelbrot set: Render points of the Mandelbrot fractal.
+Mayan numerals: Represent numbers using the Mayan numeral system.
+Maze generation: Create a maze using a randomized construction algorithm.
+Minimum primes: Find the smallest prime satisfying a given property.
+Morse code: Encode or decode text in Morse code.
+Multiton: Implement an object cache keyed by multiple values.
+Nim game: Implement the logic or strategy for the game of Nim.
+Numbers divisible by their individual digits, but not by the product of their digits: Find numbers that meet a digit-divisibility constraint.
+Object serialization: Save and restore objects in a structured format.
+Ordered words: Check whether letters in a word appear in sorted order.
+Padovan n-step number sequences: Generate Padovan-style recurrence sequences.
+Pairs with common factors: Find number pairs that share divisors.
+Palindrome detection: Test whether a string or number reads the same backward.
+Palindromic gapful numbers: Find gapful numbers that are also palindromes.
+Parsing-Shunting-yard algorithm: Convert infix expressions to postfix using the Shunting-yard algorithm.
+Pentagram: Draw a pentagram or related star figure.
+Permutation test: Use permutation-based resampling to test significance.
+Pick random element: Select a random item from a collection.
+Playing cards: Model a standard deck of cards and its operations.
+Poker hand analyser: Rank poker hands and compare their strengths.
+Polyspiral: Draw a spiral whose step length follows a numeric pattern.
+Pythagoras tree: Render the recursive Pythagoras-tree fractal.
+Quine: Write a program that outputs its own source code.
+Recaman's sequence: Generate the Recamán sequence.
+Reduced row echelon form: Transform a matrix into RREF using elimination.
+Rock-paper-scissors: Implement the classic hand game and winner logic.
+Rosetta Code-Count examples: Count how many implementations or examples exist for tasks.
+Rosetta Code-Find unimplemented tasks: Identify tasks that lack implementations in a language.
+Rosetta Code-Rank languages by popularity: Rank languages using implementation counts or related metrics.
+RPG attributes generatot: Generate random role-playing character attributes.
+Sattolo cycle: Produce a cyclic permutation with one long cycle.
+Self-describing numbers: Test numbers whose digit counts describe themselves.
+Semordnilap: Find word pairs that are reverses of each other.
+SHA-256 Merkle tree: Build a Merkle tree using SHA-256 hashes.
+Show ASCII table: Display the ASCII character set in table form.
+Sieve of Eratosthenes: Generate primes using the classic sieving method.
+Sieve of Pritchard: Generate primes with the Pritchard sieve.
+Sorting algorithms-Gnome sort: Sort data using the simple gnome sort algorithm.
+Sorting algorithms-Stooge sort: Sort data using the intentionally inefficient stooge sort.
+Spiral matrix: Fill or traverse a matrix in spiral order.
+Statistics-Normal distribution: Work with the Gaussian distribution and related values.
+Straddling checkerboard: Encode or decode text with a straddling checkerboard cipher.
+Sub-unit squares: Count or enumerate squares within a unit grid.
+Terminal control-Restricted width positional input-No wrapping: Handle terminal input/output without line wrapping.
+The Twelve Days of Christmas: Generate the cumulative verses of the song.
+Transliterate English text using the Greek alphabet: Map English letters to Greek equivalents.
+URL decoding: Decode percent-encoded URL text.
+URL encoding: Encode text for safe use in URLs.
+Validate International Securities Identification Number: Check whether an ISIN is valid.
+Vigenere cipher: Encrypt or decrypt with the Vigenère cipher.
+Walk a directory-Non-recursively: List files in a directory without descending into subfolders.
+Walk a directory-Recursively: Traverse a directory tree recursively.
+War card game: Simulate the card game War.
+Word frequency: Count word occurrences in text.
+Wordle comparison: Compare a guess against a Wordle target and score the result.
+XXXX redacted: Remove or mask sensitive text from content.
+Zig-zag matrix: Fill or read a matrix in zig-zag order.
+Abelian sandpile model/Identity: Simulate sandpile stabilization and compute the identity configuration.
+Anagrams/Deranged anagrams: Find anagrams where no letter stays in place.
+Angles (geometric), normalization and conversion: Normalize angles and convert between units or representations.
+Audio alarm: Trigger an audible alarm under specified conditions.
+Bitmap/Flood fill: Fill a connected region in a bitmap.
+Bitmap/Histogram: Compute image histograms.
+Bitmap/Midpoint circle algorithm: Draw circles with the midpoint circle algorithm.
+Bitmap/Read a PPM file: Read image data from a PPM file.
+Bitmap/Write a PPM file: Write image data to a PPM file.
+Bulls and cows player: Build an automated solver for Bulls and Cows.
+Calendar - for "REAL" programmers: Generate a properly formatted calendar using the “REAL programmers” convention.
+Camel case and snake case: Convert identifiers between camelCase and snake_case.
+Catalan numbers/Pascal's triangle: Compute Catalan numbers via Pascal’s triangle.
+Color quantization (Median cut): Reduce an image’s palette using median-cut clustering.
+Color quantization (Octree): Reduce an image’s palette using an octree.
+Count the coins/0-1: Count change-making combinations with each coin used at most once.
+Death Star: Draw the Death Star as ASCII or graphics.
+Draw a clock (CLI): Render an analog clock in a terminal interface.
+Draw a cuboid: Draw a 3D-looking cuboid using lines or characters.
+Draw a sphere: Render a sphere in 2D or 3D projection.
+Euler's constant 0.5772...: Approximate the Euler-Mascheroni constant.
+Execute Brain****: Interpret and run Brainfuck code.
+Extend your language: Add a feature or syntax extension to a language.
+First-class functions/Use numbers analogously: Treat functions like numeric values in computation.
+Harriss Spiral: Draw the Harris spiral pattern.
+JSON pointer: Navigate JSON documents using pointer syntax.
+Knapsack problem/0-1: Choose a maximum-value set without reuse.
+Knapsack problem/Bounded: Solve knapsack with limited item copies.
+Knapsack problem/Continuous: Solve the fractional knapsack problem.
+Knapsack problem/Unbounded: Solve knapsack with unlimited item copies.
+Legendre prime counting function: Count primes up to a limit using Legendre’s function.
+Loops/With multiple ranges: Loop across multiple ranges in one construct.
+Loops/Wrong ranges: Handle or demonstrate incorrect range boundaries in loops.
+Parsing/Shunting-yard algorithm: Convert expressions using the Shunting-yard method.
+Piprimes: Generate primes that satisfy a special digit pattern.
+Polynomial regression: Fit a polynomial model to data.
+Read a configuration file: Parse configuration settings from a file.
+Rosetta_Code/Count_examples: Count task examples in Rosetta Code.
+Find unimplemented tasks: Identify missing implementations for tasks.
+Rosetta Code/Rank languages by popularity: Rank programming languages by their Rosetta Code presence.
+RPG attributes generator: Generate random stats for a role-playing character.
+Show the epoch: Display the Unix epoch timestamp or related reference time.
+Sierpinski carpet: Draw the Sierpiński carpet fractal.
+Sierpinski triangle: Draw the Sierpiński triangle fractal.
+Sleeping Beauty problem: Explore the probability puzzle known as Sleeping Beauty.
+Sorting algorithms/Bubble sort: Sort data using bubble sort.
+Sorting algorithms/Comb sort: Sort data using comb sort.
+Sorting algorithms/Counting sort: Sort data by counting occurrences.
+Sorting algorithms/Gnome sort: Sort data using gnome sort.
+Sorting algorithms/Insertion sort: Sort data with insertion sort.
+Sorting algorithms/Quicksort: Sort data with quicksort.
+Sorting algorithms/Radix sort: Sort data with radix sort.
+Sorting algorithms/Stooge sort: Sort data with stooge sort.
+Sort stability: Test whether a sorting algorithm preserves equal-item order.
+Soundex: Encode names using the Soundex phonetic algorithm.
+Sparkline in unicode: Create compact text-based trend graphs.
+Statistics/Normal_distribution: Work with the normal distribution and its properties.
+Strip a set of characters from a string: Remove selected characters from a string.
+Sudan function: Compute the recursive Sudan function.
+Temperature conversion: Convert temperatures between scales.
+Terminal control/Restricted width positional input/No wrapping: Position terminal input within a limited width without wrapping.
+Ternary logic: Evaluate expressions in three-valued logic.
+Time a function: Measure the runtime of a function.
+Truncate a file: Reduce a file to zero length or a given size.
+Vector: Implement or manipulate vectors as data structures.
+Vector products: Compute dot, cross, or related vector products.
+Vigenère cipher: Encrypt or decrypt using the Vigenère cipher.
+Walk a directory/Non-recursively: List files in a directory only at the top level.
+Walk a directory/Recursively: Traverse a directory tree and list all entries.
+Wave function collapse: Generate tiled images or layouts with the wave function collapse algorithm.
+Wordiff: Compare words and highlight their differences.
+Word wheel: Solve or generate a word-wheel puzzle.
+Write language name in 3D ASCII: Render a language name as 3D ASCII art.
+Find unimplemented tasks: Identify Rosetta Code tasks lacking implementations.
+Soloway's recurring rainfall: Model the recurring rainfall problem by computing when a repeating weather pattern reaches a specified condition or threshold.
+Sort a list of object identifiers: Order a collection of object IDs into a predictable sequence, typically by their numeric, string, or natural identifier value.
+String comparison: Demonstrate how to compare two strings from within the language.
+Stem-and-leaf plot: Create a well-formatted stem-and-leaf plot from the block of integers.

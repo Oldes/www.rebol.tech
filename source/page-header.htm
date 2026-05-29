@@ -1,0 +1,28 @@
+<header class="mobile-header">
+	<div class="header-left">
+		<label class="nav-overlay-icon" for="__navigation">
+			<div class="visually-hidden">Toggle site navigation sidebar</div>
+			<i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+		</label>
+	</div>
+	<div class="header-center">
+		<a href="index.html"><div class="brand">Oldes' Rebol</div></a>
+	</div>
+	<div class="header-right">
+		<div class="theme-toggle-container theme-toggle-header">
+			<button class="theme-toggle">
+				<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+				<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+				<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+				<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+				<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+			</button>
+		</div>
+<%? toc? [%>
+		<label class="toc-overlay-icon toc-header-icon" for="__toc">
+			<div class="visually-hidden">Toggle table of contents sidebar</div>
+			<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+		</label>
+<%]%>
+	</div>
+</header>

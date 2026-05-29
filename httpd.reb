@@ -200,43 +200,100 @@ rsp-context: context [
 	prin:    func[value][append ctx/out/content value]
 	probe:   func[value][append ctx/out/content mold value]
 	include: func[path [file!] /local dir][
+		path: to-inc-file path
+		;lib/print ["include:" mold path]
 		dir: what-dir
 		change-dir first split-path path
-		process/include path ctx
+		process/include ctx path
 		change-dir dir
 		() ;= unset!
 	]
-	process: function[data [file! binary! string!] ctx [object!] /include /local res][
+	to-inc-file: func[path][
+		unless file? path [
+			path: transcode/one path
+		]
+		if any [
+			exists? path
+			exists? path: ctx/source-path/:path
+		][  to-real-file path ]
+	]
+
+	process: function [ctx [object!] data [file! binary! string!]  /include /local res][
 		self/ctx: ctx
 		out: ctx/out/content
 		unless include [clear out]
 		if file? data [data: read/string data]
-		parse data [any [
-			s: to "<%" e: (append out copy/part s e) 
-			2 skip [
-				#"@" copy code: to "%>" 2 skip (
-					try/with [
-						file? file: transcode/one code
-						exists? file
-						append out read/string file
-					] :probe
-				)
-				|
-				set get?: opt [#"=" | #"@"] copy code: to "%>" 2 skip (
-					try/with [
-						code: transcode code
-						bind/new code ctx/config/app
-						bind code lib    ;; binds to the library
-						bind code self   ;; binds to the RSP context
-					] :probe
-					catch/all/quit [
-						set/any 'res try/with :code :lib/probe
-						if get? [append out :res]
-					]
-				)
+
+		eval: func[code /local res][
+			res: none
+			;lib/print ["Eval:" mold code]
+			try/with [
+				code: transcode code
+				bind/new code ctx/config/app
+				bind code lib    ;; binds to the library
+				bind code self   ;; binds to the RSP context
+			] :probe
+			catch/all/quit [
+				set/any 'res try/with :code :lib/probe
 			]
-			| s: to end e: (append out copy/part s e)
-		]]
+			:res
+		]
+
+		;; Collect literal text until next <% tag or end of input
+		=output: [
+			s: [to "<%" | to end] e: (append out copy/part s e)
+		]
+
+		;; Match opening <%? or <%? if  of a conditional tag
+		=if-start: [ #"?" any SP opt ["if" some SP] ]
+
+		;; Extract condition, evaluate, process true branch or skip false branch
+		=if-cond: [
+			s: some [to #"[" e: skip any SP "%>" break | skip]
+			[
+				if (eval copy/part s e)
+				some [
+					  end break
+					| "<%" =if-end break ;; stop at closing <%]%>
+					| =rsp-tag
+					| =output
+				]
+				| =skip-if-block         ;; condition false: skip entire block
+			] 
+		]
+
+		;; Match closing ]%> of a conditional block (after <% already consumed)
+		=if-end: [ any SP #"]" any SP "%>" ]
+
+		;; A conditional tag: <%? cond [ %> ... <%] %>
+		=tag-if: [ =if-start =if-cond ]
+
+		;; Handle the three code tag variants: @include, =expression, statement
+		=tag-code: [
+			  #"@" copy code: to "%>" 2 skip (try/with [append out read/string to-inc-file code] :lib/probe)
+			| #"=" copy code: to "%>" 2 skip (append out eval code) ;; expression: append result
+			|      copy code: to "%>" 2 skip (           eval code) ;; statement: side effects only
+		]
+		;; Entry point for any <% %> tag
+		=rsp-tag: [
+			"<%" [
+			  =tag-if
+			| =tag-code
+			| thru "%>"  ;; unrecognized tag: ignore
+			]
+		]
+
+		;; Skip a false conditional block, tracking nesting depth
+		=skip-if-block: [
+			some [
+				  "<%" =if-end break                         ;; found matching close: stop
+				| "<%" =if-start thru "%>" =skip-if-block    ;; nested if: recurse
+				| "<%" thru "%>"                             ;; other tag: skip
+				| to "<%" | to end                           ;; literal text: skip
+			]
+		]
+
+		parse data [ any [end | =rsp-tag | =output] ]
 		out
 	]
 ]
@@ -1043,7 +1100,7 @@ sys/make-scheme [
 		ctx/out/content: make string! 1000
 		path: ctx/inp/target/file
 		change-dir first split-path path
-		rsp-context/process path ctx
+		rsp-context/process ctx path
 		unless ctx/out/header/Content-Type [
 			ctx/out/header/Content-Type: "text/html; charset=UTF-8"
 		]
@@ -1054,9 +1111,9 @@ sys/make-scheme [
 		some [
 			;; common scripts, which we don't use
 			  #"." [
-			  	  %php
-			  	| %aspx
-			  	| %cgi
+				  %php
+				| %aspx
+				| %cgi
 			][end | #"?" | #"#"] reject
 			; common hacking attempts to root folders...
 			| #"/" [

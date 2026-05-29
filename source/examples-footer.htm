@@ -1,0 +1,26 @@
+<script>
+function render() {
+    const q = document.getElementById("search_example").value.toLowerCase().trim();
+    const cat = document.getElementById("filter-cat").value;
+    const rows = document.querySelectorAll(".example-row");
+    let count = 0;
+
+    rows.forEach(row => {
+        const title = row.dataset.title.toLowerCase();
+        const rowCat = row.dataset.cat;
+        const match = (!q || title.includes(q)) && (!cat || rowCat === cat);
+        row.classList.toggle("hidden", !match);
+        if (match) {
+            count++;
+            const numCell = row.querySelector(".row-num");
+            if (numCell) {
+                numCell.textContent = String(count).padStart(3, "0");
+            }
+        }
+    });
+
+    document.getElementById("count").textContent =
+        count + " task" + (count !== 1 ? "s" : "");
+}
+render();
+</script>

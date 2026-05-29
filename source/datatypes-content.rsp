@@ -1,0 +1,6 @@
+<h1>Rebol3 Datatypes Dictionary</h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some datatype descriptions are sourced from the <a href="https://www.rebol.com/r3/docs/datatypes.html">old Rebol3 documentation</a> project and may be outdated. If you notice any outdated or incorrect information, please <a href="https://github.com/Oldes/www.rebol.tech">report it on GitHub</a>.</p>
+</div>
+<%@ %generated/datatypes.inc %>
