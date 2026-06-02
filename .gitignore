@@ -9,4 +9,6 @@ _DELETE/*
 /public/docs/datatypes.html
 /public/docs/datatypes.inc
 /public/examples/*.html
+/public/examples/*.png
+/public/examples/*.jpg
 /public/docs/functions.html

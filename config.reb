@@ -16,8 +16,10 @@ example-dir: %\c\Dev\Builder\tree\rebol\Rebol-RosettaCode\tasks\
 example-files:
 example-title:
 example-code:
+example-output:
 example-tags:
 example-perex:
+example-images:
 link-prev:
 link-next: _
 categories: #[

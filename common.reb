@@ -235,7 +235,7 @@ esc-html: function/with [txt][
 		| #"<" keep ("&lt;")
 		| #">" keep ("&gt;")
 	]]
-	out
+	copy out
 ][
 	normal: complement charset "<>"
 ]

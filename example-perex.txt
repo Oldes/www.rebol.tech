@@ -247,3 +247,4 @@ Soloway's recurring rainfall: Model the recurring rainfall problem by computing 
 Sort a list of object identifiers: Order a collection of object IDs into a predictable sequence, typically by their numeric, string, or natural identifier value.
 String comparison: Demonstrate how to compare two strings from within the language.
 Stem-and-leaf plot: Create a well-formatted stem-and-leaf plot from the block of integers.
+Lyndon word: Generate words that are strictly lexicographically smaller than all of their nontrivial rotations, a key concept in combinatorics on words.

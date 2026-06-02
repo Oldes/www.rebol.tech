@@ -6,10 +6,30 @@
   <p><%= perex %></p>
 <%]%>
 <div class="example-code"><pre class="rebol-block"><code class="rebol"><%= first example-code %></code></pre></div>
+<%? string? first example-output [ %>
+<h4>Output:</h4>
+<div class="example-code"><pre class="text-block"><code><%= first example-output %></code></pre></div>
+<%]%>
 <%
+	if block? example-images/1 [
+		foreach img example-images/1 [
+			print ajoin [{<img src="} img {">}]
+		]
+	]
 	foreach ex next example-code [
 		print "<p>Alternative version:</p>"
 		print rejoin [{<div class="example-code"><pre class="rebol-block"><code class="rebol">} ex {</code></pre></div>}]
+		example-output: next example-output
+		example-images: next example-images
+		if string? example-output/1 [
+			print ajoin [{
+<h4>Output:</h4>
+<div class="example-code"><pre class="text-block"><code>} example-output/1 {</code></pre></div>}
+			]
+		]
+		if block? example-images/1 [
+			foreach img example-images [print ajoin [{<img src="} img {">}]]
+		]
 	]
 %>
 </section>

@@ -248,3 +248,4 @@
 "Sort a list of object identifiers" data
 "String comparison" string
 "Stem-and-leaf plot" data
+"Lyndon word" string

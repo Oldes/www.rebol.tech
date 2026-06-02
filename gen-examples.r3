@@ -56,13 +56,46 @@ with ctx/config/app [
 		clear ctx/out/content
 		example-title: title
 		page-title: ajoin ["Rebol Examples: " title]
-		example-code: copy []
+		example-code:   clear []
+		example-output: clear []
+		example-images: clear []
 		sort/compare files func[a b][a/length > b/length]
 		html-file: replace copy first files %.r3 %.html
+
 		foreach file files [
-			append example-code esc-html detab read/string example-dir/:file
+			append example-code copy esc-html detab read/string example-dir/:file
+			
+			tmp-file: join %source/generated/example/ replace copy file %.r3 %.txt
+			unless exists? tmp-file [
+				echo tmp-file
+				try/with [do example-dir/:file] :print
+				echo none
+				out: read/string tmp-file
+			]
+			append example-output if all [
+				attempt [out: read/string tmp-file]
+				not empty? out
+			][
+				ansi-to-html esc-html detab read/string tmp-file
+			]
+			;; copy output images, if exists...
+			images: clear []
+			tmp-file: head clear find/last copy file #"."
+			foreach e [%*.png %*.jpg][
+				foreach f read rejoin [example-dir tmp-file e][
+					try [
+						unless exists? tmp-file: join %public/examples/ f [
+							write tmp-file read example-dir/:f
+						]
+						append images f
+					]
+				]
+			]
+			repend/only example-images unless empty? images [copy images]
 		]
 		insert html-file %public/examples/
+
+
 
 		page-content: %source/example-content.rsp
 		rsp-process ctx %source/page.rsp
