@@ -248,3 +248,24 @@ Sort a list of object identifiers: Order a collection of object IDs into a predi
 String comparison: Demonstrate how to compare two strings from within the language.
 Stem-and-leaf plot: Create a well-formatted stem-and-leaf plot from the block of integers.
 Lyndon word: Generate words that are strictly lexicographically smaller than all of their nontrivial rotations, a key concept in combinatorics on words.
+Tokenize a string with escaping: Split a string into tokens while treating escaped delimiters as literal characters instead of separators.
+Memory allocation: Show how to explicitly allocate and deallocate blocks of memory.
+Möbius function: Compute the Möbius function values for integers, distinguishing square-free numbers and tracking the parity of their prime factors.
+Perlin noise: Generate smooth, natural-looking gradient noise often used for procedural textures, terrain, and other visual effects.
+Named parameters: Call a function using explicit argument names so the meaning of each value is clear regardless of order.
+Long year: Determine which years are “long” (have 53 weeks).
+Infinity: Write a function which tests if infinity is supported for floating point numbers.
+IBAN: Validate an International Bank Account Number using its country-specific structure and checksum rules.
+Heronian triangles: Find triangles with integer side lengths and integer area using Heron’s formula and number-theoretic constraints.
+Here document: Specify a text block, preserving the line breaks, indentation and other whitespace within the text.
+Happy numbers: Determine whether a number eventually reaches 1 when repeatedly replaced by the sum of the squares of its digits.
+Gamma function: Evaluate or approximate the Gamma function, a continuous extension of the factorial to non-integer values.
+Entropy: Measure the uncertainty or information content of a source, often by computing entropy from symbol probabilities or data distributions.
+Dijkstra's algorithm: Find the shortest paths from one starting point to all reachable nodes in a weighted graph with nonnegative edge costs.
+Damm algorithm: Validate numbers using the Damm check-digit method, which detects common typing and transposition errors.
+CUSIP: Validate a CUSIP security identifier using its fixed-format structure and checksum.
+Chinese remainder theorem: Solve systems of simultaneous congruences by combining remainders into one number, usually when the moduli are pairwise coprime.
+Bacon cipher: Encode or decode text using Bacon’s steganographic cipher, where each letter is represented by a five-symbol pattern of two characters.
+Substitution cipher: Encode or decode text by replacing each symbol with another according to a fixed mapping, usually with one-to-one letter substitution.
+Strip whitespace from a string/Top and tail: Remove leading and trailing whitespace from a string while preserving the text in the middle.
+Top rank per group: Group records by category and keep the highest-ranked item or items from each group.

@@ -1,46 +1,235 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Rebol.tech</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
-        html, body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-        }
+html, body {
+    margin: 0;
+}
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+    gap: 1.5rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
-        .icon-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 80vw;
-            height: 80vw;
-            max-width: 600px;
-            max-height: 600px;
-        }
+/* Icon */
+.icon-container {
+    width: clamp(0px, 25vw, 150px);
+    height: clamp(0px, 25vw, 150px);
+}
 
-        .icon {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
+.icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Nav */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #2b2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #c8d8e0;
+    font-family: monospace;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+nav a:hover {
+    background: #3d3c3c;
+    border-color: #666;
+}
+
+/* Release */
+.release {
+    display: block;
+    text-decoration: none;
+}
+
+.release img {
+    display: block;
+    width: 90vw;
+    max-width: 640px;
+    border-radius: 8px;
+    transition: opacity 0.15s;
+}
+
+.release:hover img {
+    opacity: 0.85;
+}
+
+.release span {
+    display: block;
+    margin-top: 0.4rem;
+    color: #888;
+    font-family: monospace;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Downloads */
+.downloads {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 90vw;
+    max-width: 560px;
+}
+
+.dl-primary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dl-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    min-width: 72px;
+    background: #2b2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #c8d8e0;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.dl-btn:hover {
+    background: #3d3c3c;
+    border-color: #666;
+}
+
+.dl-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.dl-os {
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.dl-arch {
+    font-family: monospace;
+    font-size: 10px;
+    color: #888;
+}
+
+.dl-secondary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 2rem;
+}
+
+.dl-secondary a {
+    padding: 3px 8px;
+    border: 0.5px solid #444;
+    border-radius: 4px;
+    color: #888;
+    font-family: monospace;
+    font-size: 11px;
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.dl-secondary a:hover {
+    color: #c8d8e0;
+    border-color: #666;
+}
+
+/* Checksums */
+.checksums {
+    width: 90vw;
+    max-width: 560px;
+    margin-bottom: 2rem;
+}
+
+.checksums summary {
+    padding: 4px 0;
+    color: #888;
+    font-family: monospace;
+    font-size: 12px;
+    text-align: center;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checksums summary::-webkit-details-marker {
+    display: none;
+}
+
+.checksums summary::before {
+    content: '▸ ';
+}
+
+details[open] .checksums summary::before {
+    content: '▾ ';
+}
+
+.checksums dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    margin: 8px 0 0;
+}
+
+.checksums dt {
+    color: #7d4444;
+    font-family: monospace;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.checksums dd {
+    margin: 0;
+    color: #555;
+    font-family: monospace;
+    font-size: 0.7em;
+    word-break: break-all;
+}
+
+@media (max-width: 600px) {
+    .dl-secondary {
+        margin-bottom: 2rem;
+    }
+}
     </style>
 </head>
 <body>
 <div class="icon-container">
-  <a href="/docs/functions.html">
     <svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 850 850" class="icon">
   <defs>
     <style>
@@ -75,7 +264,112 @@
     <polygon class="cls-1" points="297.78 149.14 397.78 205.14 397.78 227.75 297.78 282.12 297.78 253.14 373.78 215.14 297.78 177.14 297.78 149.14"/>
   </g>
     </svg>
-  </a>
 </div>
+
+<nav>
+  <a href="/docs/functions.html">⨍ Functions</a>
+  <a href="/docs/datatypes.html">⬡ Datatypes</a>
+  <a href="/examples/">&lt;/&gt; Examples</a>
+</nav>
+
+<a href="https://github.com/Oldes/Rebol3/releases/tag/3.22.1" target="_blank" rel="noopener" class="release">
+  <img src="rebol-3_22.jpg" alt="Rebol 3.22 — latest release">
+</a>
+
+<div class="downloads">
+  <div class="dl-primary">
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-windows-x64.exe" class="dl-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+      <span class="dl-os">Windows</span>
+      <span class="dl-arch">x64</span>
+    </a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-windows-arm64.exe" class="dl-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+      <span class="dl-os">Windows</span>
+      <span class="dl-arch">arm64</span>
+    </a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-macos-x64.gz" class="dl-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.701"/></svg>
+      <span class="dl-os">macOS</span>
+      <span class="dl-arch">x64</span>
+    </a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-macos-arm64.gz" class="dl-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.701"/></svg>
+      <span class="dl-os">macOS</span>
+      <span class="dl-arch">arm64</span>
+    </a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-x64.gz" class="dl-btn">
+<svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd">
+  <path d="M24,14.6c0-.1,0-.2-.1-.4,0-.1-.1-.3-.2-.4-.1-.2-.3-.4-.5-.6-.2-.2-.4-.4-.7-.6-.2-.2-.5-.4-.7-.6-.2-.2-.4-.4-.6-.6-.1-.1-.3-.2-.4-.4-.2-.1-.3-.2-.5-.4-.2-.2-.3-.3-.5-.6-.2-.2-.3-.5-.5-.9,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.2,0-.3,0-.5,0-.2,0-.3,0-.5,0-.2,0-.4,0-.6,0-.3-.1-.7-.3-1-.1-.3-.3-.7-.5-1-.2-.3-.4-.6-.6-.9-.2-.3-.5-.6-.8-.8-.3-.3-.6-.5-1-.7-.3-.2-.7-.4-1.1-.5-.4-.1-.8-.3-1.2-.3-.4,0-.8-.1-1.2-.1h-.1c-.4,0-.8,0-1.2.1-.4,0-.8.2-1.2.3-.4.1-.7.3-1.1.5-.4.2-.7.5-1,.7-.3.3-.6.5-.8.8-.2.3-.5.6-.6.9-.2.3-.3.7-.5,1-.1.3-.2.7-.3,1,0,.2,0,.4,0,.6,0,.2,0,.4,0,.5,0,.2,0,.3,0,.5,0,.2,0,.3,0,.4,0,.1,0,.3,0,.4,0,.1,0,.2,0,.4,0,.1,0,.2,0,.3,0,.1,0,.2,0,.3-.2.4-.3.7-.5,1-.2.3-.4.5-.5.6-.2.2-.3.3-.5.4-.2.1-.3.2-.4.4-.2.2-.4.4-.6.6-.2.2-.5.4-.7.6-.2.2-.5.4-.7.6-.2.2-.4.4-.5.6,0,.1-.2.3-.2.4,0,.1,0,.3-.1.4,0,.1,0,.2,0,.3,0,0,0,.1.2.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.4,0,.6-.2.2,0,.5-.2.7-.4.2-.1.5-.3.7-.4.2-.1.5-.2.7-.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.3,0,.5,0,.2,0,.3,0,.5,0,.2,0,.4,0,.6,0,.2,0,.5.1.8,0,.1,0,.3.1.5,0,.2.1.5.3.8.1.3.3.7.4,1,.2.4.4.8.6,1.2-.3.1-.6.3-.9.5-.3.2-.5.4-.8.6-.2.2-.4.5-.5.7-.1.3-.2.5-.3.8,0,.1,0,.3,0,.4,0,.1,0,.3,0,.4,0,.1,0,.2,0,.3,0,0,0,.2.1.3,0,0,.1.1.2.2,0,0,.1,0,.2.1,0,0,.2,0,.3,0,0,0,.2,0,.3,0,.3,0,.6,0,.9,0h.9c.3,0,.6,0,.9,0,.3,0,.6,0,.8,0h2.3c.2,0,.3,0,.5,0,.2,0,.3,0,.5,0,.1,0,.3-.1.4-.2.1,0,.2-.2.3-.3,0,0,.1,0,.2,0,0,0,.1,0,.2,0,0,0,.1,0,.2,0,0,0,.1,0,.2,0h.2c0,0,.1,0,.1,0s0,0,.1,0c0,0,0,0,.1,0,0,0,0,0,.1,0,0,.1.2.2.3.3.1,0,.3.1.4.2.1,0,.3,0,.5,0,.2,0,.3,0,.5,0h2.3c.3,0,.6,0,.8,0,.3,0,.6,0,.9,0h.9c.3,0,.6,0,.9,0s.2,0,.3,0c0,0,.2,0,.3,0,0,0,.2,0,.2-.1,0,0,.1-.1.2-.2,0,0,.1-.2.1-.3,0,0,0-.2,0-.3,0-.1,0-.2,0-.4,0-.1,0-.3,0-.4,0-.3-.1-.5-.3-.8-.1-.3-.3-.5-.5-.7-.2-.2-.5-.4-.7-.6-.3-.2-.6-.3-.9-.5.3-.4.5-.8.6-1.2.2-.4.3-.7.4-1,.1-.3.2-.6.3-.8,0-.2,0-.4.1-.5,0-.3,0-.5.1-.7,0-.2,0-.4,0-.6,0-.2,0-.4,0-.5,0-.2,0-.3,0-.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.4.2.7.3.2.1.5.3.7.4.2.1.5.3.7.4.2,0,.4.2.6.2s0,0,0,0c0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.2-.1,0,0,0-.2,0-.3Z M18.9,16.3c0,1.1,0,2.1-.5,3.1-2.5-.7-6.6.6-5.8,3.7-.4,0-.8,0-1.2,0,.8-3.1-3.2-4.3-5.7-3.7-1.2-3.5,0-8.1,2.9-10.4-3.5-3.1,2-8.8,3.5-3.2-.4-1.2-1.6-.2-1.4.7-.1.8.8,1.9,1.3.9,0,.2-.1.4-.2.5-1,.1-2.7.7-1.4,1.8.5.5.9,2.8,1.6,2.9.7-.1,1.2-2.4,1.7-2.9,1.2-1-.3-1.6-1.3-1.8,0,0,.1,0,.2,0-.1-.2-.2-.3-.3-.5,1.5,1.3,1.6-3,0-1.8s0,0,0,0c2.2-5.2,7.1,1.5,2.8,3.1,2.5,1.5,3.7,4.8,3.8,7.6Z"/>
+</svg>
+      <span class="dl-os">Linux</span>
+      <span class="dl-arch">x64</span>
+    </a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-arm64.gz" class="dl-btn">
+<svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd">
+  <path d="M24,14.6c0-.1,0-.2-.1-.4,0-.1-.1-.3-.2-.4-.1-.2-.3-.4-.5-.6-.2-.2-.4-.4-.7-.6-.2-.2-.5-.4-.7-.6-.2-.2-.4-.4-.6-.6-.1-.1-.3-.2-.4-.4-.2-.1-.3-.2-.5-.4-.2-.2-.3-.3-.5-.6-.2-.2-.3-.5-.5-.9,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.1,0-.3,0-.4,0-.2,0-.3,0-.5,0-.2,0-.3,0-.5,0-.2,0-.4,0-.6,0-.3-.1-.7-.3-1-.1-.3-.3-.7-.5-1-.2-.3-.4-.6-.6-.9-.2-.3-.5-.6-.8-.8-.3-.3-.6-.5-1-.7-.3-.2-.7-.4-1.1-.5-.4-.1-.8-.3-1.2-.3-.4,0-.8-.1-1.2-.1h-.1c-.4,0-.8,0-1.2.1-.4,0-.8.2-1.2.3-.4.1-.7.3-1.1.5-.4.2-.7.5-1,.7-.3.3-.6.5-.8.8-.2.3-.5.6-.6.9-.2.3-.3.7-.5,1-.1.3-.2.7-.3,1,0,.2,0,.4,0,.6,0,.2,0,.4,0,.5,0,.2,0,.3,0,.5,0,.2,0,.3,0,.4,0,.1,0,.3,0,.4,0,.1,0,.2,0,.4,0,.1,0,.2,0,.3,0,.1,0,.2,0,.3-.2.4-.3.7-.5,1-.2.3-.4.5-.5.6-.2.2-.3.3-.5.4-.2.1-.3.2-.4.4-.2.2-.4.4-.6.6-.2.2-.5.4-.7.6-.2.2-.5.4-.7.6-.2.2-.4.4-.5.6,0,.1-.2.3-.2.4,0,.1,0,.3-.1.4,0,.1,0,.2,0,.3,0,0,0,.1.2.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.4,0,.6-.2.2,0,.5-.2.7-.4.2-.1.5-.3.7-.4.2-.1.5-.2.7-.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.3,0,.5,0,.2,0,.3,0,.5,0,.2,0,.4,0,.6,0,.2,0,.5.1.8,0,.1,0,.3.1.5,0,.2.1.5.3.8.1.3.3.7.4,1,.2.4.4.8.6,1.2-.3.1-.6.3-.9.5-.3.2-.5.4-.8.6-.2.2-.4.5-.5.7-.1.3-.2.5-.3.8,0,.1,0,.3,0,.4,0,.1,0,.3,0,.4,0,.1,0,.2,0,.3,0,0,0,.2.1.3,0,0,.1.1.2.2,0,0,.1,0,.2.1,0,0,.2,0,.3,0,0,0,.2,0,.3,0,.3,0,.6,0,.9,0h.9c.3,0,.6,0,.9,0,.3,0,.6,0,.8,0h2.3c.2,0,.3,0,.5,0,.2,0,.3,0,.5,0,.1,0,.3-.1.4-.2.1,0,.2-.2.3-.3,0,0,.1,0,.2,0,0,0,.1,0,.2,0,0,0,.1,0,.2,0,0,0,.1,0,.2,0h.2c0,0,.1,0,.1,0s0,0,.1,0c0,0,0,0,.1,0,0,0,0,0,.1,0,0,.1.2.2.3.3.1,0,.3.1.4.2.1,0,.3,0,.5,0,.2,0,.3,0,.5,0h2.3c.3,0,.6,0,.8,0,.3,0,.6,0,.9,0h.9c.3,0,.6,0,.9,0s.2,0,.3,0c0,0,.2,0,.3,0,0,0,.2,0,.2-.1,0,0,.1-.1.2-.2,0,0,.1-.2.1-.3,0,0,0-.2,0-.3,0-.1,0-.2,0-.4,0-.1,0-.3,0-.4,0-.3-.1-.5-.3-.8-.1-.3-.3-.5-.5-.7-.2-.2-.5-.4-.7-.6-.3-.2-.6-.3-.9-.5.3-.4.5-.8.6-1.2.2-.4.3-.7.4-1,.1-.3.2-.6.3-.8,0-.2,0-.4.1-.5,0-.3,0-.5.1-.7,0-.2,0-.4,0-.6,0-.2,0-.4,0-.5,0-.2,0-.3,0-.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.4.2.7.3.2.1.5.3.7.4.2.1.5.3.7.4.2,0,.4.2.6.2s0,0,0,0c0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.2,0,.2-.1,0,0,0-.2,0-.3Z M18.9,16.3c0,1.1,0,2.1-.5,3.1-2.5-.7-6.6.6-5.8,3.7-.4,0-.8,0-1.2,0,.8-3.1-3.2-4.3-5.7-3.7-1.2-3.5,0-8.1,2.9-10.4-3.5-3.1,2-8.8,3.5-3.2-.4-1.2-1.6-.2-1.4.7-.1.8.8,1.9,1.3.9,0,.2-.1.4-.2.5-1,.1-2.7.7-1.4,1.8.5.5.9,2.8,1.6,2.9.7-.1,1.2-2.4,1.7-2.9,1.2-1-.3-1.6-1.3-1.8,0,0,.1,0,.2,0-.1-.2-.2-.3-.3-.5,1.5,1.3,1.6-3,0-1.8s0,0,0,0c2.2-5.2,7.1,1.5,2.8,3.1,2.5,1.5,3.7,4.8,3.8,7.6Z"/>
+</svg>
+      <span class="dl-os">Linux</span>
+      <span class="dl-arch">arm64</span>
+    </a>
+  </div>
+
+  <div class="dl-secondary">
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-windows-x86.exe">Windows x86</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-x86.gz">Linux x86</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-armv7.gz">Linux armv7</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-armv6.gz">Linux armv6</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-riscv64.gz">Linux riscv64</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-x64_libc2_28.gz">Linux x64 libc2.28</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-linux-x64_libc2_42.gz">Linux x64 libc2.42</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-freebsd-x64.gz">FreeBSD x64</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-dragonflybsd-x64.gz">DragonFlyBSD x64</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-openbsd-x64.gz">OpenBSD x64</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-haiku-x64.gz">Haiku x64</a>
+    <a href="https://github.com/Oldes/Rebol3/releases/download/3.22.1/rebol3-bulk-haiku-x86.gz">Haiku x86</a>
+
+<details class="checksums">
+  <summary>checksums</summary>
+  <dl>
+    <dt>rebol3-bulk-windows-x64.exe</dt>
+    <dd>964e8fec5f730ae79ccd0c5e474eb1680f570678068fd67030d4885295699424</dd>
+    <dt>rebol3-bulk-windows-arm64.exe</dt>
+    <dd>4db1cd79f7d6a1a3fe18e0cc0b8241f05da0c40212396dd7c9e14ad4245f84f3</dd>
+    <dt>rebol3-bulk-windows-x86.exe</dt>
+    <dd>68b7e52cbb76ea4422f1bfa36943330d383be96a965fe07fa29edb013b075f70</dd>
+    <dt>rebol3-bulk-macos-x64.gz</dt>
+    <dd>db89c35190da15e8283f679d41363a34a9f378b4756f7182b2de318c5d7b3764</dd>
+    <dt>rebol3-bulk-macos-arm64.gz</dt>
+    <dd>6f078cfba45dcfc43502fee6795361180ce0f1ed6964521278a488613408311a</dd>
+    <dt>rebol3-bulk-linux-x64.gz</dt>
+    <dd>1932a7048b09cad5fc7bd9c6e4649f9fcfb45245d55876871d6a89e1d5dbad32</dd>
+    <dt>rebol3-bulk-linux-arm64.gz</dt>
+    <dd>4878bd8eb28a5ecca99b7a7dce958ecdb40dce4b96636531a923519dd5297158</dd>
+    <dt>rebol3-bulk-linux-x86.gz</dt>
+    <dd>e6a20bfaa06e10d9385c4fdfa855b76b02e76f468cd48fd0a7f4fd18c181e779</dd>
+    <dt>rebol3-bulk-linux-armv7.gz</dt>
+    <dd>92640e40bd7b6e3f765497fcf4d4ecc632bd890468f9d6a250c80af0a27e0f5d</dd>
+    <dt>rebol3-bulk-linux-armv6.gz</dt>
+    <dd>9fe593c6781d839a45a6f3205f305aa40099af4c632d4371eb5ecbdc37f9950a</dd>
+    <dt>rebol3-bulk-linux-riscv64.gz</dt>
+    <dd>e9be50ff25a8ebdcde535f9005736d2fd5f192e164661b5eef90d003dc1ecdc3</dd>
+    <dt>rebol3-bulk-linux-x64_libc2_28.gz</dt>
+    <dd>067e1dead273d59b94df18dc85ea666afb51bec8854003a4b2e82405eaecd259</dd>
+    <dt>rebol3-bulk-linux-x64_libc2_42.gz</dt>
+    <dd>5a86420337503054dd8c48f54c07a8cb2cde7f1d34f517b51a1eb43c1aa2ac71</dd>
+    <dt>rebol3-bulk-freebsd-x64.gz</dt>
+    <dd>9d01c0b06cb8d5b1858ea662c33179aa0be5793fbbfbbd5b1fd10215a0633255</dd>
+    <dt>rebol3-bulk-dragonflybsd-x64.gz</dt>
+    <dd>6ae37f26d97e1f8e3aeacab41f66c6d77f6bfe62ecdfb5b92fec89ab64e3b996</dd>
+    <dt>rebol3-bulk-openbsd-x64.gz</dt>
+    <dd>753cf73de203fd08331f4ee5e0e542bd2058ce6329d06f7f01d90791dd6c0189</dd>
+    <dt>rebol3-bulk-haiku-x64.gz</dt>
+    <dd>302969f13d7b2663cd059720d12c394cf898a4e3b7eafa3869017efbd55f0393</dd>
+    <dt>rebol3-bulk-haiku-x86.gz</dt>
+    <dd>083cc62e475a8d943a28635404dc24dcb4d43807480d057b5365de2d07294386</dd>
+  </dl>
+</details>
+</div>
+
 </body>
 </html>

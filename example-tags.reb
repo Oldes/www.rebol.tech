@@ -249,3 +249,24 @@
 "String comparison" string
 "Stem-and-leaf plot" data
 "Lyndon word" string
+"Tokenize a string with escaping" string
+"Memory allocation" misc
+"Möbius function" math
+"Perlin noise" graphics
+"Named parameters" misc
+"Long year" math
+"Infinity" math
+"IBAN" math
+"Heronian triangles" math
+"Here document" string
+"Happy numbers" math
+"Gamma function" math
+"Entropy" math
+"Dijkstra's algorithm" math
+"Damm algorithm" math
+"CUSIP" math
+"Chinese remainder theorem" math
+"Bacon cipher" crypto
+"Substitution cipher" crypto
+"Strip whitespace from a string/Top and tail" string
+"Top rank per group" data
