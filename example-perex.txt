@@ -222,6 +222,14 @@ Sorting algorithms/Insertion sort: Sort data with insertion sort.
 Sorting algorithms/Quicksort: Sort data with quicksort.
 Sorting algorithms/Radix sort: Sort data with radix sort.
 Sorting algorithms/Stooge sort: Sort data with stooge sort.
+Sorting algorithms/Shell sort: Sort elements by comparing and shifting items at decreasing gaps, then finish with a final insertion-sort pass.
+Sorting algorithms/Bead sort: Sort an array of positive integers using the Bead Sort Algorithm.
+Sorting algorithms/Bogosort: Repeatedly shuffle the items at random until they happen to be in sorted order.
+Sorting algorithms/Cocktail sort: Sort by repeatedly scanning the list in both directions, swapping adjacent items that are out of order.
+Sorting algorithms/Patience sort: Sort an array of numbers into ascending order using Patience sorting.
+Sorting algorithms/Permutation sort: Sort the items by trying permutations until the sequence is in order, or by rearranging a permutation through allowed swaps or subarray operations.
+Sorting algorithms/Selection sort: Sort an array of elements using the Selection sort algorithm.
+Sorting algorithms/Strand sort: Repeatedly extract already sorted subsequences from the list and merge them into the final sorted result.
 Sort stability: Test whether a sorting algorithm preserves equal-item order.
 Soundex: Encode names using the Soundex phonetic algorithm.
 Sparkline in unicode: Create compact text-based trend graphs.
@@ -269,3 +277,59 @@ Bacon cipher: Encode or decode text using Bacon’s steganographic cipher, where
 Substitution cipher: Encode or decode text by replacing each symbol with another according to a fixed mapping, usually with one-to-one letter substitution.
 Strip whitespace from a string/Top and tail: Remove leading and trailing whitespace from a string while preserving the text in the middle.
 Top rank per group: Group records by category and keep the highest-ranked item or items from each group.
+Digit fifth powers: Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
+Bell numbers: Enumerations of the number of different ways to partition a set that has exactly n elements.
+Anadromes: Find words or phrases that form a different valid word or phrase when spelled backward, such as a reverse pair.
+Alternade words: Find words whose letters can be split into alternating subsequences that each form valid words.
+Changeable words: Identify words that can be transformed into other valid words by changing one or more letters.
+Peripheral drift illusion: Create a static image that appears to drift or rotate when viewed in peripheral vision, usually by arranging repeating luminance gradients.
+Compare length of two strings: Given two strings of different length, determine which string is longer or shorter.
+Kronecker product: Compute the block-matrix product of two matrices by multiplying every entry of one matrix by the entire other matrix, producing a larger matrix.
+Pseudo-random numbers/Middle-square method: Generate a sequence of pseudorandom numbers by repeatedly squaring a seed and taking the middle digits as the next value.
+Solve the no connection puzzle: Arrange the numbered pieces so that no consecutive numbers are adjacent along any connection line, leaving a valid non-touching placement.
+Sort three variables: Arrange three values in ascending or descending order by comparing and swapping them with minimal steps.
+Sort using a custom comparator: Sort values with a user-defined comparison rule instead of the default ordering, so items can be ordered by any chosen criterion.
+Voronoi diagram: Divide a plane into regions around a set of points so each region contains the locations closest to one point.
+Variable declaration reset: Declare variables and then reinitialize them.
+Forest fire: Simulate the spread of fire through a forest grid, often using rules for ignition, burning, and regrowth.
+N'th: Write a function that when given an integer greater than or equal to zero returns a string of the number followed by an apostrophe then the ordinal suffix.
+Minimum numbers of three lists: Find the smallest value across three lists.
+Pascal's triangle: Generate the triangular array where each number is the sum of the two directly above it, often used for binomial coefficients and related patterns.
+Repeat: Write a procedure which accepts as arguments another procedure and a positive integer. The latter procedure is executed a number of times equal to the accepted integer.
+Roman numerals/Decode: Convert a Roman numeral string into its corresponding integer value by applying the usual additive and subtractive rules.
+Roman numerals/Encode: Convert an integer into its Roman numeral representation using the standard subtractive notation rules.
+Brazilian numbers: Positive integers that can be written in some base B, with `1 < B < N - 1`, using only one repeated digit.
+Sum of squares: Compute the sum of squared values, often to measure total variation or to evaluate formulas in number theory and statistics.
+Sequence of non-squares: Generate the positive integers that are not perfect squares, in ascending order.
+Kronecker product based fractals: Fractals generated by repeatedly taking the Kronecker product of a base matrix with itself, producing self-similar patterns across scales.
+Integer sequence: Create a program that, when run, would display all integers from 1 to ∞ (or any relevant implementation limit).
+Odd and square numbers: Find odd and square numbers (>99) under 1.000
+Stack traces: Print out the current call stack.
+Speech synthesis: The artificial production of human speech by converting text into spoken audio through text-to-speech systems.
+Random numbers: Generate a collection filled with 1000 normally distributed random (or pseudo-random) numbers with a mean of 1.0 and a   standard deviation of 0.5
+Read a file line by line: Demonstrates line-by-line reading of a text file using a custom Rebol scheme, avoiding full file load into memory.
+Program name: Programmatically obtain the name used to invoke the program.
+Old lady swallowed a fly: Present a program which emits the lyrics to the song "I Knew an Old Lady Who Swallowed a Fly", taking advantage of the repetitive structure of the song's lyrics.
+Munching squares: Render a graphical pattern where each pixel is colored by the value of 'x xor y'.
+Markov chain text generator: Create text by using a Markov chain to choose each next word or character from the probabilities learned from existing input text.
+Julia set: Generate and draw a Julia set.
+Inverted index: Store terms and the documents or positions where they appear, making text search fast and efficient.
+Generate lower case ASCII alphabet: Output the letters a through z using standard lower-case ASCII characters.
+Euclidean rhythm: Distribute a given number of beats as evenly as possible across a fixed number of steps.
+DNS query: A request sent to a DNS server to translate a domain name into its corresponding IP address.
+Deepcopy: Demonstrate how to copy data structures containing complex heterogeneous and cyclic semantics.
+Count in octal: Produce a sequential count in octal, starting at zero, and using an increment of a one for each consecutive number.
+Best shuffle: Shuffle the characters of a string in such a way that as many of the character values are in a different position as possible.
+Angle difference between two bearings: Find the smallest angular gap between the two directions, treating the bearings as circular values from 0 to 360 degrees.
+Quaternion: A four-part number used to represent rotations in 3D space and other geometric transformations.
+One-dimensional cellular automata: Simulate a row of cells that update over time according to local rules based on neighboring cells.
+Extensible prime generator: Write a generator of prime numbers, in order, that will automatically adjust to accommodate the generation of any reasonably high prime.
+Achilles numbers: Positive integers that are powerful but not perfect powers.
+String matching: Find whether one string occurs inside another.
+Strip block comments: Remove block-style comments from source text while leaving the rest of the content unchanged.
+Sudoku: Solve a partially filled-in normal 9x9 Sudoku grid and display the result in a human-readable format.
+Unix/ls: List the contents of a directory, showing files and folders in the current location or a specified path.
+Water collected between towers: Given tower heights, calculate how much rainwater can be trapped between them after rainfall.
+Write entire file: (Over)write a file so that it contains a string.
+Number names: Write numbers in words instead of digits, such as one, two, three, and so on.
+MD4: A 128-bit cryptographic hash algorithm developed in 1990; it is now considered insecure and obsolete.

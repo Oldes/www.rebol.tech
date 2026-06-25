@@ -223,6 +223,14 @@
 "Sorting algorithms/Quicksort"	data
 "Sorting algorithms/Radix sort"	data
 "Sorting algorithms/Stooge sort"	data
+"Sorting algorithms/Shell sort" data
+"Sorting algorithms/Bead sort" data
+"Sorting algorithms/Bogosort" data
+"Sorting algorithms/Cocktail sort" data
+"Sorting algorithms/Patience sort" data
+"Sorting algorithms/Permutation sort" data
+"Sorting algorithms/Selection sort" data
+"Sorting algorithms/Strand sort" data
 "Sort stability"	data
 "Soundex"	string
 "Sparkline in unicode"	string
@@ -270,3 +278,66 @@
 "Substitution cipher" crypto
 "Strip whitespace from a string/Top and tail" string
 "Top rank per group" data
+"Digit fifth powers" math
+"Bell numbers" math
+"Anadromes" string
+"Alternade words" string
+"Changeable words" string
+"Peripheral drift illusion" graphics
+"Compare length of two strings" string
+"Kronecker product" math
+"Pseudo-random numbers/Middle-square method" math
+"Solve the no connection puzzle" misc
+"Sort three variables" data
+"Sort using a custom comparator" data
+"Voronoi diagram" graphics
+"Variable declaration reset" misc
+"Write float arrays to a text file" io
+"Sum of a series" math
+"Forest fire" graphics
+"N'th" string
+"Minimum numbers of three lists" data
+"Pascal's triangle" math
+"Repeat" misc
+"Roman numerals/Decode" math
+"Roman numerals/Encode" math
+"Brazilian numbers" math
+"Sum of squares" math
+"Sequence of non-squares" math
+"Kronecker product based fractals" math
+"Integer sequence" math
+"Odd and square numbers" math
+"Stack traces" misc
+"Speech synthesis" io
+"Smallest numbers" math
+"Random numbers" math
+"Read a file line by line" io
+"Program name" misc
+"Old lady swallowed a fly" misc
+"Munching squares" graphics
+"Markov chain text generator" string
+"Julia set" graphics
+"Inverted index" data
+"Generate lower case ASCII alphabet" string
+"Euclidean rhythm" misc
+"DNS query" io
+"Deepcopy" control
+"Count in octal" math
+"Best shuffle" data
+"Call an object method" control
+"Angle difference between two bearings" math
+"Quaternion" math
+"Partial function application" misc
+"One-dimensional cellular automata" control
+"Long multiplication" math
+"Extensible prime generator" math
+"Achilles numbers" math
+"String matching" string
+"Strip block comments" string
+"Sudoku" misc
+"Unicode variable names" misc
+"Unix/ls" io
+"Water collected between towers" math
+"Write entire file" io
+"Number names" string
+"MD4" crypto
