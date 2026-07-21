@@ -222,6 +222,7 @@ Sorting algorithms/Insertion sort: Sort data with insertion sort.
 Sorting algorithms/Quicksort: Sort data with quicksort.
 Sorting algorithms/Radix sort: Sort data with radix sort.
 Sorting algorithms/Stooge sort: Sort data with stooge sort.
+Sorting algorithms/Circle sort: Sort data into ascending order using Circlesort.
 Sorting algorithms/Shell sort: Sort elements by comparing and shifting items at decreasing gaps, then finish with a final insertion-sort pass.
 Sorting algorithms/Bead sort: Sort an array of positive integers using the Bead Sort Algorithm.
 Sorting algorithms/Bogosort: Repeatedly shuffle the items at random until they happen to be in sorted order.
@@ -333,3 +334,72 @@ Water collected between towers: Given tower heights, calculate how much rainwate
 Write entire file: (Over)write a file so that it contains a string.
 Number names: Write numbers in words instead of digits, such as one, two, three, and so on.
 MD4: A 128-bit cryptographic hash algorithm developed in 1990; it is now considered insecure and obsolete.
+File modification time: Get and set the modification time of a file.
+Discordian calendar: An alternative calendar with five 73-day seasons, a five-day week, and a leap-day-like St. Tib's Day.
+Zeckendorf number representation: Generate and show a table of the Zeckendorf number representations of the decimal numbers zero to twenty, in order.
+Unique characters: Given a list of strings, find characters appearing only in one string and once only.
+Unique characters in each string: Given a list of strings, find the characters appearing exactly once in each string.
+Sort numbers lexicographically: Order the numbers as if they were strings, so 1 comes before 10, and 10 comes before 2.
+Quickselect algorithm: Find the k-th smallest element by partitioning around a pivot and recursing only into the side that contains the target.
+Range expansion: Expand a compressed range notation into the full list of values it represents.
+Range extraction: Compress a sorted list of integers into a compact string by replacing runs of at least three consecutive numbers with start-end notation.
+Palindrome dates: Dates whose digits read the same forward and backward in a given date format, such as 02/02/2020 in MM/DD/YYYY.
+Neighbour primes: Find and show primes p such that p*q+2 is prime, where q is next prime after p and p < 500
+Old Russian measure of length: Traditional Russian length unit conversion.
+Ormiston pairs: Consecutive prime numbers that are anagrams of each other, such as 1913 and 1931.
+Palindromic primes in base 16: Prime numbers that read the same forward and backward when written in hexadecimal.
+Permutations: Write a program that generates all permutations of n different objects. (Practically numerals!)
+Permutations with repetitions: Generate a sequence of permutations of n elements drawn from choice of k values.
+Permuted multiples: Find the smallest positive integer n such that, when expressed in decimal, 2*n, 3*n, 4*n, 5*n, and 6*n contain exactly the same digits but in a different order.
+Brownian tree: A random fractal tree model, also called the continuum random tree or Aldous tree, built from Brownian motion.
+Bioinformatics/Sequence mutation: Given a string of characters A, C, G, and T representing a DNA sequence write a routine to mutate the sequence.
+Natural sorting: The sorting of text that does more than rely on the order of individual characters codes to make the finding of individual strings easier for a human reader.
+Nautical bell: A small program that emulates a nautical bell producing a ringing bell pattern at certain times throughout the day.
+Nested function: A program consisting of two nested functions.
+Pig the dice game: A simple risk-and-reward dice game where you roll to build a turn score, but rolling a 1 wipes out that turn’s points.
+Population count: The number of 1s (ones) in the binary representation of a non-negative integer.
+Probabilistic choice: Given a mapping between items and their required probability of occurrence, generate a million items randomly subject to the given probabilities and compare the target probability of occurrence versus the generated values.
+Rep-string: A string which is created by repeating a substring of the first N characters of the string truncated on the right to the length of the input string, and in which the substring appears repeated at least twice in the original.
+Sum to 100: A puzzle about choosing numbers that add up to 100, or arranging numbers so their total is 100.
+Summation of primes: Find the sum of all the primes below two million.
+Word wrap: Wrap a paragraph of text in a simple way.
+Twelve statements: A logic puzzle with 12 numbered claims about which statements are true or false.
+Three word location: Display a location on the Earth with three words derived from a latitude longitude pair.
+The sieve of Sundaram: A prime-generating algorithm that finds odd primes by removing numbers in a specific pattern.
+Substring/Top and tail: The task is to demonstrate how to remove the first and last characters from a string.
+Find common directory path: Given several directory paths, return their longest shared parent directory.
+Find limit of recursion: Determine the maximum recursion depth a program or language/runtime allows before it fails.
+Find first missing positive: Given a list of integer arrays nums (which may be unsorted), find the smallest missing positive integer in each array in the list.
+Find words with alternating vowels and consonants: Find words which odd letters are consonants and even letters are vowels or vice versa.
+Generate random numbers without repeating a value: Produce unique random numbers so no value appears more than once.
+Doomsday rule: Use Conway's Doomsday rule to calculate the day of the week.
+Color wheel: Write a function to draw a HSV color wheel completely with code.
+Priority queue: A data structure that stores items by priority and returns the highest- or lowest-priority item first.
+Periodic table: Display the row and column in the periodic table of the given atomic number.
+Search a list of records: Write a function/method/etc. that can find the first element in a given list matching a given condition.
+Return multiple values: Show how to return more than one value from a function.
+Hex dump: A hexadecimal view of binary data, usually shown with addresses, hex bytes, and an ASCII preview.
+Hello world/Standard error: Show how to print a message to standard error by printing "Goodbye, World!" on that stream.
+Gray code: A binary numbering scheme where consecutive values differ by only one bit.
+File extension is in extensions list: Given an arbitrary filename and a list of extensions, tell whether the filename has one of those extensions.
+Colour bars/Display: Display a series of vertical color bars across the width of the display.
+Averages/Mode: Find the most frequently occurring value in a set of numbers.
+Elementary cellular automaton: A one-dimensional automaton with binary cells whose next state depends only on each cell and its immediate neighbors.
+Four sides of square: Fill with 1's the four sides of square. The rest of the square should be filled with 0's.
+Solve a Hidato puzzle: Fill a grid with consecutive numbers so each number touches the next horizontally, vertically, or diagonally.
+Sort an outline at every level: Recursively sort each indentation level of a nested outline so that every sub-list is ordered.
+Display an outline as a nested table: Render a hierarchical outline as an HTML (or similar) table where each indentation level becomes a nested table cell.
+Functional coverage tree: A hierarchical model of verification coverage where cover groups and cover points are organized in a tree to track how thoroughly a design’s functionality has been exercised.
+Sort disjoint sublist: Sort only the elements at specified indices in a list, leaving all other elements in their original positions.
+Smallest enclosing circle problem: Find the unique smallest circle that contains a given set of points in the plane.
+Sierpinski arrowhead curve: A recursive fractal curve that follows a simple turning rule and converges to the Sierpiński triangle pattern.
+Sierpinski curve: A space-filling fractal curve that recursively fills a square.
+Sierpinski triangle/Graphical: Produce a graphical representation of a Sierpinski triangle of order N in any orientation.
+Sierpinski pentagon: A fractal built by repeatedly placing smaller pentagons around a pentagon in a self-similar pattern.
+SEND + MORE = MONEY: A classic cryptarithmetic puzzle where each letter stands for a unique digit, and the sum must be valid.
+RIPEMD-160: Find the RIPEMD-160 message digest of a string of octets.
+Reverse the gender of a string: Swap gendered terms in a string so masculine and feminine forms are exchanged.
+Set puzzle: A logic/card game where you find groups of three cards in which each feature is either all the same or all different.
+Set, the card game: A logic/card game where you find groups of three cards in which each feature is either all the same or all different.
+Seven-sided dice from five-sided dice: Simulate a fair 1–7 roll using a fair 1–5 generator by mapping pairs of 5-sided rolls to 21 outcomes and rerolling on the remaining 4.
+Simple turtle graphics: A beginner-friendly way to draw shapes and patterns by moving a “turtle” with commands like forward, turn, and pen up/down.

@@ -152,7 +152,8 @@
 "Sorting algorithms-Gnome sort"	data
 "Sorting algorithms-Stooge sort"	data
 "Spiral matrix"	math
-"Statistics-Normal distribution"	math
+"Statistics/Basic" math
+"Statistics/Normal distribution"	math
 "Straddling checkerboard"	crypto
 "Sub-unit squares"	math
 "Terminal control-Restricted width positional input-No wrapping"	io
@@ -231,7 +232,10 @@
 "Sorting algorithms/Permutation sort" data
 "Sorting algorithms/Selection sort" data
 "Sorting algorithms/Strand sort" data
+"Sorting algorithms/Circle sort" data
 "Sort stability"	data
+"Sort numbers lexicographically" data
+"Sort an outline at every level" data
 "Soundex"	string
 "Sparkline in unicode"	string
 "Statistics/Normal_distribution"	math
@@ -341,3 +345,95 @@
 "Write entire file" io
 "Number names" string
 "MD4" crypto
+"Grayscale image" graphics
+"File modification time" io
+"Discordian calendar" misc
+"Zeckendorf number representation" math
+"Unique characters" string
+"Unique characters in each string" string
+"Short-circuit evaluation" control
+"Quickselect algorithm" math
+"Range expansion" string
+"Range extraction" string
+"Palindrome dates" misc
+"Neighbour primes" math
+"Old Russian measure of length" math
+"Ormiston pairs" math
+"Palindromic primes in base 16" math
+"Permutations" data
+"Permutations with repetitions" data
+"Permuted multiples" math
+"Nice primes" math
+"Naming conventions" misc
+"Brownian tree" graphics
+"Bioinformatics/Sequence mutation" misc
+"Natural sorting" data
+"Nautical bell" misc
+"Nested function" control
+"Phrase reversals" string
+"Pig the dice game" game
+"Population count" math
+"Prime conspiracy" math
+"Probabilistic choice" math
+"Rep-string" string
+"Sum to 100" math
+"Summation of primes" math
+"Word wrap" string
+"Words from neighbour ones" string
+"Useless instructions" control
+"Twelve statements" misc
+"Three word location" data
+"The sieve of Sundaram" math
+"Substring/Top and tail" string
+"Four is magic" misc
+"Find common directory path" string
+"Find limit of recursion" control
+"Find first missing positive" data
+"Find words with alternating vowels and consonants" string
+"Generate random numbers without repeating a value" data
+"Doomsday rule" misc
+"Color wheel" graphics
+"Sum digits of an integer" math
+"Priority queue" data
+"Periodic table" misc
+"Search a list of records" data
+"Return multiple values" control
+"Hex dump" data
+"Include a file" control
+"Introspection" control
+"Longest string challenge" string
+"Hello world/Standard error" io
+"Gray code" math
+"File extension is in extensions list" string
+"Unicode strings" string
+"Test a function" control
+"Snake and ladder" game
+"Sunflower fractal" graphics
+"Draw a torus" graphics
+"Element-wise operations" math
+"Find squares n where n+1 is prime" math
+"Colour bars/Display" graphics
+"Averages/Mode" math
+"Elementary cellular automaton" control
+"Four sides of square" control
+"Solve a Hidato puzzle" misc
+"Display an outline as a nested table" data
+"Functional coverage tree" data
+"Sort disjoint sublist" data
+"Smallest enclosing circle problem" math
+"Sierpinski arrowhead curve" graphics
+"Sierpinski curve" graphics
+"Sierpinski triangle/Graphical" graphics
+"Sierpinski pentagon" graphics
+"SEND + MORE = MONEY" misc
+"Remove vowels from a string" string
+"RIPEMD-160" crypto
+"Reverse the gender of a string" string
+"Reverse the order of lines in a text file while preserving the contents of each line" io
+"Sine wave" io
+"Set puzzle" game
+"Set, the card game" game
+"Seven-sided dice from five-sided dice" game
+"Shift list elements to left by 3" data
+"Simple turtle graphics" graphics
+"Superellipse" graphics
