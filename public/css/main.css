@@ -127,7 +127,7 @@
 	border-radius: 5px;
 	overflow-x: auto;
 	color: #fff;
-	font-size: 0.9em;
+	font-size: calc(0.7em + 0.20vw);
 	margin-bottom: 3px;
 }
 .code-container {
