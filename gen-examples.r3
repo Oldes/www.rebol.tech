@@ -28,6 +28,8 @@ with ctx/config/app [
 			blk: examples/:title: copy []
 		]
 		append blk file
+		sort/compare sort blk func[a b][(length? a) < (length? b)]
+
 		unless tag: example-tags/:title [
 			print mold title 
 		]
