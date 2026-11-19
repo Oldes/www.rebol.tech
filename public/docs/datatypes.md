@@ -2225,8 +2225,245 @@ arbitrary internal object or value
 ## hash!
 
 
-This Rebol 2 datatype is now implemented in Rebol 3 only as a plain `block!` (placeholder - without hashing)!
+A hash is a block that keeps an internal hash table of its values for fast lookup. It holds values in order, can hold duplicates and any type of value, and supports everything a block does. The difference is that searching a large hash is much faster than searching a large block.
 
+A hash can be used to quickly check whether a value was already seen, while new values are still being collected. For example, when walking a graph:
+```rebol
+links: [
+    a [b c]
+    b [c d]
+    c [a]
+    d [b]
+]
+visited: make hash! []
+queue: copy [a]
+while [not empty? queue] [
+    node: take queue
+    unless find visited node [
+        append visited node
+        append queue select links node
+    ]
+]
+probe visited
+;== #(hash! [a b c d])
+```
+
+Hashes can hold records of information, which can be searched by any field:
+```rebol
+woodsmen: make hash! [
+    "Paul"    "Bunyan"  paul@bunyan.dom
+    "Grizzly" "Adams"   grizzly@adams.dom
+    "Davy"    "Crocket" davy@crocket.dom
+]
+```
+
+Hashes are a type of series, so anything that can be done with a series can be done with a hash value.
+
+Hashes can be searched:
+```rebol
+probe copy/part (find woodsmen "Grizzly") 3
+;== #(hash! ["Grizzly" "Adams" grizzly@adams.dom])
+
+probe index? find woodsmen davy@crocket.dom
+;== 9
+```
+
+Hashes can be modified, and the hash table is kept up to date automatically:
+```rebol
+append woodsmen [
+    "John" "Muir" john@muir.dom
+]
+probe copy/part (find woodsmen "Muir") 2
+;== #(hash! ["Muir" john@muir.dom])
+```
+
+Appending is cheap: new values are added to the existing hash table. Other modifications (`insert`, `remove`, `change`, `sort`...) make the table be rebuilt on the next lookup.
+
+
+### When to use a hash
+
+A hash is useful when the same series is searched many times, and especially when it is searched while it is still growing (as `visited` in the example above).
+
+Other datatypes or functions may fit better:
+
+- Use a `block!` when the series is small or searched only a few times. Building the hash table has its cost, and small hashes are searched linearly anyway.
+- Use a `map!` when the data are key/value pairs with unique keys. A map has a simpler interface (`select`, `put`, `remove/key`, `m/key: value`), its series keys are copied and protected from modification, and removing a key does not shift other values.
+- Use `unique` (or other set functions like `union`, `intersect`, `difference`, `exclude`) when all values are known in advance and only duplicates need to be removed:
+```rebol
+probe unique split "the cat and the dog and the bird" #" "
+;== ["the" "cat" "and" "dog" "bird"]
+```
+
+A hash is the right choice when the order of values matters, when values are not simple key/value pairs, when any value (not just a key) needs to be found, or when duplicates must be kept.
+
+
+### Lookup
+
+For a single value, `find`, `select`, `put` and path selection compare values like keys in a `map!`, not like `find` in a block:
+
+- Values must be of the same datatype, so `1` and `1.0` are different values.
+- Decimals are compared exactly, so `0.1 + 0.2` is not found as `0.3`.
+- Strings and other text values are compared case-insensitively, unless `/case` is used.
+- Words are matched by their spelling, ignoring case, and any word type matches (`foo`, `foo:`, `'foo`...). With `/case`, the word type and spelling must be the same.
+
+```rebol
+blk: [1 a 1.0 b]
+probe select blk 1.0
+;== a
+
+hsh: make hash! [1 a 1.0 b]
+probe select hsh 1.0
+;== b
+
+probe none? select hsh "x"
+;== #(true)
+```
+
+```rebol
+h: make hash! ["Paul" 1 foo: 2]
+probe select h "PAUL"
+;== 1
+probe none? select/case h "PAUL"
+;== #(true)
+probe select h 'foo
+;== 2
+```
+
+Path selection works too:
+```rebol
+key: "Paul"
+probe h/:key
+;== 1
+```
+
+Some searches use the same rules as in a block:
+
+- A block argument is searched as a sequence of values, unless `/only` is used.
+- A datatype or typeset argument finds the first value of that type, unless `/only` is used.
+- Refinements other than `/case`, `/only` and `/tail` (for example `/skip`, `/last`, `/reverse`, `/match` or `/part`).
+
+```rebol
+h: make hash! [1 "a" 2 "b"]
+probe find h [2 "b"]
+;== #(hash! [2 "b"])
+probe select h string!
+;== "b"
+```
+
+
+### Warning: modifying values in place
+
+The hash table stores the hash of each value as it was when the table was built. If a series value inside the hash (a string, binary, block...) is modified in place, the hash does not know about it. Until the hash is rehashed:
+
+- the modified value is not found by its new content,
+- and it is not found by its old content either.
+
+```rebol
+h: make hash! []
+repeat i 100 [append h ajoin ["k" i]]
+
+append first h "x"           ;; modifies the value, not the hash
+
+probe none? find h "k1x"
+;== #(true)
+probe none? find h "k1"
+;== #(true)
+```
+
+The hash is rehashed on the next lookup after any modification of the hash itself (`insert`, `remove`, `change`, `poke`, `sort`, `clear`, path set...). Appending does not trigger a rehash, because appended values are just added to the existing table. Putting the modified value back fixes the lookup:
+
+```rebol
+poke h 1 first h
+probe index? find h "k1x"
+;== 1
+```
+
+The same applies to values modified using another reference to them:
+
+```rebol
+key: "k2"
+h: make hash! []
+append h key
+repeat i 100 [append h ajoin ["v" i]]
+append key "x"
+probe none? find h "k2x"
+;== #(true)
+```
+
+Small hashes are searched linearly, without the table, so they are not affected. This can hide the problem until the hash grows.
+
+To avoid this, do not modify series values stored in a hash. Replace them instead (using `change`, `poke` or `put`), or use a `map!`, where series keys are copied and protected.
+
+
+### Format
+
+There is no literal syntax for a hash. It is molded using the construction syntax, so it can be loaded back as a hash value:
+
+```rebol
+probe make hash! [a 1 b 2]
+;== #(hash! [a 1 b 2])
+```
+
+With `mold/all`, a hash which is not at its head is molded completely, followed by its index:
+```rebol
+probe mold/all next make hash! [a 1 b 2]
+;== "#(hash! [a 1 b 2] 2)"
+```
+
+
+### Creation
+
+Use `make` to create a hash from a block, or an empty hash with an initial size:
+```rebol
+h: make hash! [a 1 b 2]
+h: make hash! 1000
+```
+
+The `to hash!` conversion works like `to block!`:
+```rebol
+probe to hash! [1 2 3]
+;== #(hash! [1 2 3])
+
+probe to hash! 1
+;== #(hash! [1])
+```
+
+Use `to block!` to get a plain block back:
+```rebol
+probe to block! make hash! [a 1 b 2]
+;== [a 1 b 2]
+```
+
+
+### Related
+
+Use `hash?` to determine whether a value is a `hash!` datatype.
+
+```rebol
+probe hash? make hash! [123 10:30]
+;== #(true)
+```
+
+As hashes are a subset of the `series!` typeset, use `series?` to check this:
+```rebol
+probe series? make hash! [123 10:30]
+;== #(true)
+```
+
+Using `form` on a hash value creates a string from the contents contained in the hash:
+```rebol
+probe form make hash! [123 10:30]
+;== "123 10:30"
+```
+
+Using `mold` on a hash value creates a string which can be loaded back as a hash value:
+```rebol
+h: make hash! [123 10:30]
+probe mold h
+;== "#(hash! [123 10:30])"
+probe hash? load mold h
+;== #(true)
+```
 
 
 ------------------------------------------------------------------
