@@ -3465,7 +3465,542 @@ map? [a 1]       ;== false
 ## module!
 
 
-loadable context of code and data
+A module is an object with a header. Like an object, it is a context of words and their values, but it also carries a specification (its header) with fields such as `name`, `version` and `exports`, and it takes part in the module system: modules are loaded once, kept in `system/modules`, and their exported words are made available to the code which imports them.
+
+Modules are used to package reusable code. A module keeps its own words to itself and shares only the words listed in its `exports`, so code using a module sees just the module's public interface.
+
+```rebol
+m: module [name: greeter exports: [greet]] [
+    greet: func [who] [join "Hello " who]
+    secret: 42
+]
+m/greet "Bob"
+;== "Hello Bob"
+```
+
+Making a module doesn't share anything yet. Its exports become available only when the module is imported:
+
+```rebol
+value? 'greet
+;== false
+import (m)
+greet "Alice"
+;== "Hello Alice"
+value? 'secret       ; not exported
+;== false
+```
+
+There is a distinction between the `module!` datatype and the module system. The datatype is the value itself, which may be made at any time with `module` or `make module!`. The module system decides how modules are created from source files, where they are found, how they are shared and what they export. Most of this description is about the module system, as that is where modules are usually met.
+
+
+### Construction
+
+The `module` function takes a header (spec) block and a body block. The body is evaluated in the new module's context:
+
+```rebol
+m: module [title: "Greeter" name: greeter version: 1.0.0] [
+    greet: func [who] [join "Hello " who]
+]
+```
+
+`make module!` takes both blocks in one block:
+
+```rebol
+m: make module! [[name: greeter] [greet: func [who] [join "Hello " who]]]
+```
+
+The header block is never evaluated; it is constructed on top of `system/standard/header`, the same way as a script header is.
+
+Construction syntax creates a module without evaluating anything — neither the header nor the body:
+
+```rebol
+m: load "#(module! [[name: foo] [a: 1 + 1]])"
+m/a
+;== 1
+```
+
+Most modules are not made directly, but from a script whose header has `type: module`. Such a script is loaded using `import`:
+
+```rebol
+; %greeter.reb
+Rebol [
+    title:   "Greeter"
+    name:    greeter
+    type:    module
+    version: 1.0.0
+    exports: [greet]
+]
+greet: func [who] [join "Hello " who]
+```
+
+```rebol
+import %greeter.reb
+greet "Alice"
+;== "Hello Alice"
+```
+
+A script source may also be imported from a string, binary or url:
+
+```rebol
+import {Rebol [type: module name: inline exports: [x]] x: 10}
+x
+;== 10
+```
+
+
+### The header
+
+The header describes the module. The fields used by the module system are:
+
+* `name` — a word, under which the module is registered in `system/modules`. Modules without a name are *unnamed* (see below).
+* `version` — a tuple, used when the same module is imported again.
+* `exports` — a block of words, which the module shares.
+* `options` — a block of flags: `private`, `isolate`, `delay`, (and `extension` for native extensions).
+* `needs` — modules (or a Rebol version), which must be imported before the module's code runs.
+* `checksum` — SHA1 of the module's source, checked by `import/check`.
+* `title`, `date`, `file`, `author` — informational.
+
+Use `query` to read fields of the header:
+
+```rebol
+m: module [title: "Greeter" name: greeter version: 1.0.0 exports: [greet]] [greet: none]
+query m 'name
+;== greeter
+query m [name version]
+;== [name: greeter version: 1.0.0]
+query m [:name :version]
+;== [greeter 1.0.0]
+query m 'exports
+;== [greet]
+```
+
+A field, which is valid for any module header, but is not used by this module, is `none`. An unknown field is an error:
+
+```rebol
+query m 'checksum
+;== none
+query m 'foo
+;** Script error: cannot use foo on #(module!) value
+```
+
+`query m none` returns the names of the fields and `query m object!` returns a new object with all of them.
+
+The header object itself is available using `spec-of`, and its title using `title-of`. Note that `spec-of` returns the module's real header, not its copy:
+
+```rebol
+title-of m
+;== "Greeter"
+spec-of m
+;== make object! [version: 1.0.0 title: "Greeter" name: 'greeter ...]
+```
+
+The context of any word of a module provides the module's header too:
+
+```rebol
+same? spec-of m spec-of context? in m 'greet
+;== true
+```
+
+
+### Accessing values
+
+Values of a module are accessed like values of an object:
+
+```rebol
+m: module [] [a: 1 b: 2]
+m/a
+;== 1
+select m 'b
+;== 2
+m/a: 10
+words-of m
+;== [a b]
+values-of m
+;== [10 2]
+body-of m
+;== [a: 10 b: 2]
+```
+
+The header's fields are not accessible using a path; `m/name` is the module's own word `name` (if there is any). Use `query` for the header.
+
+`length?` and `copy` are not supported for modules.
+
+
+### Exports and hidden words
+
+Words which a module shares are listed in the `exports` header field, or marked in the body using the `export` keyword (which adds them to the header's `exports`):
+
+```rebol
+m: module [] [export a: 1 b: 2 export [c] c: 3]
+query m 'exports
+;== [a c]
+```
+
+Words may be also hidden using the `hidden` keyword. A hidden word is still usable by the module's own code, but it is not visible from outside:
+
+```rebol
+m: module [] [hidden secret: 42 reveal: does [secret]]
+words-of m
+;== [reveal]
+m/secret
+;** Script error: cannot access secret in path m/secret
+m/reveal
+;== 42
+```
+
+
+### Importing
+
+`import` loads the module (if needed), registers it and makes its exports available. Its argument is not evaluated, so a word is a module's name and an expression must be in parentheses:
+
+```rebol
+import greeter                  ; by name, from system/options/modules (%greeter.reb or an extension)
+import %path/to/greeter.reb     ; by file
+import https://example.com/greeter.reb
+import {Rebol [type: module] ...}
+import (m)                      ; a module value
+```
+
+`import` returns the module:
+
+```rebol
+m: import greeter
+m/greet "Bob"
+;== "Hello Bob"
+```
+
+Importing a regular (public) module puts its exports into `lib`, the runtime library, so they are available to all code, and into the user's context:
+
+```rebol
+import greeter
+greet "Alice"
+;== "Hello Alice"
+lib/greet "Bob"
+;== "Hello Bob"
+```
+
+A module is made only once. Importing it again — by name, by the same file, or by url — returns the already imported module without evaluating its code again:
+
+```rebol
+same? import greeter import %greeter.reb
+;== true
+```
+
+Refinements:
+
+* `/version needs` — the module must be this version or newer.
+* `/check hash` — the module's checksum must match.
+* `/isolate` — make the module isolated (see below).
+* `/no-lib` — don't export to `lib` (only to the user's context).
+* `/no-user` — don't export to the user's context (only to `lib`).
+* `/only words` — import only some of the exports (see below).
+
+```rebol
+import/version greeter 2.0.0
+;** syntax error: this script needs greeter 2.0.0 or better to run correctly
+```
+
+`import` also accepts a block of modules, using the same dialect as the `needs` header field (see below). It returns a block of the imported modules:
+
+```rebol
+import [greeter json]
+```
+
+
+### Importing only some exports
+
+`import/only` imports only the listed exports into the user's context. A set-word imports an export under a new name:
+
+```rebol
+import/only json [to-json  json-load: load-json]
+value? 'json-load
+;== true
+```
+
+Only exported words may be listed; an empty block imports nothing (the module is just loaded):
+
+```rebol
+import/only json [nope]
+;** script error: module json does not export: nope
+```
+
+`lib` always gets all the exports of a public module and keeps their original names; `/only` limits only what goes into the importing context. Code of a regular module is bound to `lib`, so it sees all exports of a public module anyway; a selection matters for scripts, private and isolated modules, while renamed words work everywhere.
+
+
+### The needs header
+
+The `needs` field of a script or module header lists modules to import before its code runs. Each item is:
+
+```
+|var:| module |version| |checksum| |[words]|
+```
+
+* `module` — a name (word), file or url.
+* `version` — a tuple; the module must be at least this version.
+* `checksum` — a binary; the module's checksum must match.
+* `[words]` — import only these exports (as with `import/only`, including renaming).
+* `var:` — a variable, which gets the imported module.
+
+```rebol
+Rebol [
+    title: "App"
+    needs: [
+        greeter 1.0.0
+        json [to-json]
+        h: %helpers.reb [double: twice]
+        siskin: %siskin.reb
+    ]
+]
+```
+
+A file in `needs` is relative to the file of the script or module, which needs it. A Rebol version may be required as the first item: `needs: [3.20.0 greeter]`, or just `needs: 3.20.0`.
+
+In a script, the variables are set in the user's context. In a module, they are local to the module (not exported and not in `lib`).
+
+`needs` is processed only when a module is created from a script (with `import`, or `do`). `module` and `make module!` don't process it.
+
+
+### Named and unnamed modules
+
+A module with a `name` in its header is registered in `system/modules` under that name, so it is shared by all code which imports it, and it can be imported by name.
+
+A module without a name is *unnamed*. Its exports never go to `lib`; they are imported only into the context which requested it, as if it was a private module (see below). An unnamed module imported from a file or url is registered using its location, so it is not made again when imported from the same place:
+
+```rebol
+m: import %helpers.reb
+same? m import %helpers.reb
+;== true
+```
+
+When an unnamed module is imported by name (`import helpers`, from the modules directory), it gets that name.
+
+
+### system/modules
+
+`system/modules` is a map of the known modules. A module is stored under its name and, when it was loaded from a file or url, also under that location:
+
+```rebol
+m: import greeter
+same? m system/modules/greeter
+;== true
+same? m select system/modules clean-path %greeter.reb
+;== true
+```
+
+Values in the map may be:
+
+* `module!` — an imported module.
+* `block!` — a delayed module (its header and code), which is made when it is imported for the first time.
+* `url!` — a known module, which is not part of the build; importing it by name downloads it (into `system/options/modules`).
+
+```rebol
+type? select system/modules 'xml
+;== url!
+```
+
+
+### Versions
+
+There is only one module of a given name in `system/modules`. When a module of the same name is imported again:
+
+* if the new one has a **newer** version, it replaces the old one, and the old one's exports in `lib` are replaced by the new ones;
+* if it has the **same or an older** version, the existing module is used and the new one is not even made.
+
+```rebol
+import %greeter.reb       ; version 1.0.0
+import %greeter-2.reb     ; version 2.0.0, replaces it
+query system/modules/greeter 'version
+;== 2.0.0
+import %greeter.reb       ; the newer module is used
+query import greeter 'version
+;== 2.0.0
+```
+
+An already made `module!` value can't be silently replaced, so importing an older module value is an error (it may be still imported without `lib` using `/no-lib`):
+
+```rebol
+import (module [name: g version: 1.0.0] [])
+import (module [name: g version: 0.5.0] [])
+;** script error: module g is already imported in a newer version: 1.0.0
+```
+
+Exports, which the new version doesn't have anymore, stay in `lib`; words in `lib` which don't hold the old module's values are not changed.
+
+
+### Private modules
+
+A module with `options: [private]` doesn't export to `lib`. Its exports are imported only into the context which requested it — the user's context for scripts, or the module's own context for modules which need it:
+
+```rebol
+; %helpers.reb
+Rebol [type: module options: [private] exports: [twice half]]
+twice: func [n] [n * 2]
+half:  func [n] [n / 2]
+```
+
+```rebol
+import %helpers.reb
+twice 21
+;== 42
+none? in lib 'twice
+;== true
+```
+
+Inside a module, words imported from private modules are also available as an object in the hidden word `lib-local` (only modules which have such imports have it):
+
+```rebol
+m: import {Rebol [type: module needs: [%helpers.reb]] export f: does [words-of lib-local]}
+m/f
+;== [twice half]
+```
+
+
+### Isolated modules
+
+The words of a regular module, which are not set at its top level, are bound to `lib`. So the module shares them with all other code — a function in the module can change a value in `lib`:
+
+```rebol
+append lib [counter: 0]
+import {Rebol [type: module] bump: does [counter: counter + 1] bump}
+lib/counter
+;== 1
+```
+
+An isolated module (`options: [isolate]` in the header, or `import/isolate`) has its own copy of every word it uses, initialised with values from `lib` when the module is made. It can't change `lib`, but it also doesn't see later changes of `lib`:
+
+```rebol
+import {Rebol [type: module options: [isolate]] bump: does [counter: counter + 1] bump}
+lib/counter
+;== 1
+```
+
+
+### Evaluating a module script with DO
+
+`do` of a module script evaluates it as an isolated script: the module is made every time, it is not registered in `system/modules`, nothing is exported (not even to the user's context), and `do` returns the result of its body like for any other script. Use `import` to get the module and its exports.
+
+```rebol
+; %calc.reb
+Rebol [type: module exports: [area]]
+area: func [w h] [w * h]
+1 + 2
+```
+
+```rebol
+do %calc.reb
+;== 3
+value? 'area
+;== false
+```
+
+Note that `do` doesn't force the isolation of words described above; that is decided only by the module's `isolate` option.
+
+
+### Module's environment
+
+The code of a module imported from a file runs in the directory of that file, and with its own `system/script` (its title, header and path; `parent` is the script which imported it). Both are restored afterwards:
+
+```rebol
+m: import {Rebol [type: module title: "Me"] t: system/script/title}
+m/t
+;== "Me"
+```
+
+`system/options/modules` should be an absolute path, as modules found by name inside other modules are searched for while the current directory is the outer module's one.
+
+A module must finish its code. If it stops using `quit` or `halt`, it is not imported:
+
+```rebol
+import {Rebol [type: module name: q] quit}
+;** script error: module q stopped its initialization using quit
+```
+
+A module, which needs itself (directly or through other modules), is an error:
+
+```rebol
+;** syntax error: module needs itself: mymodule
+```
+
+
+### Unloading
+
+`unload` removes a module from `system/modules` (under its name and its location) and unsets its exported words in `lib`, in the user's context and in the console's context, but only where they still hold the module's values. It accepts a name, a file, a url, or the module itself, and returns the module (or `none` when there was no such module):
+
+```rebol
+import greeter
+unload greeter
+value? 'greet
+;== false
+import greeter        ; loads it again from its file
+```
+
+The module itself still exists as long as anything references it. Side effects of its code (registered codecs, schemes and similar) are not undone. A protected module can't be unloaded, and a delayed one is left alone.
+
+
+### Loading more modules from one source
+
+`sys/load-module` loads a single module and returns `[name module end]`. For a binary or string source, `end` is the position after the module's script, so more scripts may follow:
+
+```rebol
+bin: to binary! {
+[Rebol [type: module name: a] export a-value: 1]
+[Rebol [type: module name: b] export b-value: 2]
+}
+while [all [bin find-script bin]] [
+    set [name: mod: bin:] sys/load-module bin
+]
+```
+
+
+### Comparison
+
+Modules are compared like objects — by their words and values (the header is not compared):
+
+```rebol
+equal? module [] [a: 1] module [] [a: 1]
+;== true
+same? module [] [a: 1] module [] [a: 1]
+;== false
+```
+
+
+### Display
+
+`mold` produces the header (only fields which are not `none`) and the body (without hidden words):
+
+```rebol
+mold/flat module [name: m version: 1.0.0] [export a: 1 hidden b: 2]
+;== {make module! [[version: 1.0.0 title: "Untitled" name: 'm type: 'module exports: [a]] [a: 1]]}
+```
+
+`mold/all` produces construction syntax, which may be loaded back into a module with the same header and visible values (hidden words are lost, and functions lose their bindings, as with objects):
+
+```rebol
+m2: load mold/all m
+query m2 'exports
+;== [a]
+```
+
+A module (or object or map), which contains itself, can't be expressed using construction syntax:
+
+```rebol
+mold/all o
+;** Script error: cannot use construction syntax for #(object!) which contains itself
+```
+
+`form` produces the module's words and values, one per line.
+
+
+### Related
+
+Use `module?` to test whether a value is a `module!`:
+
+```rebol
+module? module [] []     ;== true
+module? object []        ;== false
+```
+
+See also: `import`, `unload`, `query`, `spec-of`, `title-of`, `sys/load-module`, `system/modules`, `system/options/modules`.
 
 
 

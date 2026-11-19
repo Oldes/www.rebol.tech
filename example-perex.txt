@@ -403,3 +403,13 @@ Set puzzle: A logic/card game where you find groups of three cards in which each
 Set, the card game: A logic/card game where you find groups of three cards in which each feature is either all the same or all different.
 Seven-sided dice from five-sided dice: Simulate a fair 1–7 roll using a fair 1–5 generator by mapping pairs of 5-sided rolls to 21 outcomes and rerolling on the remaining 4.
 Simple turtle graphics: A beginner-friendly way to draw shapes and patterns by moving a “turtle” with commands like forward, turn, and pen up/down.
+The Name Game: Implement the classic Shirley Ellis rhyme pattern that transforms any name into a playful, rule-based chant.
+Thue-Morse: Generate the binary sequence defined by the parity of 1-bits in integer indices (or by iterative complement-and-append).
+Taxicab numbers: Find the smallest integers expressible as the sum of two positive cubes in 𝑛 distinct ways.
+Abelian sandpile model: Simulate a grid of “chips” that topples when a site exceeds a threshold, redistributing grains to neighbors until the configuration stabilizes.
+Addition chains: Construct a shortest sequence starting at 1 where each new term is the sum of two earlier terms, ending at a target 𝑛 (used for efficient exponentiation).
+Combinations: Generate all n-element combinations from the range 1..m
+Combinations with repetitions: Generate all k-element combinations with repetitions.
+Nth particular weekday of the month: Compute the date of the n-th occurrence of a given weekday in a specified month/year (e.g., 2nd Monday of October).
+Common list elements: Find the intersection of multiple lists, returning values that appear in every list.
+Concatenate two primes is also prime: Find pairs of primes p1,p2 (e.g., below a bound like 100) such that their decimal concatenation is also prime.

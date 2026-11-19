@@ -437,3 +437,26 @@
 "Shift list elements to left by 3" data
 "Simple turtle graphics" graphics
 "Superellipse" graphics
+"The Name Game" string
+"Thue-Morse" misc
+"Text between" string
+"Teacup rim text" string
+"Taxicab numbers" math
+"Summarize primes" math
+"Topological sort" data
+"Twin primes" math
+"4-rings or 4-squares puzzle" misc
+"Abelian sandpile model" control
+"Air mass" misc
+"Addition chains" math
+"Approximate equality" math
+"Arithmetic derivative" math
+"Apéry's constant" math
+"Combinations" data
+"Combinations with repetitions" data
+"Combinations and permutations" math
+"Visitor pattern" misc
+"Nth Particular Weekday of the Month" misc
+"Common list elements" data
+"Common sorted list" data
+"Concatenate two primes is also prime" math

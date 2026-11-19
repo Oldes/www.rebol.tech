@@ -63,6 +63,16 @@ nav a:hover {
     background: #3d3c3c;
     border-color: #666;
 }
+nav a.try-online {
+    background: #3b5058;
+    border-color: #607d8b;
+    color: #fff;
+}
+
+nav a.try-online:hover {
+    background: #4b626b;
+    border-color: #829eaa;
+}
 
 /* Release */
 .release {
@@ -195,7 +205,7 @@ nav a:hover {
     content: '▸ ';
 }
 
-details[open] .checksums summary::before {
+.checksums[open] summary::before {
     content: '▾ ';
 }
 
@@ -267,6 +277,7 @@ details[open] .checksums summary::before {
 </div>
 
 <nav>
+  <a href="/wasm/" class="try-online">▶ Try Rebol online</a>
   <a href="/docs/functions.html">⨍ Functions</a>
   <a href="/docs/datatypes.html">⬡ Datatypes</a>
   <a href="/examples/">&lt;/&gt; Examples</a>
