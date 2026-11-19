@@ -2203,14 +2203,7 @@ See `word!` for the full set of word types and how words are evaluated.
 ## gob!
 
 
-**A GOB is a low-level graphical object.**
-
-GOBs are used for for constructing windows, panels, images, text, and drawings. They support two dimensional compositing with transparency (alpha channel), scalar vector graphics, image effects, and rich-text.
-
-A GOB is a highly optimized native datatype. It has been designed to provide the primary features required for graphics, but substantially reduce the memory footprint and processing overhead required. As a result, complex displays, such as animations, simulations, or video games can be created that are composed of thousands of individual GOB elements.
-
-Full details about GOBs can be found on the [R3 View - Graphical Objects](https://www.rebol.com/r3/docs/view/gobs.html) page.
-
+**This datatype was removed!**
 
 
 ------------------------------------------------------------------
