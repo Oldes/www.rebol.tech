@@ -1925,6 +1925,7 @@ user interface event (efficiently sized)
 > **Note:**
 > Needs documentation!
 
+
 ------------------------------------------------------------------
 ## file!
 
@@ -1988,7 +1989,20 @@ The standard character for separating directories in a path is the forward slash
 
 ```rebol
 probe %\some\path\to\some\where\movieclip.mpg
-%/some/path/to/some/where/movieclip.mpg
+;== %/some/path/to/some/where/movieclip.mpg
+```
+
+A file name starting with `%~` refers to the user's home directory. Only `%~` and `%~/` are expanded; something like `%~foo` is kept as a plain name:
+
+```rebol
+change-dir %~
+print what-dir          ;; prints your home directory
+
+query %~ 'type
+;== 'dir
+
+to-local-file %~foo
+;== "~foo"
 ```
 
 
@@ -1998,34 +2012,192 @@ The `to-file` function converts data to the `file!` datatype:
 
 
 ```rebol
-probe to-file "testfile"
-%testfile
+to-file "testfile"
+;== %testfile
 ```
 
 When passed a block, elements in the block are concatenated into a file path with the final element used as the file name:
 
 
 ```rebol
-probe to-file [some path to a file the-file.txt]
-%some/path/to/a/file/the-file.txt
+to-file [some path to a file the-file.txt]
+;== %some/path/to/a/file/the-file.txt
 ```
+
+
+
+### Path notation
+Files (and URLs) can be extended with path notation. A slash is added between the parts only when needed:
+
+```rebol
+dir: %path/
+file: %/bc
+dir/:file
+;== %path/bc
+
+dir/test.txt
+;== %path/test.txt
+
+url: http://www.rebol.com
+page: %/test.html
+url/:page
+;== http://www.rebol.com/test.html
+```
+
+An integer in a path is appended to the file name; it does not pick a character. Use `pick` for that:
+
+```rebol
+dir: %path
+dir/1
+;== %path/1
+
+pick dir 1
+;== #"p"
+```
+
+
+
+### Directories
+Use `dirize` to add a trailing slash to a file name, and `undirize` to remove it:
+
+```rebol
+dirize %file
+;== %file/
+
+undirize %./file/
+;== %./file
+```
+
+The current directory is returned by `what-dir` and changed with `change-dir` (or its shortcut `cd`):
+
+```rebol
+dir: what-dir
+cd %/
+cd %~
+change-dir dir
+```
+
+
+
+### Local file names
+Rebol file names use the same format on every platform. Use `to-local-file` to convert a file to the operating system's format, and `to-rebol-file` to convert it back. With the `/full` refinement, `to-local-file` adds the current directory to relative paths.
+
+On Windows, the drive letter becomes the first directory in the path, and network (UNC) paths begin with a single slash:
+
+```rebol
+to-local-file %/c/foo
+;== "c:\foo"
+
+to-local-file %c:/foo
+;== "c:\foo"
+
+to-rebol-file "c:\x"
+;== %/c/x
+
+to-local-file %/rodan/shareddocs/
+;== "\\rodan\shareddocs\"
+
+to-rebol-file "\\rodan\shareddocs"
+;== %/rodan/shareddocs
+```
+
+On Windows, a colon may be used only as a volume separator. Any other use is an error:
+
+```rebol
+all [error? e: try [read %/c/aaa/c:x]  e/id = 'bad-file-path]
+;== #(true)
+```
+
+On Posix systems, a colon is a valid character in a file name. In Rebol format it is encoded:
+
+```rebol
+to-rebol-file "a:0:0"
+;== %a%3A0%3A0
+
+write %x:/test.txt "ok"   ;; creates directory `x:` and a file in it
+```
+
+Use `to-real-file` to get the absolute, canonical path to an existing file or directory. It resolves `.` and `..` and follows symbolic links. When the target does not exist, it returns `none`:
+
+```rebol
+equal? what-dir to-real-file %./files/../
+;== #(true)
+
+none? to-real-file %not-existing-file
+;== #(true)
+```
+
+
+
+### Reading files
+Besides `%file` notation, a file may also be given as a `file://` URL:
+
+```rebol
+write %temp.txt "hello"
+read/string file://temp.txt
+;== "hello"
+```
+
+Use `read/lines` to get a block of lines. Both LF and CRLF line endings are handled:
+
+```rebol
+write %tmp.txt "Ψ^/a^/žluť^M^/x"
+read/lines %tmp.txt
+;== ["Ψ" "a" "žluť" "x"]
+```
+
+A file name containing `*` or `?` wildcards can be used with `read` to list matching files. You can also use the `wildcard` function on a directory:
+
+```rebol
+read %files/issue-2186-UTF??-BE.txt
+;== [%issue-2186-UTF16-BE.txt %issue-2186-UTF32-BE.txt]
+
+wildcard %files/ %*.zip
+```
+
+
+
+### File information
+Use `query` with a field name, or a block of fields, to get information about a file:
+
+```rebol
+query %file.txt 'size
+query %~ 'name          ;; full path to the home directory
+query %file.txt [:modified :created :accessed]
+```
+
+On some file systems the `created` date is not available. In that case the value is `none`.
+
+Use `suffix?` to get the file extension. On URLs, the query and fragment parts are ignored:
+
+```rebol
+suffix? %a/b.c
+;== %.c
+
+suffix? http://a/b.c?d#e.f
+;== %.c
+```
+
+
 
 ### Related
 Use `file?` to determine whether a value is an `file!` datatype.
 
 
 ```rebol
-probe file? %rebol.r
-true
+file? %rebol.reb
+;== #(true)
 ```
 
 As files are a subset of the series! pseudotype, use `series?` to check this:
 
 
 ```rebol
-probe series? %rebol.r
-true
+series? %rebol.reb
+;== #(true)
 ```
+
+Also see: `to-local-file`, `to-rebol-file`, `to-real-file`, `dirize`, `undirize`, `split-path`, `suffix?`, `wildcard`, `what-dir`, `change-dir`, `exists?`, `query`.
 
 
 
